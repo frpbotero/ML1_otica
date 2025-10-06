@@ -1,0 +1,9039 @@
+--
+-- PostgreSQL database cluster dump
+--
+
+-- Started on 2025-10-05 21:25:06 -04
+
+\restrict PBRsOhzdHagr2QrTsvyrk9TRKQFXlNcZyavxenno8SToMWSVjxQeAy8W5o9MdEO
+
+SET default_transaction_read_only = off;
+
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+
+--
+-- Roles
+--
+
+CREATE ROLE postgres;
+ALTER ROLE postgres WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION BYPASSRLS;
+
+--
+-- User Configurations
+--
+
+
+
+
+
+
+
+
+\unrestrict PBRsOhzdHagr2QrTsvyrk9TRKQFXlNcZyavxenno8SToMWSVjxQeAy8W5o9MdEO
+
+--
+-- Databases
+--
+
+--
+-- Database "template1" dump
+--
+
+\connect template1
+
+--
+-- PostgreSQL database dump
+--
+
+\restrict eIUketBMfGQluQJgifukut6S9oDKnlosrtEwX6dACh9hCtUsa6hf1jt42zSkdDz
+
+-- Dumped from database version 18.0 (Debian 18.0-1.pgdg13+3)
+-- Dumped by pg_dump version 18.0 (Ubuntu 18.0-1.pgdg22.04+3)
+
+-- Started on 2025-10-05 21:25:06 -04
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+-- Completed on 2025-10-05 21:25:06 -04
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict eIUketBMfGQluQJgifukut6S9oDKnlosrtEwX6dACh9hCtUsa6hf1jt42zSkdDz
+
+--
+-- Database "optica_amazonas" dump
+--
+
+--
+-- PostgreSQL database dump
+--
+
+\restrict dMUcD30Gnxv1f0BqnwSE5970nmaPqGE241UU9c3tuRXE2XAnkhD26fpR3dznfgG
+
+-- Dumped from database version 18.0 (Debian 18.0-1.pgdg13+3)
+-- Dumped by pg_dump version 18.0 (Ubuntu 18.0-1.pgdg22.04+3)
+
+-- Started on 2025-10-05 21:25:06 -04
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 3467 (class 1262 OID 16384)
+-- Name: optica_amazonas; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE optica_amazonas WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'en_US.utf8';
+
+
+ALTER DATABASE optica_amazonas OWNER TO postgres;
+
+\unrestrict dMUcD30Gnxv1f0BqnwSE5970nmaPqGE241UU9c3tuRXE2XAnkhD26fpR3dznfgG
+\connect optica_amazonas
+\restrict dMUcD30Gnxv1f0BqnwSE5970nmaPqGE241UU9c3tuRXE2XAnkhD26fpR3dznfgG
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 221 (class 1259 OID 16403)
+-- Name: campanhas; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.campanhas (
+    campaign_id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    type character varying(20),
+    start_date date,
+    end_date date,
+    description text
+);
+
+
+ALTER TABLE public.campanhas OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 16389)
+-- Name: clientes; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.clientes (
+    client_id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    gender character varying(20),
+    birthdate date,
+    signup_date date,
+    city character varying(100)
+);
+
+
+ALTER TABLE public.clientes OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 16396)
+-- Name: produtos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.produtos (
+    product_id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    category character varying(50),
+    base_price numeric(10,2)
+);
+
+
+ALTER TABLE public.produtos OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 16412)
+-- Name: vendas; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.vendas (
+    transaction_id bigint NOT NULL,
+    date date,
+    client_id integer,
+    product_id integer,
+    quantity integer,
+    unit_price numeric(10,2),
+    total_price numeric(10,2),
+    discount numeric(10,2),
+    final_price numeric(10,2),
+    campaign_id integer
+);
+
+
+ALTER TABLE public.vendas OWNER TO postgres;
+
+--
+-- TOC entry 3460 (class 0 OID 16403)
+-- Dependencies: 221
+-- Data for Name: campanhas; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.campanhas (campaign_id, name, type, start_date, end_date, description) FROM stdin;
+1	Descontos da Crise	Interna	2015-05-01	2016-12-31	Campanha interna oferecendo descontos progressivos em armações e lentes para manter o movimento durante a recessão econômica de 2015-2016.
+2	Verão dos Óculos de Sol	Externa	2017-11-01	2018-02-28	Campanha externa focada em óculos de sol para aproveitar o verão amazônico e estimular a venda de acessórios.
+3	Feirão da Reforma da Previdência	Interna	2019-04-01	2019-06-30	Campanha promocional durante debates da reforma da previdência, atraindo clientes com parcelamentos e bônus nas armações.
+4	Cuide da Visão na Pandemia	Interna	2020-04-01	2021-03-31	Campanha interna durante a COVID-19, com foco em óculos para home office, vendas on-line e descontos em lentes para proteger os olhos das telas.
+5	Retomada 2022	Externa	2022-01-01	2022-12-31	Campanha externa celebrando a retomada econômica e o retorno às atividades presenciais, com lançamentos de novas coleções de armações.
+6	Nova Gestão e Inclusão	Interna	2023-03-01	2024-06-30	Campanha inspirada nas políticas de valorização do salário mínimo e Bolsa Família, oferecendo preços mais acessíveis e programas de fidelidade.
+7	Promoção Inverno 2024	Externa	2024-07-01	2024-08-31	Campanha externa durante o inverno, com ofertas especiais em lentes de contato e armações térmicas.
+8	Ano Novo 2025	Interna	2025-01-01	2025-01-31	Campanha interna para o início de 2025, com descontos em produtos selecionados e financiamento sem juros.
+\.
+
+
+--
+-- TOC entry 3458 (class 0 OID 16389)
+-- Dependencies: 219
+-- Data for Name: clientes; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.clientes (client_id, name, gender, birthdate, signup_date, city) FROM stdin;
+1	Daniela Almeida	Masculino	1960-04-05	2023-04-05	Manaus
+2	Daniela Ribeiro	Feminino	1982-07-02	2015-05-03	Manaus
+3	Carlos Gomes	Feminino	1977-10-01	2021-04-17	Manaus
+4	Gabriel Ribeiro	Masculino	1959-08-19	2018-02-13	Manaus
+5	Ana Freitas	Masculino	1966-05-05	2017-05-31	Manaus
+6	Karina Dias	Feminino	1969-02-12	2024-07-03	Manaus
+7	Lucas Teixeira	Masculino	1996-01-24	2020-02-25	Manaus
+8	Samuel Dias	Masculino	1950-09-10	2024-04-20	Manaus
+9	Vinicius Lima	Feminino	1990-02-02	2022-06-01	Manaus
+10	Hugo Jorge	Feminino	1999-04-28	2016-02-18	Manaus
+11	Mariana Iglesias	Masculino	1985-06-06	2019-02-25	Manaus
+12	Lucas Gomes	Masculino	1989-11-21	2015-10-20	Manaus
+13	Vinicius Freitas	Feminino	1955-08-13	2018-01-10	Manaus
+14	Samuel Hernandez	Masculino	1998-01-08	2024-03-20	Manaus
+15	Beatriz Klein	Masculino	1962-02-07	2021-05-12	Manaus
+16	Karina Gomes	Masculino	1970-11-15	2016-08-08	Manaus
+17	Isabela Esteves	Feminino	1992-09-18	2017-12-12	Manaus
+18	Tatiane Novaes	Masculino	1968-04-05	2020-09-18	Manaus
+19	Paulo Castro	Feminino	2000-02-05	2022-01-14	Manaus
+20	Fernanda Novaes	Feminino	1969-07-20	2020-04-01	Manaus
+21	Raquel Iglesias	Feminino	1988-12-04	2022-08-24	Manaus
+22	Samuel Iglesias	Masculino	1952-05-14	2016-10-09	Manaus
+23	Olivia Almeida	Masculino	1977-03-17	2016-03-11	Manaus
+24	João Queiroz	Feminino	1954-06-25	2016-10-23	Manaus
+25	Samuel Queiroz	Feminino	1983-06-16	2015-03-21	Manaus
+26	Daniela Lima	Masculino	1960-01-08	2024-11-05	Manaus
+27	Tatiane Castro	Feminino	1991-08-27	2015-10-11	Manaus
+28	Samuel Esteves	Feminino	1987-08-18	2016-11-07	Manaus
+29	Isabela Queiroz	Masculino	1958-09-25	2023-03-09	Manaus
+30	Gabriel Jorge	Masculino	1987-11-12	2019-11-30	Manaus
+31	Raquel Oliveira	Feminino	1960-04-03	2018-10-16	Manaus
+32	Ana Silva	Feminino	1982-04-01	2015-10-18	Manaus
+33	Beatriz Hernandez	Feminino	2002-01-28	2018-09-15	Manaus
+34	Carlos Queiroz	Feminino	1962-11-16	2017-05-27	Manaus
+35	Samuel Esteves	Masculino	1960-08-26	2019-07-26	Manaus
+36	Gabriel Dias	Feminino	1987-07-12	2019-10-01	Manaus
+37	Nicolas Oliveira	Feminino	1988-11-21	2016-02-08	Manaus
+38	Beatriz Moura	Masculino	1996-02-08	2017-02-23	Manaus
+39	Gabriel Ribeiro	Masculino	1953-07-06	2018-02-14	Manaus
+40	Olivia Hernandez	Feminino	1973-09-04	2015-07-27	Manaus
+41	Samuel Almeida	Feminino	1993-04-06	2019-07-23	Manaus
+42	Paulo Pereira	Feminino	2000-07-02	2016-11-05	Manaus
+43	Mariana Almeida	Masculino	1961-08-10	2019-09-29	Manaus
+44	Samuel Pereira	Feminino	1957-05-07	2015-08-28	Manaus
+45	Tatiane Ribeiro	Feminino	1992-06-02	2015-07-25	Manaus
+46	Tatiane Pereira	Feminino	1948-09-03	2024-07-19	Manaus
+47	Fernanda Castro	Feminino	1988-04-13	2016-05-06	Manaus
+48	Tatiane Hernandez	Feminino	1984-02-14	2022-05-16	Manaus
+49	Tatiane Silva	Masculino	1961-04-22	2023-01-12	Manaus
+50	Karina Hernandez	Masculino	1970-03-22	2022-03-28	Manaus
+51	João Oliveira	Masculino	1993-02-01	2020-02-21	Manaus
+52	Vinicius Silva	Feminino	1949-09-07	2020-09-03	Manaus
+53	Isabela Esteves	Masculino	2001-02-08	2019-02-22	Manaus
+54	João Freitas	Masculino	1998-09-23	2018-05-24	Manaus
+55	Vinicius Queiroz	Feminino	1987-09-10	2022-06-10	Manaus
+56	Daniela Esteves	Masculino	1952-02-24	2021-03-16	Manaus
+57	Eduardo Iglesias	Masculino	1983-04-23	2018-11-05	Manaus
+58	Gabriel Iglesias	Masculino	1961-01-03	2022-02-11	Manaus
+59	Nicolas Iglesias	Feminino	1945-06-25	2016-06-19	Manaus
+60	Isabela Freitas	Masculino	1980-12-14	2021-04-16	Manaus
+61	Ana Dias	Feminino	2001-12-05	2021-02-12	Manaus
+62	Beatriz Lima	Feminino	1972-03-02	2018-06-16	Manaus
+63	Lucas Barros	Masculino	1958-11-08	2022-06-24	Manaus
+64	Daniela Lima	Masculino	1984-12-05	2017-08-27	Manaus
+65	Fernanda Freitas	Masculino	1946-03-24	2018-09-22	Manaus
+66	Nicolas Hernandez	Masculino	1955-12-04	2019-04-16	Manaus
+67	Beatriz Pereira	Feminino	1957-08-12	2018-06-04	Manaus
+68	Hugo Hernandez	Feminino	1987-04-13	2018-09-06	Manaus
+69	Isabela Castro	Masculino	1967-11-17	2019-06-26	Manaus
+70	Samuel Klein	Feminino	1952-05-06	2021-07-06	Manaus
+71	Isabela Barros	Feminino	1983-07-12	2023-03-04	Manaus
+72	Karina Novaes	Feminino	1969-10-07	2017-11-09	Manaus
+73	Beatriz Novaes	Feminino	1978-09-22	2023-01-25	Manaus
+74	Gabriel Lima	Masculino	1949-11-11	2021-12-27	Manaus
+75	Karina Dias	Masculino	1977-05-22	2019-07-31	Manaus
+76	Karina Moura	Masculino	1980-03-07	2019-09-19	Manaus
+77	Mariana Freitas	Masculino	1970-09-27	2015-01-02	Manaus
+78	João Jorge	Feminino	1972-10-20	2022-05-05	Manaus
+79	Karina Oliveira	Masculino	1973-11-07	2020-09-24	Manaus
+80	Paulo Freitas	Feminino	1963-09-22	2022-02-05	Manaus
+81	Vinicius Klein	Feminino	1997-04-22	2018-06-25	Manaus
+82	Hugo Gomes	Feminino	1946-01-08	2020-04-30	Manaus
+83	Vinicius Castro	Masculino	1971-11-19	2017-03-07	Manaus
+84	Mariana Pereira	Masculino	1960-03-21	2022-09-17	Manaus
+85	Ana Dias	Masculino	1959-03-26	2022-10-21	Manaus
+86	Raquel Oliveira	Feminino	1980-04-28	2016-05-12	Manaus
+87	Olivia Esteves	Masculino	1987-09-18	2021-09-04	Manaus
+88	Karina Oliveira	Masculino	1998-09-15	2025-01-22	Manaus
+89	Fernanda Pereira	Masculino	1961-04-27	2022-02-24	Manaus
+90	Isabela Queiroz	Masculino	1985-04-09	2019-12-07	Manaus
+91	Carlos Jorge	Feminino	1962-06-11	2025-01-05	Manaus
+92	Samuel Castro	Feminino	1954-04-13	2022-10-13	Manaus
+93	Eduardo Gomes	Feminino	1971-07-11	2021-01-31	Manaus
+94	Olivia Novaes	Feminino	1958-07-13	2023-08-20	Manaus
+95	Tatiane Almeida	Masculino	1975-01-12	2018-05-08	Manaus
+96	Mariana Novaes	Feminino	1976-04-09	2019-11-21	Manaus
+97	Paulo Almeida	Masculino	1966-11-22	2023-12-14	Manaus
+98	Mariana Freitas	Masculino	2003-03-20	2020-12-27	Manaus
+99	Ana Moura	Feminino	1950-11-14	2016-07-09	Manaus
+100	Olivia Freitas	Feminino	1961-07-11	2017-05-16	Manaus
+101	Olivia Klein	Masculino	1993-07-09	2023-06-08	Manaus
+102	Nicolas Iglesias	Feminino	1975-01-24	2021-01-18	Manaus
+103	Beatriz Lima	Feminino	1986-02-25	2022-04-23	Manaus
+104	Beatriz Almeida	Feminino	1957-01-20	2016-09-16	Manaus
+105	Hugo Esteves	Masculino	1987-02-19	2017-06-11	Manaus
+106	Olivia Iglesias	Masculino	1955-10-20	2023-05-22	Manaus
+107	Daniela Freitas	Masculino	1951-10-01	2018-07-01	Manaus
+108	Tatiane Moura	Masculino	1990-04-03	2021-08-22	Manaus
+109	Hugo Dias	Masculino	1999-11-20	2024-01-13	Manaus
+110	Daniela Silva	Feminino	1967-09-14	2022-06-02	Manaus
+111	Lucas Castro	Masculino	1945-07-27	2020-06-30	Manaus
+112	Daniela Novaes	Masculino	1985-08-23	2016-09-18	Manaus
+113	Nicolas Freitas	Masculino	1984-09-25	2020-06-03	Manaus
+114	Olivia Novaes	Masculino	1965-04-27	2015-12-21	Manaus
+115	Isabela Oliveira	Feminino	1993-08-19	2021-11-04	Manaus
+116	Mariana Klein	Feminino	1976-06-06	2020-06-20	Manaus
+117	Gabriel Lima	Masculino	1966-05-20	2022-11-12	Manaus
+118	Isabela Ribeiro	Feminino	1978-04-03	2017-09-15	Manaus
+119	Nicolas Pereira	Feminino	1989-08-21	2022-12-25	Manaus
+120	Paulo Oliveira	Feminino	1950-05-08	2019-07-15	Manaus
+121	Hugo Jorge	Masculino	1975-09-17	2018-11-09	Manaus
+122	Nicolas Ribeiro	Masculino	1967-12-15	2018-01-14	Manaus
+123	João Iglesias	Feminino	1952-12-07	2018-07-16	Manaus
+124	Daniela Ribeiro	Feminino	1957-04-24	2020-06-06	Manaus
+125	Isabela Silva	Masculino	1951-04-10	2017-07-20	Manaus
+126	Lucas Freitas	Masculino	1945-12-18	2016-06-02	Manaus
+127	Isabela Barros	Feminino	1980-05-23	2016-06-01	Manaus
+128	Paulo Dias	Feminino	1981-05-16	2020-05-14	Manaus
+129	Olivia Klein	Feminino	1948-05-28	2020-05-10	Manaus
+130	Daniela Castro	Masculino	1976-02-19	2022-01-22	Manaus
+131	Beatriz Esteves	Feminino	1996-10-10	2015-12-15	Manaus
+132	Hugo Dias	Masculino	1983-10-26	2021-12-08	Manaus
+133	Hugo Queiroz	Masculino	1973-08-10	2024-08-24	Manaus
+134	Tatiane Novaes	Masculino	1981-10-02	2021-11-02	Manaus
+135	Daniela Gomes	Feminino	1961-11-03	2016-10-05	Manaus
+136	Hugo Freitas	Feminino	1955-01-14	2020-01-20	Manaus
+137	Vinicius Pereira	Masculino	1947-04-10	2022-12-05	Manaus
+138	João Oliveira	Feminino	1988-04-09	2023-11-01	Manaus
+139	Tatiane Gomes	Masculino	1952-09-08	2022-04-06	Manaus
+140	Eduardo Iglesias	Feminino	1949-01-06	2023-11-21	Manaus
+141	João Teixeira	Masculino	1973-02-15	2022-09-21	Manaus
+142	João Moura	Masculino	1977-09-16	2019-11-29	Manaus
+143	Carlos Teixeira	Feminino	2001-07-24	2018-08-13	Manaus
+144	Vinicius Iglesias	Feminino	1950-04-22	2024-05-17	Manaus
+145	Tatiane Silva	Feminino	1993-11-27	2018-01-08	Manaus
+146	Tatiane Barros	Feminino	1975-09-21	2019-12-17	Manaus
+147	Isabela Freitas	Masculino	1985-08-03	2020-04-09	Manaus
+148	Lucas Novaes	Masculino	1965-11-04	2024-08-14	Manaus
+149	Fernanda Klein	Masculino	1989-08-10	2022-06-06	Manaus
+150	Mariana Ribeiro	Feminino	1974-02-11	2017-10-30	Manaus
+151	Karina Dias	Masculino	2000-09-27	2015-01-05	Manaus
+152	Samuel Oliveira	Masculino	1948-04-17	2019-01-21	Manaus
+153	Vinicius Pereira	Masculino	1993-01-07	2017-12-29	Manaus
+154	Samuel Esteves	Masculino	1973-12-16	2016-05-12	Manaus
+155	Ana Teixeira	Feminino	1990-03-10	2021-03-06	Manaus
+156	Ana Ribeiro	Masculino	1950-04-27	2016-04-09	Manaus
+157	Olivia Dias	Feminino	1976-12-10	2020-09-15	Manaus
+158	Isabela Novaes	Masculino	1975-04-15	2021-03-07	Manaus
+159	Eduardo Moura	Feminino	2003-10-17	2023-05-15	Manaus
+160	Eduardo Castro	Masculino	1994-07-11	2023-11-01	Manaus
+161	Raquel Iglesias	Feminino	1963-12-10	2024-05-23	Manaus
+162	Tatiane Silva	Masculino	2000-03-15	2021-01-15	Manaus
+163	Paulo Lima	Masculino	1980-09-13	2020-02-09	Manaus
+164	Karina Gomes	Feminino	1981-07-08	2024-08-07	Manaus
+165	Nicolas Barros	Masculino	1992-08-23	2024-02-06	Manaus
+166	Mariana Moura	Feminino	1976-01-05	2020-08-19	Manaus
+167	Tatiane Klein	Feminino	2000-08-04	2020-11-24	Manaus
+168	Olivia Almeida	Feminino	1971-11-05	2015-11-03	Manaus
+169	Paulo Iglesias	Masculino	1984-12-13	2022-04-15	Manaus
+170	Carlos Klein	Masculino	1965-11-23	2024-12-13	Manaus
+171	Paulo Ribeiro	Feminino	1984-02-08	2022-01-29	Manaus
+172	João Hernandez	Feminino	1972-02-25	2022-02-08	Manaus
+173	Daniela Oliveira	Feminino	1989-05-01	2015-07-08	Manaus
+174	Karina Barros	Masculino	1967-06-14	2016-08-19	Manaus
+175	Hugo Queiroz	Masculino	1981-11-26	2017-01-07	Manaus
+176	Fernanda Freitas	Feminino	1984-07-20	2022-08-30	Manaus
+177	Hugo Pereira	Feminino	1959-08-21	2017-11-06	Manaus
+178	Olivia Iglesias	Feminino	2002-08-10	2022-08-07	Manaus
+179	Samuel Freitas	Feminino	1973-06-19	2018-05-10	Manaus
+180	Nicolas Iglesias	Masculino	1999-05-07	2019-04-25	Manaus
+181	Paulo Dias	Feminino	1969-10-12	2021-06-12	Manaus
+182	João Jorge	Feminino	1998-11-13	2018-01-29	Manaus
+183	Ana Silva	Feminino	2003-10-24	2020-07-27	Manaus
+184	João Hernandez	Masculino	1959-11-07	2021-12-18	Manaus
+185	Isabela Esteves	Feminino	2002-11-21	2015-06-11	Manaus
+186	João Oliveira	Feminino	1982-06-24	2016-06-22	Manaus
+187	Carlos Jorge	Masculino	1992-07-06	2017-04-02	Manaus
+188	Eduardo Ribeiro	Masculino	1978-09-09	2024-04-24	Manaus
+189	Fernanda Iglesias	Masculino	1996-05-24	2024-10-05	Manaus
+190	Karina Dias	Masculino	1949-03-25	2017-07-13	Manaus
+191	Mariana Ribeiro	Masculino	1950-07-01	2017-12-19	Manaus
+192	Samuel Dias	Masculino	1968-11-24	2022-07-16	Manaus
+193	Isabela Silva	Masculino	1997-11-12	2016-03-19	Manaus
+194	Hugo Pereira	Feminino	1984-09-11	2021-11-03	Manaus
+195	Hugo Castro	Masculino	2003-12-10	2022-04-13	Manaus
+196	Nicolas Dias	Feminino	1947-01-10	2020-07-10	Manaus
+197	Daniela Dias	Feminino	2001-09-05	2019-05-11	Manaus
+198	Olivia Lima	Masculino	1982-12-24	2016-09-24	Manaus
+199	Nicolas Dias	Masculino	1984-07-09	2015-05-15	Manaus
+200	Lucas Gomes	Masculino	1973-04-28	2019-01-25	Manaus
+201	Daniela Lima	Masculino	1948-07-09	2017-02-16	Manaus
+202	Daniela Oliveira	Feminino	1987-04-21	2022-03-04	Manaus
+203	Vinicius Almeida	Feminino	1995-06-08	2016-05-30	Manaus
+204	Tatiane Gomes	Feminino	1998-09-07	2021-07-29	Manaus
+205	Gabriel Hernandez	Masculino	1994-03-26	2021-09-07	Manaus
+206	Ana Iglesias	Feminino	1953-09-09	2023-12-15	Manaus
+207	Fernanda Dias	Feminino	1953-01-12	2023-11-10	Manaus
+208	Hugo Silva	Masculino	1946-03-09	2015-08-03	Manaus
+209	Eduardo Novaes	Feminino	1992-02-16	2020-01-11	Manaus
+210	Lucas Queiroz	Feminino	1973-09-08	2021-11-24	Manaus
+211	Beatriz Queiroz	Masculino	1974-11-01	2015-09-07	Manaus
+212	Paulo Moura	Masculino	1988-02-16	2022-12-27	Manaus
+213	Olivia Castro	Feminino	1965-10-05	2015-09-27	Manaus
+214	Eduardo Iglesias	Masculino	1969-10-17	2018-04-22	Manaus
+215	Olivia Queiroz	Masculino	1951-12-04	2024-07-25	Manaus
+216	Samuel Gomes	Masculino	1973-04-14	2018-10-20	Manaus
+217	Olivia Moura	Masculino	1991-02-11	2019-10-15	Manaus
+218	Karina Iglesias	Masculino	1954-11-16	2015-10-02	Manaus
+219	Carlos Castro	Feminino	1972-02-24	2023-04-15	Manaus
+220	Lucas Esteves	Feminino	1982-09-18	2018-09-12	Manaus
+221	Daniela Novaes	Masculino	2000-11-25	2019-09-29	Manaus
+222	Beatriz Jorge	Masculino	1967-02-19	2020-09-09	Manaus
+223	Gabriel Esteves	Masculino	1959-02-12	2024-06-24	Manaus
+224	Samuel Lima	Feminino	1993-05-19	2017-07-15	Manaus
+225	Nicolas Ribeiro	Feminino	1983-11-27	2022-10-11	Manaus
+226	Isabela Almeida	Feminino	1962-12-25	2018-06-19	Manaus
+227	Karina Lima	Feminino	1956-03-19	2022-05-16	Manaus
+228	Mariana Castro	Feminino	1992-11-01	2016-01-11	Manaus
+229	Raquel Gomes	Masculino	1971-08-11	2016-10-06	Manaus
+230	Lucas Jorge	Masculino	1994-10-20	2015-12-14	Manaus
+231	Beatriz Esteves	Feminino	1993-10-02	2022-07-23	Manaus
+232	Carlos Iglesias	Masculino	1987-07-16	2021-10-22	Manaus
+233	Olivia Novaes	Masculino	1958-09-04	2018-11-14	Manaus
+234	Nicolas Dias	Masculino	1988-11-19	2020-06-16	Manaus
+235	Raquel Jorge	Feminino	1959-07-20	2015-08-13	Manaus
+236	Ana Gomes	Masculino	1958-03-25	2017-11-12	Manaus
+237	João Klein	Feminino	1945-08-24	2019-10-30	Manaus
+238	Fernanda Esteves	Masculino	1979-12-08	2020-08-11	Manaus
+239	Samuel Lima	Feminino	1970-12-02	2019-11-22	Manaus
+240	Ana Oliveira	Feminino	2000-06-19	2019-10-25	Manaus
+241	Tatiane Moura	Masculino	1963-02-13	2015-03-27	Manaus
+242	Karina Freitas	Masculino	1998-12-12	2015-12-27	Manaus
+243	Nicolas Dias	Feminino	1972-10-13	2020-11-16	Manaus
+244	Carlos Moura	Masculino	1992-06-08	2018-09-26	Manaus
+245	Fernanda Castro	Feminino	1978-09-07	2023-09-15	Manaus
+246	Lucas Lima	Feminino	1960-02-05	2017-11-14	Manaus
+247	Gabriel Freitas	Feminino	1993-11-03	2016-12-26	Manaus
+248	Paulo Oliveira	Masculino	1988-10-21	2022-02-15	Manaus
+249	Vinicius Klein	Masculino	1954-08-03	2020-04-04	Manaus
+250	Olivia Jorge	Masculino	1982-01-12	2020-09-09	Manaus
+251	Carlos Jorge	Masculino	1973-01-02	2019-02-19	Manaus
+252	João Castro	Feminino	1984-10-17	2019-04-24	Manaus
+253	Olivia Silva	Feminino	1973-10-21	2017-02-10	Manaus
+254	Karina Teixeira	Masculino	1977-03-02	2020-01-20	Manaus
+255	Daniela Klein	Feminino	1977-11-06	2015-06-10	Manaus
+256	Hugo Oliveira	Masculino	1978-09-20	2016-10-12	Manaus
+257	Lucas Lima	Masculino	1969-07-25	2018-10-17	Manaus
+258	Vinicius Barros	Masculino	1949-06-04	2021-04-04	Manaus
+259	Mariana Jorge	Masculino	1991-11-20	2024-10-16	Manaus
+260	Eduardo Klein	Feminino	1982-11-05	2018-12-03	Manaus
+261	João Moura	Feminino	1983-12-03	2018-06-22	Manaus
+262	Samuel Moura	Masculino	1997-03-22	2022-11-18	Manaus
+263	Raquel Castro	Masculino	1977-06-01	2019-01-25	Manaus
+264	João Freitas	Feminino	1966-08-07	2017-07-16	Manaus
+265	Eduardo Esteves	Feminino	1963-02-17	2023-08-24	Manaus
+266	Samuel Queiroz	Feminino	1987-06-25	2021-12-06	Manaus
+267	Eduardo Teixeira	Masculino	1954-03-06	2024-04-28	Manaus
+268	Vinicius Freitas	Masculino	1947-07-12	2022-08-02	Manaus
+269	Hugo Oliveira	Masculino	1993-12-26	2020-01-13	Manaus
+270	Hugo Ribeiro	Feminino	1964-08-27	2017-03-05	Manaus
+271	Lucas Silva	Masculino	1974-05-25	2019-04-14	Manaus
+272	Raquel Queiroz	Masculino	1955-04-26	2021-10-12	Manaus
+273	Eduardo Iglesias	Feminino	1986-08-28	2019-03-01	Manaus
+274	Samuel Dias	Feminino	1963-02-25	2016-10-18	Manaus
+275	Isabela Oliveira	Feminino	1998-07-03	2017-06-28	Manaus
+276	Olivia Lima	Feminino	1971-01-13	2020-08-18	Manaus
+277	Lucas Hernandez	Masculino	1950-06-08	2015-04-26	Manaus
+278	Karina Dias	Masculino	1995-03-05	2015-06-06	Manaus
+279	João Pereira	Feminino	1993-12-16	2020-01-12	Manaus
+280	Vinicius Almeida	Feminino	1946-05-07	2024-05-13	Manaus
+281	Eduardo Ribeiro	Masculino	1952-05-08	2018-05-18	Manaus
+282	Daniela Barros	Feminino	1971-11-26	2021-12-26	Manaus
+283	Olivia Castro	Feminino	1998-08-20	2021-01-04	Manaus
+284	Ana Queiroz	Feminino	1990-03-10	2019-10-25	Manaus
+285	Ana Teixeira	Masculino	1960-10-14	2017-02-06	Manaus
+286	Carlos Queiroz	Masculino	1949-09-18	2020-09-09	Manaus
+287	Raquel Ribeiro	Feminino	1969-08-02	2022-02-16	Manaus
+288	Mariana Lima	Masculino	1992-01-12	2023-11-04	Manaus
+289	Carlos Lima	Feminino	1991-11-21	2016-02-29	Manaus
+290	Tatiane Klein	Feminino	1947-06-18	2018-10-18	Manaus
+291	Fernanda Oliveira	Masculino	1985-03-26	2016-07-06	Manaus
+292	Carlos Oliveira	Feminino	1963-04-02	2023-11-15	Manaus
+293	Gabriel Barros	Masculino	1964-09-13	2024-02-22	Manaus
+294	Samuel Pereira	Masculino	1947-11-07	2018-03-17	Manaus
+295	Lucas Barros	Masculino	1962-02-26	2019-02-16	Manaus
+296	Nicolas Moura	Masculino	2002-07-11	2017-02-04	Manaus
+297	Paulo Pereira	Masculino	1996-09-09	2023-12-26	Manaus
+298	Carlos Novaes	Feminino	1972-10-27	2017-01-09	Manaus
+299	Samuel Jorge	Masculino	1951-02-11	2022-05-31	Manaus
+300	João Jorge	Masculino	1983-12-14	2016-11-13	Manaus
+301	Olivia Lima	Masculino	1947-12-28	2018-12-15	Manaus
+302	Vinicius Novaes	Masculino	1985-01-03	2022-07-12	Manaus
+303	Mariana Lima	Feminino	1946-03-28	2021-10-24	Manaus
+304	Olivia Barros	Feminino	1949-04-25	2022-03-27	Manaus
+305	Lucas Lima	Masculino	1981-01-20	2016-09-20	Manaus
+306	Olivia Lima	Masculino	1973-02-19	2016-07-17	Manaus
+307	Raquel Lima	Masculino	1965-11-09	2017-10-19	Manaus
+308	Daniela Almeida	Feminino	1976-09-13	2021-04-19	Manaus
+309	Daniela Iglesias	Masculino	1990-08-07	2021-11-11	Manaus
+310	João Pereira	Feminino	1952-03-28	2015-10-31	Manaus
+311	Olivia Freitas	Masculino	1950-11-28	2018-08-02	Manaus
+312	Lucas Castro	Masculino	2002-05-28	2016-10-07	Manaus
+313	Fernanda Lima	Feminino	1952-04-26	2016-07-22	Manaus
+314	Hugo Pereira	Feminino	1968-09-19	2019-02-20	Manaus
+315	Olivia Ribeiro	Feminino	1984-02-03	2018-06-20	Manaus
+316	Mariana Pereira	Masculino	1994-07-27	2021-06-12	Manaus
+317	Carlos Esteves	Masculino	1986-02-15	2020-03-23	Manaus
+318	Raquel Lima	Feminino	2001-09-21	2021-08-04	Manaus
+319	Fernanda Esteves	Masculino	1977-01-27	2016-05-23	Manaus
+320	Raquel Esteves	Masculino	1955-03-11	2022-12-15	Manaus
+321	Hugo Lima	Masculino	1999-02-09	2017-03-15	Manaus
+322	Samuel Iglesias	Feminino	1985-05-20	2020-12-25	Manaus
+323	Carlos Queiroz	Feminino	1982-10-05	2016-12-02	Manaus
+324	Vinicius Teixeira	Masculino	1998-10-02	2024-04-03	Manaus
+325	Ana Castro	Feminino	1986-10-09	2022-04-21	Manaus
+326	Gabriel Silva	Masculino	1984-11-01	2020-08-01	Manaus
+327	Samuel Jorge	Masculino	1975-04-26	2024-01-20	Manaus
+328	Mariana Jorge	Masculino	1949-12-02	2016-10-09	Manaus
+329	Olivia Novaes	Masculino	1974-04-11	2021-10-20	Manaus
+330	Eduardo Klein	Masculino	1991-06-13	2016-06-19	Manaus
+331	Lucas Queiroz	Feminino	1965-04-15	2016-05-16	Manaus
+332	Isabela Oliveira	Feminino	1954-02-02	2018-04-03	Manaus
+333	Mariana Teixeira	Masculino	1960-03-27	2018-09-03	Manaus
+334	Tatiane Klein	Feminino	1993-03-16	2020-10-09	Manaus
+335	Olivia Pereira	Masculino	1976-01-03	2019-05-30	Manaus
+336	Raquel Oliveira	Feminino	1958-10-12	2015-07-19	Manaus
+337	Beatriz Jorge	Masculino	1983-11-22	2020-04-11	Manaus
+338	João Ribeiro	Feminino	1999-02-14	2016-07-02	Manaus
+339	Isabela Lima	Masculino	1968-01-13	2015-07-29	Manaus
+340	Tatiane Ribeiro	Feminino	1968-09-10	2015-10-29	Manaus
+341	Mariana Queiroz	Masculino	1993-09-09	2024-04-03	Manaus
+342	Vinicius Teixeira	Feminino	1953-02-13	2019-03-09	Manaus
+343	Karina Ribeiro	Masculino	1993-03-07	2021-10-03	Manaus
+344	Raquel Moura	Feminino	1947-01-05	2023-01-01	Manaus
+345	Karina Pereira	Masculino	1954-10-17	2016-07-26	Manaus
+346	Karina Teixeira	Masculino	1955-07-20	2023-04-17	Manaus
+347	João Silva	Masculino	1977-09-18	2020-06-29	Manaus
+348	Tatiane Jorge	Masculino	1997-01-12	2018-09-18	Manaus
+349	Daniela Novaes	Masculino	1995-12-28	2022-09-19	Manaus
+350	Ana Teixeira	Masculino	1961-11-26	2023-09-15	Manaus
+351	Tatiane Silva	Feminino	1991-01-19	2020-05-21	Manaus
+352	Fernanda Queiroz	Masculino	1954-11-08	2015-05-10	Manaus
+353	Tatiane Dias	Feminino	1946-08-11	2019-09-12	Manaus
+354	Eduardo Novaes	Feminino	1971-09-25	2021-11-09	Manaus
+355	Paulo Barros	Feminino	1978-04-18	2018-08-24	Manaus
+356	Paulo Queiroz	Masculino	1965-03-15	2020-12-23	Manaus
+357	Karina Ribeiro	Masculino	1988-12-22	2022-03-19	Manaus
+358	Isabela Teixeira	Masculino	1957-04-09	2021-04-04	Manaus
+359	João Hernandez	Masculino	1994-05-23	2017-04-29	Manaus
+360	Paulo Klein	Masculino	1967-09-26	2023-02-03	Manaus
+361	Isabela Jorge	Feminino	1981-11-18	2019-04-05	Manaus
+362	Mariana Lima	Feminino	1963-01-10	2023-01-04	Manaus
+363	Carlos Lima	Masculino	1986-05-24	2020-05-16	Manaus
+364	Gabriel Gomes	Masculino	1980-12-09	2016-07-16	Manaus
+365	Daniela Teixeira	Feminino	1960-01-22	2020-12-15	Manaus
+366	Hugo Hernandez	Feminino	1951-07-11	2023-01-17	Manaus
+367	Paulo Dias	Feminino	1945-09-06	2019-07-25	Manaus
+368	Paulo Pereira	Feminino	1993-05-11	2018-03-15	Manaus
+369	Beatriz Castro	Feminino	1979-12-24	2024-07-14	Manaus
+370	Beatriz Freitas	Masculino	2001-03-02	2024-05-18	Manaus
+371	Mariana Pereira	Feminino	1992-05-02	2015-02-07	Manaus
+372	João Silva	Feminino	1966-05-15	2022-03-11	Manaus
+373	Samuel Queiroz	Masculino	2001-03-28	2020-08-27	Manaus
+374	Olivia Iglesias	Feminino	1996-02-11	2016-10-27	Manaus
+375	Olivia Iglesias	Feminino	1945-12-11	2023-11-13	Manaus
+376	João Silva	Feminino	1956-10-28	2022-03-01	Manaus
+377	Mariana Novaes	Masculino	1950-07-22	2016-01-26	Manaus
+378	Fernanda Esteves	Masculino	1965-04-01	2017-12-04	Manaus
+379	Mariana Hernandez	Masculino	1993-05-11	2018-05-21	Manaus
+380	Tatiane Silva	Feminino	1961-11-12	2022-10-08	Manaus
+381	Hugo Barros	Feminino	1974-05-06	2019-07-19	Manaus
+382	Raquel Jorge	Feminino	1985-05-12	2021-11-22	Manaus
+383	Hugo Hernandez	Feminino	1975-03-15	2023-05-21	Manaus
+384	Vinicius Lima	Masculino	1989-09-16	2023-06-30	Manaus
+385	Samuel Gomes	Feminino	1988-10-28	2023-10-31	Manaus
+386	Carlos Queiroz	Masculino	1978-12-12	2015-11-16	Manaus
+387	Tatiane Dias	Feminino	1998-09-17	2017-04-08	Manaus
+388	Tatiane Ribeiro	Feminino	1955-06-28	2020-11-01	Manaus
+389	Olivia Dias	Feminino	1990-10-16	2016-01-08	Manaus
+390	Raquel Oliveira	Feminino	1974-03-17	2019-08-29	Manaus
+391	Olivia Silva	Feminino	1980-08-22	2024-01-19	Manaus
+392	João Almeida	Masculino	1961-01-24	2017-06-11	Manaus
+393	Tatiane Castro	Feminino	1972-06-23	2015-09-19	Manaus
+394	Samuel Barros	Feminino	1975-01-10	2019-08-02	Manaus
+395	Fernanda Esteves	Masculino	1968-07-15	2024-10-01	Manaus
+396	Mariana Moura	Feminino	1988-11-28	2021-01-17	Manaus
+397	Eduardo Lima	Feminino	1956-09-13	2020-12-06	Manaus
+398	Eduardo Hernandez	Feminino	1993-01-10	2020-03-11	Manaus
+399	Samuel Novaes	Masculino	1997-04-08	2020-03-01	Manaus
+400	Lucas Esteves	Masculino	1957-12-25	2016-04-07	Manaus
+401	Beatriz Novaes	Feminino	1960-04-03	2016-02-18	Manaus
+402	Vinicius Barros	Masculino	1983-11-23	2024-10-12	Manaus
+403	Beatriz Hernandez	Feminino	1970-08-08	2021-01-19	Manaus
+404	Gabriel Barros	Feminino	1977-05-08	2024-02-24	Manaus
+405	Tatiane Klein	Masculino	1960-05-05	2022-05-28	Manaus
+406	Raquel Hernandez	Masculino	1964-05-02	2021-03-30	Manaus
+407	Tatiane Freitas	Masculino	1980-08-02	2018-11-11	Manaus
+408	Mariana Queiroz	Masculino	1989-07-14	2016-09-03	Manaus
+409	João Moura	Feminino	1993-09-16	2017-09-14	Manaus
+410	Hugo Jorge	Feminino	1996-08-02	2021-04-22	Manaus
+411	Nicolas Novaes	Feminino	1969-04-09	2017-04-12	Manaus
+412	Karina Castro	Masculino	1999-06-03	2021-01-02	Manaus
+413	Gabriel Barros	Masculino	1969-11-20	2021-10-05	Manaus
+414	Beatriz Castro	Feminino	1996-10-24	2022-07-13	Manaus
+415	Samuel Gomes	Masculino	1958-06-10	2015-03-04	Manaus
+416	Gabriel Gomes	Feminino	1992-08-08	2022-10-20	Manaus
+417	Vinicius Gomes	Masculino	2003-04-18	2018-08-10	Manaus
+418	João Moura	Masculino	1979-11-12	2018-06-17	Manaus
+419	Isabela Lima	Masculino	1974-02-26	2023-02-07	Manaus
+420	Paulo Klein	Feminino	1968-06-14	2015-07-07	Manaus
+421	Tatiane Hernandez	Feminino	1946-05-18	2021-07-20	Manaus
+422	Tatiane Novaes	Masculino	1954-04-11	2017-07-31	Manaus
+423	Mariana Silva	Feminino	1976-09-21	2022-09-06	Manaus
+424	Karina Iglesias	Masculino	1991-11-24	2020-07-02	Manaus
+425	Olivia Freitas	Masculino	1955-03-24	2021-02-16	Manaus
+426	Paulo Freitas	Feminino	1978-01-27	2024-06-30	Manaus
+427	Carlos Barros	Feminino	1971-03-27	2022-01-27	Manaus
+428	Hugo Castro	Feminino	1945-04-17	2020-02-11	Manaus
+429	Lucas Barros	Masculino	1987-08-01	2015-01-28	Manaus
+430	Samuel Ribeiro	Masculino	1945-01-17	2023-02-06	Manaus
+431	Isabela Ribeiro	Masculino	1946-09-27	2022-10-29	Manaus
+432	Nicolas Freitas	Feminino	2003-02-17	2016-09-01	Manaus
+433	Hugo Gomes	Masculino	1997-06-09	2023-12-01	Manaus
+434	Mariana Castro	Masculino	1970-08-19	2017-09-23	Manaus
+435	Hugo Jorge	Feminino	1986-11-25	2015-05-10	Manaus
+436	Carlos Moura	Masculino	1969-09-16	2015-08-18	Manaus
+437	Ana Freitas	Feminino	1976-07-21	2023-10-18	Manaus
+438	Karina Silva	Feminino	2002-09-02	2017-07-30	Manaus
+439	Gabriel Silva	Masculino	1962-01-03	2022-09-04	Manaus
+440	Isabela Ribeiro	Feminino	1956-06-01	2017-04-28	Manaus
+441	Tatiane Esteves	Masculino	1949-05-06	2021-04-28	Manaus
+442	Hugo Silva	Masculino	1988-09-11	2019-04-22	Manaus
+443	Eduardo Castro	Masculino	1948-02-14	2017-08-08	Manaus
+444	Carlos Klein	Masculino	1994-06-01	2022-02-10	Manaus
+445	Isabela Oliveira	Masculino	1959-06-18	2019-03-18	Manaus
+446	Nicolas Freitas	Masculino	1950-10-10	2023-12-13	Manaus
+447	Hugo Castro	Feminino	1962-03-13	2022-12-25	Manaus
+448	Eduardo Moura	Masculino	1968-02-03	2015-01-22	Manaus
+449	João Oliveira	Masculino	1993-05-04	2016-06-26	Manaus
+450	Carlos Freitas	Masculino	1973-09-18	2020-09-29	Manaus
+451	Nicolas Dias	Feminino	1950-06-18	2016-01-17	Manaus
+452	Vinicius Teixeira	Masculino	2000-07-01	2018-04-10	Manaus
+453	Nicolas Moura	Feminino	1991-09-08	2021-05-31	Manaus
+454	Raquel Freitas	Masculino	1955-03-09	2018-05-18	Manaus
+455	Isabela Pereira	Feminino	1949-03-14	2018-02-04	Manaus
+456	Nicolas Jorge	Masculino	1995-02-12	2017-10-27	Manaus
+457	Hugo Pereira	Feminino	1974-02-05	2018-06-01	Manaus
+458	Ana Moura	Masculino	1998-10-13	2024-01-07	Manaus
+459	Karina Oliveira	Masculino	1972-11-20	2016-07-11	Manaus
+460	João Klein	Feminino	1975-06-06	2019-06-20	Manaus
+461	Karina Jorge	Masculino	1981-04-11	2019-03-21	Manaus
+462	Isabela Moura	Masculino	1952-10-07	2021-08-22	Manaus
+463	Samuel Freitas	Feminino	1991-08-23	2017-05-08	Manaus
+464	Olivia Jorge	Feminino	1997-07-22	2020-08-07	Manaus
+465	Eduardo Jorge	Feminino	1961-11-05	2023-01-08	Manaus
+466	Nicolas Moura	Feminino	1973-10-16	2021-07-12	Manaus
+467	Mariana Ribeiro	Masculino	1979-01-26	2019-01-12	Manaus
+468	Samuel Teixeira	Feminino	1951-04-22	2022-06-15	Manaus
+469	Lucas Freitas	Feminino	1981-11-22	2022-04-03	Manaus
+470	Mariana Klein	Masculino	1951-01-04	2017-11-25	Manaus
+471	Hugo Queiroz	Feminino	1973-06-13	2020-03-11	Manaus
+472	Tatiane Queiroz	Feminino	1967-01-16	2016-03-04	Manaus
+473	João Novaes	Feminino	1952-12-05	2018-11-27	Manaus
+474	João Klein	Masculino	1995-04-17	2020-06-01	Manaus
+475	Lucas Pereira	Feminino	1973-12-23	2020-01-28	Manaus
+476	Karina Castro	Masculino	1947-12-04	2015-04-03	Manaus
+477	Karina Dias	Feminino	1992-04-17	2016-12-15	Manaus
+478	Samuel Freitas	Masculino	1980-07-15	2017-08-07	Manaus
+479	Mariana Freitas	Feminino	1985-11-14	2019-06-09	Manaus
+480	Ana Teixeira	Feminino	1973-10-14	2019-05-12	Manaus
+481	Ana Gomes	Feminino	1962-12-26	2023-12-05	Manaus
+482	Carlos Silva	Feminino	1996-09-06	2019-02-07	Manaus
+483	Karina Gomes	Masculino	1952-05-22	2024-09-03	Manaus
+484	Paulo Queiroz	Masculino	1983-07-20	2019-05-27	Manaus
+485	Tatiane Dias	Masculino	1967-08-20	2016-12-07	Manaus
+486	João Teixeira	Feminino	1988-03-11	2016-04-27	Manaus
+487	Hugo Jorge	Feminino	1956-06-23	2016-08-02	Manaus
+488	Raquel Moura	Masculino	1983-03-19	2019-04-21	Manaus
+489	Nicolas Freitas	Masculino	1985-09-23	2022-03-27	Manaus
+490	Fernanda Ribeiro	Feminino	1976-05-05	2017-02-05	Manaus
+491	Karina Oliveira	Feminino	2000-06-01	2020-06-07	Manaus
+492	Eduardo Gomes	Masculino	1980-09-21	2020-07-20	Manaus
+493	Nicolas Pereira	Masculino	1990-08-16	2016-11-16	Manaus
+494	Carlos Silva	Feminino	1995-04-10	2015-05-14	Manaus
+495	Isabela Hernandez	Masculino	1955-08-19	2023-04-30	Manaus
+496	Paulo Ribeiro	Feminino	1981-02-09	2023-09-10	Manaus
+497	Samuel Lima	Feminino	1993-12-15	2021-02-15	Manaus
+498	Gabriel Novaes	Feminino	1992-11-25	2017-10-10	Manaus
+499	João Barros	Masculino	1961-06-28	2024-02-28	Manaus
+500	Carlos Oliveira	Feminino	1994-04-07	2024-02-03	Manaus
+501	Tatiane Lima	Masculino	1955-10-05	2023-10-20	Manaus
+502	Gabriel Gomes	Feminino	1981-06-18	2018-02-25	Manaus
+503	Vinicius Ribeiro	Feminino	1965-12-10	2018-03-31	Manaus
+504	Tatiane Iglesias	Feminino	1953-07-02	2018-02-09	Manaus
+505	Eduardo Esteves	Feminino	1954-12-11	2024-04-16	Manaus
+506	Hugo Moura	Masculino	1954-10-21	2018-01-05	Manaus
+507	Nicolas Moura	Masculino	1949-11-26	2024-11-13	Manaus
+508	Carlos Moura	Masculino	1989-06-15	2020-06-22	Manaus
+509	Karina Silva	Feminino	2000-12-03	2023-03-13	Manaus
+510	Olivia Lima	Feminino	1995-09-13	2017-06-11	Manaus
+511	Nicolas Gomes	Masculino	1962-06-27	2018-03-07	Manaus
+512	Karina Ribeiro	Feminino	1981-08-26	2018-11-08	Manaus
+513	Beatriz Barros	Feminino	1985-08-01	2016-05-23	Manaus
+514	Fernanda Oliveira	Masculino	1945-07-07	2022-09-21	Manaus
+515	Eduardo Jorge	Feminino	2000-05-03	2022-05-05	Manaus
+516	Lucas Iglesias	Feminino	1968-11-21	2016-11-08	Manaus
+517	Beatriz Moura	Masculino	1991-12-25	2017-08-17	Manaus
+518	Nicolas Castro	Feminino	1945-04-16	2015-11-16	Manaus
+519	Eduardo Silva	Feminino	1978-11-15	2015-02-08	Manaus
+520	Ana Klein	Feminino	2000-07-23	2016-06-25	Manaus
+521	Paulo Castro	Feminino	1969-02-24	2024-01-15	Manaus
+522	Daniela Dias	Masculino	1968-05-05	2019-04-17	Manaus
+523	Eduardo Esteves	Feminino	1978-10-01	2021-11-04	Manaus
+524	Fernanda Oliveira	Masculino	1991-04-21	2023-05-23	Manaus
+525	Eduardo Novaes	Masculino	2000-04-03	2025-01-20	Manaus
+526	Daniela Esteves	Feminino	1982-12-13	2018-12-10	Manaus
+527	Nicolas Klein	Feminino	1960-05-21	2015-12-12	Manaus
+528	Hugo Ribeiro	Masculino	1994-12-01	2024-07-04	Manaus
+529	João Gomes	Feminino	1992-07-10	2022-03-31	Manaus
+530	Beatriz Hernandez	Masculino	1969-02-08	2020-08-08	Manaus
+531	Vinicius Castro	Feminino	1968-06-05	2019-05-04	Manaus
+532	Tatiane Novaes	Masculino	1979-11-06	2023-07-22	Manaus
+533	Paulo Castro	Feminino	1982-02-01	2017-12-09	Manaus
+534	Gabriel Barros	Feminino	1995-07-17	2018-03-19	Manaus
+535	Raquel Novaes	Masculino	1989-07-03	2022-03-08	Manaus
+536	Samuel Ribeiro	Feminino	1962-02-10	2015-11-20	Manaus
+537	Raquel Gomes	Feminino	1979-06-13	2021-07-30	Manaus
+538	Carlos Jorge	Masculino	1991-04-02	2017-09-28	Manaus
+539	Carlos Novaes	Feminino	1974-10-20	2015-08-14	Manaus
+540	João Freitas	Feminino	1945-12-05	2022-11-13	Manaus
+541	Ana Freitas	Masculino	1967-09-17	2023-10-13	Manaus
+542	Isabela Freitas	Masculino	1953-12-25	2024-10-17	Manaus
+543	Isabela Dias	Feminino	1966-07-09	2020-11-15	Manaus
+544	Carlos Iglesias	Feminino	1976-08-17	2019-01-15	Manaus
+545	Beatriz Pereira	Feminino	1968-03-09	2023-09-03	Manaus
+546	Daniela Silva	Feminino	1959-12-17	2015-01-11	Manaus
+547	Beatriz Almeida	Feminino	1947-08-12	2019-04-18	Manaus
+548	Eduardo Freitas	Feminino	1980-12-24	2022-05-09	Manaus
+549	Nicolas Hernandez	Masculino	1960-07-24	2018-08-03	Manaus
+550	Isabela Castro	Masculino	1952-09-22	2015-08-04	Manaus
+551	Fernanda Hernandez	Feminino	1970-02-15	2024-09-17	Manaus
+552	João Jorge	Masculino	1950-09-15	2015-02-02	Manaus
+553	Lucas Gomes	Masculino	1981-05-24	2021-12-25	Manaus
+554	Hugo Oliveira	Masculino	1982-08-25	2023-09-14	Manaus
+555	Gabriel Ribeiro	Feminino	1954-01-14	2015-04-08	Manaus
+556	Hugo Ribeiro	Masculino	1985-12-01	2018-10-04	Manaus
+557	Ana Moura	Masculino	1951-04-17	2017-09-02	Manaus
+558	Nicolas Pereira	Feminino	1954-12-09	2016-01-17	Manaus
+559	Beatriz Hernandez	Masculino	1989-06-15	2023-05-22	Manaus
+560	Carlos Silva	Feminino	1977-03-21	2024-03-12	Manaus
+561	Mariana Castro	Feminino	1972-11-05	2017-08-27	Manaus
+562	João Iglesias	Masculino	1996-07-23	2024-04-30	Manaus
+563	Karina Klein	Masculino	1962-04-03	2017-04-10	Manaus
+564	Eduardo Silva	Feminino	1954-02-06	2020-01-16	Manaus
+565	Olivia Klein	Masculino	1952-09-12	2023-08-22	Manaus
+566	Gabriel Oliveira	Masculino	1974-05-28	2016-05-06	Manaus
+567	Carlos Freitas	Masculino	1997-12-23	2021-10-07	Manaus
+568	Beatriz Gomes	Masculino	1954-02-23	2017-10-13	Manaus
+569	Lucas Moura	Feminino	1988-05-09	2024-03-13	Manaus
+570	Fernanda Almeida	Masculino	1999-08-18	2023-05-23	Manaus
+571	Samuel Hernandez	Feminino	1974-02-26	2023-11-26	Manaus
+572	Eduardo Dias	Feminino	1948-04-05	2017-03-22	Manaus
+573	Mariana Lima	Feminino	1982-10-09	2024-02-12	Manaus
+574	Carlos Almeida	Feminino	1957-11-15	2024-01-28	Manaus
+575	Eduardo Castro	Masculino	1952-01-15	2015-07-27	Manaus
+576	Fernanda Silva	Masculino	1997-12-13	2020-07-25	Manaus
+577	Ana Moura	Masculino	1956-06-07	2017-02-05	Manaus
+578	Isabela Iglesias	Masculino	2001-03-02	2021-11-20	Manaus
+579	Vinicius Teixeira	Feminino	1986-05-16	2019-08-15	Manaus
+580	Samuel Pereira	Feminino	1950-05-13	2016-07-16	Manaus
+581	Nicolas Gomes	Feminino	1985-09-26	2015-03-21	Manaus
+582	Mariana Lima	Masculino	1979-08-12	2021-05-05	Manaus
+583	Raquel Klein	Masculino	1962-03-01	2018-07-30	Manaus
+584	Vinicius Hernandez	Feminino	2002-05-02	2024-01-26	Manaus
+585	Paulo Queiroz	Masculino	1994-10-08	2016-10-15	Manaus
+586	Daniela Hernandez	Feminino	1962-09-27	2023-11-15	Manaus
+587	Beatriz Hernandez	Masculino	1967-03-06	2017-08-26	Manaus
+588	Tatiane Klein	Masculino	2003-10-01	2022-11-21	Manaus
+589	Lucas Silva	Feminino	1981-04-27	2024-02-02	Manaus
+590	Paulo Ribeiro	Masculino	1956-08-02	2016-01-05	Manaus
+591	Beatriz Hernandez	Feminino	1946-09-16	2015-01-03	Manaus
+592	Karina Teixeira	Feminino	1996-03-11	2023-01-15	Manaus
+593	Fernanda Klein	Feminino	1946-03-19	2022-11-26	Manaus
+594	Eduardo Dias	Masculino	1949-06-23	2022-06-05	Manaus
+595	Mariana Silva	Feminino	1966-05-11	2016-07-12	Manaus
+596	Fernanda Novaes	Masculino	1986-06-06	2022-12-06	Manaus
+597	Samuel Teixeira	Masculino	1959-11-19	2024-02-19	Manaus
+598	Fernanda Moura	Masculino	1991-12-10	2016-06-05	Manaus
+599	Fernanda Almeida	Masculino	1999-10-02	2017-01-15	Manaus
+600	Vinicius Klein	Feminino	1985-10-04	2020-07-25	Manaus
+\.
+
+
+--
+-- TOC entry 3459 (class 0 OID 16396)
+-- Dependencies: 220
+-- Data for Name: produtos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.produtos (product_id, name, category, base_price) FROM stdin;
+1	Óculos de grau básico	Armação	200.00
+2	Óculos de grau premium	Armação	450.00
+3	Óculos de grife	Armação	700.00
+4	Lentes monofocais	Lentes	150.00
+5	Lentes bifocais	Lentes	250.00
+6	Lentes progressivas	Lentes	350.00
+7	Óculos de sol	Óculos de sol	300.00
+8	Lentes de contato (mensal)	Lentes de contato	180.00
+9	Lentes de contato (diária)	Lentes de contato	120.00
+10	Acessório (Estojos e panos)	Acessórios	30.00
+\.
+
+
+--
+-- TOC entry 3461 (class 0 OID 16412)
+-- Dependencies: 222
+-- Data for Name: vendas; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.vendas (transaction_id, date, client_id, product_id, quantity, unit_price, total_price, discount, final_price, campaign_id) FROM stdin;
+1	2015-01-01	145	6	1	367.17	367.17	55.08	312.09	\N
+2	2015-01-01	344	8	1	162.41	162.41	40.60	121.81	\N
+3	2015-01-01	111	1	1	181.93	181.93	0.00	181.93	\N
+4	2015-01-01	171	7	1	299.58	299.58	0.00	299.58	\N
+5	2015-01-02	104	8	2	190.39	380.78	0.00	380.78	\N
+6	2015-01-02	231	3	2	693.18	1386.36	69.32	1317.04	\N
+7	2015-01-02	327	5	2	272.58	545.16	27.26	517.90	\N
+8	2015-01-03	165	2	2	454.23	908.46	90.85	817.61	\N
+9	2015-01-04	32	7	2	326.55	653.10	97.97	555.13	\N
+10	2015-01-07	340	4	2	164.23	328.46	0.00	328.46	\N
+11	2015-01-07	554	5	2	258.03	516.06	77.41	438.65	\N
+12	2015-01-08	158	1	2	194.43	388.86	0.00	388.86	\N
+13	2015-01-09	492	4	1	137.91	137.91	20.69	117.22	\N
+14	2015-01-09	84	8	1	192.38	192.38	0.00	192.38	\N
+15	2015-01-10	501	5	2	229.56	459.12	45.91	413.21	\N
+16	2015-01-10	379	3	1	692.41	692.41	69.24	623.17	\N
+17	2015-01-11	276	10	2	27.37	54.74	0.00	54.74	\N
+18	2015-01-11	88	6	2	371.57	743.14	0.00	743.14	\N
+19	2015-01-11	233	9	1	109.46	109.46	0.00	109.46	\N
+20	2015-01-12	549	8	1	182.62	182.62	27.39	155.23	\N
+21	2015-01-12	515	10	2	32.40	64.80	0.00	64.80	\N
+22	2015-01-12	151	2	2	490.43	980.86	0.00	980.86	\N
+23	2015-01-13	172	4	2	159.25	318.50	63.70	254.80	\N
+24	2015-01-13	207	3	1	746.78	746.78	112.02	634.76	\N
+25	2015-01-13	69	2	1	439.93	439.93	0.00	439.93	\N
+26	2015-01-14	283	9	2	119.00	238.00	0.00	238.00	\N
+27	2015-01-14	536	7	1	276.75	276.75	41.51	235.24	\N
+28	2015-01-14	103	2	2	455.64	911.28	91.13	820.15	\N
+29	2015-01-14	353	7	1	285.85	285.85	0.00	285.85	\N
+30	2015-01-14	485	1	2	186.89	373.78	0.00	373.78	\N
+31	2015-01-15	412	1	1	195.83	195.83	0.00	195.83	\N
+32	2015-01-15	51	8	2	195.15	390.30	39.03	351.27	\N
+33	2015-01-16	319	5	1	267.14	267.14	0.00	267.14	\N
+34	2015-01-16	234	3	1	672.07	672.07	0.00	672.07	\N
+35	2015-01-17	329	5	1	261.44	261.44	26.14	235.30	\N
+36	2015-01-18	217	7	1	314.46	314.46	0.00	314.46	\N
+37	2015-01-18	58	9	1	127.00	127.00	19.05	107.95	\N
+38	2015-01-19	139	9	2	129.10	258.20	12.91	245.29	\N
+39	2015-01-19	206	1	1	189.98	189.98	0.00	189.98	\N
+40	2015-01-19	204	5	2	243.42	486.84	0.00	486.84	\N
+41	2015-01-20	127	1	2	189.68	379.36	0.00	379.36	\N
+42	2015-01-20	486	10	1	30.31	30.31	0.00	30.31	\N
+43	2015-01-22	265	2	1	430.66	430.66	21.53	409.13	\N
+44	2015-01-22	227	4	1	155.33	155.33	15.53	139.80	\N
+45	2015-01-22	10	8	1	194.81	194.81	0.00	194.81	\N
+46	2015-01-23	9	4	2	142.57	285.14	0.00	285.14	\N
+47	2015-01-23	282	7	1	323.73	323.73	0.00	323.73	\N
+48	2015-01-23	224	8	1	172.88	172.88	0.00	172.88	\N
+49	2015-01-23	599	2	1	405.66	405.66	0.00	405.66	\N
+50	2015-01-24	384	9	1	123.54	123.54	0.00	123.54	\N
+51	2015-01-24	111	8	1	164.30	164.30	0.00	164.30	\N
+52	2015-01-25	284	5	1	257.81	257.81	0.00	257.81	\N
+53	2015-01-25	193	3	1	702.42	702.42	35.12	667.30	\N
+54	2015-01-25	414	6	1	362.65	362.65	0.00	362.65	\N
+55	2015-01-25	303	5	1	270.35	270.35	0.00	270.35	\N
+56	2015-01-26	598	10	2	31.90	63.80	0.00	63.80	\N
+57	2015-01-26	548	8	1	194.63	194.63	0.00	194.63	\N
+58	2015-01-26	175	9	1	112.35	112.35	5.62	106.73	\N
+59	2015-01-26	573	3	2	762.57	1525.14	0.00	1525.14	\N
+60	2015-01-26	228	6	2	330.63	661.26	0.00	661.26	\N
+61	2015-01-27	340	6	2	333.24	666.48	33.32	633.16	\N
+62	2015-01-27	598	10	1	32.67	32.67	1.63	31.04	\N
+63	2015-01-27	391	9	1	115.16	115.16	11.52	103.64	\N
+64	2015-01-27	351	7	2	329.23	658.46	0.00	658.46	\N
+65	2015-01-28	147	6	2	375.37	750.74	37.54	713.20	\N
+66	2015-01-30	182	6	1	359.41	359.41	35.94	323.47	\N
+67	2015-01-30	173	10	1	31.59	31.59	0.00	31.59	\N
+68	2015-01-31	91	3	1	716.03	716.03	0.00	716.03	\N
+69	2015-01-31	489	7	2	270.28	540.56	0.00	540.56	\N
+70	2015-01-31	15	6	2	367.98	735.96	36.80	699.16	\N
+71	2015-02-01	255	4	2	155.81	311.62	31.16	280.46	\N
+72	2015-02-01	516	10	1	28.84	28.84	1.44	27.40	\N
+73	2015-02-01	298	8	1	188.20	188.20	0.00	188.20	\N
+74	2015-02-01	138	6	1	384.73	384.73	0.00	384.73	\N
+75	2015-02-01	169	7	1	271.15	271.15	13.56	257.59	\N
+76	2015-02-02	23	10	2	30.03	60.06	9.01	51.05	\N
+77	2015-02-02	39	7	1	322.59	322.59	48.39	274.20	\N
+78	2015-02-02	50	2	1	463.82	463.82	115.95	347.87	\N
+79	2015-02-02	390	2	1	454.26	454.26	22.71	431.55	\N
+80	2015-02-03	309	7	1	309.70	309.70	0.00	309.70	\N
+81	2015-02-03	141	7	1	319.84	319.84	47.98	271.86	\N
+82	2015-02-03	290	2	2	475.63	951.26	0.00	951.26	\N
+83	2015-02-03	270	9	1	131.35	131.35	0.00	131.35	\N
+84	2015-02-04	165	1	1	201.93	201.93	0.00	201.93	\N
+85	2015-02-04	493	6	2	331.42	662.84	33.14	629.70	\N
+86	2015-02-04	588	8	2	167.37	334.74	66.95	267.79	\N
+87	2015-02-04	263	4	1	148.70	148.70	0.00	148.70	\N
+88	2015-02-05	52	2	1	478.19	478.19	0.00	478.19	\N
+89	2015-02-05	369	6	2	344.82	689.64	68.96	620.68	\N
+90	2015-02-06	175	6	1	340.03	340.03	0.00	340.03	\N
+91	2015-02-06	96	6	1	372.05	372.05	37.21	334.84	\N
+92	2015-02-07	468	5	1	266.79	266.79	0.00	266.79	\N
+93	2015-02-08	432	3	2	645.83	1291.66	64.58	1227.08	\N
+94	2015-02-08	107	7	1	324.67	324.67	0.00	324.67	\N
+95	2015-02-08	449	3	1	715.59	715.59	0.00	715.59	\N
+96	2015-02-09	134	8	2	195.13	390.26	39.03	351.23	\N
+97	2015-02-09	65	5	2	257.75	515.50	77.33	438.17	\N
+98	2015-02-09	591	10	2	28.34	56.68	0.00	56.68	\N
+99	2015-02-10	532	9	2	124.52	249.04	0.00	249.04	\N
+100	2015-02-10	255	8	1	174.45	174.45	0.00	174.45	\N
+101	2015-02-10	572	10	1	27.33	27.33	2.73	24.60	\N
+102	2015-02-11	508	3	1	640.48	640.48	0.00	640.48	\N
+103	2015-02-11	285	1	2	200.28	400.56	0.00	400.56	\N
+104	2015-02-12	241	2	2	446.32	892.64	0.00	892.64	\N
+105	2015-02-12	511	8	2	173.38	346.76	0.00	346.76	\N
+106	2015-02-12	19	2	1	441.31	441.31	88.26	353.05	\N
+107	2015-02-12	312	9	1	121.50	121.50	0.00	121.50	\N
+108	2015-02-12	350	6	1	372.77	372.77	0.00	372.77	\N
+109	2015-02-12	340	9	1	126.42	126.42	0.00	126.42	\N
+110	2015-02-12	373	8	2	166.10	332.20	0.00	332.20	\N
+111	2015-02-12	350	6	2	373.09	746.18	0.00	746.18	\N
+112	2015-02-13	535	6	1	364.15	364.15	18.21	345.94	\N
+113	2015-02-13	420	2	1	427.89	427.89	21.39	406.50	\N
+114	2015-02-14	403	4	2	148.71	297.42	0.00	297.42	\N
+115	2015-02-15	111	7	2	272.79	545.58	0.00	545.58	\N
+116	2015-02-15	127	8	1	178.47	178.47	0.00	178.47	\N
+117	2015-02-15	511	1	1	201.21	201.21	20.12	181.09	\N
+118	2015-02-15	495	9	2	126.75	253.50	0.00	253.50	\N
+119	2015-02-15	178	3	1	644.50	644.50	0.00	644.50	\N
+120	2015-02-16	330	9	1	129.15	129.15	0.00	129.15	\N
+121	2015-02-16	255	5	2	244.89	489.78	0.00	489.78	\N
+122	2015-02-16	137	3	1	687.78	687.78	0.00	687.78	\N
+123	2015-02-16	307	9	2	128.66	257.32	0.00	257.32	\N
+124	2015-02-17	223	4	2	141.29	282.58	0.00	282.58	\N
+125	2015-02-17	136	3	1	700.55	700.55	0.00	700.55	\N
+126	2015-02-17	119	6	2	354.36	708.72	0.00	708.72	\N
+127	2015-02-17	428	9	1	114.86	114.86	0.00	114.86	\N
+128	2015-02-19	536	2	2	407.27	814.54	203.63	610.91	\N
+129	2015-02-19	165	5	1	259.17	259.17	12.96	246.21	\N
+130	2015-02-19	303	4	1	157.61	157.61	23.64	133.97	\N
+131	2015-02-19	575	7	1	284.26	284.26	0.00	284.26	\N
+132	2015-02-19	295	1	2	217.06	434.12	0.00	434.12	\N
+133	2015-02-19	321	9	1	109.29	109.29	0.00	109.29	\N
+134	2015-02-20	454	4	2	162.34	324.68	0.00	324.68	\N
+135	2015-02-21	560	10	1	28.18	28.18	2.82	25.36	\N
+136	2015-02-21	182	2	2	421.83	843.66	168.73	674.93	\N
+137	2015-02-22	439	5	2	252.83	505.66	75.85	429.81	\N
+138	2015-02-22	6	6	1	347.64	347.64	34.76	312.88	\N
+139	2015-02-22	53	10	2	32.06	64.12	0.00	64.12	\N
+140	2015-02-23	564	6	2	320.10	640.20	0.00	640.20	\N
+141	2015-02-23	189	9	1	109.64	109.64	0.00	109.64	\N
+142	2015-02-24	550	7	2	275.52	551.04	27.55	523.49	\N
+143	2015-02-24	340	6	1	335.55	335.55	0.00	335.55	\N
+144	2015-02-24	487	9	2	127.77	255.54	25.55	229.99	\N
+145	2015-02-25	457	4	2	162.13	324.26	0.00	324.26	\N
+146	2015-02-25	41	6	2	341.70	683.40	68.34	615.06	\N
+147	2015-02-25	554	5	2	226.24	452.48	0.00	452.48	\N
+148	2015-02-25	527	9	1	118.69	118.69	23.74	94.95	\N
+149	2015-02-25	99	3	1	766.03	766.03	0.00	766.03	\N
+150	2015-02-25	68	4	1	155.11	155.11	0.00	155.11	\N
+151	2015-02-25	435	2	2	423.50	847.00	0.00	847.00	\N
+152	2015-02-26	446	2	2	472.22	944.44	94.44	850.00	\N
+153	2015-02-26	39	2	1	411.59	411.59	41.16	370.43	\N
+154	2015-02-26	589	4	2	162.33	324.66	0.00	324.66	\N
+155	2015-02-27	415	7	2	288.98	577.96	28.90	549.06	\N
+156	2015-02-27	65	10	2	27.27	54.54	0.00	54.54	\N
+157	2015-02-28	515	2	1	431.09	431.09	0.00	431.09	\N
+158	2015-02-28	289	8	2	175.73	351.46	17.57	333.89	\N
+159	2015-03-01	547	4	1	139.09	139.09	0.00	139.09	\N
+160	2015-03-01	559	5	2	273.01	546.02	81.90	464.12	\N
+161	2015-03-01	383	1	2	202.14	404.28	20.21	384.07	\N
+162	2015-03-02	587	10	2	29.36	58.72	2.94	55.78	\N
+163	2015-03-02	353	4	1	147.38	147.38	0.00	147.38	\N
+164	2015-03-03	165	3	2	660.91	1321.82	66.09	1255.73	\N
+165	2015-03-03	581	1	1	214.06	214.06	0.00	214.06	\N
+166	2015-03-04	473	9	2	109.76	219.52	0.00	219.52	\N
+167	2015-03-04	203	10	1	29.92	29.92	1.50	28.42	\N
+168	2015-03-04	103	5	1	255.98	255.98	0.00	255.98	\N
+169	2015-03-05	462	6	1	358.14	358.14	0.00	358.14	\N
+170	2015-03-05	580	10	1	29.19	29.19	0.00	29.19	\N
+171	2015-03-06	5	6	1	332.23	332.23	49.83	282.40	\N
+172	2015-03-06	284	6	1	324.40	324.40	0.00	324.40	\N
+173	2015-03-06	474	8	2	174.91	349.82	0.00	349.82	\N
+174	2015-03-07	180	10	2	27.49	54.98	2.75	52.23	\N
+175	2015-03-07	202	5	2	261.68	523.36	0.00	523.36	\N
+176	2015-03-07	20	9	1	123.16	123.16	0.00	123.16	\N
+177	2015-03-07	218	1	1	202.06	202.06	0.00	202.06	\N
+178	2015-03-08	484	3	2	681.21	1362.42	204.36	1158.06	\N
+179	2015-03-11	298	3	2	695.06	1390.12	0.00	1390.12	\N
+180	2015-03-11	515	1	1	206.51	206.51	0.00	206.51	\N
+181	2015-03-11	170	9	1	111.37	111.37	16.71	94.66	\N
+182	2015-03-12	150	8	2	195.81	391.62	39.16	352.46	\N
+183	2015-03-12	271	6	1	331.38	331.38	0.00	331.38	\N
+184	2015-03-12	370	7	2	298.18	596.36	59.64	536.72	\N
+185	2015-03-14	106	9	2	123.21	246.42	36.96	209.46	\N
+186	2015-03-14	558	10	2	28.04	56.08	0.00	56.08	\N
+187	2015-03-14	80	9	2	114.04	228.08	0.00	228.08	\N
+188	2015-03-14	416	6	2	372.21	744.42	0.00	744.42	\N
+189	2015-03-15	7	9	2	129.17	258.34	0.00	258.34	\N
+190	2015-03-16	527	5	1	235.58	235.58	23.56	212.02	\N
+191	2015-03-16	122	4	1	147.44	147.44	14.74	132.70	\N
+192	2015-03-16	491	4	1	152.72	152.72	0.00	152.72	\N
+193	2015-03-16	250	1	1	185.12	185.12	9.26	175.86	\N
+194	2015-03-17	587	3	1	637.83	637.83	31.89	605.94	\N
+195	2015-03-17	416	10	1	32.82	32.82	0.00	32.82	\N
+196	2015-03-17	291	2	2	424.49	848.98	0.00	848.98	\N
+197	2015-03-18	494	3	1	660.71	660.71	33.04	627.67	\N
+198	2015-03-19	524	5	2	233.39	466.78	0.00	466.78	\N
+199	2015-03-19	71	4	2	146.35	292.70	14.63	278.07	\N
+200	2015-03-19	517	7	2	319.59	639.18	31.96	607.22	\N
+201	2015-03-20	545	9	1	126.06	126.06	25.21	100.85	\N
+202	2015-03-20	442	9	2	118.10	236.20	0.00	236.20	\N
+203	2015-03-21	440	4	1	163.15	163.15	0.00	163.15	\N
+204	2015-03-21	359	10	2	31.83	63.66	0.00	63.66	\N
+205	2015-03-21	590	2	2	443.29	886.58	44.33	842.25	\N
+206	2015-03-21	86	5	1	254.91	254.91	0.00	254.91	\N
+207	2015-03-21	6	1	1	203.12	203.12	10.16	192.96	\N
+208	2015-03-22	211	6	2	343.62	687.24	68.72	618.52	\N
+209	2015-03-22	260	5	2	267.75	535.50	0.00	535.50	\N
+210	2015-03-23	283	7	1	315.30	315.30	0.00	315.30	\N
+211	2015-03-23	495	3	1	681.83	681.83	0.00	681.83	\N
+212	2015-03-23	315	10	2	29.07	58.14	0.00	58.14	\N
+213	2015-03-23	122	4	1	148.40	148.40	7.42	140.98	\N
+214	2015-03-24	521	7	1	317.16	317.16	0.00	317.16	\N
+215	2015-03-24	54	3	1	684.47	684.47	0.00	684.47	\N
+216	2015-03-24	149	8	2	195.33	390.66	19.53	371.13	\N
+217	2015-03-26	380	2	2	459.81	919.62	0.00	919.62	\N
+218	2015-03-26	411	10	1	30.94	30.94	6.19	24.75	\N
+219	2015-03-27	507	8	1	162.39	162.39	0.00	162.39	\N
+220	2015-03-27	531	5	2	234.74	469.48	0.00	469.48	\N
+221	2015-03-27	238	10	1	28.02	28.02	1.40	26.62	\N
+222	2015-03-27	162	2	1	494.71	494.71	0.00	494.71	\N
+223	2015-03-28	405	7	2	305.16	610.32	0.00	610.32	\N
+224	2015-03-28	71	2	2	454.46	908.92	0.00	908.92	\N
+225	2015-03-28	597	6	1	339.32	339.32	0.00	339.32	\N
+226	2015-03-29	200	8	1	195.47	195.47	0.00	195.47	\N
+227	2015-03-30	417	9	2	110.56	221.12	22.11	199.01	\N
+228	2015-03-30	120	9	1	130.96	130.96	0.00	130.96	\N
+229	2015-03-31	589	5	1	259.71	259.71	0.00	259.71	\N
+230	2015-03-31	250	6	2	382.29	764.58	0.00	764.58	\N
+231	2015-04-01	29	8	2	166.19	332.38	49.86	282.52	\N
+232	2015-04-02	226	4	2	159.00	318.00	0.00	318.00	\N
+233	2015-04-02	549	1	1	208.03	208.03	41.61	166.42	\N
+234	2015-04-03	78	9	2	130.35	260.70	0.00	260.70	\N
+235	2015-04-03	588	5	2	234.14	468.28	0.00	468.28	\N
+236	2015-04-03	195	8	2	188.54	377.08	18.85	358.23	\N
+237	2015-04-03	212	4	1	141.08	141.08	21.16	119.92	\N
+238	2015-04-03	110	2	1	487.82	487.82	0.00	487.82	\N
+239	2015-04-04	7	9	1	130.99	130.99	0.00	130.99	\N
+240	2015-04-04	323	8	1	194.33	194.33	0.00	194.33	\N
+241	2015-04-04	282	8	1	168.58	168.58	0.00	168.58	\N
+242	2015-04-04	408	4	2	157.51	315.02	47.25	267.77	\N
+243	2015-04-05	490	9	2	108.78	217.56	0.00	217.56	\N
+244	2015-04-06	179	8	2	197.15	394.30	0.00	394.30	\N
+245	2015-04-06	9	1	1	206.96	206.96	20.70	186.26	\N
+246	2015-04-06	266	3	1	706.80	706.80	70.68	636.12	\N
+247	2015-04-06	352	6	2	327.87	655.74	0.00	655.74	\N
+248	2015-04-06	382	6	1	374.80	374.80	18.74	356.06	\N
+249	2015-04-07	590	4	2	159.43	318.86	0.00	318.86	\N
+250	2015-04-07	569	7	1	321.38	321.38	64.28	257.10	\N
+251	2015-04-09	181	7	1	299.98	299.98	0.00	299.98	\N
+252	2015-04-09	530	9	1	125.29	125.29	0.00	125.29	\N
+253	2015-04-09	576	10	2	27.29	54.58	8.19	46.39	\N
+254	2015-04-10	488	2	1	445.49	445.49	0.00	445.49	\N
+255	2015-04-11	574	9	2	130.36	260.72	13.04	247.68	\N
+256	2015-04-11	360	10	2	28.19	56.38	0.00	56.38	\N
+257	2015-04-11	179	5	2	242.76	485.52	0.00	485.52	\N
+258	2015-04-11	458	2	2	439.30	878.60	131.79	746.81	\N
+259	2015-04-11	172	6	2	344.53	689.06	0.00	689.06	\N
+260	2015-04-12	74	2	1	419.58	419.58	41.96	377.62	\N
+261	2015-04-13	274	10	2	30.87	61.74	6.17	55.57	\N
+262	2015-04-14	372	10	1	30.13	30.13	1.51	28.62	\N
+263	2015-04-14	129	4	1	154.86	154.86	0.00	154.86	\N
+264	2015-04-15	82	4	1	140.01	140.01	7.00	133.01	\N
+265	2015-04-15	485	9	1	109.29	109.29	0.00	109.29	\N
+266	2015-04-16	86	2	1	428.62	428.62	64.29	364.33	\N
+267	2015-04-16	400	5	2	236.47	472.94	0.00	472.94	\N
+268	2015-04-17	130	3	1	703.74	703.74	35.19	668.55	\N
+269	2015-04-17	334	8	1	178.82	178.82	0.00	178.82	\N
+270	2015-04-18	562	8	1	166.86	166.86	0.00	166.86	\N
+271	2015-04-18	468	10	1	29.61	29.61	0.00	29.61	\N
+272	2015-04-19	356	8	2	181.43	362.86	0.00	362.86	\N
+273	2015-04-20	375	7	2	285.59	571.18	28.56	542.62	\N
+274	2015-04-20	353	5	1	248.46	248.46	24.85	223.61	\N
+275	2015-04-20	489	5	1	225.46	225.46	0.00	225.46	\N
+276	2015-04-20	237	1	1	201.93	201.93	30.29	171.64	\N
+277	2015-04-21	256	3	2	730.09	1460.18	0.00	1460.18	\N
+278	2015-04-21	226	5	1	228.96	228.96	0.00	228.96	\N
+279	2015-04-21	279	5	2	257.42	514.84	0.00	514.84	\N
+280	2015-04-22	193	2	1	421.42	421.42	63.21	358.21	\N
+281	2015-04-22	464	5	2	260.02	520.04	0.00	520.04	\N
+282	2015-04-22	156	1	1	218.79	218.79	10.94	207.85	\N
+283	2015-04-22	129	8	2	188.18	376.36	37.64	338.72	\N
+284	2015-04-22	351	7	1	288.69	288.69	0.00	288.69	\N
+285	2015-04-22	475	1	1	193.21	193.21	0.00	193.21	\N
+286	2015-04-22	58	5	1	263.78	263.78	52.76	211.02	\N
+287	2015-04-23	391	1	2	184.88	369.76	0.00	369.76	\N
+288	2015-04-23	454	4	1	157.13	157.13	15.71	141.42	\N
+289	2015-04-23	97	9	2	123.98	247.96	24.80	223.16	\N
+290	2015-04-25	320	6	1	326.10	326.10	0.00	326.10	\N
+291	2015-04-25	563	9	2	110.93	221.86	0.00	221.86	\N
+292	2015-04-25	370	1	2	214.55	429.10	21.46	407.64	\N
+293	2015-04-26	445	6	1	316.05	316.05	0.00	316.05	\N
+294	2015-04-26	406	4	1	135.27	135.27	20.29	114.98	\N
+295	2015-04-26	159	6	1	368.96	368.96	73.79	295.17	\N
+296	2015-04-27	62	1	1	194.22	194.22	29.13	165.09	\N
+297	2015-04-27	129	8	1	170.38	170.38	0.00	170.38	\N
+298	2015-04-27	356	8	2	188.39	376.78	37.68	339.10	\N
+299	2015-04-27	138	5	2	269.93	539.86	0.00	539.86	\N
+300	2015-04-27	302	9	1	124.73	124.73	6.24	118.49	\N
+301	2015-04-27	332	8	2	171.91	343.82	0.00	343.82	\N
+302	2015-04-27	568	3	1	639.64	639.64	63.96	575.68	\N
+303	2015-04-27	555	6	2	346.79	693.58	0.00	693.58	\N
+304	2015-04-28	190	1	1	204.79	204.79	0.00	204.79	\N
+305	2015-04-28	329	2	2	464.25	928.50	0.00	928.50	\N
+306	2015-04-28	537	8	1	189.57	189.57	18.96	170.61	\N
+307	2015-04-28	330	2	2	413.66	827.32	41.37	785.95	\N
+308	2015-04-28	183	1	2	188.08	376.16	37.62	338.54	\N
+309	2015-04-29	502	9	2	122.98	245.96	12.30	233.66	\N
+310	2015-04-29	73	1	1	217.21	217.21	21.72	195.49	\N
+311	2015-04-29	82	8	1	190.84	190.84	28.63	162.21	\N
+312	2015-04-29	426	6	1	370.60	370.60	55.59	315.01	\N
+313	2015-04-30	42	2	1	480.10	480.10	24.01	456.09	\N
+314	2015-05-01	100	2	2	470.27	940.54	47.03	893.51	\N
+315	2015-05-01	184	9	2	125.98	251.96	25.20	226.76	\N
+316	2015-05-02	438	2	1	420.01	420.01	42.00	378.01	\N
+317	2015-05-02	547	10	1	29.66	29.66	0.00	29.66	\N
+318	2015-05-02	333	6	2	343.86	687.72	34.39	653.33	1
+319	2015-05-02	247	10	2	30.27	60.54	0.00	60.54	\N
+320	2015-05-02	369	8	2	178.11	356.22	0.00	356.22	\N
+321	2015-05-03	17	9	1	111.24	111.24	11.12	100.12	1
+322	2015-05-04	323	1	2	210.86	421.72	0.00	421.72	\N
+323	2015-05-04	524	9	1	121.70	121.70	18.26	103.44	1
+324	2015-05-04	142	5	1	243.35	243.35	0.00	243.35	\N
+325	2015-05-06	95	10	2	29.40	58.80	0.00	58.80	\N
+326	2015-05-06	495	3	1	698.36	698.36	0.00	698.36	\N
+327	2015-05-07	98	10	2	30.85	61.70	9.26	52.44	\N
+328	2015-05-08	343	6	2	376.59	753.18	37.66	715.52	1
+329	2015-05-08	233	10	1	32.57	32.57	1.63	30.94	1
+330	2015-05-09	537	1	2	192.77	385.54	0.00	385.54	\N
+331	2015-05-09	157	1	1	206.95	206.95	0.00	206.95	\N
+332	2015-05-09	590	9	2	110.16	220.32	11.02	209.30	1
+333	2015-05-09	345	2	2	447.83	895.66	44.78	850.88	1
+334	2015-05-10	409	9	1	118.43	118.43	0.00	118.43	\N
+335	2015-05-11	203	8	2	176.23	352.46	0.00	352.46	\N
+336	2015-05-11	537	4	2	142.27	284.54	28.45	256.09	\N
+337	2015-05-11	92	2	1	465.46	465.46	23.27	442.19	1
+338	2015-05-12	25	5	1	233.46	233.46	0.00	233.46	\N
+339	2015-05-13	150	8	1	163.62	163.62	24.54	139.08	1
+340	2015-05-14	88	2	1	471.56	471.56	70.73	400.83	\N
+341	2015-05-14	295	1	1	193.73	193.73	0.00	193.73	\N
+342	2015-05-15	340	4	1	157.20	157.20	31.44	125.76	1
+343	2015-05-15	495	10	1	31.38	31.38	6.28	25.10	1
+344	2015-05-16	540	1	2	190.22	380.44	19.02	361.42	\N
+345	2015-05-16	55	8	1	185.57	185.57	18.56	167.01	\N
+346	2015-05-16	369	2	2	406.72	813.44	40.67	772.77	1
+347	2015-05-16	390	9	1	131.44	131.44	13.14	118.30	\N
+348	2015-05-17	91	3	1	657.84	657.84	0.00	657.84	\N
+349	2015-05-17	41	4	1	162.67	162.67	0.00	162.67	\N
+350	2015-05-17	19	6	2	362.90	725.80	0.00	725.80	\N
+351	2015-05-18	514	5	2	265.59	531.18	0.00	531.18	\N
+352	2015-05-18	31	9	2	130.78	261.56	26.16	235.40	\N
+353	2015-05-19	90	7	1	301.24	301.24	0.00	301.24	\N
+354	2015-05-20	428	4	1	152.19	152.19	0.00	152.19	\N
+355	2015-05-20	460	9	1	111.16	111.16	0.00	111.16	\N
+356	2015-05-23	208	3	2	673.26	1346.52	67.33	1279.19	1
+357	2015-05-23	149	10	1	32.50	32.50	0.00	32.50	\N
+358	2015-05-23	122	3	2	674.46	1348.92	0.00	1348.92	\N
+359	2015-05-23	424	7	2	288.20	576.40	0.00	576.40	\N
+360	2015-05-23	281	3	2	739.08	1478.16	221.72	1256.44	\N
+361	2015-05-24	237	10	2	28.39	56.78	0.00	56.78	\N
+362	2015-05-24	489	3	1	700.33	700.33	35.02	665.31	1
+363	2015-05-24	397	8	2	179.06	358.12	35.81	322.31	\N
+364	2015-05-24	423	4	2	157.27	314.54	15.73	298.81	1
+365	2015-05-25	450	10	1	29.94	29.94	1.50	28.44	1
+366	2015-05-25	415	1	1	204.32	204.32	10.22	194.10	1
+367	2015-05-25	586	10	2	30.22	60.44	3.02	57.42	1
+368	2015-05-26	112	8	2	178.45	356.90	17.84	339.06	1
+369	2015-05-27	551	7	1	329.03	329.03	32.90	296.13	\N
+370	2015-05-27	51	4	2	143.74	287.48	0.00	287.48	\N
+371	2015-05-28	473	3	1	689.14	689.14	34.46	654.68	\N
+372	2015-05-29	463	2	1	470.04	470.04	70.51	399.53	\N
+373	2015-05-29	139	7	1	294.81	294.81	14.74	280.07	\N
+374	2015-05-29	93	5	1	241.20	241.20	12.06	229.14	1
+375	2015-05-30	127	2	1	415.27	415.27	0.00	415.27	\N
+376	2015-05-30	394	9	1	122.69	122.69	18.40	104.29	\N
+377	2015-05-30	344	10	2	32.23	64.46	6.44	58.02	1
+378	2015-05-30	53	7	2	288.48	576.96	28.85	548.11	1
+379	2015-05-31	186	2	1	485.87	485.87	72.88	412.99	1
+380	2015-05-31	510	8	1	181.57	181.57	18.16	163.41	\N
+381	2015-05-31	488	8	2	176.77	353.54	88.39	265.15	\N
+382	2015-05-31	571	4	2	136.47	272.94	54.59	218.35	1
+383	2015-06-01	34	10	1	32.03	32.03	4.80	27.23	\N
+384	2015-06-01	166	5	1	255.55	255.55	0.00	255.55	\N
+385	2015-06-02	182	8	1	188.98	188.98	28.35	160.63	1
+386	2015-06-03	389	2	2	473.26	946.52	141.98	804.54	1
+387	2015-06-04	282	6	2	351.89	703.78	0.00	703.78	\N
+388	2015-06-04	112	10	2	31.38	62.76	0.00	62.76	\N
+389	2015-06-04	295	7	1	306.53	306.53	0.00	306.53	\N
+390	2015-06-05	363	3	1	716.00	716.00	0.00	716.00	\N
+391	2015-06-05	185	10	1	28.40	28.40	2.84	25.56	\N
+392	2015-06-05	121	4	1	158.99	158.99	7.95	151.04	1
+393	2015-06-05	574	4	1	135.34	135.34	20.30	115.04	1
+394	2015-06-05	308	9	2	121.20	242.40	36.36	206.04	1
+395	2015-06-06	583	10	2	32.76	65.52	6.55	58.97	\N
+396	2015-06-06	491	8	1	190.70	190.70	0.00	190.70	\N
+397	2015-06-06	550	6	1	347.37	347.37	17.37	330.00	1
+398	2015-06-07	534	5	2	253.25	506.50	25.33	481.17	1
+399	2015-06-07	592	6	1	370.97	370.97	0.00	370.97	\N
+400	2015-06-07	288	1	1	193.57	193.57	9.68	183.89	1
+401	2015-06-07	399	3	2	713.33	1426.66	0.00	1426.66	\N
+402	2015-06-08	323	1	2	190.86	381.72	19.09	362.63	\N
+403	2015-06-08	310	4	2	150.75	301.50	30.15	271.35	\N
+404	2015-06-08	95	8	2	180.22	360.44	18.02	342.42	1
+405	2015-06-08	349	8	2	188.37	376.74	18.84	357.90	1
+406	2015-06-09	101	9	1	124.24	124.24	31.06	93.18	\N
+407	2015-06-09	535	2	1	405.37	405.37	0.00	405.37	\N
+408	2015-06-10	90	6	2	347.68	695.36	104.30	591.06	\N
+409	2015-06-10	24	10	1	31.55	31.55	1.58	29.97	1
+410	2015-06-10	294	5	1	251.61	251.61	12.58	239.03	1
+411	2015-06-11	162	5	2	230.72	461.44	23.07	438.37	1
+412	2015-06-11	556	6	2	353.46	706.92	106.04	600.88	\N
+413	2015-06-11	176	2	1	433.02	433.02	21.65	411.37	1
+414	2015-06-11	30	8	1	194.52	194.52	48.63	145.89	1
+415	2015-06-12	457	10	2	29.13	58.26	2.91	55.35	\N
+416	2015-06-13	477	10	2	27.79	55.58	0.00	55.58	\N
+417	2015-06-13	467	5	2	259.22	518.44	25.92	492.52	1
+418	2015-06-14	230	3	1	750.55	750.55	37.53	713.02	1
+419	2015-06-14	339	6	1	346.73	346.73	69.35	277.38	\N
+420	2015-06-14	175	5	2	263.40	526.80	26.34	500.46	\N
+421	2015-06-15	110	6	2	353.93	707.86	70.79	637.07	\N
+422	2015-06-15	424	4	1	153.63	153.63	7.68	145.95	1
+423	2015-06-15	349	4	2	159.42	318.84	0.00	318.84	\N
+424	2015-06-15	351	9	1	124.66	124.66	37.39	87.27	1
+425	2015-06-15	475	6	2	353.86	707.72	106.16	601.56	1
+426	2015-06-15	112	10	1	31.63	31.63	0.00	31.63	\N
+427	2015-06-16	93	4	1	159.51	159.51	0.00	159.51	\N
+428	2015-06-16	1	3	2	722.52	1445.04	0.00	1445.04	\N
+429	2015-06-16	458	4	2	141.17	282.34	0.00	282.34	\N
+430	2015-06-16	312	7	2	313.07	626.14	0.00	626.14	\N
+431	2015-06-17	523	7	2	320.86	641.72	64.18	577.54	1
+432	2015-06-17	574	6	1	322.68	322.68	16.13	306.55	\N
+433	2015-06-17	404	6	1	364.82	364.82	18.24	346.58	1
+434	2015-06-18	178	8	1	167.01	167.01	8.35	158.66	1
+435	2015-06-18	428	3	1	670.39	670.39	67.04	603.35	1
+436	2015-06-19	17	3	2	730.99	1461.98	0.00	1461.98	\N
+437	2015-06-20	87	3	2	719.91	1439.82	0.00	1439.82	\N
+438	2015-06-20	436	10	1	28.08	28.08	0.00	28.08	\N
+439	2015-06-20	364	4	1	140.57	140.57	0.00	140.57	\N
+440	2015-06-21	243	9	1	114.46	114.46	5.72	108.74	1
+441	2015-06-22	39	10	1	29.90	29.90	0.00	29.90	\N
+442	2015-06-23	82	3	1	732.23	732.23	0.00	732.23	\N
+443	2015-06-24	287	8	1	180.61	180.61	9.03	171.58	1
+444	2015-06-24	80	9	1	127.15	127.15	12.72	114.43	\N
+445	2015-06-24	12	8	1	178.35	178.35	8.92	169.43	1
+446	2015-06-25	362	5	1	239.46	239.46	35.92	203.54	\N
+447	2015-06-25	578	5	1	228.07	228.07	11.40	216.67	\N
+448	2015-06-25	299	10	2	27.16	54.32	2.72	51.60	\N
+449	2015-06-25	285	5	1	231.63	231.63	34.74	196.89	\N
+450	2015-06-25	155	8	2	175.31	350.62	70.12	280.50	1
+451	2015-06-26	541	1	1	193.71	193.71	9.69	184.02	\N
+452	2015-06-26	508	7	1	316.22	316.22	47.43	268.79	1
+453	2015-06-26	592	6	1	318.80	318.80	63.76	255.04	1
+454	2015-06-27	309	8	1	188.86	188.86	9.44	179.42	1
+455	2015-06-27	400	8	1	171.45	171.45	8.57	162.88	1
+456	2015-06-27	460	7	2	310.71	621.42	31.07	590.35	1
+457	2015-06-28	545	6	1	381.93	381.93	0.00	381.93	\N
+458	2015-06-28	344	5	2	238.35	476.70	71.50	405.20	\N
+459	2015-06-28	248	10	1	31.62	31.62	0.00	31.62	\N
+460	2015-06-29	321	9	1	108.25	108.25	10.83	97.42	\N
+461	2015-06-30	457	6	2	330.36	660.72	99.11	561.61	1
+462	2015-06-30	223	10	1	30.83	30.83	3.08	27.75	1
+463	2015-07-02	580	3	1	755.44	755.44	0.00	755.44	\N
+464	2015-07-02	78	8	1	195.22	195.22	19.52	175.70	\N
+465	2015-07-02	332	5	2	233.10	466.20	46.62	419.58	1
+466	2015-07-03	62	5	1	272.78	272.78	40.92	231.86	\N
+467	2015-07-03	183	8	1	165.90	165.90	0.00	165.90	\N
+468	2015-07-04	109	8	2	187.75	375.50	56.33	319.17	\N
+469	2015-07-04	20	8	1	167.36	167.36	0.00	167.36	\N
+470	2015-07-04	273	3	1	728.01	728.01	0.00	728.01	\N
+471	2015-07-04	503	8	2	177.70	355.40	0.00	355.40	\N
+472	2015-07-04	554	4	2	135.10	270.20	0.00	270.20	\N
+473	2015-07-04	581	9	1	130.44	130.44	0.00	130.44	\N
+474	2015-07-04	93	6	2	352.42	704.84	70.48	634.36	\N
+475	2015-07-04	297	4	1	140.30	140.30	21.05	119.25	1
+476	2015-07-04	400	2	1	461.76	461.76	46.18	415.58	\N
+477	2015-07-04	144	1	1	187.72	187.72	0.00	187.72	\N
+478	2015-07-05	65	9	2	123.44	246.88	0.00	246.88	\N
+479	2015-07-05	17	1	2	193.57	387.14	0.00	387.14	\N
+480	2015-07-05	217	9	1	119.00	119.00	5.95	113.05	1
+481	2015-07-06	594	4	1	162.74	162.74	16.28	146.46	1
+482	2015-07-06	47	4	1	156.04	156.04	7.80	148.24	\N
+483	2015-07-06	100	8	2	184.00	368.00	36.80	331.20	1
+484	2015-07-07	226	2	1	477.40	477.40	0.00	477.40	\N
+485	2015-07-07	412	6	2	323.46	646.92	32.35	614.57	1
+486	2015-07-07	219	1	2	203.72	407.44	20.37	387.07	\N
+487	2015-07-07	173	6	2	353.74	707.48	35.37	672.11	1
+488	2015-07-08	103	10	1	29.26	29.26	5.85	23.41	1
+489	2015-07-08	92	10	2	32.32	64.64	0.00	64.64	\N
+490	2015-07-09	130	4	1	139.29	139.29	13.93	125.36	\N
+491	2015-07-09	39	10	2	28.08	56.16	0.00	56.16	\N
+492	2015-07-10	309	6	2	344.32	688.64	34.43	654.21	\N
+493	2015-07-10	553	9	1	113.26	113.26	5.66	107.60	1
+494	2015-07-10	199	2	2	476.70	953.40	0.00	953.40	\N
+495	2015-07-11	181	3	1	723.82	723.82	144.76	579.06	1
+496	2015-07-11	258	6	2	358.18	716.36	35.82	680.54	1
+497	2015-07-11	54	9	2	112.22	224.44	11.22	213.22	1
+498	2015-07-12	241	8	1	183.34	183.34	27.50	155.84	1
+499	2015-07-12	113	6	1	330.94	330.94	49.64	281.30	1
+500	2015-07-12	226	2	2	447.39	894.78	44.74	850.04	1
+501	2015-07-13	466	3	1	684.23	684.23	171.06	513.17	\N
+502	2015-07-13	208	6	1	323.90	323.90	32.40	291.50	1
+503	2015-07-14	477	8	1	177.06	177.06	8.85	168.21	1
+504	2015-07-14	161	10	1	32.43	32.43	1.62	30.81	1
+505	2015-07-14	422	9	2	119.74	239.48	0.00	239.48	\N
+506	2015-07-14	286	1	1	209.20	209.20	10.46	198.74	1
+507	2015-07-14	594	4	2	161.75	323.50	16.18	307.32	\N
+508	2015-07-15	46	1	1	219.65	219.65	0.00	219.65	\N
+509	2015-07-15	404	8	2	191.15	382.30	57.35	324.95	1
+510	2015-07-15	572	1	1	207.73	207.73	10.39	197.34	1
+511	2015-07-15	245	2	2	406.43	812.86	81.29	731.57	\N
+512	2015-07-17	598	1	2	219.06	438.12	65.72	372.40	1
+513	2015-07-17	380	8	2	187.34	374.68	93.67	281.01	\N
+514	2015-07-17	304	7	2	315.17	630.34	0.00	630.34	\N
+515	2015-07-17	213	2	1	460.84	460.84	0.00	460.84	\N
+516	2015-07-17	373	1	2	184.44	368.88	18.44	350.44	1
+517	2015-07-17	180	9	1	124.92	124.92	6.25	118.67	1
+518	2015-07-18	343	4	2	151.19	302.38	0.00	302.38	\N
+519	2015-07-18	215	4	1	144.61	144.61	0.00	144.61	\N
+520	2015-07-19	56	2	1	438.55	438.55	0.00	438.55	\N
+521	2015-07-19	482	9	1	124.28	124.28	0.00	124.28	\N
+522	2015-07-19	68	4	2	161.76	323.52	32.36	291.16	1
+523	2015-07-19	79	2	1	419.83	419.83	20.99	398.84	\N
+524	2015-07-20	534	1	2	191.73	383.46	19.17	364.29	1
+525	2015-07-20	356	7	1	296.63	296.63	14.83	281.80	1
+526	2015-07-20	238	9	2	123.47	246.94	0.00	246.94	\N
+527	2015-07-20	335	8	2	183.36	366.72	0.00	366.72	\N
+528	2015-07-21	312	10	2	27.79	55.58	8.34	47.24	1
+529	2015-07-22	381	5	1	263.49	263.49	26.35	237.14	\N
+530	2015-07-23	165	9	2	114.85	229.70	0.00	229.70	\N
+531	2015-07-23	158	3	2	663.31	1326.62	132.66	1193.96	\N
+532	2015-07-23	379	3	1	658.72	658.72	0.00	658.72	\N
+533	2015-07-23	152	6	2	346.39	692.78	34.64	658.14	1
+534	2015-07-24	26	7	2	325.86	651.72	0.00	651.72	\N
+535	2015-07-24	160	1	1	218.81	218.81	0.00	218.81	\N
+536	2015-07-24	303	8	2	194.26	388.52	0.00	388.52	\N
+537	2015-07-24	151	10	2	31.37	62.74	3.14	59.60	1
+538	2015-07-24	491	1	2	185.58	371.16	0.00	371.16	\N
+539	2015-07-24	226	8	1	174.87	174.87	8.74	166.13	1
+540	2015-07-24	540	4	1	158.44	158.44	7.92	150.52	\N
+541	2015-07-24	457	2	1	492.83	492.83	0.00	492.83	\N
+542	2015-07-25	524	1	1	216.34	216.34	32.45	183.89	1
+543	2015-07-25	382	1	1	191.39	191.39	0.00	191.39	\N
+544	2015-07-25	90	4	1	156.84	156.84	0.00	156.84	\N
+545	2015-07-26	296	3	1	742.79	742.79	0.00	742.79	\N
+546	2015-07-26	143	10	2	30.59	61.18	6.12	55.06	\N
+547	2015-07-26	344	2	1	488.98	488.98	24.45	464.53	1
+548	2015-07-26	280	7	2	280.49	560.98	0.00	560.98	\N
+549	2015-07-26	205	3	2	746.52	1493.04	298.61	1194.43	\N
+550	2015-07-26	312	8	1	182.13	182.13	18.22	163.91	1
+551	2015-07-26	308	8	2	166.47	332.94	16.65	316.29	1
+552	2015-07-26	251	1	1	184.77	184.77	18.48	166.29	1
+553	2015-07-27	493	10	1	29.62	29.62	4.44	25.18	\N
+554	2015-07-27	123	6	2	350.88	701.76	35.09	666.67	1
+555	2015-07-27	60	3	1	674.76	674.76	67.48	607.28	1
+556	2015-07-28	370	7	2	308.17	616.34	61.63	554.71	\N
+557	2015-07-28	79	9	2	112.65	225.30	0.00	225.30	\N
+558	2015-07-28	172	9	2	115.74	231.48	0.00	231.48	\N
+559	2015-07-28	278	6	1	321.71	321.71	16.09	305.62	1
+560	2015-07-29	531	5	1	243.65	243.65	0.00	243.65	\N
+561	2015-07-29	105	4	1	139.64	139.64	6.98	132.66	\N
+562	2015-07-30	539	9	2	125.10	250.20	0.00	250.20	\N
+563	2015-07-30	79	2	2	478.70	957.40	47.87	909.53	1
+564	2015-08-01	372	3	2	744.39	1488.78	0.00	1488.78	\N
+565	2015-08-02	351	3	2	729.39	1458.78	72.94	1385.84	\N
+566	2015-08-02	146	4	1	144.22	144.22	7.21	137.01	\N
+567	2015-08-02	115	2	1	406.69	406.69	20.33	386.36	1
+568	2015-08-02	34	9	1	122.24	122.24	6.11	116.13	1
+569	2015-08-02	309	1	2	210.18	420.36	21.02	399.34	1
+570	2015-08-02	205	3	2	723.88	1447.76	72.39	1375.37	\N
+571	2015-08-03	594	6	1	339.65	339.65	0.00	339.65	\N
+572	2015-08-03	518	10	2	27.41	54.82	0.00	54.82	\N
+573	2015-08-05	197	5	2	233.59	467.18	23.36	443.82	\N
+574	2015-08-05	517	8	1	175.19	175.19	0.00	175.19	\N
+575	2015-08-05	186	6	1	383.69	383.69	0.00	383.69	\N
+576	2015-08-05	322	2	1	446.93	446.93	22.35	424.58	1
+577	2015-08-06	296	9	2	125.33	250.66	50.13	200.53	\N
+578	2015-08-07	320	8	2	170.13	340.26	0.00	340.26	\N
+579	2015-08-07	72	8	2	195.81	391.62	39.16	352.46	\N
+580	2015-08-07	406	8	1	180.82	180.82	18.08	162.74	\N
+581	2015-08-07	105	3	1	639.06	639.06	0.00	639.06	\N
+582	2015-08-07	414	2	2	425.96	851.92	0.00	851.92	\N
+583	2015-08-08	596	10	2	28.64	57.28	0.00	57.28	\N
+584	2015-08-08	488	10	1	32.70	32.70	1.64	31.06	1
+585	2015-08-08	466	2	1	416.00	416.00	0.00	416.00	\N
+586	2015-08-09	31	2	2	471.40	942.80	47.14	895.66	1
+587	2015-08-09	184	7	2	306.28	612.56	0.00	612.56	\N
+588	2015-08-09	79	9	1	126.42	126.42	0.00	126.42	\N
+589	2015-08-09	503	9	1	114.28	114.28	0.00	114.28	\N
+590	2015-08-09	33	7	1	322.81	322.81	48.42	274.39	1
+591	2015-08-10	471	1	2	181.31	362.62	18.13	344.49	1
+592	2015-08-10	169	8	1	177.50	177.50	0.00	177.50	\N
+593	2015-08-10	583	8	2	185.76	371.52	0.00	371.52	\N
+594	2015-08-11	161	9	2	109.34	218.68	32.80	185.88	\N
+595	2015-08-11	362	5	2	241.02	482.04	96.41	385.63	1
+596	2015-08-12	598	1	1	210.61	210.61	0.00	210.61	\N
+597	2015-08-12	366	7	1	291.08	291.08	0.00	291.08	\N
+598	2015-08-12	87	2	1	483.20	483.20	96.64	386.56	1
+599	2015-08-13	433	10	2	30.09	60.18	6.02	54.16	\N
+600	2015-08-13	325	7	2	304.22	608.44	91.26	517.18	1
+601	2015-08-13	211	6	1	349.77	349.77	17.49	332.28	1
+602	2015-08-13	307	6	2	382.86	765.72	114.86	650.86	\N
+603	2015-08-13	549	4	2	143.62	287.24	57.45	229.79	1
+604	2015-08-14	95	10	2	27.57	55.14	5.51	49.63	\N
+605	2015-08-15	356	2	1	463.64	463.64	0.00	463.64	\N
+606	2015-08-16	553	6	1	329.01	329.01	0.00	329.01	\N
+607	2015-08-16	561	3	2	753.33	1506.66	75.33	1431.33	1
+608	2015-08-17	512	4	2	154.82	309.64	15.48	294.16	1
+609	2015-08-17	546	10	1	32.12	32.12	0.00	32.12	\N
+610	2015-08-17	62	9	2	112.82	225.64	0.00	225.64	\N
+611	2015-08-17	308	7	2	294.62	589.24	0.00	589.24	\N
+612	2015-08-17	423	5	2	266.19	532.38	0.00	532.38	\N
+613	2015-08-17	416	4	1	138.41	138.41	13.84	124.57	1
+614	2015-08-18	498	9	1	131.79	131.79	6.59	125.20	1
+615	2015-08-19	280	3	1	634.08	634.08	0.00	634.08	\N
+616	2015-08-19	44	8	1	190.16	190.16	19.02	171.14	1
+617	2015-08-19	66	7	2	323.81	647.62	32.38	615.24	1
+618	2015-08-19	144	4	1	138.36	138.36	0.00	138.36	\N
+619	2015-08-19	595	9	1	114.04	114.04	5.70	108.34	1
+620	2015-08-20	321	6	2	373.26	746.52	0.00	746.52	\N
+621	2015-08-21	434	4	2	139.33	278.66	41.80	236.86	1
+622	2015-08-21	58	8	2	181.20	362.40	36.24	326.16	\N
+623	2015-08-22	253	5	2	268.97	537.94	0.00	537.94	\N
+624	2015-08-22	316	1	1	205.82	205.82	10.29	195.53	\N
+625	2015-08-23	246	5	2	252.64	505.28	25.26	480.02	1
+626	2015-08-23	125	9	1	128.81	128.81	0.00	128.81	\N
+627	2015-08-23	403	5	1	240.04	240.04	12.00	228.04	1
+628	2015-08-23	165	8	2	184.73	369.46	0.00	369.46	\N
+629	2015-08-24	35	5	2	268.32	536.64	0.00	536.64	\N
+630	2015-08-24	423	6	2	365.22	730.44	0.00	730.44	\N
+631	2015-08-25	268	9	2	109.59	219.18	0.00	219.18	\N
+632	2015-08-25	335	8	2	187.03	374.06	18.70	355.36	1
+633	2015-08-25	455	3	2	630.43	1260.86	189.13	1071.73	1
+634	2015-08-26	162	4	2	150.49	300.98	0.00	300.98	\N
+635	2015-08-26	421	6	1	346.60	346.60	17.33	329.27	\N
+636	2015-08-26	336	5	2	234.93	469.86	46.99	422.87	\N
+637	2015-08-26	585	4	2	135.62	271.24	40.69	230.55	\N
+638	2015-08-27	92	8	2	169.14	338.28	33.83	304.45	\N
+639	2015-08-28	267	3	1	642.47	642.47	32.12	610.35	1
+640	2015-08-28	539	7	1	316.40	316.40	0.00	316.40	\N
+641	2015-08-28	230	4	2	140.72	281.44	14.07	267.37	1
+642	2015-08-28	507	7	1	277.81	277.81	0.00	277.81	\N
+643	2015-08-28	290	4	1	147.55	147.55	14.76	132.79	\N
+644	2015-08-29	242	10	2	29.71	59.42	8.91	50.51	\N
+645	2015-08-29	11	8	2	166.80	333.60	0.00	333.60	\N
+646	2015-08-30	393	7	1	314.17	314.17	31.42	282.75	1
+647	2015-08-30	241	8	1	194.70	194.70	0.00	194.70	\N
+648	2015-08-31	47	1	1	190.15	190.15	9.51	180.64	1
+649	2015-08-31	380	3	1	765.53	765.53	38.28	727.25	1
+650	2015-08-31	516	8	1	195.49	195.49	19.55	175.94	\N
+651	2015-08-31	444	3	1	666.46	666.46	0.00	666.46	\N
+652	2015-08-31	288	6	2	379.84	759.68	75.97	683.71	\N
+653	2015-09-01	271	9	1	115.51	115.51	0.00	115.51	\N
+654	2015-09-02	155	9	2	128.47	256.94	12.85	244.09	1
+655	2015-09-02	153	1	1	189.19	189.19	37.84	151.35	\N
+656	2015-09-02	507	1	2	197.66	395.32	0.00	395.32	\N
+657	2015-09-02	116	3	1	647.31	647.31	97.10	550.21	\N
+658	2015-09-02	280	10	1	32.35	32.35	0.00	32.35	\N
+659	2015-09-02	539	10	2	28.08	56.16	0.00	56.16	\N
+660	2015-09-03	97	6	1	316.82	316.82	15.84	300.98	1
+661	2015-09-03	109	6	1	325.76	325.76	48.86	276.90	\N
+662	2015-09-03	276	10	1	30.95	30.95	4.65	26.30	1
+663	2015-09-03	583	3	1	659.59	659.59	98.94	560.65	\N
+664	2015-09-03	73	9	2	130.85	261.70	13.09	248.61	1
+665	2015-09-04	409	2	1	406.85	406.85	61.03	345.82	1
+666	2015-09-04	158	2	2	431.87	863.74	0.00	863.74	\N
+667	2015-09-04	135	6	2	361.59	723.18	0.00	723.18	\N
+668	2015-09-04	398	8	2	171.67	343.34	34.33	309.01	\N
+669	2015-09-05	191	7	1	307.84	307.84	46.18	261.66	\N
+670	2015-09-05	230	3	2	760.29	1520.58	76.03	1444.55	1
+671	2015-09-05	480	7	2	274.75	549.50	0.00	549.50	\N
+672	2015-09-06	308	4	2	150.69	301.38	15.07	286.31	\N
+673	2015-09-06	526	2	1	450.96	450.96	0.00	450.96	\N
+674	2015-09-07	260	6	2	332.84	665.68	199.70	465.98	1
+675	2015-09-07	187	7	1	272.72	272.72	13.64	259.08	1
+676	2015-09-07	466	8	1	184.46	184.46	18.44	166.02	1
+677	2015-09-09	266	2	2	444.04	888.08	133.21	754.87	\N
+678	2015-09-10	472	7	2	322.13	644.26	0.00	644.26	\N
+679	2015-09-10	370	7	1	318.28	318.28	31.83	286.45	\N
+680	2015-09-10	193	1	2	188.37	376.74	0.00	376.74	\N
+681	2015-09-10	552	4	2	137.58	275.16	41.28	233.88	1
+682	2015-09-10	171	3	1	733.43	733.43	36.67	696.76	1
+683	2015-09-10	461	10	2	28.46	56.92	11.39	45.53	1
+684	2015-09-10	443	7	2	320.92	641.84	0.00	641.84	\N
+685	2015-09-10	298	1	2	199.50	399.00	0.00	399.00	\N
+686	2015-09-11	500	4	2	156.43	312.86	15.64	297.22	1
+687	2015-09-11	66	5	2	269.64	539.28	0.00	539.28	\N
+688	2015-09-12	356	8	1	187.11	187.11	18.71	168.40	\N
+689	2015-09-13	449	4	2	150.23	300.46	0.00	300.46	\N
+690	2015-09-14	480	3	2	753.64	1507.28	0.00	1507.28	\N
+691	2015-09-14	369	8	2	190.79	381.58	19.08	362.50	1
+692	2015-09-14	89	8	1	166.65	166.65	25.00	141.65	\N
+693	2015-09-15	506	5	1	236.74	236.74	11.84	224.90	1
+694	2015-09-16	268	6	1	362.38	362.38	90.60	271.78	1
+695	2015-09-16	117	10	1	28.36	28.36	0.00	28.36	\N
+696	2015-09-16	364	1	1	210.80	210.80	0.00	210.80	\N
+697	2015-09-17	528	10	1	31.02	31.02	0.00	31.02	\N
+698	2015-09-17	469	2	1	492.72	492.72	0.00	492.72	\N
+699	2015-09-17	105	9	1	109.01	109.01	21.80	87.21	\N
+700	2015-09-17	161	5	1	260.41	260.41	0.00	260.41	\N
+701	2015-09-17	158	6	2	338.42	676.84	33.84	643.00	\N
+702	2015-09-18	7	4	2	160.04	320.08	16.00	304.08	1
+703	2015-09-18	273	6	2	365.06	730.12	36.51	693.61	1
+704	2015-09-18	543	7	2	317.23	634.46	63.45	571.01	\N
+705	2015-09-18	470	9	1	127.07	127.07	6.35	120.72	\N
+706	2015-09-19	530	2	2	412.63	825.26	41.26	784.00	1
+707	2015-09-19	63	7	2	315.55	631.10	0.00	631.10	\N
+708	2015-09-19	60	9	1	131.34	131.34	0.00	131.34	\N
+709	2015-09-19	312	6	2	378.65	757.30	75.73	681.57	\N
+710	2015-09-19	151	7	1	296.77	296.77	44.52	252.25	\N
+711	2015-09-20	453	6	2	377.14	754.28	37.71	716.57	1
+712	2015-09-20	309	2	2	408.33	816.66	0.00	816.66	\N
+713	2015-09-20	130	9	1	131.81	131.81	13.18	118.63	1
+714	2015-09-20	349	3	1	633.28	633.28	31.66	601.62	1
+715	2015-09-20	312	7	1	329.22	329.22	32.92	296.30	1
+716	2015-09-21	520	6	1	323.67	323.67	0.00	323.67	\N
+717	2015-09-22	587	1	1	198.13	198.13	0.00	198.13	\N
+718	2015-09-23	580	9	2	128.27	256.54	25.65	230.89	\N
+719	2015-09-23	587	3	2	730.01	1460.02	73.00	1387.02	1
+720	2015-09-23	597	4	1	159.69	159.69	15.97	143.72	\N
+721	2015-09-24	84	2	1	410.60	410.60	0.00	410.60	\N
+722	2015-09-24	379	9	1	117.67	117.67	0.00	117.67	\N
+723	2015-09-24	599	8	2	184.91	369.82	0.00	369.82	\N
+724	2015-09-25	427	3	2	650.21	1300.42	195.06	1105.36	\N
+725	2015-09-26	526	9	1	110.83	110.83	16.62	94.21	\N
+726	2015-09-26	379	2	2	459.14	918.28	137.74	780.54	1
+727	2015-09-26	157	2	2	438.43	876.86	0.00	876.86	\N
+728	2015-09-26	147	3	1	739.73	739.73	36.99	702.74	1
+729	2015-09-27	291	4	1	140.49	140.49	21.07	119.42	1
+730	2015-09-27	46	7	2	298.87	597.74	29.89	567.85	1
+731	2015-09-27	387	8	2	192.04	384.08	19.20	364.88	\N
+732	2015-09-28	472	8	2	186.02	372.04	55.81	316.23	\N
+733	2015-09-28	420	7	1	283.97	283.97	0.00	283.97	\N
+734	2015-09-28	454	5	1	257.30	257.30	0.00	257.30	\N
+735	2015-09-29	317	9	2	123.48	246.96	12.35	234.61	\N
+736	2015-09-29	535	4	1	157.52	157.52	7.88	149.64	\N
+737	2015-09-29	282	4	1	142.36	142.36	0.00	142.36	\N
+738	2015-09-29	547	10	2	28.92	57.84	0.00	57.84	\N
+739	2015-09-30	349	7	1	280.83	280.83	56.16	224.67	1
+740	2015-09-30	118	2	2	453.76	907.52	90.76	816.76	1
+741	2015-10-01	315	7	2	310.72	621.44	124.29	497.15	1
+742	2015-10-01	102	6	2	324.97	649.94	0.00	649.94	\N
+743	2015-10-02	124	1	1	188.10	188.10	0.00	188.10	\N
+744	2015-10-02	517	7	2	326.96	653.92	65.39	588.53	\N
+745	2015-10-03	496	1	2	196.30	392.60	19.63	372.97	\N
+746	2015-10-04	104	4	1	157.89	157.89	15.79	142.10	\N
+747	2015-10-04	513	4	2	158.49	316.98	47.55	269.43	\N
+748	2015-10-05	551	7	2	327.68	655.36	65.54	589.82	\N
+749	2015-10-05	297	3	1	630.08	630.08	0.00	630.08	\N
+750	2015-10-05	390	6	1	373.97	373.97	74.80	299.17	1
+751	2015-10-06	547	10	1	27.42	27.42	5.48	21.94	\N
+752	2015-10-06	287	7	2	282.65	565.30	0.00	565.30	\N
+753	2015-10-06	351	5	2	273.98	547.96	0.00	547.96	\N
+754	2015-10-06	330	6	2	329.74	659.48	0.00	659.48	\N
+755	2015-10-06	137	1	2	204.35	408.70	20.44	388.26	\N
+756	2015-10-06	501	7	1	302.29	302.29	15.11	287.18	1
+757	2015-10-06	32	8	1	186.20	186.20	0.00	186.20	\N
+758	2015-10-07	367	7	1	280.63	280.63	14.03	266.60	1
+759	2015-10-08	474	6	1	380.54	380.54	19.03	361.51	1
+760	2015-10-09	288	6	1	328.41	328.41	0.00	328.41	\N
+761	2015-10-11	227	4	2	164.40	328.80	32.88	295.92	\N
+762	2015-10-11	215	1	1	187.84	187.84	0.00	187.84	\N
+763	2015-10-11	583	9	2	119.86	239.72	0.00	239.72	\N
+764	2015-10-12	579	3	2	639.15	1278.30	127.83	1150.47	\N
+765	2015-10-12	281	4	2	160.43	320.86	48.13	272.73	\N
+766	2015-10-12	574	8	1	162.07	162.07	0.00	162.07	\N
+767	2015-10-12	331	7	2	320.66	641.32	64.13	577.19	\N
+768	2015-10-13	530	1	2	215.35	430.70	43.07	387.63	\N
+769	2015-10-14	324	1	2	195.67	391.34	0.00	391.34	\N
+770	2015-10-14	232	7	1	327.47	327.47	49.12	278.35	1
+771	2015-10-14	100	1	2	199.20	398.40	0.00	398.40	\N
+772	2015-10-15	343	5	1	237.36	237.36	0.00	237.36	\N
+773	2015-10-15	342	9	1	127.06	127.06	0.00	127.06	\N
+774	2015-10-16	98	8	2	182.84	365.68	36.56	329.12	1
+775	2015-10-16	67	3	1	638.68	638.68	95.80	542.88	1
+776	2015-10-17	58	9	1	109.25	109.25	0.00	109.25	\N
+777	2015-10-17	421	4	2	160.94	321.88	0.00	321.88	\N
+778	2015-10-17	476	7	2	322.80	645.60	0.00	645.60	\N
+779	2015-10-18	27	8	1	180.62	180.62	9.03	171.59	\N
+780	2015-10-18	70	10	1	31.74	31.74	9.52	22.22	1
+781	2015-10-18	493	10	2	29.67	59.34	8.90	50.44	\N
+782	2015-10-19	526	6	2	336.78	673.56	33.68	639.88	1
+783	2015-10-21	317	10	2	29.06	58.12	5.82	52.30	1
+784	2015-10-21	520	9	2	128.61	257.22	12.86	244.36	\N
+785	2015-10-21	207	2	2	435.74	871.48	0.00	871.48	\N
+786	2015-10-21	340	10	1	30.40	30.40	1.52	28.88	1
+787	2015-10-21	108	8	2	193.54	387.08	0.00	387.08	\N
+788	2015-10-21	229	4	2	149.00	298.00	29.80	268.20	\N
+789	2015-10-21	340	7	2	282.32	564.64	56.46	508.18	1
+790	2015-10-22	31	9	1	110.76	110.76	5.54	105.22	\N
+791	2015-10-22	369	1	1	219.01	219.01	43.80	175.21	\N
+792	2015-10-22	348	9	1	113.90	113.90	5.70	108.20	\N
+793	2015-10-22	22	3	1	683.05	683.05	68.30	614.75	1
+794	2015-10-23	246	6	1	371.66	371.66	0.00	371.66	\N
+795	2015-10-23	445	2	1	415.66	415.66	41.56	374.10	1
+796	2015-10-23	388	6	2	337.26	674.52	0.00	674.52	\N
+797	2015-10-23	194	9	1	115.06	115.06	17.26	97.80	\N
+798	2015-10-24	521	10	1	32.32	32.32	1.62	30.70	\N
+799	2015-10-25	67	3	2	701.21	1402.42	0.00	1402.42	\N
+800	2015-10-25	511	9	2	119.14	238.28	0.00	238.28	\N
+801	2015-10-25	507	8	2	171.66	343.32	0.00	343.32	\N
+802	2015-10-25	38	4	2	141.59	283.18	28.32	254.86	1
+803	2015-10-26	387	10	2	27.94	55.88	2.79	53.09	1
+804	2015-10-27	87	5	2	247.23	494.46	0.00	494.46	\N
+805	2015-10-28	345	7	1	297.07	297.07	0.00	297.07	\N
+806	2015-10-28	280	7	1	271.48	271.48	13.57	257.91	1
+807	2015-10-28	85	5	1	267.13	267.13	0.00	267.13	\N
+808	2015-10-28	234	2	2	415.67	831.34	41.57	789.77	1
+809	2015-10-28	338	5	1	240.14	240.14	12.01	228.13	1
+810	2015-10-28	142	9	1	129.90	129.90	19.49	110.41	1
+811	2015-10-28	414	7	2	319.31	638.62	31.93	606.69	\N
+812	2015-10-29	234	4	1	156.70	156.70	7.83	148.87	\N
+813	2015-10-29	480	8	2	174.26	348.52	17.43	331.09	\N
+814	2015-10-29	428	4	1	148.16	148.16	7.41	140.75	\N
+815	2015-10-30	132	5	2	272.17	544.34	108.87	435.47	1
+816	2015-10-31	430	7	2	311.15	622.30	0.00	622.30	\N
+817	2015-10-31	334	10	2	27.14	54.28	2.71	51.57	1
+818	2015-10-31	339	10	2	30.78	61.56	0.00	61.56	\N
+819	2015-10-31	391	4	1	163.46	163.46	32.69	130.77	1
+820	2015-10-31	463	5	1	229.66	229.66	68.89	160.77	1
+821	2015-11-01	204	2	1	487.02	487.02	24.35	462.67	1
+822	2015-11-02	537	2	1	445.92	445.92	44.59	401.33	\N
+823	2015-11-02	421	7	2	279.42	558.84	83.83	475.01	\N
+824	2015-11-02	399	4	1	138.90	138.90	13.89	125.01	\N
+825	2015-11-03	163	10	1	30.45	30.45	0.00	30.45	\N
+826	2015-11-03	470	5	2	235.09	470.18	0.00	470.18	\N
+827	2015-11-03	253	9	1	115.89	115.89	0.00	115.89	\N
+828	2015-11-04	41	2	1	430.91	430.91	0.00	430.91	\N
+829	2015-11-04	305	7	1	306.78	306.78	30.68	276.10	1
+830	2015-11-05	443	8	1	175.85	175.85	8.79	167.06	1
+831	2015-11-05	45	4	1	161.57	161.57	24.24	137.33	\N
+832	2015-11-05	69	4	2	162.26	324.52	16.23	308.29	1
+833	2015-11-05	378	2	2	472.99	945.98	0.00	945.98	\N
+834	2015-11-05	169	5	2	235.37	470.74	94.15	376.59	1
+835	2015-11-06	409	4	2	146.90	293.80	29.38	264.42	1
+836	2015-11-06	476	8	2	178.61	357.22	53.58	303.64	\N
+837	2015-11-07	144	8	2	191.54	383.08	19.15	363.93	\N
+838	2015-11-07	182	5	2	231.21	462.42	23.12	439.30	\N
+839	2015-11-07	158	8	1	174.89	174.89	8.74	166.15	\N
+840	2015-11-08	453	1	1	213.46	213.46	0.00	213.46	\N
+841	2015-11-09	106	7	2	311.42	622.84	31.14	591.70	1
+842	2015-11-09	387	4	1	162.86	162.86	8.14	154.72	1
+843	2015-11-09	432	1	1	219.57	219.57	21.96	197.61	1
+844	2015-11-10	99	3	1	731.36	731.36	219.41	511.95	1
+845	2015-11-11	195	10	2	28.24	56.48	2.82	53.66	1
+846	2015-11-11	219	2	1	437.09	437.09	65.56	371.53	1
+847	2015-11-12	218	8	2	169.92	339.84	0.00	339.84	\N
+848	2015-11-12	45	2	1	484.69	484.69	0.00	484.69	\N
+849	2015-11-12	105	9	1	126.99	126.99	6.35	120.64	1
+850	2015-11-13	98	10	2	28.95	57.90	0.00	57.90	\N
+851	2015-11-14	137	6	2	327.27	654.54	0.00	654.54	\N
+852	2015-11-15	494	2	1	435.16	435.16	21.76	413.40	1
+853	2015-11-15	239	9	1	122.10	122.10	0.00	122.10	\N
+854	2015-11-15	128	5	2	236.82	473.64	23.68	449.96	1
+855	2015-11-16	141	6	1	349.91	349.91	52.49	297.42	1
+856	2015-11-17	455	6	2	324.40	648.80	32.44	616.36	1
+857	2015-11-17	425	5	1	262.53	262.53	52.51	210.02	1
+858	2015-11-17	553	1	2	216.27	432.54	0.00	432.54	\N
+859	2015-11-17	228	10	1	32.24	32.24	3.22	29.02	1
+860	2015-11-18	504	2	2	490.83	981.66	98.16	883.50	1
+861	2015-11-18	178	10	1	30.29	30.29	0.00	30.29	\N
+862	2015-11-18	437	8	2	173.21	346.42	17.32	329.10	1
+863	2015-11-19	255	5	2	239.27	478.54	23.93	454.61	1
+864	2015-11-19	493	2	2	490.59	981.18	0.00	981.18	\N
+865	2015-11-19	433	9	2	122.63	245.26	36.79	208.47	1
+866	2015-11-19	391	7	1	321.24	321.24	0.00	321.24	\N
+867	2015-11-19	157	9	1	125.44	125.44	18.81	106.63	1
+868	2015-11-19	576	10	1	29.89	29.89	1.49	28.40	1
+869	2015-11-20	195	1	1	180.51	180.51	0.00	180.51	\N
+870	2015-11-20	426	7	1	328.23	328.23	0.00	328.23	\N
+871	2015-11-20	73	7	2	323.10	646.20	64.62	581.58	1
+872	2015-11-22	447	5	1	263.56	263.56	0.00	263.56	\N
+873	2015-11-22	378	1	2	206.04	412.08	20.60	391.48	1
+874	2015-11-22	36	6	1	359.17	359.17	0.00	359.17	\N
+875	2015-11-23	268	10	1	29.73	29.73	0.00	29.73	\N
+876	2015-11-23	166	1	2	184.67	369.34	73.87	295.47	1
+877	2015-11-23	83	9	2	129.84	259.68	38.95	220.73	1
+878	2015-11-23	310	9	2	131.22	262.44	13.12	249.32	1
+879	2015-11-24	422	2	1	414.83	414.83	0.00	414.83	\N
+880	2015-11-25	276	4	1	162.90	162.90	0.00	162.90	\N
+881	2015-11-25	504	1	2	183.87	367.74	0.00	367.74	\N
+882	2015-11-26	296	7	1	280.24	280.24	14.01	266.23	1
+883	2015-11-27	187	9	1	130.76	130.76	6.54	124.22	1
+884	2015-11-28	61	3	2	743.29	1486.58	148.66	1337.92	\N
+885	2015-11-28	112	3	2	641.17	1282.34	128.24	1154.10	1
+886	2015-11-28	600	4	2	149.34	298.68	29.86	268.82	1
+887	2015-11-29	8	10	1	31.74	31.74	3.18	28.56	1
+888	2015-11-29	533	5	1	271.61	271.61	0.00	271.61	\N
+889	2015-11-29	380	6	2	384.96	769.92	0.00	769.92	\N
+890	2015-11-29	388	10	2	27.34	54.68	2.73	51.95	1
+891	2015-11-29	468	7	2	313.51	627.02	31.35	595.67	\N
+892	2015-11-30	287	4	1	146.05	146.05	0.00	146.05	\N
+893	2015-11-30	424	4	2	135.09	270.18	13.51	256.67	1
+894	2015-11-30	369	1	2	218.78	437.56	21.88	415.68	1
+895	2015-11-30	497	7	1	314.35	314.35	0.00	314.35	\N
+896	2015-12-01	488	2	1	471.08	471.08	23.55	447.53	\N
+897	2015-12-02	586	9	2	108.76	217.52	32.63	184.89	1
+898	2015-12-02	457	2	1	448.40	448.40	22.42	425.98	1
+899	2015-12-02	92	2	2	444.14	888.28	88.83	799.45	\N
+900	2015-12-02	288	4	1	156.58	156.58	0.00	156.58	\N
+901	2015-12-02	140	9	2	123.21	246.42	12.32	234.10	1
+902	2015-12-03	230	10	1	31.60	31.60	1.58	30.02	1
+903	2015-12-03	391	9	1	131.19	131.19	6.56	124.63	1
+904	2015-12-03	298	2	2	415.02	830.04	41.50	788.54	1
+905	2015-12-04	119	10	2	29.21	58.42	0.00	58.42	\N
+906	2015-12-05	2	5	1	228.09	228.09	0.00	228.09	\N
+907	2015-12-05	328	6	2	370.83	741.66	74.16	667.50	1
+908	2015-12-06	10	9	1	128.46	128.46	6.42	122.04	1
+909	2015-12-06	225	8	2	186.48	372.96	55.94	317.02	\N
+910	2015-12-07	317	9	1	131.77	131.77	19.77	112.00	\N
+911	2015-12-07	221	8	2	172.49	344.98	51.75	293.23	1
+912	2015-12-07	216	4	2	156.01	312.02	15.60	296.42	\N
+913	2015-12-08	307	3	1	768.75	768.75	0.00	768.75	\N
+914	2015-12-08	357	7	2	293.46	586.92	0.00	586.92	\N
+915	2015-12-09	200	9	1	117.45	117.45	23.49	93.96	1
+916	2015-12-10	312	8	1	185.57	185.57	0.00	185.57	\N
+917	2015-12-10	149	4	1	141.54	141.54	7.08	134.46	1
+918	2015-12-10	590	2	1	466.05	466.05	46.61	419.44	\N
+919	2015-12-11	173	1	1	183.84	183.84	18.38	165.46	1
+920	2015-12-12	528	6	2	356.54	713.08	0.00	713.08	\N
+921	2015-12-12	35	2	1	426.68	426.68	0.00	426.68	\N
+922	2015-12-12	385	2	1	475.00	475.00	23.75	451.25	1
+923	2015-12-13	456	6	1	315.81	315.81	15.79	300.02	\N
+924	2015-12-13	522	4	2	135.69	271.38	13.57	257.81	1
+925	2015-12-13	97	10	1	28.09	28.09	0.00	28.09	\N
+926	2015-12-14	586	3	2	643.92	1287.84	321.96	965.88	1
+927	2015-12-14	550	9	2	119.73	239.46	0.00	239.46	\N
+928	2015-12-14	128	4	1	163.97	163.97	16.40	147.57	1
+929	2015-12-14	458	6	1	323.61	323.61	32.36	291.25	1
+930	2015-12-15	263	1	1	183.38	183.38	18.34	165.04	\N
+931	2015-12-15	434	1	2	189.93	379.86	75.97	303.89	1
+932	2015-12-15	547	8	2	167.03	334.06	0.00	334.06	\N
+933	2015-12-16	361	10	1	30.23	30.23	3.02	27.21	1
+934	2015-12-16	38	4	1	139.25	139.25	6.96	132.29	1
+935	2015-12-17	566	4	2	152.75	305.50	61.10	244.40	1
+936	2015-12-18	262	5	2	244.09	488.18	24.41	463.77	1
+937	2015-12-18	261	7	2	326.41	652.82	97.92	554.90	\N
+938	2015-12-19	198	6	1	354.45	354.45	17.72	336.73	1
+939	2015-12-19	158	6	2	384.47	768.94	76.90	692.04	1
+940	2015-12-20	128	9	2	110.64	221.28	22.12	199.16	1
+941	2015-12-21	342	5	2	232.32	464.64	23.23	441.41	1
+942	2015-12-22	228	7	2	327.11	654.22	65.42	588.80	\N
+943	2015-12-22	502	2	1	452.61	452.61	0.00	452.61	\N
+944	2015-12-22	102	1	2	186.83	373.66	18.68	354.98	1
+945	2015-12-22	545	9	1	122.27	122.27	6.11	116.16	1
+946	2015-12-22	10	9	1	125.12	125.12	18.77	106.35	1
+947	2015-12-22	380	4	1	155.35	155.35	0.00	155.35	\N
+948	2015-12-23	363	8	1	180.08	180.08	18.01	162.07	\N
+949	2015-12-24	235	5	2	256.78	513.56	77.04	436.52	1
+950	2015-12-25	93	2	1	411.90	411.90	61.78	350.12	1
+951	2015-12-25	293	9	1	130.31	130.31	13.03	117.28	\N
+952	2015-12-25	140	8	1	179.92	179.92	0.00	179.92	\N
+953	2015-12-25	128	7	2	270.83	541.66	135.41	406.25	\N
+954	2015-12-26	354	4	2	164.83	329.66	0.00	329.66	\N
+955	2015-12-26	541	10	1	27.25	27.25	2.72	24.53	1
+956	2015-12-27	376	3	2	701.92	1403.84	70.19	1333.65	1
+957	2015-12-28	383	2	1	435.42	435.42	0.00	435.42	\N
+958	2015-12-29	121	5	2	239.96	479.92	95.99	383.93	1
+959	2015-12-29	313	9	1	127.82	127.82	12.78	115.04	\N
+960	2015-12-30	59	6	2	315.41	630.82	31.54	599.28	1
+961	2015-12-30	359	3	1	686.29	686.29	102.94	583.35	1
+962	2015-12-30	527	3	1	687.50	687.50	103.13	584.37	1
+963	2015-12-30	405	6	2	335.95	671.90	100.78	571.12	1
+964	2015-12-30	450	8	2	167.83	335.66	16.78	318.88	1
+965	2015-12-30	204	2	2	422.06	844.12	126.62	717.50	1
+966	2016-01-01	33	3	2	723.27	1446.54	0.00	1446.54	\N
+967	2016-01-02	122	7	2	299.34	598.68	29.93	568.75	1
+968	2016-01-02	410	9	1	125.42	125.42	6.27	119.15	1
+969	2016-01-02	111	1	1	185.04	185.04	18.50	166.54	1
+970	2016-01-02	351	7	2	328.59	657.18	32.86	624.32	1
+971	2016-01-03	498	2	2	473.48	946.96	94.70	852.26	1
+972	2016-01-03	288	2	2	482.78	965.56	0.00	965.56	\N
+973	2016-01-03	204	8	1	187.43	187.43	0.00	187.43	\N
+974	2016-01-03	186	4	2	164.78	329.56	16.48	313.08	1
+975	2016-01-04	136	7	1	272.30	272.30	0.00	272.30	\N
+976	2016-01-04	205	2	2	482.79	965.58	0.00	965.58	\N
+977	2016-01-04	237	4	2	145.09	290.18	0.00	290.18	\N
+978	2016-01-05	312	2	2	429.23	858.46	128.77	729.69	1
+979	2016-01-06	49	3	1	635.72	635.72	127.15	508.57	1
+980	2016-01-06	287	10	2	27.60	55.20	8.28	46.92	1
+981	2016-01-07	100	1	1	207.32	207.32	20.73	186.59	\N
+982	2016-01-07	371	10	2	30.17	60.34	3.02	57.32	1
+983	2016-01-07	394	2	2	484.85	969.70	193.95	775.75	1
+984	2016-01-07	196	4	1	156.14	156.14	23.42	132.72	1
+985	2016-01-08	486	4	1	151.01	151.01	22.65	128.36	\N
+986	2016-01-08	574	6	1	377.64	377.64	0.00	377.64	\N
+987	2016-01-08	70	8	2	177.08	354.16	17.71	336.45	1
+988	2016-01-08	281	3	1	670.55	670.55	33.53	637.02	\N
+989	2016-01-08	408	8	1	186.65	186.65	9.33	177.32	1
+990	2016-01-09	522	7	1	303.75	303.75	15.19	288.56	1
+991	2016-01-09	4	3	2	710.07	1420.14	142.01	1278.13	\N
+992	2016-01-09	538	5	2	240.17	480.34	96.07	384.27	1
+993	2016-01-10	230	1	1	201.34	201.34	50.34	151.00	\N
+994	2016-01-11	277	1	1	205.70	205.70	20.58	185.12	1
+995	2016-01-11	356	10	1	32.83	32.83	0.00	32.83	\N
+996	2016-01-11	271	3	2	687.17	1374.34	68.72	1305.62	1
+997	2016-01-12	11	6	2	330.35	660.70	33.04	627.66	\N
+998	2016-01-12	598	2	2	470.03	940.06	47.00	893.06	1
+999	2016-01-13	565	4	1	159.51	159.51	15.95	143.56	\N
+1000	2016-01-13	405	3	1	692.45	692.45	34.62	657.83	1
+1001	2016-01-13	491	2	1	449.64	449.64	22.48	427.16	1
+1002	2016-01-13	584	8	2	195.96	391.92	58.79	333.13	\N
+1003	2016-01-14	404	10	2	28.13	56.26	5.63	50.63	\N
+1004	2016-01-14	413	2	2	470.19	940.38	94.04	846.34	1
+1005	2016-01-14	22	2	2	479.39	958.78	47.94	910.84	1
+1006	2016-01-15	255	2	2	429.09	858.18	0.00	858.18	\N
+1007	2016-01-15	10	2	2	453.81	907.62	45.38	862.24	1
+1008	2016-01-15	143	8	2	189.35	378.70	18.93	359.77	1
+1009	2016-01-15	491	3	1	664.13	664.13	0.00	664.13	\N
+1010	2016-01-16	22	1	2	184.11	368.22	55.23	312.99	\N
+1011	2016-01-16	2	4	1	135.72	135.72	20.36	115.36	1
+1012	2016-01-16	394	2	1	449.26	449.26	0.00	449.26	\N
+1013	2016-01-16	289	6	2	320.34	640.68	0.00	640.68	\N
+1014	2016-01-17	87	1	1	204.18	204.18	40.84	163.34	1
+1015	2016-01-17	436	3	2	755.04	1510.08	75.50	1434.58	1
+1016	2016-01-17	107	5	1	270.81	270.81	0.00	270.81	\N
+1017	2016-01-17	79	1	1	214.47	214.47	10.72	203.75	1
+1018	2016-01-18	152	7	2	296.80	593.60	0.00	593.60	\N
+1019	2016-01-18	116	10	2	29.56	59.12	5.91	53.21	\N
+1020	2016-01-18	187	7	1	291.16	291.16	0.00	291.16	\N
+1021	2016-01-18	342	3	1	742.30	742.30	0.00	742.30	\N
+1022	2016-01-19	510	9	2	120.81	241.62	12.08	229.54	1
+1023	2016-01-19	595	7	1	301.62	301.62	15.08	286.54	1
+1024	2016-01-19	90	4	2	145.85	291.70	14.59	277.11	\N
+1025	2016-01-20	137	2	2	410.36	820.72	0.00	820.72	\N
+1026	2016-01-21	143	5	1	248.02	248.02	0.00	248.02	\N
+1027	2016-01-23	432	4	2	141.32	282.64	70.66	211.98	1
+1028	2016-01-23	27	7	2	292.30	584.60	29.23	555.37	1
+1029	2016-01-23	162	1	1	185.88	185.88	37.17	148.71	1
+1030	2016-01-24	187	8	2	188.77	377.54	18.88	358.66	1
+1031	2016-01-25	422	6	2	346.08	692.16	69.22	622.94	1
+1032	2016-01-25	33	10	1	31.51	31.51	3.15	28.36	\N
+1033	2016-01-25	466	9	2	125.07	250.14	37.52	212.62	\N
+1034	2016-01-25	434	3	2	668.06	1336.12	200.42	1135.70	1
+1035	2016-01-26	217	7	2	307.14	614.28	30.71	583.57	\N
+1036	2016-01-26	80	8	1	179.19	179.19	8.96	170.23	1
+1037	2016-01-26	56	6	2	360.27	720.54	108.08	612.46	\N
+1038	2016-01-26	344	1	2	189.58	379.16	37.92	341.24	\N
+1039	2016-01-27	317	4	2	151.55	303.10	45.47	257.63	1
+1040	2016-01-27	584	10	1	27.27	27.27	1.36	25.91	1
+1041	2016-01-28	96	5	2	225.42	450.84	22.54	428.30	1
+1042	2016-01-28	200	6	1	367.63	367.63	0.00	367.63	\N
+1043	2016-01-28	100	6	1	343.51	343.51	34.36	309.15	1
+1044	2016-01-28	392	8	1	183.11	183.11	9.16	173.95	1
+1045	2016-01-28	475	2	2	484.67	969.34	193.87	775.47	1
+1046	2016-01-28	145	3	1	769.08	769.08	0.00	769.08	\N
+1047	2016-01-29	536	6	1	346.32	346.32	34.63	311.69	\N
+1048	2016-01-29	442	1	2	215.63	431.26	21.56	409.70	1
+1049	2016-01-29	77	3	2	709.37	1418.74	141.88	1276.86	1
+1050	2016-01-29	317	9	1	128.82	128.82	0.00	128.82	\N
+1051	2016-02-01	466	6	1	326.88	326.88	32.68	294.20	1
+1052	2016-02-01	92	2	1	421.13	421.13	0.00	421.13	\N
+1053	2016-02-01	263	8	2	185.41	370.82	18.54	352.28	\N
+1054	2016-02-02	373	5	2	245.05	490.10	24.51	465.59	1
+1055	2016-02-02	376	9	1	128.28	128.28	0.00	128.28	\N
+1056	2016-02-03	519	8	2	171.46	342.92	0.00	342.92	\N
+1057	2016-02-03	59	4	1	155.99	155.99	15.60	140.39	1
+1058	2016-02-03	163	10	1	29.40	29.40	2.94	26.46	\N
+1059	2016-02-03	358	8	2	178.87	357.74	17.89	339.85	1
+1060	2016-02-04	185	2	1	487.57	487.57	24.38	463.19	1
+1061	2016-02-04	337	2	2	433.56	867.12	0.00	867.12	\N
+1062	2016-02-05	488	2	1	430.05	430.05	43.00	387.05	1
+1063	2016-02-06	219	6	2	354.77	709.54	35.48	674.06	1
+1064	2016-02-06	371	7	2	328.71	657.42	32.87	624.55	\N
+1065	2016-02-06	434	5	2	237.60	475.20	95.04	380.16	1
+1066	2016-02-08	463	7	2	301.49	602.98	0.00	602.98	\N
+1067	2016-02-09	95	7	2	290.52	581.04	58.10	522.94	\N
+1068	2016-02-10	494	8	1	181.28	181.28	0.00	181.28	\N
+1069	2016-02-10	585	7	1	319.38	319.38	15.97	303.41	1
+1070	2016-02-11	593	10	2	27.87	55.74	0.00	55.74	\N
+1071	2016-02-12	325	1	1	186.02	186.02	27.90	158.12	1
+1072	2016-02-12	417	5	1	251.03	251.03	25.10	225.93	\N
+1073	2016-02-13	461	10	2	27.58	55.16	2.76	52.40	\N
+1074	2016-02-13	171	10	1	29.27	29.27	0.00	29.27	\N
+1075	2016-02-14	591	1	2	194.81	389.62	19.48	370.14	1
+1076	2016-02-14	128	8	2	185.36	370.72	18.54	352.18	1
+1077	2016-02-14	556	7	2	301.39	602.78	30.14	572.64	\N
+1078	2016-02-15	383	3	1	707.39	707.39	70.74	636.65	\N
+1079	2016-02-15	448	5	2	260.10	520.20	26.01	494.19	1
+1080	2016-02-15	90	2	1	413.07	413.07	61.96	351.11	\N
+1081	2016-02-16	516	10	1	31.84	31.84	1.59	30.25	1
+1082	2016-02-16	466	9	1	117.15	117.15	17.58	99.57	1
+1083	2016-02-16	476	7	2	324.48	648.96	32.45	616.51	1
+1084	2016-02-16	384	4	1	150.23	150.23	22.53	127.70	\N
+1085	2016-02-17	425	4	1	135.12	135.12	13.52	121.60	1
+1086	2016-02-18	384	9	2	127.68	255.36	0.00	255.36	\N
+1087	2016-02-18	441	4	2	151.67	303.34	15.17	288.17	1
+1088	2016-02-18	53	10	1	29.57	29.57	0.00	29.57	\N
+1089	2016-02-20	413	6	2	351.21	702.42	35.12	667.30	\N
+1090	2016-02-20	591	7	2	320.58	641.16	0.00	641.16	\N
+1091	2016-02-21	331	4	2	137.80	275.60	13.78	261.82	\N
+1092	2016-02-22	29	10	2	31.25	62.50	9.37	53.13	1
+1093	2016-02-22	134	8	2	184.84	369.68	36.96	332.72	1
+1094	2016-02-23	549	4	1	156.79	156.79	7.84	148.95	1
+1095	2016-02-23	53	5	2	229.15	458.30	22.92	435.38	\N
+1096	2016-02-24	106	2	1	446.32	446.32	66.95	379.37	1
+1097	2016-02-26	185	2	2	411.96	823.92	41.20	782.72	1
+1098	2016-02-26	104	8	2	190.64	381.28	0.00	381.28	\N
+1099	2016-02-27	216	7	1	292.52	292.52	0.00	292.52	\N
+1100	2016-02-27	185	5	1	225.51	225.51	33.83	191.68	\N
+1101	2016-02-27	121	6	2	384.56	769.12	0.00	769.12	\N
+1102	2016-02-28	163	9	1	125.80	125.80	6.29	119.51	\N
+1103	2016-02-29	531	9	1	126.26	126.26	25.25	101.01	1
+1104	2016-02-29	142	4	2	137.50	275.00	27.50	247.50	\N
+1105	2016-02-29	95	6	2	364.57	729.14	0.00	729.14	\N
+1106	2016-03-01	447	9	2	130.71	261.42	13.07	248.35	1
+1107	2016-03-02	288	7	2	276.17	552.34	27.62	524.72	1
+1108	2016-03-03	211	8	1	177.60	177.60	8.88	168.72	1
+1109	2016-03-03	327	10	1	27.65	27.65	4.15	23.50	1
+1110	2016-03-04	66	8	2	168.02	336.04	50.41	285.63	\N
+1111	2016-03-05	544	6	1	342.88	342.88	51.43	291.45	1
+1112	2016-03-05	252	2	1	424.37	424.37	63.66	360.71	1
+1113	2016-03-05	327	1	1	208.67	208.67	31.30	177.37	\N
+1114	2016-03-06	576	2	2	439.70	879.40	43.97	835.43	1
+1115	2016-03-06	285	10	2	32.68	65.36	0.00	65.36	\N
+1116	2016-03-07	432	7	2	289.07	578.14	57.81	520.33	\N
+1117	2016-03-08	282	7	1	277.16	277.16	0.00	277.16	\N
+1118	2016-03-08	243	10	1	27.13	27.13	4.07	23.06	\N
+1119	2016-03-08	292	3	2	747.83	1495.66	0.00	1495.66	\N
+1120	2016-03-08	41	6	2	360.13	720.26	36.01	684.25	\N
+1121	2016-03-09	309	5	2	240.86	481.72	48.17	433.55	\N
+1122	2016-03-09	49	7	2	287.91	575.82	0.00	575.82	\N
+1123	2016-03-10	125	6	2	380.64	761.28	114.19	647.09	1
+1124	2016-03-11	331	7	1	283.58	283.58	56.72	226.86	1
+1125	2016-03-12	551	1	2	217.36	434.72	0.00	434.72	\N
+1126	2016-03-12	114	1	2	217.89	435.78	43.58	392.20	\N
+1127	2016-03-12	389	5	1	259.93	259.93	13.00	246.93	1
+1128	2016-03-12	327	3	1	735.42	735.42	0.00	735.42	\N
+1129	2016-03-12	458	2	1	451.96	451.96	45.20	406.76	\N
+1130	2016-03-13	330	8	1	170.13	170.13	25.52	144.61	1
+1131	2016-03-14	249	4	1	155.85	155.85	23.38	132.47	\N
+1132	2016-03-14	480	7	1	281.28	281.28	14.06	267.22	\N
+1133	2016-03-14	527	6	1	368.23	368.23	18.41	349.82	1
+1134	2016-03-15	517	2	2	487.27	974.54	97.45	877.09	\N
+1135	2016-03-16	526	4	1	158.40	158.40	15.84	142.56	\N
+1136	2016-03-16	592	2	2	418.26	836.52	41.83	794.69	1
+1137	2016-03-16	472	3	2	667.35	1334.70	66.73	1267.97	1
+1138	2016-03-17	122	9	2	110.02	220.04	22.00	198.04	\N
+1139	2016-03-18	55	8	1	171.81	171.81	25.77	146.04	\N
+1140	2016-03-18	199	5	2	234.47	468.94	46.89	422.05	\N
+1141	2016-03-19	444	2	1	466.30	466.30	23.32	442.98	1
+1142	2016-03-20	55	1	1	203.01	203.01	40.60	162.41	\N
+1143	2016-03-20	415	7	1	293.57	293.57	58.72	234.85	1
+1144	2016-03-20	209	6	1	359.58	359.58	17.98	341.60	1
+1145	2016-03-21	190	9	1	129.79	129.79	0.00	129.79	\N
+1146	2016-03-21	245	3	1	674.12	674.12	33.71	640.41	\N
+1147	2016-03-21	14	8	1	177.41	177.41	26.61	150.80	1
+1148	2016-03-23	10	10	1	29.11	29.11	1.46	27.65	\N
+1149	2016-03-24	47	1	1	202.69	202.69	0.00	202.69	\N
+1150	2016-03-25	172	3	2	738.54	1477.08	221.56	1255.52	\N
+1151	2016-03-25	360	9	1	114.18	114.18	5.71	108.47	1
+1152	2016-03-25	362	5	1	260.51	260.51	0.00	260.51	\N
+1153	2016-03-26	496	2	1	429.29	429.29	21.46	407.83	1
+1154	2016-03-26	421	4	1	154.78	154.78	38.70	116.08	1
+1155	2016-03-26	92	4	1	162.62	162.62	16.26	146.36	\N
+1156	2016-03-27	558	8	1	197.54	197.54	19.75	177.79	\N
+1157	2016-03-27	401	10	1	29.50	29.50	1.48	28.02	1
+1158	2016-03-27	533	6	2	373.39	746.78	74.68	672.10	\N
+1159	2016-03-28	356	5	1	230.51	230.51	46.10	184.41	\N
+1160	2016-03-28	297	10	2	30.35	60.70	6.07	54.63	\N
+1161	2016-03-28	16	8	2	163.47	326.94	98.08	228.86	1
+1162	2016-03-28	441	6	2	361.22	722.44	144.49	577.95	\N
+1163	2016-03-29	515	9	2	111.72	223.44	33.52	189.92	\N
+1164	2016-03-29	83	5	1	235.94	235.94	0.00	235.94	\N
+1165	2016-03-29	396	7	2	293.95	587.90	0.00	587.90	\N
+1166	2016-03-30	319	3	2	708.95	1417.90	0.00	1417.90	\N
+1167	2016-03-31	205	5	1	231.78	231.78	11.59	220.19	1
+1168	2016-03-31	581	8	1	181.65	181.65	0.00	181.65	\N
+1169	2016-03-31	142	9	2	118.61	237.22	0.00	237.22	\N
+1170	2016-03-31	480	6	1	344.94	344.94	17.25	327.69	1
+1171	2016-04-01	573	1	1	218.30	218.30	0.00	218.30	\N
+1172	2016-04-02	310	4	2	152.41	304.82	0.00	304.82	\N
+1173	2016-04-02	301	1	2	210.21	420.42	21.02	399.40	1
+1174	2016-04-02	531	8	2	192.21	384.42	38.44	345.98	\N
+1175	2016-04-02	342	10	2	27.58	55.16	5.52	49.64	\N
+1176	2016-04-03	125	10	1	31.05	31.05	1.55	29.50	\N
+1177	2016-04-04	576	8	2	166.91	333.82	16.69	317.13	1
+1178	2016-04-05	319	1	1	212.22	212.22	10.61	201.61	1
+1179	2016-04-05	157	10	1	32.28	32.28	1.61	30.67	1
+1180	2016-04-06	26	9	2	118.65	237.30	11.87	225.43	\N
+1181	2016-04-06	189	4	2	160.25	320.50	0.00	320.50	\N
+1182	2016-04-07	127	7	2	278.77	557.54	27.88	529.66	\N
+1183	2016-04-07	175	9	1	125.80	125.80	6.29	119.51	1
+1184	2016-04-08	103	10	2	29.96	59.92	0.00	59.92	\N
+1185	2016-04-08	110	8	1	177.01	177.01	26.55	150.46	1
+1186	2016-04-08	399	1	1	203.22	203.22	30.48	172.74	\N
+1187	2016-04-09	44	6	2	382.40	764.80	38.24	726.56	1
+1188	2016-04-09	163	6	1	350.04	350.04	0.00	350.04	\N
+1189	2016-04-09	538	7	1	300.78	300.78	15.04	285.74	\N
+1190	2016-04-10	348	8	1	187.75	187.75	0.00	187.75	\N
+1191	2016-04-10	311	7	1	274.09	274.09	0.00	274.09	\N
+1192	2016-04-10	185	10	2	31.25	62.50	3.12	59.38	1
+1193	2016-04-11	332	10	2	32.73	65.46	0.00	65.46	\N
+1194	2016-04-11	47	1	2	214.08	428.16	21.41	406.75	\N
+1195	2016-04-11	488	6	1	368.19	368.19	0.00	368.19	\N
+1196	2016-04-11	243	2	1	485.98	485.98	48.60	437.38	\N
+1197	2016-04-12	66	1	2	204.48	408.96	102.24	306.72	\N
+1198	2016-04-12	31	3	1	674.96	674.96	0.00	674.96	\N
+1199	2016-04-12	588	9	1	112.79	112.79	16.92	95.87	1
+1200	2016-04-12	166	7	1	318.83	318.83	15.94	302.89	\N
+1201	2016-04-13	99	4	2	136.00	272.00	13.60	258.40	\N
+1202	2016-04-13	560	2	2	435.66	871.32	0.00	871.32	\N
+1203	2016-04-14	541	8	1	168.84	168.84	25.32	143.52	1
+1204	2016-04-14	573	3	2	742.22	1484.44	0.00	1484.44	\N
+1205	2016-04-14	583	2	2	416.45	832.90	124.94	707.96	1
+1206	2016-04-14	554	6	2	316.58	633.16	0.00	633.16	\N
+1207	2016-04-14	400	6	1	319.76	319.76	15.99	303.77	1
+1208	2016-04-17	590	4	1	160.60	160.60	8.03	152.57	1
+1209	2016-04-17	59	9	1	124.74	124.74	12.47	112.27	\N
+1210	2016-04-17	31	1	1	193.52	193.52	29.03	164.49	1
+1211	2016-04-18	210	9	1	127.60	127.60	0.00	127.60	\N
+1212	2016-04-19	64	4	1	149.81	149.81	0.00	149.81	\N
+1213	2016-04-19	37	6	2	383.67	767.34	0.00	767.34	\N
+1214	2016-04-19	83	9	1	119.49	119.49	23.90	95.59	\N
+1215	2016-04-20	231	6	2	345.21	690.42	0.00	690.42	\N
+1216	2016-04-21	22	1	2	181.05	362.10	36.21	325.89	\N
+1217	2016-04-21	19	9	2	119.57	239.14	11.96	227.18	1
+1218	2016-04-22	438	9	1	111.31	111.31	0.00	111.31	\N
+1219	2016-04-23	377	6	1	328.56	328.56	32.86	295.70	1
+1220	2016-04-24	11	4	2	147.39	294.78	0.00	294.78	\N
+1221	2016-04-24	47	1	1	214.93	214.93	21.49	193.44	\N
+1222	2016-04-24	290	1	2	192.57	385.14	0.00	385.14	\N
+1223	2016-04-24	133	10	1	29.39	29.39	1.47	27.92	1
+1224	2016-04-25	557	4	2	149.85	299.70	0.00	299.70	\N
+1225	2016-04-25	226	8	2	187.67	375.34	18.77	356.57	1
+1226	2016-04-26	251	9	1	129.43	129.43	6.47	122.96	1
+1227	2016-04-26	355	7	1	312.33	312.33	15.62	296.71	1
+1228	2016-04-26	141	9	2	113.53	227.06	11.35	215.71	1
+1229	2016-04-26	146	1	1	219.12	219.12	0.00	219.12	\N
+1230	2016-04-27	117	1	2	199.96	399.92	59.99	339.93	1
+1231	2016-04-27	87	1	1	191.16	191.16	0.00	191.16	\N
+1232	2016-04-27	394	8	1	163.60	163.60	8.18	155.42	\N
+1233	2016-04-29	313	1	2	201.66	403.32	40.33	362.99	\N
+1234	2016-04-29	269	10	1	28.30	28.30	4.25	24.05	\N
+1235	2016-04-30	438	1	2	212.30	424.60	0.00	424.60	\N
+1236	2016-04-30	295	9	2	119.12	238.24	0.00	238.24	\N
+1237	2016-05-01	167	7	2	298.04	596.08	0.00	596.08	\N
+1238	2016-05-02	288	5	1	229.28	229.28	34.39	194.89	\N
+1239	2016-05-02	40	10	1	28.65	28.65	2.87	25.78	\N
+1240	2016-05-03	13	2	1	432.62	432.62	0.00	432.62	\N
+1241	2016-05-03	455	8	1	162.62	162.62	8.13	154.49	\N
+1242	2016-05-03	570	4	1	147.26	147.26	14.73	132.53	\N
+1243	2016-05-03	452	3	2	666.12	1332.24	0.00	1332.24	\N
+1244	2016-05-04	233	3	1	650.57	650.57	32.53	618.04	\N
+1245	2016-05-04	189	9	2	128.65	257.30	25.74	231.56	1
+1246	2016-05-05	266	5	1	225.81	225.81	0.00	225.81	\N
+1247	2016-05-05	46	10	2	28.41	56.82	8.52	48.30	\N
+1248	2016-05-05	243	4	1	144.77	144.77	0.00	144.77	\N
+1249	2016-05-05	437	5	1	232.15	232.15	11.61	220.54	1
+1250	2016-05-05	418	6	2	347.95	695.90	34.80	661.10	1
+1251	2016-05-05	46	5	1	271.52	271.52	13.58	257.94	\N
+1252	2016-05-06	524	9	2	126.80	253.60	12.68	240.92	1
+1253	2016-05-07	597	1	1	206.28	206.28	41.26	165.02	\N
+1254	2016-05-07	230	10	2	30.02	60.04	0.00	60.04	\N
+1255	2016-05-07	125	9	2	127.16	254.32	0.00	254.32	\N
+1256	2016-05-07	325	5	2	234.75	469.50	23.48	446.02	1
+1257	2016-05-07	371	4	2	148.67	297.34	14.87	282.47	\N
+1258	2016-05-08	420	6	1	320.58	320.58	32.06	288.52	\N
+1259	2016-05-09	236	8	2	190.31	380.62	38.06	342.56	1
+1260	2016-05-09	418	10	1	31.00	31.00	1.55	29.45	1
+1261	2016-05-09	121	2	1	441.77	441.77	44.18	397.59	\N
+1262	2016-05-09	203	3	2	752.70	1505.40	75.27	1430.13	\N
+1263	2016-05-10	482	2	1	416.38	416.38	62.46	353.92	\N
+1264	2016-05-10	136	9	1	128.81	128.81	6.44	122.37	1
+1265	2016-05-10	412	9	2	113.79	227.58	22.76	204.82	\N
+1266	2016-05-12	111	1	1	182.95	182.95	0.00	182.95	\N
+1267	2016-05-12	461	7	1	287.36	287.36	14.37	272.99	\N
+1268	2016-05-12	522	2	1	418.70	418.70	62.80	355.90	\N
+1269	2016-05-12	389	6	1	345.70	345.70	0.00	345.70	\N
+1270	2016-05-13	100	4	2	143.92	287.84	0.00	287.84	\N
+1271	2016-05-13	594	9	1	128.26	128.26	6.41	121.85	1
+1272	2016-05-14	183	3	1	635.87	635.87	0.00	635.87	\N
+1273	2016-05-14	441	9	1	114.68	114.68	5.73	108.95	1
+1274	2016-05-14	170	2	2	430.91	861.82	43.09	818.73	1
+1275	2016-05-14	266	10	1	31.52	31.52	1.58	29.94	1
+1276	2016-05-15	212	9	2	128.13	256.26	12.81	243.45	\N
+1277	2016-05-15	553	9	1	127.18	127.18	12.72	114.46	1
+1278	2016-05-15	585	7	2	313.93	627.86	31.39	596.47	1
+1279	2016-05-17	113	2	2	445.00	890.00	0.00	890.00	\N
+1280	2016-05-18	286	2	1	492.16	492.16	24.61	467.55	1
+1281	2016-05-19	77	6	2	325.97	651.94	0.00	651.94	\N
+1282	2016-05-19	76	6	2	377.46	754.92	37.75	717.17	\N
+1283	2016-05-20	326	4	1	160.24	160.24	8.01	152.23	1
+1284	2016-05-20	9	4	2	139.11	278.22	0.00	278.22	\N
+1285	2016-05-20	272	8	2	167.45	334.90	16.75	318.15	1
+1286	2016-05-20	204	2	1	490.57	490.57	24.53	466.04	1
+1287	2016-05-20	69	8	1	182.08	182.08	27.31	154.77	\N
+1288	2016-05-21	598	4	1	154.13	154.13	7.71	146.42	1
+1289	2016-05-21	308	4	1	161.25	161.25	0.00	161.25	\N
+1290	2016-05-21	366	9	1	119.54	119.54	5.98	113.56	\N
+1291	2016-05-21	295	7	1	328.16	328.16	16.41	311.75	1
+1292	2016-05-21	476	6	1	361.24	361.24	18.06	343.18	1
+1293	2016-05-22	496	8	1	183.64	183.64	18.36	165.28	\N
+1294	2016-05-23	419	1	1	202.49	202.49	0.00	202.49	\N
+1295	2016-05-24	453	7	2	293.92	587.84	0.00	587.84	\N
+1296	2016-05-24	348	1	1	192.34	192.34	9.62	182.72	1
+1297	2016-05-24	212	2	2	490.31	980.62	0.00	980.62	\N
+1298	2016-05-25	21	1	1	212.10	212.10	42.42	169.68	1
+1299	2016-05-25	567	2	1	463.94	463.94	23.20	440.74	1
+1300	2016-05-25	161	9	1	117.49	117.49	5.87	111.62	1
+1301	2016-05-26	383	6	1	343.94	343.94	17.20	326.74	1
+1302	2016-05-26	21	9	2	110.46	220.92	11.05	209.87	1
+1303	2016-05-26	309	1	2	189.20	378.40	18.92	359.48	1
+1304	2016-05-26	127	7	1	309.32	309.32	46.40	262.92	\N
+1305	2016-05-27	79	2	2	450.41	900.82	45.04	855.78	1
+1306	2016-05-27	555	10	1	32.51	32.51	6.51	26.00	1
+1307	2016-05-28	320	6	1	344.76	344.76	0.00	344.76	\N
+1308	2016-05-28	103	5	1	273.46	273.46	0.00	273.46	\N
+1309	2016-05-28	228	7	2	303.66	607.32	0.00	607.32	\N
+1310	2016-05-28	251	7	1	271.03	271.03	13.55	257.48	1
+1311	2016-05-29	560	2	1	445.70	445.70	22.29	423.41	\N
+1312	2016-05-29	489	10	2	27.65	55.30	5.54	49.76	1
+1313	2016-05-29	174	4	2	160.94	321.88	16.09	305.79	1
+1314	2016-05-29	485	9	2	125.35	250.70	0.00	250.70	\N
+1315	2016-05-30	259	7	2	288.69	577.38	57.74	519.64	\N
+1316	2016-05-30	417	1	1	190.73	190.73	28.61	162.12	\N
+1317	2016-05-30	321	4	1	144.66	144.66	0.00	144.66	\N
+1318	2016-05-31	84	2	1	443.31	443.31	44.34	398.97	1
+1319	2016-05-31	125	3	1	657.63	657.63	65.76	591.87	\N
+1320	2016-05-31	538	8	1	167.04	167.04	8.35	158.69	1
+1321	2016-05-31	121	7	2	329.74	659.48	32.97	626.51	1
+1322	2016-06-01	331	10	1	32.34	32.34	3.23	29.11	\N
+1323	2016-06-01	210	10	1	32.71	32.71	0.00	32.71	\N
+1324	2016-06-01	216	6	1	379.90	379.90	19.00	360.90	1
+1325	2016-06-02	537	8	2	162.35	324.70	16.23	308.47	\N
+1326	2016-06-04	6	5	1	260.07	260.07	26.00	234.07	1
+1327	2016-06-04	63	10	2	29.81	59.62	5.96	53.66	\N
+1328	2016-06-05	354	1	1	217.12	217.12	32.57	184.55	1
+1329	2016-06-06	413	5	2	253.06	506.12	0.00	506.12	\N
+1330	2016-06-06	106	4	2	143.40	286.80	57.36	229.44	1
+1331	2016-06-07	284	10	2	31.01	62.02	3.10	58.92	\N
+1332	2016-06-07	94	10	1	27.88	27.88	1.39	26.49	\N
+1333	2016-06-07	54	3	2	701.64	1403.28	70.16	1333.12	1
+1334	2016-06-08	513	2	1	426.67	426.67	0.00	426.67	\N
+1335	2016-06-08	364	5	1	266.93	266.93	13.35	253.58	\N
+1336	2016-06-08	285	3	2	747.58	1495.16	0.00	1495.16	\N
+1337	2016-06-08	124	9	2	129.59	259.18	25.92	233.26	\N
+1338	2016-06-09	355	7	2	282.83	565.66	0.00	565.66	\N
+1339	2016-06-11	392	6	2	327.53	655.06	98.26	556.80	1
+1340	2016-06-11	200	1	2	203.45	406.90	0.00	406.90	\N
+1341	2016-06-11	515	1	1	204.27	204.27	30.64	173.63	1
+1342	2016-06-12	260	5	1	256.26	256.26	0.00	256.26	\N
+1343	2016-06-12	483	10	1	30.79	30.79	0.00	30.79	\N
+1344	2016-06-12	559	2	2	408.44	816.88	163.38	653.50	\N
+1345	2016-06-12	135	2	2	442.76	885.52	88.56	796.96	1
+1346	2016-06-13	558	5	1	274.17	274.17	54.84	219.33	1
+1347	2016-06-13	325	3	1	756.80	756.80	0.00	756.80	\N
+1348	2016-06-14	413	7	1	320.26	320.26	16.01	304.25	\N
+1349	2016-06-14	86	3	1	692.08	692.08	34.60	657.48	\N
+1350	2016-06-14	4	5	2	238.69	477.38	0.00	477.38	\N
+1351	2016-06-14	89	10	2	32.58	65.16	9.78	55.38	1
+1352	2016-06-15	21	3	2	740.42	1480.84	148.08	1332.76	\N
+1353	2016-06-16	253	5	2	266.87	533.74	26.69	507.05	1
+1354	2016-06-16	136	5	2	227.67	455.34	22.77	432.57	\N
+1355	2016-06-17	424	4	1	160.06	160.06	32.01	128.05	1
+1356	2016-06-17	451	5	1	229.62	229.62	0.00	229.62	\N
+1357	2016-06-18	536	8	1	191.86	191.86	28.78	163.08	1
+1358	2016-06-18	583	4	1	164.81	164.81	0.00	164.81	\N
+1359	2016-06-18	296	4	1	145.27	145.27	0.00	145.27	\N
+1360	2016-06-18	276	2	1	451.19	451.19	45.12	406.07	1
+1361	2016-06-19	119	9	2	123.80	247.60	24.76	222.84	1
+1362	2016-06-19	578	7	1	309.50	309.50	15.48	294.02	1
+1363	2016-06-19	368	1	1	186.35	186.35	0.00	186.35	\N
+1364	2016-06-19	192	6	1	336.44	336.44	16.82	319.62	\N
+1365	2016-06-20	468	10	2	30.46	60.92	0.00	60.92	\N
+1366	2016-06-20	259	6	2	357.07	714.14	35.71	678.43	1
+1367	2016-06-20	240	9	2	110.59	221.18	0.00	221.18	\N
+1368	2016-06-21	30	3	1	701.71	701.71	0.00	701.71	\N
+1369	2016-06-21	537	4	2	163.54	327.08	32.71	294.37	\N
+1370	2016-06-22	56	2	1	432.83	432.83	0.00	432.83	\N
+1371	2016-06-22	170	8	1	162.03	162.03	16.20	145.83	1
+1372	2016-06-23	242	4	2	148.10	296.20	44.43	251.77	1
+1373	2016-06-23	164	6	2	321.99	643.98	32.20	611.78	1
+1374	2016-06-24	484	7	1	319.88	319.88	15.99	303.89	1
+1375	2016-06-24	132	6	1	368.41	368.41	36.84	331.57	\N
+1376	2016-06-24	435	10	1	29.36	29.36	2.94	26.42	\N
+1377	2016-06-25	28	4	2	161.57	323.14	32.32	290.82	1
+1378	2016-06-26	2	10	2	30.60	61.20	6.12	55.08	1
+1379	2016-06-26	193	1	1	188.45	188.45	0.00	188.45	\N
+1380	2016-06-26	436	3	2	669.89	1339.78	66.99	1272.79	1
+1381	2016-06-26	432	3	1	652.90	652.90	0.00	652.90	\N
+1382	2016-06-27	85	6	1	363.02	363.02	54.45	308.57	1
+1383	2016-06-27	327	3	1	710.46	710.46	0.00	710.46	\N
+1384	2016-06-28	412	7	2	316.28	632.56	0.00	632.56	\N
+1385	2016-06-28	462	9	2	116.95	233.90	0.00	233.90	\N
+1386	2016-06-28	374	2	1	475.69	475.69	23.78	451.91	1
+1387	2016-06-28	82	3	1	630.97	630.97	31.55	599.42	1
+1388	2016-06-28	528	10	1	31.37	31.37	4.71	26.66	1
+1389	2016-06-29	502	8	2	175.22	350.44	17.52	332.92	1
+1390	2016-06-29	346	5	1	263.34	263.34	52.67	210.67	\N
+1391	2016-06-29	458	6	2	335.84	671.68	67.16	604.52	1
+1392	2016-06-30	406	4	1	140.26	140.26	7.01	133.25	\N
+1393	2016-07-01	442	5	1	242.27	242.27	0.00	242.27	\N
+1394	2016-07-01	537	10	2	29.75	59.50	11.91	47.59	1
+1395	2016-07-01	81	6	1	379.92	379.92	19.00	360.92	1
+1396	2016-07-01	264	2	1	480.32	480.32	24.02	456.30	\N
+1397	2016-07-01	311	10	2	30.08	60.16	0.00	60.16	\N
+1398	2016-07-02	384	10	1	29.84	29.84	0.00	29.84	\N
+1399	2016-07-02	191	5	2	250.08	500.16	50.02	450.14	\N
+1400	2016-07-03	280	1	2	196.29	392.58	58.89	333.69	1
+1401	2016-07-03	474	10	2	31.74	63.48	6.34	57.14	1
+1402	2016-07-04	333	4	1	136.91	136.91	20.54	116.37	\N
+1403	2016-07-05	431	10	1	28.97	28.97	1.45	27.52	1
+1404	2016-07-05	349	6	2	339.25	678.50	0.00	678.50	\N
+1405	2016-07-05	216	9	1	124.75	124.75	6.24	118.51	1
+1406	2016-07-05	586	2	2	461.82	923.64	46.18	877.46	1
+1407	2016-07-06	543	6	2	336.28	672.56	0.00	672.56	\N
+1408	2016-07-06	160	10	1	30.51	30.51	0.00	30.51	\N
+1409	2016-07-06	24	5	2	252.82	505.64	0.00	505.64	\N
+1410	2016-07-07	135	7	2	306.43	612.86	61.28	551.58	1
+1411	2016-07-07	114	10	2	28.74	57.48	0.00	57.48	\N
+1412	2016-07-09	411	9	1	117.80	117.80	0.00	117.80	\N
+1413	2016-07-09	328	6	1	359.12	359.12	0.00	359.12	\N
+1414	2016-07-09	326	9	1	120.86	120.86	0.00	120.86	\N
+1415	2016-07-11	476	5	2	266.31	532.62	26.63	505.99	1
+1416	2016-07-13	296	1	2	201.31	402.62	20.13	382.49	1
+1417	2016-07-13	101	7	2	304.81	609.62	30.48	579.14	1
+1418	2016-07-13	30	10	1	28.35	28.35	1.42	26.93	1
+1419	2016-07-13	585	7	1	326.73	326.73	0.00	326.73	\N
+1420	2016-07-14	484	2	1	490.67	490.67	73.60	417.07	\N
+1421	2016-07-14	566	9	1	128.72	128.72	12.87	115.85	\N
+1422	2016-07-14	246	3	1	696.10	696.10	69.60	626.50	1
+1423	2016-07-15	32	4	1	152.33	152.33	0.00	152.33	\N
+1424	2016-07-15	248	3	1	766.19	766.19	76.62	689.57	\N
+1425	2016-07-15	164	4	2	148.87	297.74	14.89	282.85	\N
+1426	2016-07-15	417	9	2	131.89	263.78	26.38	237.40	\N
+1427	2016-07-16	551	2	1	469.42	469.42	0.00	469.42	\N
+1428	2016-07-16	450	8	1	191.80	191.80	19.18	172.62	\N
+1429	2016-07-17	41	6	2	342.96	685.92	0.00	685.92	\N
+1430	2016-07-18	128	2	1	418.14	418.14	83.63	334.51	1
+1431	2016-07-18	174	6	2	343.90	687.80	0.00	687.80	\N
+1432	2016-07-19	216	5	2	229.86	459.72	45.97	413.75	\N
+1433	2016-07-19	267	6	1	335.67	335.67	0.00	335.67	\N
+1434	2016-07-20	582	5	1	254.72	254.72	38.21	216.51	1
+1435	2016-07-20	380	10	1	29.18	29.18	7.29	21.89	\N
+1436	2016-07-20	451	5	2	232.72	465.44	46.54	418.90	\N
+1437	2016-07-20	264	4	2	135.84	271.68	54.33	217.35	1
+1438	2016-07-20	521	9	1	117.74	117.74	11.77	105.97	\N
+1439	2016-07-21	514	6	1	351.63	351.63	0.00	351.63	\N
+1440	2016-07-21	538	8	1	168.31	168.31	16.84	151.47	1
+1441	2016-07-22	317	4	1	141.73	141.73	21.26	120.47	\N
+1442	2016-07-22	366	8	2	178.54	357.08	0.00	357.08	\N
+1443	2016-07-24	537	4	1	157.24	157.24	7.86	149.38	\N
+1444	2016-07-24	520	2	1	429.43	429.43	0.00	429.43	\N
+1445	2016-07-24	82	1	1	197.87	197.87	0.00	197.87	\N
+1446	2016-07-24	188	4	2	141.85	283.70	28.37	255.33	\N
+1447	2016-07-24	94	4	2	157.00	314.00	15.70	298.30	1
+1448	2016-07-24	311	1	1	188.31	188.31	37.67	150.64	1
+1449	2016-07-25	53	6	2	370.30	740.60	111.09	629.51	\N
+1450	2016-07-26	103	9	1	122.15	122.15	6.11	116.04	1
+1451	2016-07-27	441	2	1	469.80	469.80	0.00	469.80	\N
+1452	2016-07-27	468	1	1	190.07	190.07	0.00	190.07	\N
+1453	2016-07-27	337	9	2	119.60	239.20	35.88	203.32	\N
+1454	2016-07-27	255	6	2	334.27	668.54	0.00	668.54	\N
+1455	2016-07-28	187	8	2	162.23	324.46	0.00	324.46	\N
+1456	2016-07-28	184	2	2	473.44	946.88	142.03	804.85	1
+1457	2016-07-28	552	3	1	657.10	657.10	32.86	624.24	\N
+1458	2016-07-29	328	9	1	119.33	119.33	5.97	113.36	1
+1459	2016-07-29	159	6	2	325.95	651.90	0.00	651.90	\N
+1460	2016-07-29	161	6	2	381.97	763.94	0.00	763.94	\N
+1461	2016-07-30	276	4	1	162.99	162.99	8.15	154.84	1
+1462	2016-07-30	149	5	2	241.69	483.38	0.00	483.38	\N
+1463	2016-08-01	436	10	2	29.36	58.72	0.00	58.72	\N
+1464	2016-08-01	419	6	2	360.21	720.42	108.06	612.36	1
+1465	2016-08-02	208	4	2	154.86	309.72	61.94	247.78	\N
+1466	2016-08-03	334	9	1	121.44	121.44	6.07	115.37	\N
+1467	2016-08-03	281	2	1	411.70	411.70	61.75	349.95	\N
+1468	2016-08-03	482	1	2	211.25	422.50	0.00	422.50	\N
+1469	2016-08-03	256	5	1	274.35	274.35	13.72	260.63	\N
+1470	2016-08-04	283	9	2	116.87	233.74	11.69	222.05	\N
+1471	2016-08-04	76	6	1	383.40	383.40	0.00	383.40	\N
+1472	2016-08-05	307	10	2	28.20	56.40	2.82	53.58	\N
+1473	2016-08-05	267	9	1	120.74	120.74	12.07	108.67	\N
+1474	2016-08-05	322	6	1	378.36	378.36	18.92	359.44	1
+1475	2016-08-06	480	4	2	148.82	297.64	0.00	297.64	\N
+1476	2016-08-06	262	10	2	31.49	62.98	3.15	59.83	\N
+1477	2016-08-07	499	1	2	213.27	426.54	63.98	362.56	\N
+1478	2016-08-07	33	9	2	128.95	257.90	12.89	245.01	1
+1479	2016-08-07	342	2	1	471.10	471.10	0.00	471.10	\N
+1480	2016-08-07	545	3	2	741.80	1483.60	148.36	1335.24	\N
+1481	2016-08-07	196	2	1	474.04	474.04	0.00	474.04	\N
+1482	2016-08-07	156	6	2	320.11	640.22	0.00	640.22	\N
+1483	2016-08-08	443	1	1	196.06	196.06	39.21	156.85	1
+1484	2016-08-08	231	6	1	344.90	344.90	17.25	327.65	\N
+1485	2016-08-09	546	8	2	185.53	371.06	55.66	315.40	\N
+1486	2016-08-09	591	3	1	656.44	656.44	98.47	557.97	\N
+1487	2016-08-10	41	3	2	705.61	1411.22	70.56	1340.66	1
+1488	2016-08-11	236	4	2	141.05	282.10	28.21	253.89	\N
+1489	2016-08-11	364	1	2	185.49	370.98	0.00	370.98	\N
+1490	2016-08-11	385	1	2	197.76	395.52	19.78	375.74	1
+1491	2016-08-11	458	8	2	176.37	352.74	52.91	299.83	1
+1492	2016-08-12	180	9	1	129.92	129.92	13.00	116.92	1
+1493	2016-08-12	501	10	1	29.15	29.15	1.46	27.69	1
+1494	2016-08-12	93	9	2	116.64	233.28	23.32	209.96	1
+1495	2016-08-13	390	7	1	294.02	294.02	0.00	294.02	\N
+1496	2016-08-14	67	7	1	326.76	326.76	0.00	326.76	\N
+1497	2016-08-14	400	8	1	162.57	162.57	0.00	162.57	\N
+1498	2016-08-14	47	3	1	748.64	748.64	112.29	636.35	1
+1499	2016-08-15	482	1	1	182.45	182.45	0.00	182.45	\N
+1500	2016-08-15	381	10	1	29.49	29.49	2.95	26.54	\N
+1501	2016-08-15	186	6	1	376.54	376.54	56.48	320.06	1
+1502	2016-08-16	383	5	1	256.10	256.10	12.81	243.29	\N
+1503	2016-08-16	36	3	1	757.90	757.90	75.79	682.11	\N
+1504	2016-08-16	174	3	2	644.02	1288.04	0.00	1288.04	\N
+1505	2016-08-17	68	2	1	492.19	492.19	0.00	492.19	\N
+1506	2016-08-17	451	3	2	749.97	1499.94	149.99	1349.95	\N
+1507	2016-08-19	264	3	2	675.20	1350.40	0.00	1350.40	\N
+1508	2016-08-19	99	8	1	179.74	179.74	8.99	170.75	1
+1509	2016-08-20	528	3	1	742.76	742.76	148.55	594.21	\N
+1510	2016-08-20	290	10	2	27.63	55.26	5.52	49.74	1
+1511	2016-08-21	474	10	2	30.12	60.24	0.00	60.24	\N
+1512	2016-08-21	135	6	1	344.54	344.54	0.00	344.54	\N
+1513	2016-08-21	36	7	1	307.91	307.91	15.40	292.51	1
+1514	2016-08-22	35	4	1	139.86	139.86	0.00	139.86	\N
+1515	2016-08-23	353	4	2	153.86	307.72	0.00	307.72	\N
+1516	2016-08-23	220	8	1	184.37	184.37	18.44	165.93	\N
+1517	2016-08-23	527	6	1	338.61	338.61	0.00	338.61	\N
+1518	2016-08-23	500	9	2	118.95	237.90	35.69	202.21	1
+1519	2016-08-23	375	7	1	308.54	308.54	15.43	293.11	\N
+1520	2016-08-24	114	2	2	454.54	909.08	90.91	818.17	\N
+1521	2016-08-24	85	9	1	112.38	112.38	0.00	112.38	\N
+1522	2016-08-25	146	4	1	158.28	158.28	23.74	134.54	\N
+1523	2016-08-25	156	10	1	32.16	32.16	1.61	30.55	1
+1524	2016-08-27	236	9	2	112.00	224.00	44.80	179.20	\N
+1525	2016-08-28	156	9	1	130.61	130.61	6.53	124.08	1
+1526	2016-08-28	411	5	1	244.49	244.49	0.00	244.49	\N
+1527	2016-08-28	330	3	1	731.02	731.02	36.55	694.47	\N
+1528	2016-08-30	320	4	1	162.69	162.69	8.13	154.56	1
+1529	2016-08-30	421	3	1	650.13	650.13	0.00	650.13	\N
+1530	2016-08-30	249	7	1	317.18	317.18	15.86	301.32	1
+1531	2016-08-31	359	2	2	425.37	850.74	127.61	723.13	1
+1532	2016-08-31	600	3	2	658.82	1317.64	197.64	1120.00	1
+1533	2016-09-01	121	9	1	115.47	115.47	23.09	92.38	1
+1534	2016-09-02	449	5	2	266.11	532.22	26.61	505.61	1
+1535	2016-09-02	350	5	2	272.47	544.94	108.99	435.95	\N
+1536	2016-09-03	173	8	1	189.30	189.30	37.87	151.43	1
+1537	2016-09-03	507	7	1	295.30	295.30	14.77	280.53	1
+1538	2016-09-03	283	5	2	257.01	514.02	25.70	488.32	1
+1539	2016-09-04	366	2	1	406.16	406.16	0.00	406.16	\N
+1540	2016-09-05	227	10	1	29.60	29.60	4.44	25.16	\N
+1541	2016-09-06	580	7	1	306.40	306.40	15.32	291.08	1
+1542	2016-09-06	111	10	2	32.03	64.06	6.40	57.66	1
+1543	2016-09-06	245	6	1	355.61	355.61	0.00	355.61	\N
+1544	2016-09-06	41	6	2	360.30	720.60	0.00	720.60	\N
+1545	2016-09-06	39	7	1	318.79	318.79	0.00	318.79	\N
+1546	2016-09-07	27	4	2	152.01	304.02	60.80	243.22	\N
+1547	2016-09-07	468	5	1	242.93	242.93	0.00	242.93	\N
+1548	2016-09-08	284	8	2	190.21	380.42	0.00	380.42	\N
+1549	2016-09-08	165	4	1	151.75	151.75	0.00	151.75	\N
+1550	2016-09-09	357	3	1	748.26	748.26	0.00	748.26	\N
+1551	2016-09-09	234	6	2	373.01	746.02	223.80	522.22	1
+1552	2016-09-09	510	3	1	735.92	735.92	147.19	588.73	1
+1553	2016-09-10	449	6	1	367.83	367.83	18.39	349.44	1
+1554	2016-09-10	596	5	1	270.44	270.44	0.00	270.44	\N
+1555	2016-09-11	552	3	2	685.72	1371.44	68.57	1302.87	\N
+1556	2016-09-11	415	5	1	232.29	232.29	11.61	220.68	1
+1557	2016-09-11	395	2	1	481.05	481.05	0.00	481.05	\N
+1558	2016-09-11	584	2	2	434.15	868.30	86.82	781.48	1
+1559	2016-09-11	281	1	1	199.78	199.78	9.99	189.79	1
+1560	2016-09-11	232	8	1	185.32	185.32	9.27	176.05	\N
+1561	2016-09-12	495	8	2	176.92	353.84	0.00	353.84	\N
+1562	2016-09-13	532	10	1	29.40	29.40	1.47	27.93	1
+1563	2016-09-13	268	6	2	371.24	742.48	74.25	668.23	\N
+1564	2016-09-14	241	6	2	352.83	705.66	141.13	564.53	\N
+1565	2016-09-14	593	3	1	643.53	643.53	0.00	643.53	\N
+1566	2016-09-14	549	6	2	322.34	644.68	32.23	612.45	1
+1567	2016-09-15	568	4	2	148.96	297.92	29.79	268.13	\N
+1568	2016-09-15	447	2	1	490.78	490.78	73.62	417.16	\N
+1569	2016-09-15	356	8	2	193.23	386.46	57.97	328.49	\N
+1570	2016-09-16	283	10	2	28.51	57.02	5.70	51.32	\N
+1571	2016-09-16	137	7	1	282.91	282.91	0.00	282.91	\N
+1572	2016-09-16	339	4	1	152.10	152.10	7.61	144.49	1
+1573	2016-09-17	553	10	1	28.89	28.89	7.22	21.67	\N
+1574	2016-09-17	73	10	1	27.38	27.38	2.74	24.64	1
+1575	2016-09-17	184	3	1	634.13	634.13	31.71	602.42	1
+1576	2016-09-18	97	7	2	304.44	608.88	0.00	608.88	\N
+1577	2016-09-19	486	3	2	748.62	1497.24	149.72	1347.52	\N
+1578	2016-09-19	259	8	1	165.27	165.27	8.26	157.01	\N
+1579	2016-09-19	84	6	2	346.62	693.24	103.99	589.25	\N
+1580	2016-09-20	61	6	2	321.68	643.36	193.01	450.35	1
+1581	2016-09-20	29	10	1	30.38	30.38	1.52	28.86	1
+1582	2016-09-20	511	3	2	704.93	1409.86	70.49	1339.37	\N
+1583	2016-09-20	588	3	2	754.80	1509.60	75.48	1434.12	1
+1584	2016-09-21	153	8	1	163.09	163.09	24.46	138.63	\N
+1585	2016-09-21	124	5	1	271.75	271.75	54.35	217.40	\N
+1586	2016-09-21	510	4	2	153.11	306.22	0.00	306.22	\N
+1587	2016-09-21	562	7	2	317.04	634.08	31.70	602.38	1
+1588	2016-09-21	253	6	1	324.90	324.90	0.00	324.90	\N
+1589	2016-09-22	43	6	1	319.10	319.10	0.00	319.10	\N
+1590	2016-09-22	102	9	1	110.18	110.18	0.00	110.18	\N
+1591	2016-09-23	545	9	1	117.46	117.46	5.87	111.59	1
+1592	2016-09-23	459	4	1	143.79	143.79	7.19	136.60	1
+1593	2016-09-24	503	1	1	199.65	199.65	9.98	189.67	1
+1594	2016-09-24	510	5	1	263.54	263.54	13.18	250.36	1
+1595	2016-09-26	92	5	2	269.60	539.20	26.96	512.24	1
+1596	2016-09-26	322	1	1	201.37	201.37	30.21	171.16	1
+1597	2016-09-26	551	1	1	212.95	212.95	0.00	212.95	\N
+1598	2016-09-26	183	9	2	116.90	233.80	11.69	222.11	1
+1599	2016-09-27	191	4	1	156.37	156.37	7.82	148.55	\N
+1600	2016-09-28	16	1	2	216.88	433.76	130.13	303.63	1
+1601	2016-09-28	247	6	1	383.91	383.91	19.20	364.71	1
+1602	2016-09-28	412	1	2	186.24	372.48	18.62	353.86	1
+1603	2016-09-29	433	10	2	31.26	62.52	0.00	62.52	\N
+1604	2016-09-29	280	7	1	311.42	311.42	15.57	295.85	1
+1605	2016-09-30	195	8	2	171.12	342.24	51.34	290.90	\N
+1606	2016-09-30	460	3	1	722.81	722.81	144.56	578.25	\N
+1607	2016-09-30	501	2	1	421.50	421.50	21.08	400.42	1
+1608	2016-10-01	408	5	2	251.81	503.62	75.54	428.08	\N
+1609	2016-10-01	405	4	2	163.51	327.02	16.35	310.67	1
+1610	2016-10-01	37	8	2	179.24	358.48	35.84	322.64	1
+1611	2016-10-01	70	4	1	148.08	148.08	0.00	148.08	\N
+1612	2016-10-02	43	9	1	126.40	126.40	12.64	113.76	1
+1613	2016-10-03	15	3	2	677.79	1355.58	67.78	1287.80	1
+1614	2016-10-03	206	1	1	195.65	195.65	29.35	166.30	1
+1615	2016-10-04	200	6	1	361.06	361.06	18.05	343.01	1
+1616	2016-10-04	252	10	2	30.17	60.34	9.05	51.29	1
+1617	2016-10-04	67	7	1	301.08	301.08	90.32	210.76	1
+1618	2016-10-05	147	2	1	466.59	466.59	23.33	443.26	\N
+1619	2016-10-05	581	2	2	482.13	964.26	96.42	867.84	1
+1620	2016-10-05	488	10	1	30.87	30.87	4.63	26.24	\N
+1621	2016-10-06	244	8	2	184.05	368.10	0.00	368.10	\N
+1622	2016-10-06	157	8	1	181.31	181.31	9.07	172.24	\N
+1623	2016-10-06	398	5	1	269.10	269.10	40.37	228.73	1
+1624	2016-10-07	471	7	2	312.64	625.28	0.00	625.28	\N
+1625	2016-10-07	362	4	2	163.26	326.52	0.00	326.52	\N
+1626	2016-10-08	455	7	1	297.81	297.81	14.89	282.92	1
+1627	2016-10-08	543	4	1	142.38	142.38	0.00	142.38	\N
+1628	2016-10-09	373	8	1	181.74	181.74	0.00	181.74	\N
+1629	2016-10-09	219	7	1	278.48	278.48	41.77	236.71	\N
+1630	2016-10-09	423	1	2	187.98	375.96	0.00	375.96	\N
+1631	2016-10-09	530	7	2	280.82	561.64	28.08	533.56	1
+1632	2016-10-10	177	5	1	274.18	274.18	0.00	274.18	\N
+1633	2016-10-10	589	4	2	139.52	279.04	0.00	279.04	\N
+1634	2016-10-10	499	6	2	357.73	715.46	0.00	715.46	\N
+1635	2016-10-12	37	2	1	475.83	475.83	23.79	452.04	\N
+1636	2016-10-12	340	2	1	433.20	433.20	21.66	411.54	1
+1637	2016-10-12	219	5	1	267.03	267.03	0.00	267.03	\N
+1638	2016-10-13	458	8	1	174.19	174.19	26.13	148.06	\N
+1639	2016-10-13	156	3	1	688.13	688.13	34.41	653.72	1
+1640	2016-10-14	566	8	1	187.20	187.20	9.36	177.84	\N
+1641	2016-10-14	151	8	1	165.49	165.49	16.55	148.94	\N
+1642	2016-10-15	21	10	2	31.13	62.26	0.00	62.26	\N
+1643	2016-10-17	187	8	1	194.18	194.18	0.00	194.18	\N
+1644	2016-10-19	348	2	1	484.78	484.78	24.24	460.54	\N
+1645	2016-10-19	154	2	1	494.36	494.36	0.00	494.36	\N
+1646	2016-10-19	329	5	2	260.57	521.14	78.17	442.97	1
+1647	2016-10-21	428	3	2	681.13	1362.26	204.34	1157.92	\N
+1648	2016-10-21	25	8	2	173.47	346.94	69.39	277.55	1
+1649	2016-10-21	460	7	1	290.25	290.25	58.05	232.20	1
+1650	2016-10-21	565	1	1	185.23	185.23	0.00	185.23	\N
+1651	2016-10-21	20	5	2	244.03	488.06	24.40	463.66	1
+1652	2016-10-21	277	7	1	290.14	290.14	0.00	290.14	\N
+1653	2016-10-22	417	6	2	324.26	648.52	32.43	616.09	1
+1654	2016-10-23	289	5	1	229.17	229.17	0.00	229.17	\N
+1655	2016-10-24	327	9	2	129.50	259.00	25.90	233.10	1
+1656	2016-10-24	77	3	1	682.27	682.27	34.11	648.16	\N
+1657	2016-10-25	10	1	2	209.46	418.92	20.95	397.97	1
+1658	2016-10-25	597	8	2	184.72	369.44	0.00	369.44	\N
+1659	2016-10-25	58	3	2	657.93	1315.86	65.79	1250.07	\N
+1660	2016-10-25	94	1	2	197.32	394.64	0.00	394.64	\N
+1661	2016-10-26	397	6	2	358.78	717.56	35.88	681.68	\N
+1662	2016-10-26	191	8	1	172.37	172.37	8.62	163.75	1
+1663	2016-10-26	190	9	2	108.15	216.30	10.82	205.48	\N
+1664	2016-10-27	590	4	2	156.00	312.00	15.60	296.40	\N
+1665	2016-10-27	234	3	2	685.25	1370.50	0.00	1370.50	\N
+1666	2016-10-28	293	4	2	147.80	295.60	0.00	295.60	\N
+1667	2016-10-28	258	5	1	262.71	262.71	13.14	249.57	\N
+1668	2016-10-29	62	10	1	31.53	31.53	0.00	31.53	\N
+1669	2016-10-29	457	1	1	219.09	219.09	0.00	219.09	\N
+1670	2016-10-30	371	10	1	31.07	31.07	4.66	26.41	1
+1671	2016-11-01	367	8	2	175.34	350.68	0.00	350.68	\N
+1672	2016-11-01	195	4	1	152.62	152.62	15.26	137.36	\N
+1673	2016-11-01	333	7	1	297.82	297.82	14.89	282.93	1
+1674	2016-11-02	395	7	2	326.98	653.96	32.70	621.26	1
+1675	2016-11-03	153	7	1	291.94	291.94	0.00	291.94	\N
+1676	2016-11-03	155	10	1	32.68	32.68	3.26	29.42	1
+1677	2016-11-04	346	4	2	135.65	271.30	0.00	271.30	\N
+1678	2016-11-04	563	5	1	236.39	236.39	0.00	236.39	\N
+1679	2016-11-04	164	8	2	196.89	393.78	59.07	334.71	\N
+1680	2016-11-05	297	3	2	662.92	1325.84	0.00	1325.84	\N
+1681	2016-11-05	14	5	1	256.58	256.58	0.00	256.58	\N
+1682	2016-11-05	125	10	1	27.78	27.78	4.17	23.61	\N
+1683	2016-11-07	132	6	2	354.57	709.14	70.91	638.23	\N
+1684	2016-11-07	215	6	1	363.18	363.18	0.00	363.18	\N
+1685	2016-11-07	488	5	2	252.75	505.50	25.28	480.22	1
+1686	2016-11-08	131	6	1	369.71	369.71	0.00	369.71	\N
+1687	2016-11-08	243	4	2	149.66	299.32	29.94	269.38	1
+1688	2016-11-08	152	10	1	28.93	28.93	0.00	28.93	\N
+1689	2016-11-09	273	2	2	445.45	890.90	44.55	846.35	1
+1690	2016-11-09	147	6	2	374.34	748.68	74.86	673.82	1
+1691	2016-11-10	365	10	1	29.90	29.90	2.99	26.91	\N
+1692	2016-11-11	322	10	2	32.30	64.60	16.15	48.45	1
+1693	2016-11-11	63	4	1	150.71	150.71	7.54	143.17	1
+1694	2016-11-11	12	5	2	238.05	476.10	95.23	380.87	1
+1695	2016-11-11	477	3	1	692.54	692.54	69.25	623.29	\N
+1696	2016-11-12	111	5	1	247.80	247.80	49.56	198.24	1
+1697	2016-11-12	132	6	2	381.93	763.86	114.58	649.28	1
+1698	2016-11-12	323	7	1	303.01	303.01	15.15	287.86	1
+1699	2016-11-13	335	10	2	32.02	64.04	6.40	57.64	\N
+1700	2016-11-13	41	9	1	109.34	109.34	5.47	103.87	\N
+1701	2016-11-15	144	3	1	644.32	644.32	96.65	547.67	\N
+1702	2016-11-16	366	6	2	320.68	641.36	64.14	577.22	\N
+1703	2016-11-16	538	7	1	308.51	308.51	15.43	293.08	\N
+1704	2016-11-16	460	3	2	646.13	1292.26	64.61	1227.65	1
+1705	2016-11-16	572	1	1	182.10	182.10	9.11	172.99	1
+1706	2016-11-16	225	4	1	163.50	163.50	24.53	138.97	1
+1707	2016-11-16	406	1	2	200.41	400.82	20.04	380.78	\N
+1708	2016-11-17	564	2	1	408.61	408.61	0.00	408.61	\N
+1709	2016-11-17	8	6	2	364.13	728.26	0.00	728.26	\N
+1710	2016-11-18	169	7	1	282.77	282.77	0.00	282.77	\N
+1711	2016-11-18	289	5	1	252.81	252.81	12.64	240.17	\N
+1712	2016-11-18	263	6	2	328.70	657.40	0.00	657.40	\N
+1713	2016-11-18	463	1	1	197.82	197.82	0.00	197.82	\N
+1714	2016-11-18	210	3	1	645.78	645.78	64.58	581.20	1
+1715	2016-11-18	584	5	1	266.65	266.65	0.00	266.65	\N
+1716	2016-11-19	370	8	1	163.96	163.96	0.00	163.96	\N
+1717	2016-11-19	259	4	1	150.33	150.33	7.52	142.81	1
+1718	2016-11-19	342	4	1	149.99	149.99	0.00	149.99	\N
+1719	2016-11-19	401	10	2	31.52	63.04	0.00	63.04	\N
+1720	2016-11-19	255	2	2	460.47	920.94	0.00	920.94	\N
+1721	2016-11-19	12	5	2	271.51	543.02	0.00	543.02	\N
+1722	2016-11-20	164	2	2	409.82	819.64	40.98	778.66	\N
+1723	2016-11-20	382	2	1	430.20	430.20	21.51	408.69	1
+1724	2016-11-20	123	5	2	232.09	464.18	0.00	464.18	\N
+1725	2016-11-20	210	2	1	487.75	487.75	24.39	463.36	1
+1726	2016-11-20	488	3	1	632.01	632.01	31.60	600.41	\N
+1727	2016-11-20	571	5	2	238.50	477.00	0.00	477.00	\N
+1728	2016-11-21	157	4	1	136.95	136.95	13.70	123.25	\N
+1729	2016-11-21	477	7	1	280.50	280.50	14.03	266.47	\N
+1730	2016-11-21	288	5	2	260.94	521.88	104.38	417.50	\N
+1731	2016-11-22	193	4	2	155.69	311.38	15.57	295.81	1
+1732	2016-11-22	577	7	2	303.54	607.08	0.00	607.08	\N
+1733	2016-11-22	49	5	2	243.20	486.40	0.00	486.40	\N
+1734	2016-11-23	168	6	2	361.10	722.20	36.11	686.09	1
+1735	2016-11-24	356	7	1	280.44	280.44	14.02	266.42	1
+1736	2016-11-25	300	3	1	743.99	743.99	0.00	743.99	\N
+1737	2016-11-25	369	7	1	275.19	275.19	27.52	247.67	1
+1738	2016-11-25	478	8	2	189.13	378.26	37.82	340.44	1
+1739	2016-11-25	149	10	1	29.05	29.05	0.00	29.05	\N
+1740	2016-11-26	588	3	2	766.81	1533.62	76.68	1456.94	1
+1741	2016-11-27	430	2	2	494.15	988.30	0.00	988.30	\N
+1742	2016-11-28	261	9	1	123.95	123.95	6.20	117.75	\N
+1743	2016-11-28	501	2	1	434.29	434.29	0.00	434.29	\N
+1744	2016-11-29	536	7	1	283.14	283.14	0.00	283.14	\N
+1745	2016-11-29	109	4	2	154.21	308.42	0.00	308.42	\N
+1746	2016-11-29	193	1	2	215.73	431.46	0.00	431.46	\N
+1747	2016-11-29	74	5	1	237.09	237.09	0.00	237.09	\N
+1748	2016-11-30	99	4	2	135.71	271.42	13.57	257.85	\N
+1749	2016-12-01	74	2	1	427.81	427.81	21.39	406.42	1
+1750	2016-12-01	413	1	1	207.91	207.91	10.40	197.51	1
+1751	2016-12-01	439	10	2	30.54	61.08	3.05	58.03	1
+1752	2016-12-01	504	1	2	200.00	400.00	0.00	400.00	\N
+1753	2016-12-01	393	9	1	126.47	126.47	0.00	126.47	\N
+1754	2016-12-01	503	1	1	195.20	195.20	9.76	185.44	1
+1755	2016-12-02	259	9	2	110.21	220.42	44.08	176.34	1
+1756	2016-12-03	389	6	2	331.90	663.80	66.38	597.42	\N
+1757	2016-12-04	463	4	2	153.41	306.82	61.36	245.46	\N
+1758	2016-12-04	456	2	2	450.19	900.38	45.02	855.36	1
+1759	2016-12-04	549	1	2	190.13	380.26	57.04	323.22	\N
+1760	2016-12-04	301	3	1	635.57	635.57	0.00	635.57	\N
+1761	2016-12-04	79	4	1	149.46	149.46	14.95	134.51	\N
+1762	2016-12-05	181	7	1	272.63	272.63	27.26	245.37	\N
+1763	2016-12-05	506	4	1	156.41	156.41	7.82	148.59	1
+1764	2016-12-05	169	3	2	648.48	1296.96	64.85	1232.11	1
+1765	2016-12-06	509	6	1	370.60	370.60	0.00	370.60	\N
+1766	2016-12-06	378	9	2	110.55	221.10	0.00	221.10	\N
+1767	2016-12-06	433	2	2	410.87	821.74	123.26	698.48	\N
+1768	2016-12-07	250	3	1	646.94	646.94	129.39	517.55	\N
+1769	2016-12-08	560	6	1	354.02	354.02	0.00	354.02	\N
+1770	2016-12-08	597	7	1	276.95	276.95	27.70	249.25	\N
+1771	2016-12-08	401	1	2	194.87	389.74	38.97	350.77	\N
+1772	2016-12-09	10	5	2	269.02	538.04	26.90	511.14	\N
+1773	2016-12-09	194	8	2	179.22	358.44	17.92	340.52	\N
+1774	2016-12-10	555	2	1	418.15	418.15	83.63	334.52	\N
+1775	2016-12-10	75	10	2	27.99	55.98	0.00	55.98	\N
+1776	2016-12-12	231	5	2	245.32	490.64	49.06	441.58	\N
+1777	2016-12-12	29	4	1	155.15	155.15	0.00	155.15	\N
+1778	2016-12-12	231	3	1	697.11	697.11	0.00	697.11	\N
+1779	2016-12-12	162	4	1	152.97	152.97	15.30	137.67	1
+1780	2016-12-12	68	9	2	110.04	220.08	22.00	198.08	1
+1781	2016-12-12	403	5	2	248.23	496.46	24.82	471.64	1
+1782	2016-12-12	549	10	1	28.96	28.96	0.00	28.96	\N
+1783	2016-12-13	396	10	2	31.17	62.34	0.00	62.34	\N
+1784	2016-12-13	588	3	2	695.71	1391.42	139.14	1252.28	\N
+1785	2016-12-13	65	5	2	256.46	512.92	0.00	512.92	\N
+1786	2016-12-14	234	6	2	379.88	759.76	37.99	721.77	1
+1787	2016-12-15	314	4	2	159.77	319.54	15.98	303.56	1
+1788	2016-12-15	435	4	1	158.05	158.05	23.71	134.34	1
+1789	2016-12-15	371	9	2	121.27	242.54	36.38	206.16	1
+1790	2016-12-15	299	4	2	141.17	282.34	14.12	268.22	1
+1791	2016-12-15	509	6	2	332.19	664.38	0.00	664.38	\N
+1792	2016-12-16	551	6	1	325.24	325.24	0.00	325.24	\N
+1793	2016-12-16	564	7	1	270.20	270.20	27.02	243.18	\N
+1794	2016-12-16	564	10	1	31.93	31.93	1.60	30.33	1
+1795	2016-12-16	438	8	1	183.43	183.43	9.17	174.26	1
+1796	2016-12-16	186	2	2	437.52	875.04	87.50	787.54	1
+1797	2016-12-17	562	9	2	114.44	228.88	0.00	228.88	\N
+1798	2016-12-18	210	1	2	215.65	431.30	43.13	388.17	\N
+1799	2016-12-18	284	5	2	246.49	492.98	73.95	419.03	\N
+1800	2016-12-18	566	6	1	373.85	373.85	56.08	317.77	\N
+1801	2016-12-19	176	7	2	282.19	564.38	28.22	536.16	1
+1802	2016-12-20	277	8	2	166.48	332.96	33.30	299.66	\N
+1803	2016-12-20	170	3	1	758.47	758.47	75.84	682.63	1
+1804	2016-12-20	594	10	2	32.10	64.20	0.00	64.20	\N
+1805	2016-12-21	419	8	1	177.93	177.93	0.00	177.93	\N
+1806	2016-12-21	390	1	1	201.65	201.65	30.25	171.40	\N
+1807	2016-12-21	537	6	1	337.55	337.55	0.00	337.55	\N
+1808	2016-12-21	211	6	2	325.12	650.24	130.05	520.19	1
+1809	2016-12-21	414	4	2	141.54	283.08	0.00	283.08	\N
+1810	2016-12-22	237	7	2	306.03	612.06	30.60	581.46	\N
+1811	2016-12-23	67	8	1	187.67	187.67	37.53	150.14	1
+1812	2016-12-23	503	7	1	313.45	313.45	47.01	266.44	1
+1813	2016-12-23	276	6	1	378.81	378.81	37.88	340.93	\N
+1814	2016-12-23	391	6	1	318.36	318.36	63.67	254.69	1
+1815	2016-12-24	567	1	1	190.02	190.02	9.50	180.52	1
+1816	2016-12-24	146	7	1	286.71	286.71	14.34	272.37	1
+1817	2016-12-24	534	2	2	425.86	851.72	42.59	809.13	\N
+1818	2016-12-24	181	5	1	252.40	252.40	12.62	239.78	1
+1819	2016-12-24	201	10	1	31.28	31.28	1.56	29.72	\N
+1820	2016-12-25	547	2	1	475.12	475.12	23.76	451.36	1
+1821	2016-12-26	547	3	1	664.39	664.39	33.22	631.17	\N
+1822	2016-12-27	22	9	2	120.11	240.22	48.04	192.18	1
+1823	2016-12-27	136	4	1	160.85	160.85	8.04	152.81	1
+1824	2016-12-28	252	8	2	168.31	336.62	50.49	286.13	1
+1825	2016-12-28	387	3	2	630.08	1260.16	0.00	1260.16	\N
+1826	2016-12-28	405	9	2	121.00	242.00	0.00	242.00	\N
+1827	2016-12-29	533	6	2	370.05	740.10	0.00	740.10	\N
+1828	2016-12-29	258	9	2	130.48	260.96	52.19	208.77	1
+1829	2016-12-30	377	5	2	230.78	461.56	23.08	438.48	1
+1830	2016-12-30	25	6	1	349.11	349.11	0.00	349.11	\N
+1831	2016-12-30	151	8	1	193.15	193.15	0.00	193.15	\N
+1832	2016-12-30	310	7	2	284.67	569.34	56.94	512.40	1
+1833	2016-12-30	409	8	1	187.66	187.66	9.38	178.28	1
+1834	2016-12-30	53	4	1	163.43	163.43	8.17	155.26	1
+1835	2016-12-30	55	6	2	347.56	695.12	0.00	695.12	\N
+1836	2016-12-31	302	6	1	372.48	372.48	55.87	316.61	1
+1837	2017-01-01	340	4	2	144.31	288.62	0.00	288.62	\N
+1838	2017-01-01	12	2	1	418.13	418.13	0.00	418.13	\N
+1839	2017-01-02	277	1	2	180.99	361.98	0.00	361.98	\N
+1840	2017-01-03	534	6	2	316.69	633.38	0.00	633.38	\N
+1841	2017-01-03	472	6	1	358.52	358.52	0.00	358.52	\N
+1842	2017-01-03	53	9	1	122.05	122.05	0.00	122.05	\N
+1843	2017-01-04	500	7	1	315.82	315.82	15.79	300.03	\N
+1844	2017-01-04	158	7	1	289.81	289.81	0.00	289.81	\N
+1845	2017-01-04	274	3	1	649.91	649.91	0.00	649.91	\N
+1846	2017-01-05	96	10	1	29.30	29.30	0.00	29.30	\N
+1847	2017-01-06	43	1	2	192.12	384.24	0.00	384.24	\N
+1848	2017-01-06	200	7	2	304.16	608.32	0.00	608.32	\N
+1849	2017-01-06	156	7	1	302.82	302.82	0.00	302.82	\N
+1850	2017-01-06	216	1	1	219.64	219.64	10.98	208.66	\N
+1851	2017-01-07	272	8	1	190.33	190.33	0.00	190.33	\N
+1852	2017-01-07	170	8	2	166.11	332.22	0.00	332.22	\N
+1853	2017-01-07	351	10	2	31.37	62.74	0.00	62.74	\N
+1854	2017-01-07	481	5	1	253.85	253.85	0.00	253.85	\N
+1855	2017-01-08	339	6	2	351.87	703.74	0.00	703.74	\N
+1856	2017-01-10	533	5	1	265.31	265.31	0.00	265.31	\N
+1857	2017-01-11	252	4	2	159.45	318.90	0.00	318.90	\N
+1858	2017-01-11	279	6	1	380.80	380.80	0.00	380.80	\N
+1859	2017-01-11	415	1	2	218.08	436.16	0.00	436.16	\N
+1860	2017-01-11	264	2	1	479.17	479.17	0.00	479.17	\N
+1861	2017-01-12	225	4	2	148.93	297.86	14.89	282.97	\N
+1862	2017-01-12	556	9	2	116.71	233.42	0.00	233.42	\N
+1863	2017-01-13	430	10	2	28.99	57.98	2.90	55.08	\N
+1864	2017-01-13	493	2	2	474.75	949.50	0.00	949.50	\N
+1865	2017-01-14	59	7	2	294.36	588.72	0.00	588.72	\N
+1866	2017-01-14	425	8	2	197.22	394.44	0.00	394.44	\N
+1867	2017-01-15	380	2	2	432.72	865.44	0.00	865.44	\N
+1868	2017-01-15	504	7	1	305.31	305.31	0.00	305.31	\N
+1869	2017-01-16	241	5	2	237.16	474.32	0.00	474.32	\N
+1870	2017-01-16	345	3	2	713.72	1427.44	0.00	1427.44	\N
+1871	2017-01-16	85	2	2	412.39	824.78	0.00	824.78	\N
+1872	2017-01-17	9	3	2	705.65	1411.30	0.00	1411.30	\N
+1873	2017-01-17	95	3	2	768.86	1537.72	76.89	1460.83	\N
+1874	2017-01-18	34	3	2	670.80	1341.60	0.00	1341.60	\N
+1875	2017-01-18	366	10	1	27.53	27.53	2.75	24.78	\N
+1876	2017-01-18	339	2	2	408.50	817.00	0.00	817.00	\N
+1877	2017-01-18	41	10	1	27.00	27.00	0.00	27.00	\N
+1878	2017-01-18	175	7	1	319.45	319.45	0.00	319.45	\N
+1879	2017-01-19	274	10	1	28.75	28.75	0.00	28.75	\N
+1880	2017-01-19	74	10	1	28.71	28.71	2.87	25.84	\N
+1881	2017-01-19	162	9	1	110.31	110.31	0.00	110.31	\N
+1882	2017-01-19	291	1	1	195.74	195.74	0.00	195.74	\N
+1883	2017-01-20	167	8	2	191.17	382.34	0.00	382.34	\N
+1884	2017-01-20	522	5	1	239.68	239.68	0.00	239.68	\N
+1885	2017-01-20	411	7	2	318.42	636.84	0.00	636.84	\N
+1886	2017-01-21	317	6	2	329.74	659.48	0.00	659.48	\N
+1887	2017-01-21	159	1	2	183.18	366.36	0.00	366.36	\N
+1888	2017-01-21	121	3	2	645.07	1290.14	0.00	1290.14	\N
+1889	2017-01-21	153	2	1	430.42	430.42	0.00	430.42	\N
+1890	2017-01-22	328	10	1	28.44	28.44	0.00	28.44	\N
+1891	2017-01-22	420	2	1	488.69	488.69	0.00	488.69	\N
+1892	2017-01-22	566	10	2	28.82	57.64	0.00	57.64	\N
+1893	2017-01-22	485	1	2	194.57	389.14	0.00	389.14	\N
+1894	2017-01-22	354	2	2	409.40	818.80	0.00	818.80	\N
+1895	2017-01-22	259	7	1	281.19	281.19	0.00	281.19	\N
+1896	2017-01-23	408	6	1	346.47	346.47	0.00	346.47	\N
+1897	2017-01-23	433	6	2	382.06	764.12	0.00	764.12	\N
+1898	2017-01-23	189	1	2	214.77	429.54	42.95	386.59	\N
+1899	2017-01-23	426	2	2	448.82	897.64	0.00	897.64	\N
+1900	2017-01-24	152	1	2	215.37	430.74	0.00	430.74	\N
+1901	2017-01-24	508	5	2	270.37	540.74	0.00	540.74	\N
+1902	2017-01-25	428	1	2	210.83	421.66	0.00	421.66	\N
+1903	2017-01-25	352	10	2	29.24	58.48	5.85	52.63	\N
+1904	2017-01-25	514	4	2	141.33	282.66	0.00	282.66	\N
+1905	2017-01-25	518	5	1	251.54	251.54	0.00	251.54	\N
+1906	2017-01-26	202	7	2	316.18	632.36	0.00	632.36	\N
+1907	2017-01-26	41	8	1	196.71	196.71	0.00	196.71	\N
+1908	2017-01-26	298	9	1	131.92	131.92	0.00	131.92	\N
+1909	2017-01-26	292	6	1	316.25	316.25	0.00	316.25	\N
+1910	2017-01-26	65	8	1	191.86	191.86	0.00	191.86	\N
+1911	2017-01-27	475	10	2	30.43	60.86	0.00	60.86	\N
+1912	2017-01-27	229	8	2	171.53	343.06	0.00	343.06	\N
+1913	2017-01-29	40	4	1	155.05	155.05	0.00	155.05	\N
+1914	2017-01-29	405	5	1	225.21	225.21	0.00	225.21	\N
+1915	2017-01-29	228	8	1	170.60	170.60	8.53	162.07	\N
+1916	2017-01-29	78	5	1	251.76	251.76	0.00	251.76	\N
+1917	2017-01-30	427	1	2	200.07	400.14	0.00	400.14	\N
+1918	2017-01-31	314	10	2	30.98	61.96	0.00	61.96	\N
+1919	2017-01-31	595	4	1	151.02	151.02	0.00	151.02	\N
+1920	2017-01-31	119	4	1	162.77	162.77	0.00	162.77	\N
+1921	2017-01-31	337	3	2	706.31	1412.62	0.00	1412.62	\N
+1922	2017-01-31	440	2	1	434.59	434.59	0.00	434.59	\N
+1923	2017-01-31	492	1	2	183.98	367.96	0.00	367.96	\N
+1924	2017-02-01	265	3	2	722.04	1444.08	0.00	1444.08	\N
+1925	2017-02-01	426	3	1	756.83	756.83	0.00	756.83	\N
+1926	2017-02-01	168	6	1	321.83	321.83	0.00	321.83	\N
+1927	2017-02-01	317	9	1	124.60	124.60	0.00	124.60	\N
+1928	2017-02-01	79	3	2	752.25	1504.50	0.00	1504.50	\N
+1929	2017-02-02	4	4	2	136.98	273.96	0.00	273.96	\N
+1930	2017-02-03	277	3	2	645.87	1291.74	0.00	1291.74	\N
+1931	2017-02-03	125	9	1	126.38	126.38	0.00	126.38	\N
+1932	2017-02-04	477	9	2	110.93	221.86	0.00	221.86	\N
+1933	2017-02-05	285	2	1	437.06	437.06	21.85	415.21	\N
+1934	2017-02-05	398	4	1	151.36	151.36	0.00	151.36	\N
+1935	2017-02-05	19	10	2	31.83	63.66	0.00	63.66	\N
+1936	2017-02-06	89	2	2	419.61	839.22	0.00	839.22	\N
+1937	2017-02-07	535	9	1	112.66	112.66	0.00	112.66	\N
+1938	2017-02-08	360	1	2	193.61	387.22	0.00	387.22	\N
+1939	2017-02-08	443	2	2	477.65	955.30	0.00	955.30	\N
+1940	2017-02-08	413	4	1	140.03	140.03	0.00	140.03	\N
+1941	2017-02-09	496	10	2	31.49	62.98	3.15	59.83	\N
+1942	2017-02-09	507	9	2	126.50	253.00	0.00	253.00	\N
+1943	2017-02-10	378	4	1	162.00	162.00	8.10	153.90	\N
+1944	2017-02-10	4	10	1	29.13	29.13	0.00	29.13	\N
+1945	2017-02-10	382	6	2	344.09	688.18	0.00	688.18	\N
+1946	2017-02-10	323	8	1	165.07	165.07	0.00	165.07	\N
+1947	2017-02-11	534	9	1	126.39	126.39	0.00	126.39	\N
+1948	2017-02-11	485	8	1	181.93	181.93	0.00	181.93	\N
+1949	2017-02-11	349	2	1	461.25	461.25	46.12	415.13	\N
+1950	2017-02-12	252	5	1	251.85	251.85	0.00	251.85	\N
+1951	2017-02-13	40	2	2	409.94	819.88	0.00	819.88	\N
+1952	2017-02-13	141	5	2	265.78	531.56	0.00	531.56	\N
+1953	2017-02-13	288	6	1	374.48	374.48	0.00	374.48	\N
+1954	2017-02-14	544	6	1	320.26	320.26	0.00	320.26	\N
+1955	2017-02-14	308	7	2	271.36	542.72	0.00	542.72	\N
+1956	2017-02-14	336	3	2	729.65	1459.30	0.00	1459.30	\N
+1957	2017-02-14	538	10	2	30.60	61.20	3.06	58.14	\N
+1958	2017-02-15	98	5	1	263.40	263.40	0.00	263.40	\N
+1959	2017-02-15	127	3	2	710.70	1421.40	0.00	1421.40	\N
+1960	2017-02-16	81	4	2	136.47	272.94	0.00	272.94	\N
+1961	2017-02-17	564	9	2	129.91	259.82	25.98	233.84	\N
+1962	2017-02-17	566	5	1	230.02	230.02	0.00	230.02	\N
+1963	2017-02-18	42	5	2	270.94	541.88	0.00	541.88	\N
+1964	2017-02-18	342	5	2	262.05	524.10	26.21	497.89	\N
+1965	2017-02-20	5	2	2	485.23	970.46	97.05	873.41	\N
+1966	2017-02-21	416	9	1	110.57	110.57	5.53	105.04	\N
+1967	2017-02-21	84	6	2	326.79	653.58	0.00	653.58	\N
+1968	2017-02-22	583	2	2	461.78	923.56	46.18	877.38	\N
+1969	2017-02-23	130	3	1	733.30	733.30	0.00	733.30	\N
+1970	2017-02-23	522	4	1	164.69	164.69	16.47	148.22	\N
+1971	2017-02-23	591	4	2	149.78	299.56	0.00	299.56	\N
+1972	2017-02-23	441	4	1	153.40	153.40	0.00	153.40	\N
+1973	2017-02-23	541	5	1	242.21	242.21	0.00	242.21	\N
+1974	2017-02-23	422	10	2	28.73	57.46	0.00	57.46	\N
+1975	2017-02-23	128	7	2	285.30	570.60	0.00	570.60	\N
+1976	2017-02-24	2	2	2	441.50	883.00	88.30	794.70	\N
+1977	2017-02-24	132	10	1	28.11	28.11	0.00	28.11	\N
+1978	2017-02-24	123	4	2	138.97	277.94	13.90	264.04	\N
+1979	2017-02-24	48	2	1	466.57	466.57	23.33	443.24	\N
+1980	2017-02-25	284	2	1	456.71	456.71	0.00	456.71	\N
+1981	2017-02-25	114	1	1	196.53	196.53	0.00	196.53	\N
+1982	2017-02-25	458	3	2	650.58	1301.16	0.00	1301.16	\N
+1983	2017-02-25	127	6	2	337.76	675.52	0.00	675.52	\N
+1984	2017-02-25	532	5	1	247.17	247.17	0.00	247.17	\N
+1985	2017-02-25	150	4	1	146.68	146.68	7.33	139.35	\N
+1986	2017-02-26	502	8	2	196.17	392.34	0.00	392.34	\N
+1987	2017-02-26	259	1	1	197.33	197.33	9.87	187.46	\N
+1988	2017-02-26	470	9	2	114.94	229.88	0.00	229.88	\N
+1989	2017-02-27	295	3	2	669.68	1339.36	66.97	1272.39	\N
+1990	2017-02-27	485	9	1	109.57	109.57	0.00	109.57	\N
+1991	2017-02-27	311	4	2	148.48	296.96	0.00	296.96	\N
+1992	2017-02-27	283	8	1	196.69	196.69	0.00	196.69	\N
+1993	2017-02-28	492	4	1	148.14	148.14	7.41	140.73	\N
+1994	2017-02-28	498	7	2	283.13	566.26	0.00	566.26	\N
+1995	2017-02-28	522	3	1	645.38	645.38	0.00	645.38	\N
+1996	2017-02-28	535	5	1	259.50	259.50	0.00	259.50	\N
+1997	2017-03-01	529	5	1	262.32	262.32	13.12	249.20	\N
+1998	2017-03-03	248	5	2	237.60	475.20	0.00	475.20	\N
+1999	2017-03-04	570	10	2	30.45	60.90	0.00	60.90	\N
+2000	2017-03-05	188	8	1	197.19	197.19	9.86	187.33	\N
+2001	2017-03-05	336	9	2	118.07	236.14	0.00	236.14	\N
+2002	2017-03-05	493	4	1	140.62	140.62	0.00	140.62	\N
+2003	2017-03-05	436	5	1	259.80	259.80	0.00	259.80	\N
+2004	2017-03-06	205	7	2	310.19	620.38	0.00	620.38	\N
+2005	2017-03-06	579	10	1	29.14	29.14	0.00	29.14	\N
+2006	2017-03-06	201	4	1	144.74	144.74	0.00	144.74	\N
+2007	2017-03-07	366	8	2	189.32	378.64	0.00	378.64	\N
+2008	2017-03-07	505	4	1	147.92	147.92	0.00	147.92	\N
+2009	2017-03-07	79	2	2	455.86	911.72	91.17	820.55	\N
+2010	2017-03-08	45	4	1	149.01	149.01	0.00	149.01	\N
+2011	2017-03-08	75	2	1	466.29	466.29	0.00	466.29	\N
+2012	2017-03-08	452	3	2	660.90	1321.80	0.00	1321.80	\N
+2013	2017-03-09	380	2	2	408.30	816.60	81.66	734.94	\N
+2014	2017-03-09	124	5	2	257.15	514.30	0.00	514.30	\N
+2015	2017-03-09	215	2	1	435.67	435.67	0.00	435.67	\N
+2016	2017-03-09	122	2	1	477.49	477.49	0.00	477.49	\N
+2017	2017-03-10	550	4	1	136.33	136.33	0.00	136.33	\N
+2018	2017-03-11	555	3	2	722.02	1444.04	0.00	1444.04	\N
+2019	2017-03-11	7	8	1	191.41	191.41	0.00	191.41	\N
+2020	2017-03-11	422	6	1	322.01	322.01	0.00	322.01	\N
+2021	2017-03-11	235	10	2	28.67	57.34	0.00	57.34	\N
+2022	2017-03-12	358	6	2	367.73	735.46	0.00	735.46	\N
+2023	2017-03-12	169	1	2	209.56	419.12	0.00	419.12	\N
+2024	2017-03-12	586	1	1	206.69	206.69	10.33	196.36	\N
+2025	2017-03-13	240	1	1	209.30	209.30	10.47	198.83	\N
+2026	2017-03-13	203	3	2	671.30	1342.60	134.26	1208.34	\N
+2027	2017-03-13	232	10	2	27.81	55.62	2.78	52.84	\N
+2028	2017-03-14	376	5	1	266.74	266.74	0.00	266.74	\N
+2029	2017-03-14	65	3	2	696.32	1392.64	139.26	1253.38	\N
+2030	2017-03-14	36	9	2	112.20	224.40	0.00	224.40	\N
+2031	2017-03-16	431	2	1	412.63	412.63	20.63	392.00	\N
+2032	2017-03-17	158	7	1	276.51	276.51	0.00	276.51	\N
+2033	2017-03-19	171	5	2	260.68	521.36	0.00	521.36	\N
+2034	2017-03-19	544	10	2	32.39	64.78	0.00	64.78	\N
+2035	2017-03-20	338	8	1	167.67	167.67	0.00	167.67	\N
+2036	2017-03-20	546	10	1	28.29	28.29	0.00	28.29	\N
+2037	2017-03-20	177	10	2	32.02	64.04	0.00	64.04	\N
+2038	2017-03-21	324	5	1	255.31	255.31	0.00	255.31	\N
+2039	2017-03-21	21	4	1	147.17	147.17	0.00	147.17	\N
+2040	2017-03-21	549	8	2	195.38	390.76	0.00	390.76	\N
+2041	2017-03-22	119	3	2	756.12	1512.24	0.00	1512.24	\N
+2042	2017-03-23	547	2	2	455.41	910.82	0.00	910.82	\N
+2043	2017-03-23	595	3	1	637.40	637.40	31.87	605.53	\N
+2044	2017-03-24	130	4	2	162.24	324.48	0.00	324.48	\N
+2045	2017-03-25	557	2	2	426.73	853.46	0.00	853.46	\N
+2046	2017-03-25	348	9	1	120.90	120.90	0.00	120.90	\N
+2047	2017-03-25	341	9	2	111.27	222.54	22.25	200.29	\N
+2048	2017-03-26	503	4	2	139.19	278.38	0.00	278.38	\N
+2049	2017-03-26	92	9	1	111.55	111.55	0.00	111.55	\N
+2050	2017-03-27	433	9	2	109.92	219.84	0.00	219.84	\N
+2051	2017-03-28	472	3	1	725.39	725.39	0.00	725.39	\N
+2052	2017-03-28	346	1	2	181.32	362.64	18.13	344.51	\N
+2053	2017-03-28	25	1	2	183.35	366.70	18.34	348.36	\N
+2054	2017-03-28	85	4	2	149.42	298.84	0.00	298.84	\N
+2055	2017-03-29	450	9	2	123.54	247.08	12.35	234.73	\N
+2056	2017-03-29	154	6	1	336.90	336.90	0.00	336.90	\N
+2057	2017-03-29	517	5	2	262.63	525.26	0.00	525.26	\N
+2058	2017-03-29	88	9	2	127.51	255.02	0.00	255.02	\N
+2059	2017-03-30	591	9	1	119.44	119.44	0.00	119.44	\N
+2060	2017-03-30	79	3	1	654.60	654.60	0.00	654.60	\N
+2061	2017-03-30	514	10	1	31.73	31.73	0.00	31.73	\N
+2062	2017-03-31	481	1	1	200.29	200.29	0.00	200.29	\N
+2063	2017-03-31	46	10	1	27.29	27.29	0.00	27.29	\N
+2064	2017-03-31	252	7	2	290.72	581.44	0.00	581.44	\N
+2065	2017-03-31	371	9	2	114.60	229.20	22.92	206.28	\N
+2066	2017-04-01	577	2	2	426.22	852.44	85.24	767.20	\N
+2067	2017-04-01	524	4	2	164.72	329.44	0.00	329.44	\N
+2068	2017-04-02	51	6	2	336.71	673.42	67.34	606.08	\N
+2069	2017-04-02	43	9	1	125.14	125.14	0.00	125.14	\N
+2070	2017-04-02	55	7	2	282.47	564.94	0.00	564.94	\N
+2071	2017-04-02	572	8	1	184.25	184.25	0.00	184.25	\N
+2072	2017-04-03	18	10	2	31.67	63.34	0.00	63.34	\N
+2073	2017-04-04	539	3	2	647.61	1295.22	64.76	1230.46	\N
+2074	2017-04-04	126	7	1	285.17	285.17	0.00	285.17	\N
+2075	2017-04-05	570	9	1	125.72	125.72	0.00	125.72	\N
+2076	2017-04-06	265	3	1	706.65	706.65	0.00	706.65	\N
+2077	2017-04-06	255	9	1	112.65	112.65	0.00	112.65	\N
+2078	2017-04-06	193	9	1	123.55	123.55	0.00	123.55	\N
+2079	2017-04-06	249	3	2	724.22	1448.44	144.84	1303.60	\N
+2080	2017-04-06	303	3	1	703.04	703.04	0.00	703.04	\N
+2081	2017-04-07	315	7	1	287.86	287.86	28.79	259.07	\N
+2082	2017-04-07	134	6	1	365.56	365.56	0.00	365.56	\N
+2083	2017-04-08	442	4	2	138.12	276.24	0.00	276.24	\N
+2084	2017-04-08	258	2	2	446.58	893.16	89.32	803.84	\N
+2085	2017-04-08	299	7	2	279.40	558.80	0.00	558.80	\N
+2086	2017-04-10	383	5	1	268.31	268.31	26.83	241.48	\N
+2087	2017-04-10	235	6	2	338.80	677.60	0.00	677.60	\N
+2088	2017-04-11	301	4	2	163.78	327.56	0.00	327.56	\N
+2089	2017-04-11	24	2	2	447.28	894.56	0.00	894.56	\N
+2090	2017-04-11	287	5	2	250.65	501.30	0.00	501.30	\N
+2091	2017-04-11	544	9	1	129.99	129.99	6.50	123.49	\N
+2092	2017-04-11	112	6	2	331.90	663.80	0.00	663.80	\N
+2093	2017-04-12	532	3	1	746.26	746.26	0.00	746.26	\N
+2094	2017-04-12	138	8	1	183.96	183.96	0.00	183.96	\N
+2095	2017-04-12	349	1	1	191.59	191.59	0.00	191.59	\N
+2096	2017-04-12	299	4	1	141.14	141.14	0.00	141.14	\N
+2097	2017-04-13	364	4	2	159.86	319.72	0.00	319.72	\N
+2098	2017-04-14	323	2	1	440.52	440.52	0.00	440.52	\N
+2099	2017-04-15	145	2	1	413.11	413.11	0.00	413.11	\N
+2100	2017-04-18	466	9	1	119.19	119.19	0.00	119.19	\N
+2101	2017-04-19	127	9	2	109.16	218.32	0.00	218.32	\N
+2102	2017-04-20	247	10	1	27.55	27.55	0.00	27.55	\N
+2103	2017-04-20	505	4	2	139.04	278.08	0.00	278.08	\N
+2104	2017-04-20	232	1	2	215.30	430.60	0.00	430.60	\N
+2105	2017-04-20	79	2	1	487.63	487.63	0.00	487.63	\N
+2106	2017-04-20	518	8	1	189.30	189.30	0.00	189.30	\N
+2107	2017-04-21	399	2	2	446.55	893.10	0.00	893.10	\N
+2108	2017-04-21	417	9	1	125.29	125.29	0.00	125.29	\N
+2109	2017-04-21	9	1	2	216.46	432.92	0.00	432.92	\N
+2110	2017-04-22	28	1	2	203.44	406.88	0.00	406.88	\N
+2111	2017-04-22	425	2	1	454.48	454.48	0.00	454.48	\N
+2112	2017-04-23	537	1	2	189.78	379.56	0.00	379.56	\N
+2113	2017-04-23	484	8	1	171.50	171.50	0.00	171.50	\N
+2114	2017-04-23	123	7	2	325.00	650.00	0.00	650.00	\N
+2115	2017-04-23	219	7	2	292.07	584.14	0.00	584.14	\N
+2116	2017-04-24	138	1	1	183.05	183.05	0.00	183.05	\N
+2117	2017-04-24	127	9	1	123.34	123.34	0.00	123.34	\N
+2118	2017-04-25	112	9	2	115.01	230.02	0.00	230.02	\N
+2119	2017-04-25	543	8	2	174.35	348.70	17.43	331.27	\N
+2120	2017-04-25	418	4	2	140.12	280.24	0.00	280.24	\N
+2121	2017-04-26	221	10	2	30.61	61.22	3.06	58.16	\N
+2122	2017-04-27	463	5	2	241.76	483.52	0.00	483.52	\N
+2123	2017-04-28	95	5	2	271.69	543.38	0.00	543.38	\N
+2124	2017-04-29	302	3	2	702.76	1405.52	0.00	1405.52	\N
+2125	2017-04-29	44	6	2	359.13	718.26	0.00	718.26	\N
+2126	2017-04-30	346	4	1	149.77	149.77	0.00	149.77	\N
+2127	2017-04-30	446	1	1	200.77	200.77	10.04	190.73	\N
+2128	2017-04-30	437	1	2	217.55	435.10	0.00	435.10	\N
+2129	2017-05-01	57	9	1	129.24	129.24	0.00	129.24	\N
+2130	2017-05-01	408	10	2	27.53	55.06	0.00	55.06	\N
+2131	2017-05-01	28	7	2	279.24	558.48	0.00	558.48	\N
+2132	2017-05-02	329	4	1	138.00	138.00	6.90	131.10	\N
+2133	2017-05-03	261	6	2	339.91	679.82	0.00	679.82	\N
+2134	2017-05-03	522	9	2	112.40	224.80	0.00	224.80	\N
+2135	2017-05-03	498	8	1	177.28	177.28	0.00	177.28	\N
+2136	2017-05-03	147	10	1	28.27	28.27	0.00	28.27	\N
+2137	2017-05-04	271	5	2	262.48	524.96	26.25	498.71	\N
+2138	2017-05-04	312	9	1	108.12	108.12	0.00	108.12	\N
+2139	2017-05-04	459	4	2	145.28	290.56	0.00	290.56	\N
+2140	2017-05-05	564	9	1	111.28	111.28	5.56	105.72	\N
+2141	2017-05-05	384	10	2	31.34	62.68	6.27	56.41	\N
+2142	2017-05-06	463	1	1	204.23	204.23	20.42	183.81	\N
+2143	2017-05-07	579	10	2	31.25	62.50	0.00	62.50	\N
+2144	2017-05-07	293	10	2	28.09	56.18	5.62	50.56	\N
+2145	2017-05-07	262	10	2	31.84	63.68	0.00	63.68	\N
+2146	2017-05-09	587	10	2	32.66	65.32	0.00	65.32	\N
+2147	2017-05-10	587	7	1	322.17	322.17	0.00	322.17	\N
+2148	2017-05-10	566	10	2	31.56	63.12	0.00	63.12	\N
+2149	2017-05-11	468	2	2	485.02	970.04	0.00	970.04	\N
+2150	2017-05-11	549	6	1	355.55	355.55	0.00	355.55	\N
+2151	2017-05-12	583	4	1	139.41	139.41	0.00	139.41	\N
+2152	2017-05-12	302	1	2	210.89	421.78	0.00	421.78	\N
+2153	2017-05-13	584	10	2	31.75	63.50	0.00	63.50	\N
+2154	2017-05-13	180	4	2	138.25	276.50	0.00	276.50	\N
+2155	2017-05-13	229	5	1	264.03	264.03	0.00	264.03	\N
+2156	2017-05-14	441	7	2	303.83	607.66	0.00	607.66	\N
+2157	2017-05-14	57	7	1	307.33	307.33	30.73	276.60	\N
+2158	2017-05-14	159	7	2	308.41	616.82	0.00	616.82	\N
+2159	2017-05-14	428	1	1	205.68	205.68	10.28	195.40	\N
+2160	2017-05-14	317	9	1	130.63	130.63	0.00	130.63	\N
+2161	2017-05-14	533	10	2	28.32	56.64	0.00	56.64	\N
+2162	2017-05-15	371	4	1	161.96	161.96	0.00	161.96	\N
+2163	2017-05-15	575	1	2	213.44	426.88	0.00	426.88	\N
+2164	2017-05-15	4	6	1	382.20	382.20	0.00	382.20	\N
+2165	2017-05-18	121	3	2	756.31	1512.62	0.00	1512.62	\N
+2166	2017-05-18	445	6	2	317.10	634.20	0.00	634.20	\N
+2167	2017-05-18	151	7	2	305.43	610.86	0.00	610.86	\N
+2168	2017-05-19	151	7	2	309.66	619.32	61.93	557.39	\N
+2169	2017-05-19	587	7	2	290.68	581.36	0.00	581.36	\N
+2170	2017-05-19	222	1	2	202.47	404.94	0.00	404.94	\N
+2171	2017-05-19	101	3	1	737.31	737.31	0.00	737.31	\N
+2172	2017-05-19	322	10	1	29.02	29.02	0.00	29.02	\N
+2173	2017-05-19	124	5	2	267.17	534.34	0.00	534.34	\N
+2174	2017-05-20	409	9	1	111.57	111.57	0.00	111.57	\N
+2175	2017-05-21	319	9	2	114.53	229.06	0.00	229.06	\N
+2176	2017-05-21	31	3	2	696.98	1393.96	0.00	1393.96	\N
+2177	2017-05-21	7	9	2	118.42	236.84	0.00	236.84	\N
+2178	2017-05-22	399	2	1	494.86	494.86	49.49	445.37	\N
+2179	2017-05-22	516	4	2	137.25	274.50	0.00	274.50	\N
+2180	2017-05-22	343	1	1	181.92	181.92	9.10	172.82	\N
+2181	2017-05-23	286	2	2	431.37	862.74	0.00	862.74	\N
+2182	2017-05-23	330	1	1	198.13	198.13	0.00	198.13	\N
+2183	2017-05-23	535	4	2	161.16	322.32	0.00	322.32	\N
+2184	2017-05-24	422	3	1	637.04	637.04	0.00	637.04	\N
+2185	2017-05-26	287	5	2	225.84	451.68	0.00	451.68	\N
+2186	2017-05-26	454	10	2	28.69	57.38	5.74	51.64	\N
+2187	2017-05-27	144	7	1	315.78	315.78	0.00	315.78	\N
+2188	2017-05-27	134	10	1	27.82	27.82	1.39	26.43	\N
+2189	2017-05-27	504	8	2	195.22	390.44	0.00	390.44	\N
+2190	2017-05-27	165	10	2	31.20	62.40	0.00	62.40	\N
+2191	2017-05-27	270	1	1	195.89	195.89	0.00	195.89	\N
+2192	2017-05-28	547	5	1	228.36	228.36	11.42	216.94	\N
+2193	2017-05-28	465	4	2	137.68	275.36	27.54	247.82	\N
+2194	2017-05-29	367	3	1	658.37	658.37	0.00	658.37	\N
+2195	2017-05-30	411	2	1	447.05	447.05	0.00	447.05	\N
+2196	2017-05-30	476	1	1	188.20	188.20	0.00	188.20	\N
+2197	2017-05-30	169	2	1	412.07	412.07	41.21	370.86	\N
+2198	2017-05-30	116	4	2	157.51	315.02	0.00	315.02	\N
+2199	2017-05-30	526	6	1	324.26	324.26	0.00	324.26	\N
+2200	2017-05-30	588	6	2	341.32	682.64	68.26	614.38	\N
+2201	2017-05-30	77	9	2	115.12	230.24	0.00	230.24	\N
+2202	2017-05-31	51	3	2	751.04	1502.08	0.00	1502.08	\N
+2203	2017-05-31	145	7	2	287.64	575.28	28.76	546.52	\N
+2204	2017-05-31	442	5	2	239.24	478.48	47.85	430.63	\N
+2205	2017-05-31	210	5	1	266.60	266.60	0.00	266.60	\N
+2206	2017-06-01	548	2	1	488.49	488.49	0.00	488.49	\N
+2207	2017-06-01	512	9	2	112.09	224.18	11.21	212.97	\N
+2208	2017-06-02	166	2	1	484.04	484.04	0.00	484.04	\N
+2209	2017-06-04	550	3	2	644.33	1288.66	128.87	1159.79	\N
+2210	2017-06-04	176	10	1	30.28	30.28	0.00	30.28	\N
+2211	2017-06-05	504	10	2	29.63	59.26	0.00	59.26	\N
+2212	2017-06-06	238	9	1	113.83	113.83	5.69	108.14	\N
+2213	2017-06-06	557	6	2	343.59	687.18	0.00	687.18	\N
+2214	2017-06-07	587	8	1	196.55	196.55	19.66	176.89	\N
+2215	2017-06-07	413	2	2	445.82	891.64	0.00	891.64	\N
+2216	2017-06-07	413	8	2	170.49	340.98	0.00	340.98	\N
+2217	2017-06-07	151	1	1	194.60	194.60	9.73	184.87	\N
+2218	2017-06-07	87	3	1	655.26	655.26	0.00	655.26	\N
+2219	2017-06-09	336	3	2	642.07	1284.14	0.00	1284.14	\N
+2220	2017-06-09	375	1	1	211.09	211.09	0.00	211.09	\N
+2221	2017-06-10	459	2	1	466.81	466.81	0.00	466.81	\N
+2222	2017-06-10	154	2	1	452.06	452.06	0.00	452.06	\N
+2223	2017-06-10	179	2	1	493.35	493.35	49.34	444.01	\N
+2224	2017-06-10	468	10	2	32.73	65.46	0.00	65.46	\N
+2225	2017-06-10	548	5	1	236.76	236.76	0.00	236.76	\N
+2226	2017-06-11	555	5	2	264.17	528.34	0.00	528.34	\N
+2227	2017-06-11	163	3	1	754.90	754.90	75.49	679.41	\N
+2228	2017-06-11	35	10	1	31.15	31.15	0.00	31.15	\N
+2229	2017-06-11	556	7	1	328.50	328.50	0.00	328.50	\N
+2230	2017-06-11	257	9	1	131.26	131.26	0.00	131.26	\N
+2231	2017-06-12	306	10	1	29.03	29.03	0.00	29.03	\N
+2232	2017-06-12	525	9	1	123.11	123.11	0.00	123.11	\N
+2233	2017-06-12	291	6	2	346.63	693.26	0.00	693.26	\N
+2234	2017-06-13	469	1	1	207.81	207.81	0.00	207.81	\N
+2235	2017-06-13	366	3	1	662.94	662.94	0.00	662.94	\N
+2236	2017-06-14	459	7	1	298.66	298.66	0.00	298.66	\N
+2237	2017-06-14	192	1	2	217.36	434.72	0.00	434.72	\N
+2238	2017-06-15	390	2	2	491.72	983.44	98.34	885.10	\N
+2239	2017-06-16	507	10	2	30.19	60.38	0.00	60.38	\N
+2240	2017-06-16	154	10	2	30.45	60.90	0.00	60.90	\N
+2241	2017-06-16	510	3	1	747.19	747.19	37.36	709.83	\N
+2242	2017-06-17	506	1	1	211.62	211.62	0.00	211.62	\N
+2243	2017-06-17	537	1	1	195.94	195.94	9.80	186.14	\N
+2244	2017-06-17	378	1	1	207.82	207.82	0.00	207.82	\N
+2245	2017-06-18	370	7	1	292.86	292.86	0.00	292.86	\N
+2246	2017-06-18	468	10	1	27.23	27.23	0.00	27.23	\N
+2247	2017-06-19	172	5	2	269.99	539.98	54.00	485.98	\N
+2248	2017-06-19	384	5	1	237.56	237.56	0.00	237.56	\N
+2249	2017-06-19	403	8	1	183.37	183.37	18.34	165.03	\N
+2250	2017-06-20	302	3	1	719.36	719.36	0.00	719.36	\N
+2251	2017-06-21	137	9	1	125.74	125.74	0.00	125.74	\N
+2252	2017-06-22	401	4	2	160.99	321.98	16.10	305.88	\N
+2253	2017-06-23	349	7	1	279.87	279.87	27.99	251.88	\N
+2254	2017-06-25	192	9	2	126.28	252.56	0.00	252.56	\N
+2255	2017-06-26	495	3	1	757.95	757.95	0.00	757.95	\N
+2256	2017-06-26	172	10	2	28.03	56.06	0.00	56.06	\N
+2257	2017-06-26	227	4	2	145.30	290.60	0.00	290.60	\N
+2258	2017-06-27	379	2	1	425.12	425.12	0.00	425.12	\N
+2259	2017-06-28	517	2	1	455.39	455.39	0.00	455.39	\N
+2260	2017-06-29	375	1	2	218.07	436.14	0.00	436.14	\N
+2261	2017-06-29	270	7	1	326.97	326.97	0.00	326.97	\N
+2262	2017-06-29	17	10	1	28.92	28.92	0.00	28.92	\N
+2263	2017-06-30	295	5	1	236.21	236.21	11.81	224.40	\N
+2264	2017-07-01	525	10	1	27.45	27.45	0.00	27.45	\N
+2265	2017-07-01	493	10	1	29.91	29.91	2.99	26.92	\N
+2266	2017-07-01	596	4	1	143.07	143.07	14.31	128.76	\N
+2267	2017-07-02	216	7	2	288.45	576.90	0.00	576.90	\N
+2268	2017-07-02	465	2	2	434.41	868.82	0.00	868.82	\N
+2269	2017-07-02	110	4	2	156.87	313.74	0.00	313.74	\N
+2270	2017-07-03	220	7	2	298.55	597.10	0.00	597.10	\N
+2271	2017-07-03	538	2	1	426.43	426.43	0.00	426.43	\N
+2272	2017-07-03	325	1	2	180.64	361.28	0.00	361.28	\N
+2273	2017-07-03	154	2	1	430.51	430.51	0.00	430.51	\N
+2274	2017-07-04	90	1	1	211.05	211.05	21.11	189.94	\N
+2275	2017-07-04	542	2	1	467.65	467.65	0.00	467.65	\N
+2276	2017-07-04	575	1	1	204.20	204.20	0.00	204.20	\N
+2277	2017-07-04	490	1	2	190.87	381.74	38.17	343.57	\N
+2278	2017-07-05	412	3	2	754.63	1509.26	0.00	1509.26	\N
+2279	2017-07-05	571	7	2	294.96	589.92	0.00	589.92	\N
+2280	2017-07-06	598	9	2	117.97	235.94	0.00	235.94	\N
+2281	2017-07-07	552	8	1	172.06	172.06	0.00	172.06	\N
+2282	2017-07-08	142	8	1	187.42	187.42	0.00	187.42	\N
+2283	2017-07-08	287	9	2	123.17	246.34	0.00	246.34	\N
+2284	2017-07-09	433	6	2	370.76	741.52	0.00	741.52	\N
+2285	2017-07-09	295	3	2	700.28	1400.56	0.00	1400.56	\N
+2286	2017-07-10	122	2	1	478.12	478.12	0.00	478.12	\N
+2287	2017-07-10	341	1	2	185.45	370.90	0.00	370.90	\N
+2288	2017-07-10	41	1	1	186.24	186.24	0.00	186.24	\N
+2289	2017-07-11	236	10	1	30.88	30.88	0.00	30.88	\N
+2290	2017-07-11	243	3	1	719.97	719.97	0.00	719.97	\N
+2291	2017-07-12	119	6	1	375.79	375.79	18.79	357.00	\N
+2292	2017-07-12	332	6	1	348.64	348.64	0.00	348.64	\N
+2293	2017-07-13	436	9	1	125.72	125.72	0.00	125.72	\N
+2294	2017-07-13	291	5	2	239.22	478.44	0.00	478.44	\N
+2295	2017-07-15	393	7	1	305.19	305.19	0.00	305.19	\N
+2296	2017-07-16	503	3	2	699.94	1399.88	0.00	1399.88	\N
+2297	2017-07-16	228	7	1	296.94	296.94	0.00	296.94	\N
+2298	2017-07-16	452	5	1	257.16	257.16	12.86	244.30	\N
+2299	2017-07-17	133	6	2	374.22	748.44	0.00	748.44	\N
+2300	2017-07-17	172	6	1	335.15	335.15	0.00	335.15	\N
+2301	2017-07-17	72	9	1	113.24	113.24	0.00	113.24	\N
+2302	2017-07-19	557	2	2	471.33	942.66	47.13	895.53	\N
+2303	2017-07-19	130	4	1	153.20	153.20	0.00	153.20	\N
+2304	2017-07-19	8	5	1	256.20	256.20	12.81	243.39	\N
+2305	2017-07-21	93	9	1	113.87	113.87	0.00	113.87	\N
+2306	2017-07-22	164	4	2	156.53	313.06	0.00	313.06	\N
+2307	2017-07-22	25	9	2	111.96	223.92	0.00	223.92	\N
+2308	2017-07-22	532	2	2	464.86	929.72	46.49	883.23	\N
+2309	2017-07-23	359	8	2	178.71	357.42	0.00	357.42	\N
+2310	2017-07-24	372	9	1	123.07	123.07	0.00	123.07	\N
+2311	2017-07-24	389	3	1	750.78	750.78	0.00	750.78	\N
+2312	2017-07-24	334	3	2	716.61	1433.22	0.00	1433.22	\N
+2313	2017-07-24	465	7	1	323.98	323.98	0.00	323.98	\N
+2314	2017-07-25	105	7	2	273.19	546.38	0.00	546.38	\N
+2315	2017-07-26	451	2	2	463.09	926.18	92.62	833.56	\N
+2316	2017-07-26	221	4	1	148.29	148.29	0.00	148.29	\N
+2317	2017-07-27	223	10	2	30.93	61.86	0.00	61.86	\N
+2318	2017-07-27	30	6	2	327.73	655.46	32.77	622.69	\N
+2319	2017-07-27	422	3	2	763.75	1527.50	0.00	1527.50	\N
+2320	2017-07-28	335	10	1	27.45	27.45	0.00	27.45	\N
+2321	2017-07-29	567	9	2	111.45	222.90	0.00	222.90	\N
+2322	2017-07-29	333	6	2	364.17	728.34	0.00	728.34	\N
+2323	2017-07-30	592	9	1	112.88	112.88	0.00	112.88	\N
+2324	2017-07-30	316	5	2	245.89	491.78	0.00	491.78	\N
+2325	2017-07-31	475	8	2	169.88	339.76	0.00	339.76	\N
+2326	2017-07-31	297	4	1	163.26	163.26	0.00	163.26	\N
+2327	2017-07-31	268	5	1	253.88	253.88	0.00	253.88	\N
+2328	2017-08-01	511	10	2	31.29	62.58	6.26	56.32	\N
+2329	2017-08-01	597	8	2	162.10	324.20	0.00	324.20	\N
+2330	2017-08-01	451	2	2	419.59	839.18	0.00	839.18	\N
+2331	2017-08-01	480	9	2	129.86	259.72	0.00	259.72	\N
+2332	2017-08-01	220	8	1	187.49	187.49	0.00	187.49	\N
+2333	2017-08-02	142	10	1	32.71	32.71	0.00	32.71	\N
+2334	2017-08-03	532	4	1	138.92	138.92	6.95	131.97	\N
+2335	2017-08-03	138	6	2	342.80	685.60	0.00	685.60	\N
+2336	2017-08-04	56	9	2	112.52	225.04	11.25	213.79	\N
+2337	2017-08-04	272	9	1	119.73	119.73	0.00	119.73	\N
+2338	2017-08-04	477	9	2	120.08	240.16	0.00	240.16	\N
+2339	2017-08-05	449	6	2	362.85	725.70	0.00	725.70	\N
+2340	2017-08-06	382	9	2	116.58	233.16	0.00	233.16	\N
+2341	2017-08-06	548	7	2	325.46	650.92	0.00	650.92	\N
+2342	2017-08-06	42	4	2	135.52	271.04	0.00	271.04	\N
+2343	2017-08-06	242	7	2	308.72	617.44	0.00	617.44	\N
+2344	2017-08-06	588	6	1	322.66	322.66	16.13	306.53	\N
+2345	2017-08-07	216	10	2	32.39	64.78	0.00	64.78	\N
+2346	2017-08-08	24	3	1	720.01	720.01	72.00	648.01	\N
+2347	2017-08-08	25	2	1	432.25	432.25	0.00	432.25	\N
+2348	2017-08-08	524	4	2	136.70	273.40	0.00	273.40	\N
+2349	2017-08-09	6	10	2	29.49	58.98	0.00	58.98	\N
+2350	2017-08-09	216	10	1	30.00	30.00	0.00	30.00	\N
+2351	2017-08-09	118	3	1	685.69	685.69	0.00	685.69	\N
+2352	2017-08-10	156	2	1	423.65	423.65	42.37	381.28	\N
+2353	2017-08-11	420	8	1	189.10	189.10	9.46	179.64	\N
+2354	2017-08-11	92	2	1	415.14	415.14	0.00	415.14	\N
+2355	2017-08-11	133	3	2	635.86	1271.72	0.00	1271.72	\N
+2356	2017-08-12	33	8	1	166.90	166.90	0.00	166.90	\N
+2357	2017-08-12	542	8	2	195.57	391.14	19.56	371.58	\N
+2358	2017-08-13	38	5	2	253.59	507.18	0.00	507.18	\N
+2359	2017-08-13	346	4	2	151.08	302.16	0.00	302.16	\N
+2360	2017-08-13	467	5	1	263.83	263.83	26.38	237.45	\N
+2361	2017-08-14	181	2	1	413.11	413.11	41.31	371.80	\N
+2362	2017-08-15	538	3	2	759.07	1518.14	0.00	1518.14	\N
+2363	2017-08-16	591	6	2	383.74	767.48	76.75	690.73	\N
+2364	2017-08-16	385	3	1	632.40	632.40	0.00	632.40	\N
+2365	2017-08-17	199	6	2	384.62	769.24	0.00	769.24	\N
+2366	2017-08-17	390	2	2	477.94	955.88	0.00	955.88	\N
+2367	2017-08-18	2	4	2	156.47	312.94	0.00	312.94	\N
+2368	2017-08-18	354	3	1	739.09	739.09	0.00	739.09	\N
+2369	2017-08-19	18	2	2	425.60	851.20	0.00	851.20	\N
+2370	2017-08-19	146	5	1	234.54	234.54	0.00	234.54	\N
+2371	2017-08-19	563	6	2	352.77	705.54	0.00	705.54	\N
+2372	2017-08-20	134	4	2	160.39	320.78	0.00	320.78	\N
+2373	2017-08-20	77	3	1	633.59	633.59	0.00	633.59	\N
+2374	2017-08-21	56	7	1	277.39	277.39	0.00	277.39	\N
+2375	2017-08-21	491	4	1	151.73	151.73	0.00	151.73	\N
+2376	2017-08-21	171	10	2	30.72	61.44	0.00	61.44	\N
+2377	2017-08-21	88	7	1	295.57	295.57	0.00	295.57	\N
+2378	2017-08-22	423	4	2	138.90	277.80	0.00	277.80	\N
+2379	2017-08-23	544	2	1	435.82	435.82	0.00	435.82	\N
+2380	2017-08-24	163	1	1	188.87	188.87	0.00	188.87	\N
+2381	2017-08-24	293	1	2	189.99	379.98	38.00	341.98	\N
+2382	2017-08-25	416	8	2	182.32	364.64	0.00	364.64	\N
+2383	2017-08-25	463	6	2	344.62	689.24	0.00	689.24	\N
+2384	2017-08-25	67	6	2	346.00	692.00	0.00	692.00	\N
+2385	2017-08-26	357	6	1	334.95	334.95	0.00	334.95	\N
+2386	2017-08-26	253	5	2	248.98	497.96	49.80	448.16	\N
+2387	2017-08-27	473	7	1	270.16	270.16	13.51	256.65	\N
+2388	2017-08-27	122	9	1	110.94	110.94	0.00	110.94	\N
+2389	2017-08-27	423	9	2	113.52	227.04	0.00	227.04	\N
+2390	2017-08-28	283	2	1	449.01	449.01	0.00	449.01	\N
+2391	2017-08-28	44	9	2	108.32	216.64	21.66	194.98	\N
+2392	2017-08-28	459	2	1	418.33	418.33	20.92	397.41	\N
+2393	2017-08-28	351	1	1	198.54	198.54	9.93	188.61	\N
+2394	2017-08-28	419	8	1	165.66	165.66	8.28	157.38	\N
+2395	2017-08-29	341	2	2	492.19	984.38	0.00	984.38	\N
+2396	2017-08-31	295	6	1	382.90	382.90	0.00	382.90	\N
+2397	2017-09-01	504	5	2	234.97	469.94	0.00	469.94	\N
+2398	2017-09-01	117	4	1	135.74	135.74	0.00	135.74	\N
+2399	2017-09-02	187	6	2	352.22	704.44	0.00	704.44	\N
+2400	2017-09-02	364	8	2	177.33	354.66	0.00	354.66	\N
+2401	2017-09-02	260	8	1	163.07	163.07	8.15	154.92	\N
+2402	2017-09-03	342	4	1	164.99	164.99	0.00	164.99	\N
+2403	2017-09-03	206	10	2	29.42	58.84	0.00	58.84	\N
+2404	2017-09-04	451	5	1	266.92	266.92	0.00	266.92	\N
+2405	2017-09-04	448	3	2	641.05	1282.10	0.00	1282.10	\N
+2406	2017-09-05	538	4	1	159.92	159.92	0.00	159.92	\N
+2407	2017-09-06	487	1	2	181.28	362.56	0.00	362.56	\N
+2408	2017-09-06	413	7	1	295.53	295.53	0.00	295.53	\N
+2409	2017-09-06	339	10	2	27.15	54.30	2.71	51.59	\N
+2410	2017-09-07	52	8	2	183.19	366.38	0.00	366.38	\N
+2411	2017-09-08	128	5	1	226.87	226.87	0.00	226.87	\N
+2412	2017-09-08	269	10	2	28.42	56.84	0.00	56.84	\N
+2413	2017-09-09	566	2	1	478.85	478.85	0.00	478.85	\N
+2414	2017-09-09	277	10	2	27.02	54.04	0.00	54.04	\N
+2415	2017-09-09	68	6	1	369.91	369.91	18.50	351.41	\N
+2416	2017-09-10	305	10	2	31.93	63.86	0.00	63.86	\N
+2417	2017-09-10	405	10	1	30.18	30.18	0.00	30.18	\N
+2418	2017-09-12	230	2	2	422.88	845.76	0.00	845.76	\N
+2419	2017-09-12	124	7	2	292.93	585.86	0.00	585.86	\N
+2420	2017-09-12	300	2	1	441.98	441.98	0.00	441.98	\N
+2421	2017-09-12	102	3	2	660.28	1320.56	0.00	1320.56	\N
+2422	2017-09-13	51	8	2	179.28	358.56	0.00	358.56	\N
+2423	2017-09-13	239	3	1	736.71	736.71	0.00	736.71	\N
+2424	2017-09-13	216	9	2	124.07	248.14	0.00	248.14	\N
+2425	2017-09-13	597	10	1	32.47	32.47	0.00	32.47	\N
+2426	2017-09-13	457	1	2	182.68	365.36	0.00	365.36	\N
+2427	2017-09-14	271	3	1	753.68	753.68	0.00	753.68	\N
+2428	2017-09-14	143	1	2	188.57	377.14	37.71	339.43	\N
+2429	2017-09-14	554	3	2	644.80	1289.60	0.00	1289.60	\N
+2430	2017-09-16	163	1	1	205.23	205.23	0.00	205.23	\N
+2431	2017-09-17	266	2	1	481.47	481.47	0.00	481.47	\N
+2432	2017-09-17	559	2	1	426.17	426.17	0.00	426.17	\N
+2433	2017-09-17	586	9	1	122.29	122.29	0.00	122.29	\N
+2434	2017-09-17	599	8	1	194.43	194.43	0.00	194.43	\N
+2435	2017-09-17	86	8	1	196.65	196.65	0.00	196.65	\N
+2436	2017-09-17	551	9	1	123.02	123.02	0.00	123.02	\N
+2437	2017-09-18	521	1	2	212.61	425.22	0.00	425.22	\N
+2438	2017-09-18	560	7	1	323.65	323.65	0.00	323.65	\N
+2439	2017-09-18	142	3	1	736.10	736.10	0.00	736.10	\N
+2440	2017-09-18	365	9	1	120.32	120.32	0.00	120.32	\N
+2441	2017-09-19	585	8	1	197.01	197.01	0.00	197.01	\N
+2442	2017-09-19	12	9	2	112.14	224.28	0.00	224.28	\N
+2443	2017-09-19	266	9	1	109.12	109.12	0.00	109.12	\N
+2444	2017-09-20	485	2	1	479.59	479.59	23.98	455.61	\N
+2445	2017-09-20	390	10	1	27.51	27.51	0.00	27.51	\N
+2446	2017-09-20	94	2	2	489.07	978.14	0.00	978.14	\N
+2447	2017-09-21	512	10	2	28.62	57.24	5.72	51.52	\N
+2448	2017-09-21	574	9	2	111.61	223.22	0.00	223.22	\N
+2449	2017-09-21	402	10	1	32.66	32.66	0.00	32.66	\N
+2450	2017-09-22	489	1	2	190.69	381.38	0.00	381.38	\N
+2451	2017-09-22	235	2	1	428.28	428.28	0.00	428.28	\N
+2452	2017-09-22	595	7	2	276.75	553.50	0.00	553.50	\N
+2453	2017-09-23	507	9	2	123.42	246.84	24.68	222.16	\N
+2454	2017-09-23	567	9	1	113.38	113.38	0.00	113.38	\N
+2455	2017-09-24	363	2	1	475.11	475.11	0.00	475.11	\N
+2456	2017-09-24	408	3	1	671.00	671.00	67.10	603.90	\N
+2457	2017-09-24	290	10	1	29.26	29.26	0.00	29.26	\N
+2458	2017-09-25	272	10	2	29.58	59.16	0.00	59.16	\N
+2459	2017-09-25	524	5	2	232.58	465.16	0.00	465.16	\N
+2460	2017-09-26	157	9	1	116.11	116.11	0.00	116.11	\N
+2461	2017-09-26	164	6	2	355.60	711.20	0.00	711.20	\N
+2462	2017-09-27	417	5	2	252.13	504.26	25.21	479.05	\N
+2463	2017-09-28	273	9	2	117.60	235.20	0.00	235.20	\N
+2464	2017-09-28	234	10	1	27.25	27.25	0.00	27.25	\N
+2465	2017-09-28	265	7	2	298.77	597.54	0.00	597.54	\N
+2466	2017-09-28	540	8	2	183.67	367.34	18.37	348.97	\N
+2467	2017-09-30	65	2	1	431.99	431.99	0.00	431.99	\N
+2468	2017-09-30	116	10	2	32.38	64.76	0.00	64.76	\N
+2469	2017-09-30	255	6	1	361.28	361.28	0.00	361.28	\N
+2470	2017-10-01	168	4	2	156.44	312.88	15.64	297.24	\N
+2471	2017-10-01	487	7	2	323.67	647.34	0.00	647.34	\N
+2472	2017-10-01	255	1	1	216.73	216.73	0.00	216.73	\N
+2473	2017-10-02	524	2	1	441.05	441.05	0.00	441.05	\N
+2474	2017-10-02	23	3	1	680.44	680.44	0.00	680.44	\N
+2475	2017-10-02	310	8	1	167.21	167.21	8.36	158.85	\N
+2476	2017-10-03	440	6	1	360.52	360.52	0.00	360.52	\N
+2477	2017-10-05	297	5	1	226.41	226.41	0.00	226.41	\N
+2478	2017-10-06	412	2	2	447.30	894.60	0.00	894.60	\N
+2479	2017-10-07	67	9	2	111.04	222.08	0.00	222.08	\N
+2480	2017-10-07	552	10	1	31.52	31.52	0.00	31.52	\N
+2481	2017-10-07	560	9	2	130.95	261.90	0.00	261.90	\N
+2482	2017-10-08	411	8	1	192.00	192.00	19.20	172.80	\N
+2483	2017-10-08	82	8	2	171.75	343.50	0.00	343.50	\N
+2484	2017-10-08	108	4	1	160.19	160.19	0.00	160.19	\N
+2485	2017-10-09	404	7	2	326.83	653.66	0.00	653.66	\N
+2486	2017-10-09	552	10	2	31.83	63.66	0.00	63.66	\N
+2487	2017-10-09	596	7	2	311.79	623.58	0.00	623.58	\N
+2488	2017-10-10	320	9	2	117.15	234.30	0.00	234.30	\N
+2489	2017-10-11	93	6	1	338.82	338.82	0.00	338.82	\N
+2490	2017-10-13	322	1	2	184.43	368.86	0.00	368.86	\N
+2491	2017-10-13	185	1	2	213.79	427.58	0.00	427.58	\N
+2492	2017-10-13	370	4	2	155.91	311.82	0.00	311.82	\N
+2493	2017-10-13	46	6	2	322.94	645.88	0.00	645.88	\N
+2494	2017-10-13	433	1	2	189.08	378.16	0.00	378.16	\N
+2495	2017-10-13	569	7	1	282.43	282.43	0.00	282.43	\N
+2496	2017-10-14	421	3	2	644.00	1288.00	0.00	1288.00	\N
+2497	2017-10-14	336	6	1	356.96	356.96	0.00	356.96	\N
+2498	2017-10-14	8	1	2	180.99	361.98	0.00	361.98	\N
+2499	2017-10-15	587	5	1	265.35	265.35	0.00	265.35	\N
+2500	2017-10-15	595	5	2	233.95	467.90	0.00	467.90	\N
+2501	2017-10-16	386	7	2	310.94	621.88	0.00	621.88	\N
+2502	2017-10-17	571	10	2	29.61	59.22	0.00	59.22	\N
+2503	2017-10-17	52	6	2	370.24	740.48	0.00	740.48	\N
+2504	2017-10-19	15	5	1	240.74	240.74	0.00	240.74	\N
+2505	2017-10-19	502	8	1	174.24	174.24	0.00	174.24	\N
+2506	2017-10-19	585	8	2	190.17	380.34	0.00	380.34	\N
+2507	2017-10-20	327	4	2	140.77	281.54	0.00	281.54	\N
+2508	2017-10-20	30	7	1	277.85	277.85	0.00	277.85	\N
+2509	2017-10-21	379	5	1	264.95	264.95	0.00	264.95	\N
+2510	2017-10-21	134	3	2	737.86	1475.72	0.00	1475.72	\N
+2511	2017-10-21	297	1	2	184.34	368.68	0.00	368.68	\N
+2512	2017-10-21	356	4	2	162.76	325.52	32.55	292.97	\N
+2513	2017-10-22	165	3	2	646.58	1293.16	64.66	1228.50	\N
+2514	2017-10-23	463	7	2	327.86	655.72	0.00	655.72	\N
+2515	2017-10-23	486	5	1	245.06	245.06	0.00	245.06	\N
+2516	2017-10-23	69	7	2	271.66	543.32	54.33	488.99	\N
+2517	2017-10-23	103	2	1	438.53	438.53	0.00	438.53	\N
+2518	2017-10-23	516	5	1	251.67	251.67	0.00	251.67	\N
+2519	2017-10-24	398	1	1	180.24	180.24	0.00	180.24	\N
+2520	2017-10-24	550	1	1	184.33	184.33	0.00	184.33	\N
+2521	2017-10-25	406	8	1	187.59	187.59	0.00	187.59	\N
+2522	2017-10-25	131	4	2	161.24	322.48	32.25	290.23	\N
+2523	2017-10-27	455	1	1	217.24	217.24	0.00	217.24	\N
+2524	2017-10-27	139	7	2	317.55	635.10	0.00	635.10	\N
+2525	2017-10-27	436	2	1	418.25	418.25	20.91	397.34	\N
+2526	2017-10-27	55	4	2	150.86	301.72	0.00	301.72	\N
+2527	2017-10-27	491	6	2	330.96	661.92	0.00	661.92	\N
+2528	2017-10-27	396	9	1	109.15	109.15	0.00	109.15	\N
+2529	2017-10-28	173	6	1	383.84	383.84	0.00	383.84	\N
+2530	2017-10-28	180	5	2	231.40	462.80	0.00	462.80	\N
+2531	2017-10-29	239	9	1	115.78	115.78	0.00	115.78	\N
+2532	2017-10-30	275	1	2	181.26	362.52	0.00	362.52	\N
+2533	2017-10-30	261	5	2	257.64	515.28	0.00	515.28	\N
+2534	2017-10-30	479	6	1	366.78	366.78	0.00	366.78	\N
+2535	2017-10-30	79	2	2	417.59	835.18	83.52	751.66	\N
+2536	2017-10-31	293	9	1	122.75	122.75	0.00	122.75	\N
+2537	2017-11-01	504	10	1	31.40	31.40	0.00	31.40	\N
+2538	2017-11-01	408	4	2	142.29	284.58	0.00	284.58	\N
+2539	2017-11-01	171	8	1	168.11	168.11	16.81	151.30	\N
+2540	2017-11-02	75	8	2	174.73	349.46	17.47	331.99	\N
+2541	2017-11-02	69	10	1	31.70	31.70	0.00	31.70	\N
+2542	2017-11-03	262	6	1	365.03	365.03	36.50	328.53	\N
+2543	2017-11-03	236	6	1	365.34	365.34	18.27	347.07	2
+2544	2017-11-03	235	6	1	374.34	374.34	18.72	355.62	2
+2545	2017-11-03	107	9	1	109.66	109.66	0.00	109.66	\N
+2546	2017-11-04	518	5	1	250.71	250.71	37.61	213.10	2
+2547	2017-11-04	177	5	1	237.71	237.71	0.00	237.71	\N
+2548	2017-11-04	268	5	1	246.37	246.37	12.32	234.05	2
+2549	2017-11-04	548	6	1	363.19	363.19	0.00	363.19	\N
+2550	2017-11-04	462	9	1	110.57	110.57	0.00	110.57	\N
+2551	2017-11-05	329	4	1	154.31	154.31	15.43	138.88	\N
+2552	2017-11-05	525	5	2	268.71	537.42	0.00	537.42	\N
+2553	2017-11-06	582	10	2	29.55	59.10	0.00	59.10	\N
+2554	2017-11-06	159	10	1	27.37	27.37	1.37	26.00	2
+2555	2017-11-06	593	3	1	747.25	747.25	74.73	672.52	\N
+2556	2017-11-07	260	7	2	283.95	567.90	0.00	567.90	\N
+2557	2017-11-07	554	7	1	312.63	312.63	15.63	297.00	\N
+2558	2017-11-07	571	4	2	152.77	305.54	30.56	274.98	2
+2559	2017-11-07	106	3	2	766.61	1533.22	0.00	1533.22	\N
+2560	2017-11-07	512	1	1	195.68	195.68	0.00	195.68	\N
+2561	2017-11-08	581	4	1	164.50	164.50	0.00	164.50	\N
+2562	2017-11-08	51	10	1	30.34	30.34	1.52	28.82	2
+2563	2017-11-09	46	2	1	406.34	406.34	0.00	406.34	\N
+2564	2017-11-09	17	2	2	467.25	934.50	0.00	934.50	\N
+2565	2017-11-10	118	1	1	216.40	216.40	0.00	216.40	\N
+2566	2017-11-11	572	8	1	187.74	187.74	9.39	178.35	\N
+2567	2017-11-13	194	6	1	341.86	341.86	17.09	324.77	\N
+2568	2017-11-14	241	9	2	114.94	229.88	11.49	218.39	2
+2569	2017-11-14	88	10	2	30.06	60.12	9.02	51.10	2
+2570	2017-11-15	564	3	2	657.30	1314.60	0.00	1314.60	\N
+2571	2017-11-15	324	2	2	408.14	816.28	40.81	775.47	\N
+2572	2017-11-16	414	3	1	630.49	630.49	31.52	598.97	2
+2573	2017-11-16	338	10	2	29.28	58.56	2.93	55.63	2
+2574	2017-11-16	48	7	2	295.97	591.94	29.60	562.34	2
+2575	2017-11-17	276	2	1	411.64	411.64	20.58	391.06	2
+2576	2017-11-17	380	5	1	268.38	268.38	0.00	268.38	\N
+2577	2017-11-18	231	5	2	225.08	450.16	22.51	427.65	2
+2578	2017-11-18	409	10	1	31.91	31.91	1.60	30.31	2
+2579	2017-11-18	481	1	2	200.91	401.82	20.09	381.73	\N
+2580	2017-11-19	562	4	1	143.83	143.83	21.57	122.26	2
+2581	2017-11-19	471	1	1	201.12	201.12	0.00	201.12	\N
+2582	2017-11-20	533	10	2	27.71	55.42	0.00	55.42	\N
+2583	2017-11-20	497	10	1	27.44	27.44	4.11	23.33	2
+2584	2017-11-20	465	2	2	456.24	912.48	45.62	866.86	2
+2585	2017-11-21	243	3	2	633.12	1266.24	126.62	1139.62	\N
+2586	2017-11-21	368	8	1	192.57	192.57	0.00	192.57	\N
+2587	2017-11-21	192	7	2	270.88	541.76	0.00	541.76	\N
+2588	2017-11-22	6	10	2	29.21	58.42	2.92	55.50	\N
+2589	2017-11-22	370	6	1	350.73	350.73	17.54	333.19	2
+2590	2017-11-23	499	8	2	172.47	344.94	17.25	327.69	\N
+2591	2017-11-23	395	10	2	28.11	56.22	5.62	50.60	2
+2592	2017-11-23	413	3	2	691.00	1382.00	69.10	1312.90	\N
+2593	2017-11-23	489	6	1	350.86	350.86	17.54	333.32	\N
+2594	2017-11-23	271	6	2	333.65	667.30	66.73	600.57	\N
+2595	2017-11-23	382	8	2	192.00	384.00	38.40	345.60	\N
+2596	2017-11-24	130	1	2	213.80	427.60	42.76	384.84	\N
+2597	2017-11-25	1	10	2	27.11	54.22	2.71	51.51	2
+2598	2017-11-25	409	4	2	162.76	325.52	0.00	325.52	\N
+2599	2017-11-25	55	8	2	168.18	336.36	16.82	319.54	2
+2600	2017-11-26	482	3	2	700.43	1400.86	0.00	1400.86	\N
+2601	2017-11-26	287	1	1	182.34	182.34	0.00	182.34	\N
+2602	2017-11-27	530	3	2	652.53	1305.06	0.00	1305.06	\N
+2603	2017-11-28	93	3	2	769.12	1538.24	230.73	1307.51	2
+2604	2017-11-28	68	1	1	211.45	211.45	0.00	211.45	\N
+2605	2017-11-28	61	2	2	415.46	830.92	41.55	789.37	2
+2606	2017-11-28	183	8	2	193.89	387.78	38.78	349.00	2
+2607	2017-11-29	438	2	2	472.28	944.56	141.69	802.87	2
+2608	2017-11-29	452	1	1	212.83	212.83	21.28	191.55	2
+2609	2017-11-29	73	7	2	305.62	611.24	30.56	580.68	2
+2610	2017-11-30	496	5	2	270.30	540.60	0.00	540.60	\N
+2611	2017-12-01	517	10	2	31.71	63.42	3.17	60.25	2
+2612	2017-12-01	301	4	2	159.32	318.64	31.86	286.78	\N
+2613	2017-12-01	569	10	1	28.28	28.28	1.41	26.87	2
+2614	2017-12-01	264	5	2	272.83	545.66	0.00	545.66	\N
+2615	2017-12-02	91	10	1	31.76	31.76	1.59	30.17	2
+2616	2017-12-02	486	4	2	159.14	318.28	15.91	302.37	2
+2617	2017-12-02	73	1	2	190.31	380.62	38.06	342.56	\N
+2618	2017-12-02	413	4	1	155.54	155.54	23.33	132.21	2
+2619	2017-12-02	369	8	2	171.22	342.44	0.00	342.44	\N
+2620	2017-12-03	346	3	2	688.89	1377.78	137.78	1240.00	\N
+2621	2017-12-04	446	1	2	209.81	419.62	0.00	419.62	\N
+2622	2017-12-04	225	5	2	269.55	539.10	0.00	539.10	\N
+2623	2017-12-04	561	5	1	273.38	273.38	13.67	259.71	2
+2624	2017-12-04	306	7	1	324.90	324.90	16.25	308.65	2
+2625	2017-12-06	55	8	2	191.39	382.78	0.00	382.78	\N
+2626	2017-12-06	403	6	1	346.43	346.43	17.32	329.11	2
+2627	2017-12-06	407	3	1	658.84	658.84	32.94	625.90	\N
+2628	2017-12-07	554	6	2	378.16	756.32	37.82	718.50	2
+2629	2017-12-07	317	1	1	206.64	206.64	0.00	206.64	\N
+2630	2017-12-08	103	2	1	494.71	494.71	0.00	494.71	\N
+2631	2017-12-08	398	2	2	459.09	918.18	45.91	872.27	2
+2632	2017-12-08	303	8	2	186.55	373.10	37.32	335.78	2
+2633	2017-12-08	25	7	2	313.03	626.06	31.30	594.76	2
+2634	2017-12-08	275	2	2	466.43	932.86	0.00	932.86	\N
+2635	2017-12-08	139	3	2	691.28	1382.56	0.00	1382.56	\N
+2636	2017-12-09	580	6	2	376.03	752.06	37.60	714.46	\N
+2637	2017-12-10	52	2	2	433.76	867.52	0.00	867.52	\N
+2638	2017-12-11	188	6	2	382.66	765.32	0.00	765.32	\N
+2639	2017-12-11	266	8	1	184.81	184.81	9.24	175.57	2
+2640	2017-12-12	290	1	2	218.23	436.46	0.00	436.46	\N
+2641	2017-12-12	196	3	1	694.92	694.92	0.00	694.92	\N
+2642	2017-12-12	375	1	2	216.54	433.08	0.00	433.08	\N
+2643	2017-12-12	50	1	2	219.30	438.60	0.00	438.60	\N
+2644	2017-12-13	222	5	1	263.64	263.64	26.36	237.28	2
+2645	2017-12-14	357	3	1	761.28	761.28	0.00	761.28	\N
+2646	2017-12-14	519	10	2	31.19	62.38	3.12	59.26	2
+2647	2017-12-14	556	5	2	256.34	512.68	0.00	512.68	\N
+2648	2017-12-14	345	10	1	30.70	30.70	4.61	26.09	2
+2649	2017-12-15	250	6	2	363.02	726.04	36.30	689.74	2
+2650	2017-12-15	398	2	1	407.99	407.99	0.00	407.99	\N
+2651	2017-12-16	592	1	1	205.77	205.77	0.00	205.77	\N
+2652	2017-12-16	561	1	2	182.95	365.90	0.00	365.90	\N
+2653	2017-12-17	270	1	2	211.13	422.26	0.00	422.26	\N
+2654	2017-12-17	513	5	2	259.72	519.44	25.97	493.47	\N
+2655	2017-12-17	584	5	2	240.34	480.68	0.00	480.68	\N
+2656	2017-12-17	231	1	1	180.11	180.11	9.01	171.10	2
+2657	2017-12-18	161	6	1	337.97	337.97	0.00	337.97	\N
+2658	2017-12-18	12	2	1	449.39	449.39	22.47	426.92	2
+2659	2017-12-18	134	7	2	281.02	562.04	84.30	477.74	2
+2660	2017-12-20	63	3	2	722.61	1445.22	0.00	1445.22	\N
+2661	2017-12-20	225	4	1	144.23	144.23	7.21	137.02	2
+2662	2017-12-21	33	10	2	27.24	54.48	0.00	54.48	\N
+2663	2017-12-21	48	6	2	332.10	664.20	0.00	664.20	\N
+2664	2017-12-22	570	7	2	300.63	601.26	30.06	571.20	2
+2665	2017-12-22	120	2	2	439.56	879.12	0.00	879.12	\N
+2666	2017-12-22	7	5	1	269.82	269.82	0.00	269.82	\N
+2667	2017-12-23	468	6	2	367.80	735.60	0.00	735.60	\N
+2668	2017-12-24	557	8	1	173.64	173.64	8.68	164.96	2
+2669	2017-12-24	176	10	1	31.42	31.42	1.57	29.85	2
+2670	2017-12-24	405	1	1	189.24	189.24	0.00	189.24	\N
+2671	2017-12-26	184	1	2	215.39	430.78	64.62	366.16	2
+2672	2017-12-26	192	2	2	428.03	856.06	0.00	856.06	\N
+2673	2017-12-26	130	1	1	216.29	216.29	21.63	194.66	\N
+2674	2017-12-27	232	9	2	108.15	216.30	21.64	194.66	2
+2675	2017-12-27	176	2	1	436.73	436.73	0.00	436.73	\N
+2676	2017-12-27	535	10	2	32.46	64.92	0.00	64.92	\N
+2677	2017-12-28	580	2	2	444.04	888.08	0.00	888.08	\N
+2678	2017-12-29	217	9	1	116.91	116.91	5.85	111.06	2
+2679	2017-12-29	321	10	2	31.50	63.00	0.00	63.00	\N
+2680	2017-12-29	97	7	2	303.36	606.72	30.34	576.38	\N
+2681	2017-12-29	348	4	1	149.36	149.36	0.00	149.36	\N
+2682	2017-12-30	222	2	1	454.27	454.27	0.00	454.27	\N
+2683	2017-12-30	521	10	2	29.88	59.76	8.97	50.79	2
+2684	2017-12-31	319	1	2	206.29	412.58	20.63	391.95	2
+2685	2018-01-02	489	3	1	630.17	630.17	31.51	598.66	\N
+2686	2018-01-02	550	3	1	717.54	717.54	35.88	681.66	2
+2687	2018-01-02	160	1	2	190.08	380.16	0.00	380.16	\N
+2688	2018-01-02	286	4	2	156.93	313.86	0.00	313.86	\N
+2689	2018-01-03	113	2	1	442.93	442.93	22.15	420.78	2
+2690	2018-01-03	201	1	2	206.93	413.86	0.00	413.86	\N
+2691	2018-01-04	131	1	1	205.36	205.36	10.27	195.09	2
+2692	2018-01-04	153	4	1	160.57	160.57	16.06	144.51	\N
+2693	2018-01-04	131	2	2	426.93	853.86	42.69	811.17	2
+2694	2018-01-05	134	9	2	110.24	220.48	11.02	209.46	2
+2695	2018-01-05	260	7	2	281.82	563.64	0.00	563.64	\N
+2696	2018-01-06	353	10	1	28.38	28.38	0.00	28.38	\N
+2697	2018-01-06	365	7	2	324.19	648.38	64.84	583.54	2
+2698	2018-01-07	73	1	1	206.07	206.07	10.30	195.77	2
+2699	2018-01-07	76	8	2	172.75	345.50	17.28	328.22	2
+2700	2018-01-08	163	10	1	31.49	31.49	1.57	29.92	2
+2701	2018-01-08	30	5	2	237.40	474.80	0.00	474.80	\N
+2702	2018-01-08	283	2	2	460.81	921.62	46.08	875.54	2
+2703	2018-01-09	84	4	1	163.17	163.17	8.16	155.01	2
+2704	2018-01-09	58	6	1	343.41	343.41	0.00	343.41	\N
+2705	2018-01-09	428	7	1	297.63	297.63	0.00	297.63	\N
+2706	2018-01-10	393	4	1	156.01	156.01	7.80	148.21	2
+2707	2018-01-10	525	7	2	291.72	583.44	58.34	525.10	\N
+2708	2018-01-11	261	5	1	257.80	257.80	0.00	257.80	\N
+2709	2018-01-11	202	5	2	255.23	510.46	25.52	484.94	\N
+2710	2018-01-12	353	1	2	192.09	384.18	19.21	364.97	2
+2711	2018-01-12	195	3	1	748.51	748.51	0.00	748.51	\N
+2712	2018-01-12	121	2	2	431.60	863.20	43.16	820.04	\N
+2713	2018-01-13	141	6	2	380.86	761.72	38.09	723.63	2
+2714	2018-01-13	155	2	2	466.13	932.26	0.00	932.26	\N
+2715	2018-01-14	41	9	2	125.64	251.28	0.00	251.28	\N
+2716	2018-01-14	101	10	2	32.58	65.16	3.26	61.90	\N
+2717	2018-01-15	87	10	1	30.43	30.43	1.52	28.91	2
+2718	2018-01-15	574	6	1	371.35	371.35	0.00	371.35	\N
+2719	2018-01-15	289	8	2	197.07	394.14	39.41	354.73	\N
+2720	2018-01-15	374	9	1	113.66	113.66	0.00	113.66	\N
+2721	2018-01-15	36	4	2	137.33	274.66	13.73	260.93	2
+2722	2018-01-16	542	8	1	176.60	176.60	0.00	176.60	\N
+2723	2018-01-16	379	8	2	190.02	380.04	0.00	380.04	\N
+2724	2018-01-17	276	8	2	173.91	347.82	0.00	347.82	\N
+2725	2018-01-17	275	6	2	381.29	762.58	38.13	724.45	2
+2726	2018-01-18	380	10	2	29.83	59.66	2.98	56.68	2
+2727	2018-01-18	515	7	1	327.74	327.74	16.39	311.35	\N
+2728	2018-01-19	130	2	1	420.94	420.94	21.05	399.89	2
+2729	2018-01-19	9	10	1	28.99	28.99	0.00	28.99	\N
+2730	2018-01-20	314	9	2	110.10	220.20	0.00	220.20	\N
+2731	2018-01-20	147	6	2	370.06	740.12	37.01	703.11	2
+2732	2018-01-20	310	8	1	168.54	168.54	8.43	160.11	2
+2733	2018-01-20	465	5	1	231.84	231.84	0.00	231.84	\N
+2734	2018-01-21	122	5	2	234.08	468.16	70.23	397.93	2
+2735	2018-01-22	272	9	1	122.00	122.00	0.00	122.00	\N
+2736	2018-01-23	426	2	1	432.09	432.09	21.60	410.49	2
+2737	2018-01-23	58	8	2	182.40	364.80	0.00	364.80	\N
+2738	2018-01-24	232	2	2	491.49	982.98	49.15	933.83	2
+2739	2018-01-24	547	2	2	449.61	899.22	44.96	854.26	2
+2740	2018-01-24	172	3	1	760.47	760.47	114.07	646.40	2
+2741	2018-01-24	571	5	2	240.92	481.84	0.00	481.84	\N
+2742	2018-01-25	287	3	2	690.61	1381.22	0.00	1381.22	\N
+2743	2018-01-26	266	5	2	267.21	534.42	0.00	534.42	\N
+2744	2018-01-27	50	2	1	449.75	449.75	22.49	427.26	2
+2745	2018-01-27	26	9	2	117.86	235.72	0.00	235.72	\N
+2746	2018-01-28	152	4	2	162.15	324.30	16.21	308.09	2
+2747	2018-01-28	441	7	2	310.92	621.84	31.09	590.75	2
+2748	2018-01-28	4	2	1	430.08	430.08	21.50	408.58	\N
+2749	2018-01-29	366	3	2	743.91	1487.82	74.39	1413.43	2
+2750	2018-01-29	377	6	1	360.44	360.44	18.02	342.42	2
+2751	2018-01-29	26	3	2	697.74	1395.48	0.00	1395.48	\N
+2752	2018-01-29	68	5	1	234.32	234.32	0.00	234.32	\N
+2753	2018-01-30	200	2	1	443.29	443.29	22.16	421.13	2
+2754	2018-01-31	588	2	1	474.23	474.23	23.71	450.52	2
+2755	2018-02-01	89	8	1	197.76	197.76	9.89	187.87	2
+2756	2018-02-01	203	7	2	307.35	614.70	30.74	583.96	2
+2757	2018-02-02	401	3	2	756.91	1513.82	75.69	1438.13	\N
+2758	2018-02-03	497	4	1	145.32	145.32	0.00	145.32	\N
+2759	2018-02-03	361	4	1	162.29	162.29	8.11	154.18	\N
+2760	2018-02-04	454	4	2	155.98	311.96	31.20	280.76	2
+2761	2018-02-04	373	8	2	186.88	373.76	0.00	373.76	\N
+2762	2018-02-05	228	6	1	330.79	330.79	0.00	330.79	\N
+2763	2018-02-05	520	6	2	383.04	766.08	38.30	727.78	2
+2764	2018-02-05	51	9	1	131.43	131.43	13.14	118.29	2
+2765	2018-02-06	510	2	1	473.80	473.80	0.00	473.80	\N
+2766	2018-02-06	205	7	2	272.31	544.62	54.46	490.16	2
+2767	2018-02-06	103	6	2	360.14	720.28	0.00	720.28	\N
+2768	2018-02-06	228	9	2	124.27	248.54	12.43	236.11	2
+2769	2018-02-07	92	8	2	185.98	371.96	0.00	371.96	\N
+2770	2018-02-07	269	9	1	128.63	128.63	0.00	128.63	\N
+2771	2018-02-08	333	8	1	189.14	189.14	9.46	179.68	\N
+2772	2018-02-08	222	3	1	649.83	649.83	32.49	617.34	\N
+2773	2018-02-10	300	5	1	274.86	274.86	0.00	274.86	\N
+2774	2018-02-10	580	3	2	730.43	1460.86	0.00	1460.86	\N
+2775	2018-02-11	189	3	2	732.80	1465.60	73.28	1392.32	2
+2776	2018-02-12	188	10	2	32.96	65.92	3.30	62.62	2
+2777	2018-02-13	51	7	2	284.53	569.06	0.00	569.06	\N
+2778	2018-02-13	491	4	1	137.00	137.00	0.00	137.00	\N
+2779	2018-02-13	279	7	1	311.02	311.02	15.55	295.47	2
+2780	2018-02-13	242	1	1	199.42	199.42	0.00	199.42	\N
+2781	2018-02-14	313	2	2	463.79	927.58	46.38	881.20	2
+2782	2018-02-14	74	4	1	158.24	158.24	7.91	150.33	\N
+2783	2018-02-14	294	7	2	283.75	567.50	0.00	567.50	\N
+2784	2018-02-14	375	7	1	273.80	273.80	0.00	273.80	\N
+2785	2018-02-14	47	6	2	337.29	674.58	0.00	674.58	\N
+2786	2018-02-15	69	6	2	321.05	642.10	32.11	609.99	2
+2787	2018-02-15	80	10	1	31.60	31.60	1.58	30.02	2
+2788	2018-02-15	279	1	1	202.78	202.78	0.00	202.78	\N
+2789	2018-02-15	385	10	1	32.91	32.91	0.00	32.91	\N
+2790	2018-02-15	509	6	2	371.34	742.68	37.13	705.55	\N
+2791	2018-02-16	19	5	2	233.44	466.88	0.00	466.88	\N
+2792	2018-02-19	73	10	2	32.20	64.40	3.22	61.18	2
+2793	2018-02-19	92	3	1	673.05	673.05	0.00	673.05	\N
+2794	2018-02-20	441	10	1	29.42	29.42	0.00	29.42	\N
+2795	2018-02-20	416	1	1	202.66	202.66	10.13	192.53	2
+2796	2018-02-21	169	7	2	299.43	598.86	29.94	568.92	2
+2797	2018-02-21	190	3	1	691.30	691.30	0.00	691.30	\N
+2798	2018-02-21	472	6	2	363.68	727.36	0.00	727.36	\N
+2799	2018-02-21	487	9	2	118.09	236.18	0.00	236.18	\N
+2800	2018-02-21	213	10	1	32.40	32.40	1.62	30.78	2
+2801	2018-02-21	119	10	1	27.55	27.55	1.38	26.17	2
+2802	2018-02-21	193	1	1	218.15	218.15	0.00	218.15	\N
+2803	2018-02-22	343	3	1	662.64	662.64	66.26	596.38	2
+2804	2018-02-22	71	6	2	373.95	747.90	0.00	747.90	\N
+2805	2018-02-22	388	5	2	274.66	549.32	0.00	549.32	\N
+2806	2018-02-22	291	8	1	162.25	162.25	8.11	154.14	\N
+2807	2018-02-23	575	8	1	176.24	176.24	0.00	176.24	\N
+2808	2018-02-23	446	8	2	176.43	352.86	0.00	352.86	\N
+2809	2018-02-23	317	2	2	442.78	885.56	0.00	885.56	\N
+2810	2018-02-24	437	1	1	190.28	190.28	9.51	180.77	2
+2811	2018-02-25	251	6	1	337.03	337.03	16.85	320.18	2
+2812	2018-02-25	396	5	1	253.25	253.25	0.00	253.25	\N
+2813	2018-02-25	452	2	1	414.89	414.89	0.00	414.89	\N
+2814	2018-02-27	141	10	2	31.18	62.36	3.12	59.24	2
+2815	2018-02-28	380	10	1	29.80	29.80	4.47	25.33	2
+2816	2018-02-28	166	9	1	111.87	111.87	5.59	106.28	2
+2817	2018-02-28	307	4	1	164.62	164.62	0.00	164.62	\N
+2818	2018-02-28	538	10	2	32.10	64.20	0.00	64.20	\N
+2819	2018-03-01	403	6	2	379.58	759.16	0.00	759.16	\N
+2820	2018-03-02	446	4	2	143.96	287.92	0.00	287.92	\N
+2821	2018-03-02	269	5	2	262.27	524.54	0.00	524.54	\N
+2822	2018-03-02	264	2	1	476.25	476.25	0.00	476.25	\N
+2823	2018-03-03	125	7	2	304.16	608.32	0.00	608.32	\N
+2824	2018-03-03	251	10	1	28.45	28.45	0.00	28.45	\N
+2825	2018-03-04	265	5	2	253.92	507.84	0.00	507.84	\N
+2826	2018-03-04	589	5	1	268.85	268.85	0.00	268.85	\N
+2827	2018-03-05	539	9	2	112.11	224.22	0.00	224.22	\N
+2828	2018-03-05	337	9	2	118.08	236.16	0.00	236.16	\N
+2829	2018-03-05	489	4	2	164.65	329.30	0.00	329.30	\N
+2830	2018-03-05	546	9	1	121.98	121.98	0.00	121.98	\N
+2831	2018-03-05	103	4	2	139.73	279.46	0.00	279.46	\N
+2832	2018-03-06	585	8	2	166.65	333.30	0.00	333.30	\N
+2833	2018-03-06	118	8	2	189.42	378.84	0.00	378.84	\N
+2834	2018-03-07	309	9	1	116.35	116.35	0.00	116.35	\N
+2835	2018-03-10	423	6	2	338.57	677.14	0.00	677.14	\N
+2836	2018-03-10	136	3	2	635.22	1270.44	127.04	1143.40	\N
+2837	2018-03-11	285	10	2	29.60	59.20	0.00	59.20	\N
+2838	2018-03-12	66	3	1	731.29	731.29	0.00	731.29	\N
+2839	2018-03-12	56	1	1	185.66	185.66	0.00	185.66	\N
+2840	2018-03-12	365	2	1	417.27	417.27	41.73	375.54	\N
+2841	2018-03-12	342	7	2	321.86	643.72	0.00	643.72	\N
+2842	2018-03-12	402	4	1	144.92	144.92	0.00	144.92	\N
+2843	2018-03-12	483	1	1	202.22	202.22	0.00	202.22	\N
+2844	2018-03-13	81	10	2	30.66	61.32	0.00	61.32	\N
+2845	2018-03-14	268	6	2	353.68	707.36	70.74	636.62	\N
+2846	2018-03-14	407	7	1	283.28	283.28	28.33	254.95	\N
+2847	2018-03-14	50	4	2	143.90	287.80	28.78	259.02	\N
+2848	2018-03-14	162	3	2	634.69	1269.38	0.00	1269.38	\N
+2849	2018-03-15	318	8	2	172.54	345.08	0.00	345.08	\N
+2850	2018-03-16	213	2	1	406.68	406.68	0.00	406.68	\N
+2851	2018-03-17	462	10	1	29.49	29.49	0.00	29.49	\N
+2852	2018-03-17	406	9	2	127.95	255.90	25.59	230.31	\N
+2853	2018-03-17	145	10	1	32.16	32.16	0.00	32.16	\N
+2854	2018-03-18	597	1	1	186.12	186.12	0.00	186.12	\N
+2855	2018-03-18	92	8	1	177.77	177.77	0.00	177.77	\N
+2856	2018-03-18	477	5	1	234.42	234.42	11.72	222.70	\N
+2857	2018-03-19	327	1	2	186.21	372.42	0.00	372.42	\N
+2858	2018-03-19	376	1	2	186.53	373.06	0.00	373.06	\N
+2859	2018-03-19	288	7	2	293.45	586.90	58.69	528.21	\N
+2860	2018-03-19	164	4	1	141.03	141.03	0.00	141.03	\N
+2861	2018-03-20	157	10	1	31.76	31.76	1.59	30.17	\N
+2862	2018-03-20	138	6	2	343.09	686.18	0.00	686.18	\N
+2863	2018-03-20	221	4	2	161.33	322.66	0.00	322.66	\N
+2864	2018-03-20	225	4	1	142.61	142.61	0.00	142.61	\N
+2865	2018-03-20	70	2	1	465.33	465.33	0.00	465.33	\N
+2866	2018-03-21	468	6	1	380.30	380.30	38.03	342.27	\N
+2867	2018-03-21	146	8	2	183.95	367.90	0.00	367.90	\N
+2868	2018-03-21	323	4	2	161.96	323.92	32.39	291.53	\N
+2869	2018-03-21	380	4	1	136.68	136.68	0.00	136.68	\N
+2870	2018-03-22	178	4	1	157.04	157.04	0.00	157.04	\N
+2871	2018-03-22	265	8	1	168.14	168.14	16.81	151.33	\N
+2872	2018-03-22	135	1	1	185.08	185.08	0.00	185.08	\N
+2873	2018-03-22	70	10	1	31.86	31.86	0.00	31.86	\N
+2874	2018-03-22	17	2	1	445.88	445.88	22.29	423.59	\N
+2875	2018-03-23	136	5	2	227.61	455.22	0.00	455.22	\N
+2876	2018-03-23	450	7	2	324.98	649.96	0.00	649.96	\N
+2877	2018-03-23	560	8	1	188.27	188.27	0.00	188.27	\N
+2878	2018-03-25	488	8	2	173.56	347.12	0.00	347.12	\N
+2879	2018-03-25	109	10	2	31.72	63.44	0.00	63.44	\N
+2880	2018-03-25	188	5	2	227.50	455.00	0.00	455.00	\N
+2881	2018-03-26	555	4	1	151.10	151.10	0.00	151.10	\N
+2882	2018-03-27	158	8	2	184.64	369.28	0.00	369.28	\N
+2883	2018-03-27	66	3	1	651.78	651.78	0.00	651.78	\N
+2884	2018-03-27	599	6	2	341.97	683.94	0.00	683.94	\N
+2885	2018-03-28	289	5	1	270.74	270.74	0.00	270.74	\N
+2886	2018-03-28	151	4	1	149.56	149.56	0.00	149.56	\N
+2887	2018-03-29	463	10	2	31.62	63.24	3.16	60.08	\N
+2888	2018-03-29	103	3	2	641.84	1283.68	0.00	1283.68	\N
+2889	2018-03-30	123	9	2	118.99	237.98	0.00	237.98	\N
+2890	2018-03-30	242	6	1	383.78	383.78	0.00	383.78	\N
+2891	2018-03-31	52	2	2	445.90	891.80	89.18	802.62	\N
+2892	2018-03-31	299	1	2	211.92	423.84	0.00	423.84	\N
+2893	2018-03-31	155	6	1	322.25	322.25	0.00	322.25	\N
+2894	2018-03-31	258	6	1	327.47	327.47	0.00	327.47	\N
+2895	2018-03-31	113	8	2	165.67	331.34	33.13	298.21	\N
+2896	2018-04-01	398	5	1	237.49	237.49	0.00	237.49	\N
+2897	2018-04-01	187	3	2	633.00	1266.00	0.00	1266.00	\N
+2898	2018-04-02	154	3	2	645.82	1291.64	129.16	1162.48	\N
+2899	2018-04-02	267	10	1	32.27	32.27	0.00	32.27	\N
+2900	2018-04-03	197	4	1	157.20	157.20	7.86	149.34	\N
+2901	2018-04-03	208	5	1	239.72	239.72	0.00	239.72	\N
+2902	2018-04-03	19	5	2	250.11	500.22	0.00	500.22	\N
+2903	2018-04-04	521	10	2	30.48	60.96	0.00	60.96	\N
+2904	2018-04-04	278	8	1	162.75	162.75	16.28	146.47	\N
+2905	2018-04-04	387	9	1	124.42	124.42	12.44	111.98	\N
+2906	2018-04-05	195	8	1	179.89	179.89	0.00	179.89	\N
+2907	2018-04-05	187	7	1	295.63	295.63	0.00	295.63	\N
+2908	2018-04-05	164	10	2	31.45	62.90	0.00	62.90	\N
+2909	2018-04-06	275	3	1	693.33	693.33	0.00	693.33	\N
+2910	2018-04-06	327	3	2	652.40	1304.80	0.00	1304.80	\N
+2911	2018-04-06	158	1	1	196.73	196.73	0.00	196.73	\N
+2912	2018-04-07	358	9	2	110.01	220.02	0.00	220.02	\N
+2913	2018-04-07	138	1	1	206.16	206.16	0.00	206.16	\N
+2914	2018-04-08	162	3	1	712.95	712.95	71.30	641.65	\N
+2915	2018-04-08	421	4	1	136.26	136.26	0.00	136.26	\N
+2916	2018-04-08	324	10	1	29.41	29.41	0.00	29.41	\N
+2917	2018-04-08	475	3	1	720.41	720.41	72.04	648.37	\N
+2918	2018-04-09	185	1	2	197.26	394.52	39.45	355.07	\N
+2919	2018-04-10	527	1	1	205.85	205.85	0.00	205.85	\N
+2920	2018-04-10	100	4	2	141.14	282.28	14.11	268.17	\N
+2921	2018-04-10	45	5	1	253.69	253.69	0.00	253.69	\N
+2922	2018-04-11	230	3	2	638.99	1277.98	0.00	1277.98	\N
+2923	2018-04-11	182	3	2	643.21	1286.42	0.00	1286.42	\N
+2924	2018-04-11	79	6	2	367.44	734.88	0.00	734.88	\N
+2925	2018-04-12	116	6	2	352.68	705.36	0.00	705.36	\N
+2926	2018-04-12	557	7	2	302.15	604.30	0.00	604.30	\N
+2927	2018-04-13	306	1	1	184.16	184.16	0.00	184.16	\N
+2928	2018-04-13	544	6	1	333.35	333.35	0.00	333.35	\N
+2929	2018-04-13	399	5	2	274.44	548.88	0.00	548.88	\N
+2930	2018-04-13	1	1	2	211.78	423.56	42.36	381.20	\N
+2931	2018-04-14	453	9	1	119.53	119.53	0.00	119.53	\N
+2932	2018-04-14	534	6	1	369.32	369.32	0.00	369.32	\N
+2933	2018-04-15	412	5	2	272.29	544.58	0.00	544.58	\N
+2934	2018-04-15	319	2	1	458.62	458.62	0.00	458.62	\N
+2935	2018-04-15	223	5	1	257.93	257.93	12.90	245.03	\N
+2936	2018-04-16	447	3	1	655.07	655.07	32.75	622.32	\N
+2937	2018-04-17	313	2	2	409.09	818.18	81.82	736.36	\N
+2938	2018-04-17	545	4	1	158.88	158.88	15.89	142.99	\N
+2939	2018-04-17	524	10	2	31.63	63.26	0.00	63.26	\N
+2940	2018-04-17	115	2	2	447.40	894.80	0.00	894.80	\N
+2941	2018-04-18	158	7	1	305.29	305.29	0.00	305.29	\N
+2942	2018-04-18	285	10	1	31.14	31.14	1.56	29.58	\N
+2943	2018-04-18	527	4	2	138.33	276.66	0.00	276.66	\N
+2944	2018-04-18	59	4	2	161.26	322.52	0.00	322.52	\N
+2945	2018-04-19	22	3	2	728.87	1457.74	145.77	1311.97	\N
+2946	2018-04-19	202	3	2	705.49	1410.98	141.10	1269.88	\N
+2947	2018-04-19	194	2	2	405.35	810.70	0.00	810.70	\N
+2948	2018-04-20	335	3	2	667.82	1335.64	0.00	1335.64	\N
+2949	2018-04-20	241	9	2	125.03	250.06	0.00	250.06	\N
+2950	2018-04-20	567	3	2	759.49	1518.98	0.00	1518.98	\N
+2951	2018-04-20	176	10	2	31.60	63.20	6.32	56.88	\N
+2952	2018-04-20	408	9	1	124.74	124.74	12.47	112.27	\N
+2953	2018-04-21	447	4	1	160.73	160.73	8.04	152.69	\N
+2954	2018-04-22	514	10	2	32.36	64.72	0.00	64.72	\N
+2955	2018-04-24	209	4	1	159.44	159.44	0.00	159.44	\N
+2956	2018-04-24	86	9	1	116.07	116.07	11.61	104.46	\N
+2957	2018-04-24	182	7	2	297.29	594.58	0.00	594.58	\N
+2958	2018-04-25	566	5	1	273.26	273.26	13.66	259.60	\N
+2959	2018-04-25	195	3	1	722.94	722.94	0.00	722.94	\N
+2960	2018-04-25	206	4	2	156.51	313.02	15.65	297.37	\N
+2961	2018-04-25	358	3	1	694.55	694.55	0.00	694.55	\N
+2962	2018-04-26	65	9	1	119.44	119.44	0.00	119.44	\N
+2963	2018-04-26	21	7	1	327.16	327.16	0.00	327.16	\N
+2964	2018-04-26	395	2	1	463.56	463.56	0.00	463.56	\N
+2965	2018-04-27	380	10	1	28.00	28.00	0.00	28.00	\N
+2966	2018-04-27	552	9	2	110.41	220.82	0.00	220.82	\N
+2967	2018-04-27	273	4	1	158.11	158.11	0.00	158.11	\N
+2968	2018-04-28	479	10	2	29.67	59.34	0.00	59.34	\N
+2969	2018-04-28	472	9	1	124.68	124.68	0.00	124.68	\N
+2970	2018-04-29	430	10	1	32.12	32.12	0.00	32.12	\N
+2971	2018-04-29	555	5	1	242.50	242.50	0.00	242.50	\N
+2972	2018-04-29	18	3	1	728.21	728.21	0.00	728.21	\N
+2973	2018-04-29	409	9	2	117.23	234.46	23.45	211.01	\N
+2974	2018-04-29	589	2	1	417.45	417.45	0.00	417.45	\N
+2975	2018-04-30	316	10	1	30.04	30.04	0.00	30.04	\N
+2976	2018-04-30	167	6	2	337.83	675.66	0.00	675.66	\N
+2977	2018-05-01	446	1	1	210.56	210.56	0.00	210.56	\N
+2978	2018-05-01	140	10	2	32.17	64.34	6.43	57.91	\N
+2979	2018-05-01	487	3	1	737.08	737.08	0.00	737.08	\N
+2980	2018-05-02	312	2	1	473.80	473.80	0.00	473.80	\N
+2981	2018-05-02	406	8	1	162.78	162.78	16.28	146.50	\N
+2982	2018-05-03	315	8	1	171.18	171.18	0.00	171.18	\N
+2983	2018-05-03	585	5	1	245.28	245.28	12.26	233.02	\N
+2984	2018-05-03	517	5	2	230.63	461.26	0.00	461.26	\N
+2985	2018-05-04	296	8	2	180.68	361.36	0.00	361.36	\N
+2986	2018-05-04	212	7	1	313.98	313.98	0.00	313.98	\N
+2987	2018-05-05	547	2	1	494.75	494.75	0.00	494.75	\N
+2988	2018-05-05	599	9	1	108.67	108.67	0.00	108.67	\N
+2989	2018-05-06	11	10	2	28.00	56.00	0.00	56.00	\N
+2990	2018-05-06	404	1	1	193.07	193.07	9.65	183.42	\N
+2991	2018-05-07	168	7	1	278.37	278.37	0.00	278.37	\N
+2992	2018-05-08	407	7	1	287.39	287.39	0.00	287.39	\N
+2993	2018-05-08	63	1	2	213.59	427.18	42.72	384.46	\N
+2994	2018-05-09	368	9	1	110.50	110.50	0.00	110.50	\N
+2995	2018-05-09	570	9	2	121.76	243.52	12.18	231.34	\N
+2996	2018-05-10	338	8	1	172.98	172.98	0.00	172.98	\N
+2997	2018-05-10	565	4	2	153.57	307.14	0.00	307.14	\N
+2998	2018-05-10	269	2	1	454.80	454.80	0.00	454.80	\N
+2999	2018-05-10	243	1	2	185.98	371.96	0.00	371.96	\N
+3000	2018-05-11	380	1	2	181.89	363.78	0.00	363.78	\N
+3001	2018-05-11	354	7	1	315.59	315.59	0.00	315.59	\N
+3002	2018-05-11	365	4	2	135.52	271.04	0.00	271.04	\N
+3003	2018-05-11	367	7	2	287.57	575.14	0.00	575.14	\N
+3004	2018-05-12	579	4	2	159.76	319.52	0.00	319.52	\N
+3005	2018-05-13	302	7	1	296.93	296.93	29.69	267.24	\N
+3006	2018-05-13	20	2	1	452.77	452.77	22.64	430.13	\N
+3007	2018-05-13	32	2	2	461.79	923.58	0.00	923.58	\N
+3008	2018-05-13	382	2	2	409.28	818.56	0.00	818.56	\N
+3009	2018-05-14	303	5	2	272.48	544.96	0.00	544.96	\N
+3010	2018-05-14	45	7	2	299.04	598.08	0.00	598.08	\N
+3011	2018-05-14	433	9	1	129.66	129.66	0.00	129.66	\N
+3012	2018-05-14	384	3	1	672.12	672.12	33.61	638.51	\N
+3013	2018-05-15	130	2	1	434.12	434.12	0.00	434.12	\N
+3014	2018-05-15	447	8	1	166.93	166.93	0.00	166.93	\N
+3015	2018-05-15	183	3	1	761.45	761.45	38.07	723.38	\N
+3016	2018-05-15	340	4	2	141.46	282.92	0.00	282.92	\N
+3017	2018-05-16	302	8	1	190.55	190.55	0.00	190.55	\N
+3018	2018-05-16	315	8	1	194.43	194.43	0.00	194.43	\N
+3019	2018-05-16	296	6	1	341.07	341.07	0.00	341.07	\N
+3020	2018-05-17	448	6	1	326.95	326.95	0.00	326.95	\N
+3021	2018-05-18	238	9	2	113.41	226.82	11.34	215.48	\N
+3022	2018-05-18	141	5	2	241.65	483.30	0.00	483.30	\N
+3023	2018-05-18	105	3	1	728.21	728.21	0.00	728.21	\N
+3024	2018-05-19	58	1	2	209.64	419.28	0.00	419.28	\N
+3025	2018-05-20	190	2	1	488.75	488.75	48.88	439.87	\N
+3026	2018-05-20	243	3	2	718.66	1437.32	0.00	1437.32	\N
+3027	2018-05-20	161	7	2	316.34	632.68	0.00	632.68	\N
+3028	2018-05-21	559	4	1	153.52	153.52	0.00	153.52	\N
+3029	2018-05-23	329	9	2	115.79	231.58	23.16	208.42	\N
+3030	2018-05-26	175	6	2	324.80	649.60	0.00	649.60	\N
+3031	2018-05-26	104	7	1	276.94	276.94	0.00	276.94	\N
+3032	2018-05-27	501	6	1	358.05	358.05	0.00	358.05	\N
+3033	2018-05-28	57	6	2	379.14	758.28	0.00	758.28	\N
+3034	2018-05-28	49	6	1	336.60	336.60	33.66	302.94	\N
+3035	2018-05-28	466	5	1	238.46	238.46	0.00	238.46	\N
+3036	2018-05-28	375	4	1	145.70	145.70	14.57	131.13	\N
+3037	2018-05-29	542	5	2	230.61	461.22	0.00	461.22	\N
+3038	2018-05-30	473	2	1	437.08	437.08	0.00	437.08	\N
+3039	2018-05-31	585	8	2	169.18	338.36	0.00	338.36	\N
+3040	2018-05-31	209	1	2	193.33	386.66	0.00	386.66	\N
+3041	2018-06-01	548	1	1	188.89	188.89	9.44	179.45	\N
+3042	2018-06-01	432	2	1	483.65	483.65	24.18	459.47	\N
+3043	2018-06-02	246	9	1	130.04	130.04	0.00	130.04	\N
+3044	2018-06-02	438	1	2	200.52	401.04	0.00	401.04	\N
+3045	2018-06-02	180	9	2	109.64	219.28	0.00	219.28	\N
+3046	2018-06-03	492	9	1	119.41	119.41	11.94	107.47	\N
+3047	2018-06-03	189	6	2	362.90	725.80	0.00	725.80	\N
+3048	2018-06-03	126	8	2	186.89	373.78	0.00	373.78	\N
+3049	2018-06-04	218	6	1	366.03	366.03	0.00	366.03	\N
+3050	2018-06-04	525	1	2	184.06	368.12	0.00	368.12	\N
+3051	2018-06-04	110	6	1	344.74	344.74	0.00	344.74	\N
+3052	2018-06-05	300	5	1	268.47	268.47	0.00	268.47	\N
+3053	2018-06-06	491	8	1	188.72	188.72	0.00	188.72	\N
+3054	2018-06-06	408	10	2	32.59	65.18	0.00	65.18	\N
+3055	2018-06-06	230	4	2	159.41	318.82	31.88	286.94	\N
+3056	2018-06-06	386	7	1	285.72	285.72	0.00	285.72	\N
+3057	2018-06-06	54	10	1	30.53	30.53	0.00	30.53	\N
+3058	2018-06-06	30	1	2	184.49	368.98	0.00	368.98	\N
+3059	2018-06-07	568	6	2	348.58	697.16	0.00	697.16	\N
+3060	2018-06-09	545	4	1	159.98	159.98	0.00	159.98	\N
+3061	2018-06-09	349	3	2	643.33	1286.66	128.67	1157.99	\N
+3062	2018-06-09	535	5	2	270.23	540.46	54.05	486.41	\N
+3063	2018-06-10	400	5	1	261.81	261.81	0.00	261.81	\N
+3064	2018-06-10	530	5	1	255.96	255.96	0.00	255.96	\N
+3065	2018-06-10	469	10	1	29.22	29.22	2.92	26.30	\N
+3066	2018-06-11	503	6	1	359.46	359.46	0.00	359.46	\N
+3067	2018-06-14	533	3	1	762.36	762.36	0.00	762.36	\N
+3068	2018-06-14	53	3	2	650.08	1300.16	0.00	1300.16	\N
+3069	2018-06-14	598	8	1	188.32	188.32	0.00	188.32	\N
+3070	2018-06-15	76	3	2	671.89	1343.78	0.00	1343.78	\N
+3071	2018-06-15	463	2	1	446.59	446.59	0.00	446.59	\N
+3072	2018-06-16	595	9	2	115.18	230.36	0.00	230.36	\N
+3073	2018-06-17	337	2	2	476.09	952.18	0.00	952.18	\N
+3074	2018-06-17	212	7	1	299.78	299.78	0.00	299.78	\N
+3075	2018-06-17	536	7	1	328.92	328.92	16.45	312.47	\N
+3076	2018-06-19	223	1	2	188.40	376.80	0.00	376.80	\N
+3077	2018-06-20	445	9	1	110.74	110.74	5.54	105.20	\N
+3078	2018-06-20	504	9	1	109.91	109.91	0.00	109.91	\N
+3079	2018-06-21	345	10	2	27.07	54.14	0.00	54.14	\N
+3080	2018-06-21	587	3	2	746.68	1493.36	0.00	1493.36	\N
+3081	2018-06-21	591	1	1	194.82	194.82	19.48	175.34	\N
+3082	2018-06-21	434	10	1	28.25	28.25	0.00	28.25	\N
+3083	2018-06-21	383	2	2	461.52	923.04	0.00	923.04	\N
+3084	2018-06-22	517	9	2	126.02	252.04	0.00	252.04	\N
+3085	2018-06-23	476	1	1	210.75	210.75	0.00	210.75	\N
+3086	2018-06-23	200	3	2	724.27	1448.54	72.43	1376.11	\N
+3087	2018-06-23	125	10	1	28.45	28.45	0.00	28.45	\N
+3088	2018-06-24	11	4	1	163.76	163.76	0.00	163.76	\N
+3089	2018-06-24	588	8	1	173.07	173.07	0.00	173.07	\N
+3090	2018-06-24	323	6	1	323.49	323.49	0.00	323.49	\N
+3091	2018-06-25	44	10	2	27.35	54.70	0.00	54.70	\N
+3092	2018-06-25	548	2	1	482.00	482.00	0.00	482.00	\N
+3093	2018-06-25	44	5	1	241.39	241.39	0.00	241.39	\N
+3094	2018-06-26	307	4	2	156.44	312.88	0.00	312.88	\N
+3095	2018-06-26	72	6	2	380.29	760.58	0.00	760.58	\N
+3096	2018-06-26	544	8	1	169.40	169.40	0.00	169.40	\N
+3097	2018-06-27	144	8	1	164.84	164.84	0.00	164.84	\N
+3098	2018-06-27	522	10	1	29.41	29.41	0.00	29.41	\N
+3099	2018-06-27	362	4	2	158.95	317.90	15.89	302.01	\N
+3100	2018-06-28	342	9	1	115.72	115.72	0.00	115.72	\N
+3101	2018-06-28	441	2	2	438.00	876.00	0.00	876.00	\N
+3102	2018-06-28	462	4	2	137.58	275.16	0.00	275.16	\N
+3103	2018-06-28	396	7	1	284.36	284.36	0.00	284.36	\N
+3104	2018-06-28	191	6	1	339.27	339.27	0.00	339.27	\N
+3105	2018-06-29	104	7	2	287.41	574.82	0.00	574.82	\N
+3106	2018-06-29	44	3	1	747.36	747.36	0.00	747.36	\N
+3107	2018-06-29	483	8	1	168.54	168.54	8.43	160.11	\N
+3108	2018-06-30	558	10	1	29.53	29.53	0.00	29.53	\N
+3109	2018-06-30	388	7	2	270.28	540.56	0.00	540.56	\N
+3110	2018-06-30	303	3	1	702.97	702.97	0.00	702.97	\N
+3111	2018-07-02	262	5	2	228.43	456.86	0.00	456.86	\N
+3112	2018-07-02	423	2	1	408.15	408.15	40.81	367.34	\N
+3113	2018-07-02	332	4	1	145.04	145.04	0.00	145.04	\N
+3114	2018-07-02	307	7	2	319.69	639.38	63.94	575.44	\N
+3115	2018-07-03	128	1	2	187.56	375.12	0.00	375.12	\N
+3116	2018-07-04	2	3	1	698.66	698.66	0.00	698.66	\N
+3117	2018-07-05	271	3	1	698.12	698.12	0.00	698.12	\N
+3118	2018-07-05	138	9	1	128.94	128.94	0.00	128.94	\N
+3119	2018-07-06	266	5	1	247.66	247.66	0.00	247.66	\N
+3120	2018-07-06	593	4	1	152.76	152.76	0.00	152.76	\N
+3121	2018-07-06	23	10	1	29.47	29.47	0.00	29.47	\N
+3122	2018-07-06	429	8	1	176.48	176.48	0.00	176.48	\N
+3123	2018-07-06	4	10	2	28.04	56.08	0.00	56.08	\N
+3124	2018-07-07	285	10	1	30.05	30.05	0.00	30.05	\N
+3125	2018-07-08	328	6	1	322.83	322.83	0.00	322.83	\N
+3126	2018-07-08	337	9	1	125.97	125.97	0.00	125.97	\N
+3127	2018-07-08	503	2	1	445.82	445.82	0.00	445.82	\N
+3128	2018-07-08	22	7	1	318.36	318.36	0.00	318.36	\N
+3129	2018-07-09	123	2	2	473.18	946.36	0.00	946.36	\N
+3130	2018-07-09	278	1	2	188.12	376.24	0.00	376.24	\N
+3131	2018-07-11	516	9	1	129.63	129.63	0.00	129.63	\N
+3132	2018-07-12	211	9	2	119.28	238.56	0.00	238.56	\N
+3133	2018-07-12	368	9	1	113.34	113.34	0.00	113.34	\N
+3134	2018-07-13	415	5	1	263.05	263.05	0.00	263.05	\N
+3135	2018-07-13	258	2	2	425.93	851.86	42.59	809.27	\N
+3136	2018-07-13	116	6	1	328.51	328.51	0.00	328.51	\N
+3137	2018-07-13	430	1	2	187.45	374.90	18.75	356.15	\N
+3138	2018-07-13	358	5	2	264.38	528.76	0.00	528.76	\N
+3139	2018-07-13	269	2	2	463.97	927.94	46.40	881.54	\N
+3140	2018-07-14	88	10	2	27.21	54.42	0.00	54.42	\N
+3141	2018-07-14	462	8	1	166.82	166.82	0.00	166.82	\N
+3142	2018-07-14	287	2	1	406.77	406.77	0.00	406.77	\N
+3143	2018-07-14	507	10	1	32.03	32.03	0.00	32.03	\N
+3144	2018-07-15	579	4	2	139.79	279.58	0.00	279.58	\N
+3145	2018-07-15	246	9	1	123.44	123.44	12.34	111.10	\N
+3146	2018-07-15	317	2	2	490.93	981.86	0.00	981.86	\N
+3147	2018-07-15	148	5	1	252.20	252.20	0.00	252.20	\N
+3148	2018-07-16	572	8	2	167.44	334.88	0.00	334.88	\N
+3149	2018-07-16	262	10	2	29.44	58.88	5.89	52.99	\N
+3150	2018-07-16	81	8	2	192.31	384.62	0.00	384.62	\N
+3151	2018-07-16	190	5	2	225.70	451.40	0.00	451.40	\N
+3152	2018-07-17	220	3	1	688.69	688.69	34.43	654.26	\N
+3153	2018-07-17	37	4	2	144.16	288.32	0.00	288.32	\N
+3154	2018-07-18	102	7	2	282.91	565.82	0.00	565.82	\N
+3155	2018-07-18	153	9	1	117.58	117.58	0.00	117.58	\N
+3156	2018-07-19	174	1	2	217.37	434.74	21.74	413.00	\N
+3157	2018-07-20	33	10	1	29.01	29.01	0.00	29.01	\N
+3158	2018-07-20	401	7	1	313.29	313.29	31.33	281.96	\N
+3159	2018-07-20	202	7	2	327.51	655.02	0.00	655.02	\N
+3160	2018-07-21	11	6	1	347.54	347.54	0.00	347.54	\N
+3161	2018-07-21	31	1	2	183.83	367.66	0.00	367.66	\N
+3162	2018-07-21	342	10	1	32.79	32.79	3.28	29.51	\N
+3163	2018-07-21	222	10	2	29.77	59.54	2.98	56.56	\N
+3164	2018-07-22	463	3	1	652.43	652.43	65.24	587.19	\N
+3165	2018-07-23	580	1	1	209.73	209.73	0.00	209.73	\N
+3166	2018-07-23	78	7	1	299.74	299.74	14.99	284.75	\N
+3167	2018-07-24	260	6	1	375.91	375.91	0.00	375.91	\N
+3168	2018-07-24	287	7	2	317.54	635.08	0.00	635.08	\N
+3169	2018-07-24	114	10	1	28.00	28.00	0.00	28.00	\N
+3170	2018-07-24	71	8	2	192.03	384.06	0.00	384.06	\N
+3171	2018-07-24	314	4	2	147.21	294.42	0.00	294.42	\N
+3172	2018-07-24	149	4	1	157.79	157.79	0.00	157.79	\N
+3173	2018-07-25	135	3	1	680.48	680.48	68.05	612.43	\N
+3174	2018-07-25	16	3	1	677.92	677.92	0.00	677.92	\N
+3175	2018-07-25	277	2	1	417.77	417.77	0.00	417.77	\N
+3176	2018-07-26	18	10	2	28.63	57.26	0.00	57.26	\N
+3177	2018-07-26	457	8	2	193.80	387.60	0.00	387.60	\N
+3178	2018-07-26	24	4	1	155.23	155.23	0.00	155.23	\N
+3179	2018-07-26	362	6	1	321.61	321.61	0.00	321.61	\N
+3180	2018-07-26	482	7	2	274.73	549.46	0.00	549.46	\N
+3181	2018-07-26	308	9	1	108.58	108.58	0.00	108.58	\N
+3182	2018-07-27	138	5	2	272.40	544.80	0.00	544.80	\N
+3183	2018-07-27	368	10	2	30.24	60.48	3.02	57.46	\N
+3184	2018-07-27	135	2	1	414.57	414.57	0.00	414.57	\N
+3185	2018-07-28	328	9	1	121.95	121.95	0.00	121.95	\N
+3186	2018-07-28	175	7	2	302.43	604.86	0.00	604.86	\N
+3187	2018-07-28	293	10	2	31.81	63.62	0.00	63.62	\N
+3188	2018-07-29	262	8	1	182.02	182.02	0.00	182.02	\N
+3189	2018-07-29	527	7	1	277.61	277.61	0.00	277.61	\N
+3190	2018-07-30	61	1	1	200.01	200.01	0.00	200.01	\N
+3191	2018-07-30	468	5	1	226.18	226.18	0.00	226.18	\N
+3192	2018-07-31	449	9	1	131.43	131.43	0.00	131.43	\N
+3193	2018-07-31	113	10	2	27.20	54.40	0.00	54.40	\N
+3194	2018-07-31	581	3	1	642.01	642.01	0.00	642.01	\N
+3195	2018-07-31	52	7	2	304.28	608.56	0.00	608.56	\N
+3196	2018-07-31	542	4	1	146.79	146.79	0.00	146.79	\N
+3197	2018-07-31	131	4	1	158.56	158.56	0.00	158.56	\N
+3198	2018-08-01	286	9	2	114.46	228.92	0.00	228.92	\N
+3199	2018-08-01	460	1	2	200.17	400.34	40.03	360.31	\N
+3200	2018-08-02	327	5	1	246.58	246.58	12.33	234.25	\N
+3201	2018-08-03	173	2	2	494.81	989.62	98.96	890.66	\N
+3202	2018-08-03	152	1	1	194.37	194.37	0.00	194.37	\N
+3203	2018-08-03	214	4	2	135.06	270.12	27.01	243.11	\N
+3204	2018-08-03	255	5	1	262.19	262.19	0.00	262.19	\N
+3205	2018-08-04	465	4	1	152.81	152.81	0.00	152.81	\N
+3206	2018-08-04	4	9	2	120.51	241.02	0.00	241.02	\N
+3207	2018-08-04	582	2	1	415.92	415.92	20.80	395.12	\N
+3208	2018-08-05	24	10	1	32.73	32.73	0.00	32.73	\N
+3209	2018-08-05	394	10	1	31.52	31.52	0.00	31.52	\N
+3210	2018-08-05	241	3	1	725.97	725.97	0.00	725.97	\N
+3211	2018-08-05	468	10	1	31.04	31.04	0.00	31.04	\N
+3212	2018-08-05	592	8	1	188.64	188.64	0.00	188.64	\N
+3213	2018-08-06	398	1	2	201.67	403.34	0.00	403.34	\N
+3214	2018-08-06	308	9	2	131.74	263.48	0.00	263.48	\N
+3215	2018-08-07	561	7	2	298.80	597.60	0.00	597.60	\N
+3216	2018-08-08	251	1	2	182.03	364.06	0.00	364.06	\N
+3217	2018-08-08	528	5	2	259.21	518.42	0.00	518.42	\N
+3218	2018-08-09	122	2	2	470.07	940.14	0.00	940.14	\N
+3219	2018-08-09	457	2	2	488.66	977.32	0.00	977.32	\N
+3220	2018-08-09	88	6	2	321.47	642.94	0.00	642.94	\N
+3221	2018-08-10	379	5	2	241.49	482.98	48.30	434.68	\N
+3222	2018-08-10	154	1	2	187.56	375.12	0.00	375.12	\N
+3223	2018-08-10	13	2	2	437.67	875.34	0.00	875.34	\N
+3224	2018-08-10	245	5	1	245.64	245.64	24.56	221.08	\N
+3225	2018-08-10	385	10	1	30.64	30.64	0.00	30.64	\N
+3226	2018-08-11	596	5	2	268.16	536.32	0.00	536.32	\N
+3227	2018-08-11	152	1	2	183.82	367.64	0.00	367.64	\N
+3228	2018-08-11	274	1	2	212.40	424.80	0.00	424.80	\N
+3229	2018-08-11	553	2	2	466.98	933.96	46.70	887.26	\N
+3230	2018-08-12	228	9	2	118.72	237.44	0.00	237.44	\N
+3231	2018-08-12	296	1	1	185.97	185.97	0.00	185.97	\N
+3232	2018-08-13	145	1	2	201.24	402.48	0.00	402.48	\N
+3233	2018-08-13	72	8	1	171.43	171.43	0.00	171.43	\N
+3234	2018-08-13	140	8	1	170.19	170.19	0.00	170.19	\N
+3235	2018-08-15	198	7	1	288.69	288.69	0.00	288.69	\N
+3236	2018-08-15	228	6	2	384.70	769.40	76.94	692.46	\N
+3237	2018-08-15	90	3	2	716.77	1433.54	0.00	1433.54	\N
+3238	2018-08-15	574	3	1	707.23	707.23	0.00	707.23	\N
+3239	2018-08-16	563	2	2	466.80	933.60	0.00	933.60	\N
+3240	2018-08-16	181	6	2	339.22	678.44	67.84	610.60	\N
+3241	2018-08-18	118	1	2	182.43	364.86	0.00	364.86	\N
+3242	2018-08-18	225	1	2	190.58	381.16	0.00	381.16	\N
+3243	2018-08-18	56	2	1	416.50	416.50	0.00	416.50	\N
+3244	2018-08-19	147	8	2	165.12	330.24	16.51	313.73	\N
+3245	2018-08-20	206	3	2	709.49	1418.98	0.00	1418.98	\N
+3246	2018-08-20	438	2	2	436.58	873.16	87.32	785.84	\N
+3247	2018-08-20	546	6	1	315.81	315.81	0.00	315.81	\N
+3248	2018-08-21	446	6	1	330.71	330.71	0.00	330.71	\N
+3249	2018-08-21	265	5	2	244.09	488.18	48.82	439.36	\N
+3250	2018-08-22	182	3	2	766.99	1533.98	0.00	1533.98	\N
+3251	2018-08-22	225	5	2	244.14	488.28	0.00	488.28	\N
+3252	2018-08-22	110	10	2	27.53	55.06	0.00	55.06	\N
+3253	2018-08-22	375	8	2	187.89	375.78	0.00	375.78	\N
+3254	2018-08-23	210	5	2	249.59	499.18	24.96	474.22	\N
+3255	2018-08-23	359	9	2	131.07	262.14	26.21	235.93	\N
+3256	2018-08-23	548	3	2	652.85	1305.70	0.00	1305.70	\N
+3257	2018-08-23	104	3	1	745.65	745.65	0.00	745.65	\N
+3258	2018-08-23	188	7	1	297.18	297.18	29.72	267.46	\N
+3259	2018-08-24	429	7	2	326.10	652.20	0.00	652.20	\N
+3260	2018-08-25	410	3	1	749.83	749.83	0.00	749.83	\N
+3261	2018-08-25	79	10	2	32.28	64.56	0.00	64.56	\N
+3262	2018-08-25	419	9	1	118.61	118.61	0.00	118.61	\N
+3263	2018-08-26	277	10	1	28.76	28.76	0.00	28.76	\N
+3264	2018-08-26	83	3	2	710.95	1421.90	0.00	1421.90	\N
+3265	2018-08-26	371	1	2	181.46	362.92	0.00	362.92	\N
+3266	2018-08-28	112	9	2	115.28	230.56	0.00	230.56	\N
+3267	2018-08-28	309	3	1	647.58	647.58	0.00	647.58	\N
+3268	2018-08-28	279	4	2	144.23	288.46	0.00	288.46	\N
+3269	2018-08-29	430	7	2	302.86	605.72	0.00	605.72	\N
+3270	2018-08-29	155	2	1	435.27	435.27	0.00	435.27	\N
+3271	2018-08-29	259	10	2	31.43	62.86	0.00	62.86	\N
+3272	2018-08-30	366	5	1	253.74	253.74	25.37	228.37	\N
+3273	2018-08-30	284	5	2	257.14	514.28	25.71	488.57	\N
+3274	2018-09-01	104	10	1	29.96	29.96	1.50	28.46	\N
+3275	2018-09-02	544	3	2	694.90	1389.80	138.98	1250.82	\N
+3276	2018-09-03	240	5	1	236.27	236.27	0.00	236.27	\N
+3277	2018-09-04	295	9	2	128.99	257.98	0.00	257.98	\N
+3278	2018-09-04	184	2	1	452.54	452.54	0.00	452.54	\N
+3279	2018-09-04	430	9	2	108.56	217.12	0.00	217.12	\N
+3280	2018-09-05	266	1	2	193.89	387.78	19.39	368.39	\N
+3281	2018-09-05	45	3	2	642.76	1285.52	0.00	1285.52	\N
+3282	2018-09-07	380	5	2	234.80	469.60	0.00	469.60	\N
+3283	2018-09-07	85	3	2	664.60	1329.20	132.92	1196.28	\N
+3284	2018-09-07	53	5	2	255.57	511.14	0.00	511.14	\N
+3285	2018-09-07	435	1	1	212.95	212.95	0.00	212.95	\N
+3286	2018-09-07	146	2	2	469.22	938.44	0.00	938.44	\N
+3287	2018-09-07	518	7	1	273.17	273.17	13.66	259.51	\N
+3288	2018-09-08	64	4	1	138.15	138.15	0.00	138.15	\N
+3289	2018-09-08	51	2	1	413.05	413.05	0.00	413.05	\N
+3290	2018-09-08	14	4	2	143.93	287.86	0.00	287.86	\N
+3291	2018-09-08	120	4	1	138.21	138.21	0.00	138.21	\N
+3292	2018-09-08	102	10	2	31.94	63.88	0.00	63.88	\N
+3293	2018-09-09	569	7	1	272.74	272.74	0.00	272.74	\N
+3294	2018-09-09	398	3	2	736.48	1472.96	0.00	1472.96	\N
+3295	2018-09-09	53	9	1	114.20	114.20	0.00	114.20	\N
+3296	2018-09-09	292	8	1	191.57	191.57	0.00	191.57	\N
+3297	2018-09-09	374	1	1	205.15	205.15	20.52	184.63	\N
+3298	2018-09-10	349	4	2	145.13	290.26	14.51	275.75	\N
+3299	2018-09-10	24	8	1	195.21	195.21	0.00	195.21	\N
+3300	2018-09-10	455	9	2	125.87	251.74	0.00	251.74	\N
+3301	2018-09-10	480	10	2	31.56	63.12	0.00	63.12	\N
+3302	2018-09-10	480	2	1	490.09	490.09	24.50	465.59	\N
+3303	2018-09-11	566	9	1	110.67	110.67	0.00	110.67	\N
+3304	2018-09-11	159	3	2	755.13	1510.26	0.00	1510.26	\N
+3305	2018-09-11	394	5	2	249.06	498.12	0.00	498.12	\N
+3306	2018-09-12	549	4	1	149.55	149.55	0.00	149.55	\N
+3307	2018-09-12	42	8	1	193.62	193.62	0.00	193.62	\N
+3308	2018-09-12	109	1	1	187.28	187.28	0.00	187.28	\N
+3309	2018-09-12	16	9	2	116.79	233.58	0.00	233.58	\N
+3310	2018-09-12	513	1	1	180.59	180.59	0.00	180.59	\N
+3311	2018-09-13	301	4	2	158.95	317.90	31.79	286.11	\N
+3312	2018-09-13	191	3	1	765.84	765.84	38.29	727.55	\N
+3313	2018-09-13	394	10	1	31.01	31.01	0.00	31.01	\N
+3314	2018-09-14	361	8	1	171.34	171.34	0.00	171.34	\N
+3315	2018-09-15	21	7	1	318.05	318.05	0.00	318.05	\N
+3316	2018-09-16	366	2	1	444.32	444.32	0.00	444.32	\N
+3317	2018-09-16	252	10	1	32.10	32.10	0.00	32.10	\N
+3318	2018-09-16	374	3	2	642.52	1285.04	64.25	1220.79	\N
+3319	2018-09-17	417	5	1	266.17	266.17	0.00	266.17	\N
+3320	2018-09-17	5	8	2	195.40	390.80	0.00	390.80	\N
+3321	2018-09-18	373	1	2	219.17	438.34	0.00	438.34	\N
+3322	2018-09-19	536	5	2	269.64	539.28	26.96	512.32	\N
+3323	2018-09-19	116	10	1	30.23	30.23	0.00	30.23	\N
+3324	2018-09-20	141	5	2	252.09	504.18	0.00	504.18	\N
+3325	2018-09-20	68	4	1	135.71	135.71	0.00	135.71	\N
+3326	2018-09-20	110	7	1	306.04	306.04	0.00	306.04	\N
+3327	2018-09-20	16	6	2	375.07	750.14	37.51	712.63	\N
+3328	2018-09-20	378	2	1	438.94	438.94	0.00	438.94	\N
+3329	2018-09-20	564	7	2	311.90	623.80	0.00	623.80	\N
+3330	2018-09-21	251	4	2	155.03	310.06	0.00	310.06	\N
+3331	2018-09-21	338	4	2	144.30	288.60	14.43	274.17	\N
+3332	2018-09-22	334	1	1	212.81	212.81	0.00	212.81	\N
+3333	2018-09-22	283	8	2	177.14	354.28	0.00	354.28	\N
+3334	2018-09-22	160	8	2	180.20	360.40	0.00	360.40	\N
+3335	2018-09-23	435	2	2	433.81	867.62	0.00	867.62	\N
+3336	2018-09-23	346	6	2	367.11	734.22	0.00	734.22	\N
+3337	2018-09-24	114	3	1	706.44	706.44	70.64	635.80	\N
+3338	2018-09-26	505	6	2	371.50	743.00	74.30	668.70	\N
+3339	2018-09-26	577	8	1	180.24	180.24	0.00	180.24	\N
+3340	2018-09-26	266	3	1	682.69	682.69	0.00	682.69	\N
+3341	2018-09-28	47	10	1	29.77	29.77	0.00	29.77	\N
+3342	2018-09-28	393	1	1	186.14	186.14	0.00	186.14	\N
+3343	2018-09-28	446	6	1	369.02	369.02	0.00	369.02	\N
+3344	2018-09-28	474	8	1	167.09	167.09	0.00	167.09	\N
+3345	2018-09-28	453	2	2	407.46	814.92	0.00	814.92	\N
+3346	2018-09-28	513	8	2	166.41	332.82	0.00	332.82	\N
+3347	2018-09-29	270	8	2	181.14	362.28	0.00	362.28	\N
+3348	2018-09-29	236	8	2	185.92	371.84	18.59	353.25	\N
+3349	2018-09-29	499	6	1	336.48	336.48	0.00	336.48	\N
+3350	2018-09-30	17	3	2	754.41	1508.82	0.00	1508.82	\N
+3351	2018-09-30	75	5	2	250.16	500.32	0.00	500.32	\N
+3352	2018-10-01	471	3	2	683.67	1367.34	68.37	1298.97	\N
+3353	2018-10-01	341	5	1	263.53	263.53	0.00	263.53	\N
+3354	2018-10-01	541	7	2	328.88	657.76	0.00	657.76	\N
+3355	2018-10-01	191	9	2	120.39	240.78	0.00	240.78	\N
+3356	2018-10-01	47	8	2	177.00	354.00	0.00	354.00	\N
+3357	2018-10-03	11	8	1	185.50	185.50	0.00	185.50	\N
+3358	2018-10-03	212	3	2	696.95	1393.90	69.70	1324.20	\N
+3359	2018-10-03	347	4	2	156.80	313.60	0.00	313.60	\N
+3360	2018-10-04	411	8	1	177.03	177.03	8.85	168.18	\N
+3361	2018-10-05	224	9	2	118.35	236.70	0.00	236.70	\N
+3362	2018-10-05	487	10	2	27.31	54.62	0.00	54.62	\N
+3363	2018-10-06	31	5	2	250.85	501.70	0.00	501.70	\N
+3364	2018-10-06	403	10	2	31.08	62.16	6.22	55.94	\N
+3365	2018-10-06	380	4	2	142.79	285.58	0.00	285.58	\N
+3366	2018-10-06	27	9	1	130.65	130.65	0.00	130.65	\N
+3367	2018-10-06	149	8	2	169.20	338.40	0.00	338.40	\N
+3368	2018-10-07	86	6	1	356.73	356.73	0.00	356.73	\N
+3369	2018-10-07	264	1	1	192.57	192.57	0.00	192.57	\N
+3370	2018-10-07	330	7	2	297.01	594.02	0.00	594.02	\N
+3371	2018-10-07	513	10	2	32.29	64.58	0.00	64.58	\N
+3372	2018-10-08	348	6	2	332.83	665.66	0.00	665.66	\N
+3373	2018-10-09	79	10	1	31.23	31.23	3.12	28.11	\N
+3374	2018-10-09	151	3	1	696.76	696.76	0.00	696.76	\N
+3375	2018-10-10	134	8	1	188.23	188.23	9.41	178.82	\N
+3376	2018-10-10	180	3	2	697.50	1395.00	69.75	1325.25	\N
+3377	2018-10-12	476	6	2	360.59	721.18	0.00	721.18	\N
+3378	2018-10-12	124	8	2	165.84	331.68	33.17	298.51	\N
+3379	2018-10-12	162	10	2	32.30	64.60	0.00	64.60	\N
+3380	2018-10-12	296	5	2	266.86	533.72	0.00	533.72	\N
+3381	2018-10-13	567	4	1	135.97	135.97	6.80	129.17	\N
+3382	2018-10-13	436	10	1	27.05	27.05	0.00	27.05	\N
+3383	2018-10-13	184	3	1	634.14	634.14	63.41	570.73	\N
+3384	2018-10-13	583	9	1	108.33	108.33	0.00	108.33	\N
+3385	2018-10-15	273	3	1	725.01	725.01	0.00	725.01	\N
+3386	2018-10-15	80	1	1	196.89	196.89	9.84	187.05	\N
+3387	2018-10-16	462	8	2	193.81	387.62	0.00	387.62	\N
+3388	2018-10-16	222	2	1	441.01	441.01	22.05	418.96	\N
+3389	2018-10-18	351	1	2	217.65	435.30	0.00	435.30	\N
+3390	2018-10-18	204	4	2	140.54	281.08	0.00	281.08	\N
+3391	2018-10-18	188	5	1	270.84	270.84	0.00	270.84	\N
+3392	2018-10-18	230	2	2	482.67	965.34	0.00	965.34	\N
+3393	2018-10-18	577	5	1	264.13	264.13	0.00	264.13	\N
+3394	2018-10-18	248	9	1	108.13	108.13	0.00	108.13	\N
+3395	2018-10-18	577	1	2	209.66	419.32	0.00	419.32	\N
+3396	2018-10-18	333	5	1	228.04	228.04	0.00	228.04	\N
+3397	2018-10-18	564	6	1	322.61	322.61	0.00	322.61	\N
+3398	2018-10-19	231	3	2	694.68	1389.36	138.94	1250.42	\N
+3399	2018-10-19	185	9	2	128.67	257.34	12.87	244.47	\N
+3400	2018-10-20	397	4	1	145.44	145.44	14.54	130.90	\N
+3401	2018-10-20	61	3	2	746.26	1492.52	0.00	1492.52	\N
+3402	2018-10-22	464	7	1	308.75	308.75	0.00	308.75	\N
+3403	2018-10-22	465	3	1	707.42	707.42	0.00	707.42	\N
+3404	2018-10-23	211	10	2	29.94	59.88	0.00	59.88	\N
+3405	2018-10-23	383	1	1	198.11	198.11	19.81	178.30	\N
+3406	2018-10-24	309	1	1	196.75	196.75	0.00	196.75	\N
+3407	2018-10-24	373	7	1	320.79	320.79	16.04	304.75	\N
+3408	2018-10-24	559	1	2	206.60	413.20	0.00	413.20	\N
+3409	2018-10-24	579	3	2	713.30	1426.60	71.33	1355.27	\N
+3410	2018-10-25	381	5	1	269.11	269.11	0.00	269.11	\N
+3411	2018-10-25	34	5	1	237.95	237.95	0.00	237.95	\N
+3412	2018-10-26	36	10	1	28.35	28.35	0.00	28.35	\N
+3413	2018-10-26	357	4	1	142.42	142.42	7.12	135.30	\N
+3414	2018-10-27	251	6	2	319.71	639.42	63.94	575.48	\N
+3415	2018-10-27	340	6	1	374.75	374.75	18.74	356.01	\N
+3416	2018-10-27	346	5	2	241.43	482.86	0.00	482.86	\N
+3417	2018-10-27	35	4	1	160.66	160.66	0.00	160.66	\N
+3418	2018-10-28	568	9	2	114.84	229.68	0.00	229.68	\N
+3419	2018-10-28	199	4	1	140.78	140.78	7.04	133.74	\N
+3420	2018-10-28	404	3	1	712.89	712.89	35.64	677.25	\N
+3421	2018-10-28	356	10	2	31.48	62.96	0.00	62.96	\N
+3422	2018-10-28	237	2	1	416.37	416.37	0.00	416.37	\N
+3423	2018-10-28	276	5	2	229.52	459.04	0.00	459.04	\N
+3424	2018-10-29	59	8	2	190.08	380.16	0.00	380.16	\N
+3425	2018-10-30	403	6	2	378.54	757.08	0.00	757.08	\N
+3426	2018-10-31	138	1	2	184.72	369.44	0.00	369.44	\N
+3427	2018-11-01	509	7	1	281.89	281.89	0.00	281.89	\N
+3428	2018-11-01	317	10	1	29.23	29.23	1.46	27.77	\N
+3429	2018-11-01	394	3	1	713.34	713.34	0.00	713.34	\N
+3430	2018-11-01	96	10	1	28.22	28.22	0.00	28.22	\N
+3431	2018-11-02	101	10	2	27.79	55.58	0.00	55.58	\N
+3432	2018-11-02	78	4	1	138.00	138.00	0.00	138.00	\N
+3433	2018-11-03	411	3	2	762.18	1524.36	0.00	1524.36	\N
+3434	2018-11-03	281	8	1	173.47	173.47	0.00	173.47	\N
+3435	2018-11-03	521	7	2	285.11	570.22	28.51	541.71	\N
+3436	2018-11-04	27	10	2	29.55	59.10	0.00	59.10	\N
+3437	2018-11-04	235	1	1	180.18	180.18	0.00	180.18	\N
+3438	2018-11-05	546	5	2	240.77	481.54	24.08	457.46	\N
+3439	2018-11-05	196	3	2	728.72	1457.44	72.87	1384.57	\N
+3440	2018-11-05	340	6	1	315.70	315.70	15.79	299.91	\N
+3441	2018-11-05	143	2	1	457.37	457.37	22.87	434.50	\N
+3442	2018-11-05	51	9	2	128.43	256.86	0.00	256.86	\N
+3443	2018-11-06	473	3	2	666.53	1333.06	0.00	1333.06	\N
+3444	2018-11-06	130	6	2	363.47	726.94	0.00	726.94	\N
+3445	2018-11-06	135	3	2	765.90	1531.80	0.00	1531.80	\N
+3446	2018-11-07	242	5	1	256.41	256.41	0.00	256.41	\N
+3447	2018-11-07	553	2	2	458.16	916.32	0.00	916.32	\N
+3448	2018-11-07	8	5	2	263.58	527.16	0.00	527.16	\N
+3449	2018-11-08	43	7	2	299.56	599.12	0.00	599.12	\N
+3450	2018-11-08	589	4	2	163.85	327.70	0.00	327.70	\N
+3451	2018-11-08	175	10	2	30.54	61.08	0.00	61.08	\N
+3452	2018-11-08	363	2	1	437.22	437.22	0.00	437.22	\N
+3453	2018-11-09	59	3	2	677.64	1355.28	0.00	1355.28	\N
+3454	2018-11-10	297	7	1	286.50	286.50	0.00	286.50	\N
+3455	2018-11-10	342	9	1	126.85	126.85	0.00	126.85	\N
+3456	2018-11-11	540	9	2	112.61	225.22	0.00	225.22	\N
+3457	2018-11-11	176	6	1	363.96	363.96	0.00	363.96	\N
+3458	2018-11-11	490	3	1	686.63	686.63	68.66	617.97	\N
+3459	2018-11-11	408	8	1	166.51	166.51	0.00	166.51	\N
+3460	2018-11-12	173	6	1	336.36	336.36	0.00	336.36	\N
+3461	2018-11-12	327	6	1	320.61	320.61	0.00	320.61	\N
+3462	2018-11-12	173	9	2	111.82	223.64	22.36	201.28	\N
+3463	2018-11-13	9	2	2	453.00	906.00	0.00	906.00	\N
+3464	2018-11-14	416	3	1	735.97	735.97	0.00	735.97	\N
+3465	2018-11-14	458	3	1	707.35	707.35	70.73	636.62	\N
+3466	2018-11-14	185	1	1	183.63	183.63	0.00	183.63	\N
+3467	2018-11-16	167	4	2	162.66	325.32	16.27	309.05	\N
+3468	2018-11-17	12	1	2	204.22	408.44	0.00	408.44	\N
+3469	2018-11-17	404	3	2	746.41	1492.82	0.00	1492.82	\N
+3470	2018-11-18	138	7	2	293.91	587.82	0.00	587.82	\N
+3471	2018-11-18	351	1	1	218.51	218.51	0.00	218.51	\N
+3472	2018-11-18	199	3	2	639.35	1278.70	0.00	1278.70	\N
+3473	2018-11-18	41	1	2	208.69	417.38	0.00	417.38	\N
+3474	2018-11-18	52	2	2	456.74	913.48	0.00	913.48	\N
+3475	2018-11-19	206	9	1	122.86	122.86	12.29	110.57	\N
+3476	2018-11-19	475	2	1	412.82	412.82	0.00	412.82	\N
+3477	2018-11-20	392	1	1	207.79	207.79	0.00	207.79	\N
+3478	2018-11-20	22	9	2	111.45	222.90	0.00	222.90	\N
+3479	2018-11-20	39	6	2	343.00	686.00	0.00	686.00	\N
+3480	2018-11-20	429	1	2	198.96	397.92	0.00	397.92	\N
+3481	2018-11-21	133	7	1	286.88	286.88	0.00	286.88	\N
+3482	2018-11-21	363	1	1	180.59	180.59	0.00	180.59	\N
+3483	2018-11-21	475	3	2	657.98	1315.96	0.00	1315.96	\N
+3484	2018-11-21	456	7	2	309.54	619.08	0.00	619.08	\N
+3485	2018-11-22	114	4	2	164.49	328.98	0.00	328.98	\N
+3486	2018-11-22	421	2	2	406.12	812.24	0.00	812.24	\N
+3487	2018-11-22	266	5	2	260.63	521.26	0.00	521.26	\N
+3488	2018-11-23	307	3	1	761.42	761.42	0.00	761.42	\N
+3489	2018-11-23	399	6	2	334.32	668.64	0.00	668.64	\N
+3490	2018-11-23	120	4	2	148.79	297.58	0.00	297.58	\N
+3491	2018-11-24	398	9	2	116.69	233.38	0.00	233.38	\N
+3492	2018-11-25	33	7	2	321.52	643.04	0.00	643.04	\N
+3493	2018-11-25	258	10	1	28.75	28.75	0.00	28.75	\N
+3494	2018-11-25	47	5	2	269.00	538.00	0.00	538.00	\N
+3495	2018-11-25	485	6	2	375.08	750.16	75.02	675.14	\N
+3496	2018-11-26	21	2	2	480.23	960.46	0.00	960.46	\N
+3497	2018-11-26	579	4	1	140.17	140.17	0.00	140.17	\N
+3498	2018-11-26	43	3	1	670.18	670.18	0.00	670.18	\N
+3499	2018-11-28	316	5	2	263.57	527.14	52.71	474.43	\N
+3500	2018-11-28	173	4	2	143.06	286.12	0.00	286.12	\N
+3501	2018-11-29	344	4	1	150.03	150.03	0.00	150.03	\N
+3502	2018-11-29	262	8	1	182.53	182.53	0.00	182.53	\N
+3503	2018-11-29	170	6	1	376.19	376.19	0.00	376.19	\N
+3504	2018-11-30	379	4	1	146.36	146.36	0.00	146.36	\N
+3505	2018-11-30	429	9	1	121.63	121.63	0.00	121.63	\N
+3506	2018-11-30	479	3	1	657.70	657.70	0.00	657.70	\N
+3507	2018-12-02	273	2	2	463.76	927.52	0.00	927.52	\N
+3508	2018-12-02	4	10	2	29.03	58.06	0.00	58.06	\N
+3509	2018-12-02	346	6	1	348.72	348.72	0.00	348.72	\N
+3510	2018-12-02	179	2	1	440.17	440.17	0.00	440.17	\N
+3511	2018-12-03	329	10	1	30.62	30.62	0.00	30.62	\N
+3512	2018-12-03	34	10	1	31.69	31.69	0.00	31.69	\N
+3513	2018-12-03	80	5	2	258.60	517.20	51.72	465.48	\N
+3514	2018-12-04	421	2	2	431.42	862.84	0.00	862.84	\N
+3515	2018-12-04	536	5	1	238.79	238.79	0.00	238.79	\N
+3516	2018-12-04	406	7	1	274.94	274.94	0.00	274.94	\N
+3517	2018-12-05	360	7	1	285.38	285.38	0.00	285.38	\N
+3518	2018-12-05	479	3	2	725.12	1450.24	0.00	1450.24	\N
+3519	2018-12-06	240	7	2	303.21	606.42	0.00	606.42	\N
+3520	2018-12-06	69	6	1	361.14	361.14	0.00	361.14	\N
+3521	2018-12-06	90	9	1	116.95	116.95	0.00	116.95	\N
+3522	2018-12-06	585	1	2	217.54	435.08	43.51	391.57	\N
+3523	2018-12-07	171	10	1	32.06	32.06	3.21	28.85	\N
+3524	2018-12-07	343	1	2	207.90	415.80	0.00	415.80	\N
+3525	2018-12-08	576	7	2	271.23	542.46	0.00	542.46	\N
+3526	2018-12-08	373	7	2	315.17	630.34	0.00	630.34	\N
+3527	2018-12-09	346	1	2	189.12	378.24	0.00	378.24	\N
+3528	2018-12-09	274	7	2	305.53	611.06	0.00	611.06	\N
+3529	2018-12-10	28	7	2	298.98	597.96	0.00	597.96	\N
+3530	2018-12-10	217	1	1	212.70	212.70	0.00	212.70	\N
+3531	2018-12-11	124	9	1	130.39	130.39	6.52	123.87	\N
+3532	2018-12-11	431	7	2	323.27	646.54	0.00	646.54	\N
+3533	2018-12-12	589	5	2	263.81	527.62	0.00	527.62	\N
+3534	2018-12-12	525	8	1	180.29	180.29	0.00	180.29	\N
+3535	2018-12-13	337	4	1	150.07	150.07	0.00	150.07	\N
+3536	2018-12-13	48	7	1	298.24	298.24	0.00	298.24	\N
+3537	2018-12-13	425	4	1	144.14	144.14	0.00	144.14	\N
+3538	2018-12-13	528	10	1	32.21	32.21	0.00	32.21	\N
+3539	2018-12-14	494	7	1	271.44	271.44	0.00	271.44	\N
+3540	2018-12-14	331	1	2	213.75	427.50	0.00	427.50	\N
+3541	2018-12-16	585	3	1	649.46	649.46	64.95	584.51	\N
+3542	2018-12-16	61	5	1	257.40	257.40	0.00	257.40	\N
+3543	2018-12-16	80	9	1	128.74	128.74	0.00	128.74	\N
+3544	2018-12-16	454	1	2	196.29	392.58	0.00	392.58	\N
+3545	2018-12-17	63	2	1	441.20	441.20	22.06	419.14	\N
+3546	2018-12-18	486	4	2	163.31	326.62	0.00	326.62	\N
+3547	2018-12-18	182	9	2	128.14	256.28	12.81	243.47	\N
+3548	2018-12-18	503	2	1	455.57	455.57	0.00	455.57	\N
+3549	2018-12-18	331	4	2	158.18	316.36	0.00	316.36	\N
+3550	2018-12-19	93	8	2	188.55	377.10	0.00	377.10	\N
+3551	2018-12-20	547	7	2	319.34	638.68	0.00	638.68	\N
+3552	2018-12-20	269	3	2	686.73	1373.46	0.00	1373.46	\N
+3553	2018-12-20	31	4	2	156.54	313.08	0.00	313.08	\N
+3554	2018-12-21	241	2	1	465.71	465.71	0.00	465.71	\N
+3555	2018-12-22	335	5	2	259.35	518.70	0.00	518.70	\N
+3556	2018-12-22	20	2	1	430.40	430.40	0.00	430.40	\N
+3557	2018-12-22	429	8	1	162.96	162.96	0.00	162.96	\N
+3558	2018-12-22	184	2	2	460.52	921.04	0.00	921.04	\N
+3559	2018-12-22	450	4	2	135.06	270.12	0.00	270.12	\N
+3560	2018-12-22	544	3	2	764.20	1528.40	0.00	1528.40	\N
+3561	2018-12-23	575	9	1	125.82	125.82	0.00	125.82	\N
+3562	2018-12-23	252	1	2	207.89	415.78	0.00	415.78	\N
+3563	2018-12-24	78	8	1	188.09	188.09	18.81	169.28	\N
+3564	2018-12-24	515	1	2	195.45	390.90	0.00	390.90	\N
+3565	2018-12-26	278	4	1	155.33	155.33	0.00	155.33	\N
+3566	2018-12-27	541	10	2	32.18	64.36	0.00	64.36	\N
+3567	2018-12-27	54	2	2	439.17	878.34	0.00	878.34	\N
+3568	2018-12-27	595	3	1	756.18	756.18	0.00	756.18	\N
+3569	2018-12-27	96	6	1	315.10	315.10	0.00	315.10	\N
+3570	2018-12-27	48	2	1	447.84	447.84	0.00	447.84	\N
+3571	2018-12-27	160	7	2	307.85	615.70	30.79	584.91	\N
+3572	2018-12-28	209	1	2	200.53	401.06	0.00	401.06	\N
+3573	2018-12-28	531	2	2	445.88	891.76	0.00	891.76	\N
+3574	2018-12-29	542	3	2	714.09	1428.18	0.00	1428.18	\N
+3575	2018-12-29	179	5	2	266.65	533.30	0.00	533.30	\N
+3576	2018-12-29	335	1	2	206.42	412.84	20.64	392.20	\N
+3577	2018-12-29	529	9	2	123.83	247.66	0.00	247.66	\N
+3578	2018-12-29	579	3	2	719.82	1439.64	0.00	1439.64	\N
+3579	2018-12-29	283	2	2	411.77	823.54	0.00	823.54	\N
+3580	2018-12-29	434	10	1	31.11	31.11	0.00	31.11	\N
+3581	2018-12-30	395	2	1	420.43	420.43	0.00	420.43	\N
+3582	2018-12-30	402	3	2	632.18	1264.36	63.22	1201.14	\N
+3583	2018-12-31	18	4	1	153.75	153.75	0.00	153.75	\N
+3584	2018-12-31	180	7	1	281.68	281.68	0.00	281.68	\N
+3585	2018-12-31	271	5	1	238.47	238.47	0.00	238.47	\N
+3586	2019-01-01	391	3	2	719.87	1439.74	0.00	1439.74	\N
+3587	2019-01-01	535	8	2	194.40	388.80	19.44	369.36	\N
+3588	2019-01-01	303	3	2	671.76	1343.52	0.00	1343.52	\N
+3589	2019-01-02	383	4	2	147.23	294.46	14.72	279.74	\N
+3590	2019-01-02	160	4	1	148.76	148.76	0.00	148.76	\N
+3591	2019-01-03	188	9	2	129.83	259.66	0.00	259.66	\N
+3592	2019-01-04	415	1	2	190.00	380.00	0.00	380.00	\N
+3593	2019-01-04	460	1	1	185.27	185.27	0.00	185.27	\N
+3594	2019-01-04	249	7	1	289.09	289.09	0.00	289.09	\N
+3595	2019-01-05	316	1	2	194.08	388.16	0.00	388.16	\N
+3596	2019-01-05	436	5	1	250.06	250.06	25.01	225.05	\N
+3597	2019-01-05	377	5	1	258.98	258.98	0.00	258.98	\N
+3598	2019-01-05	410	5	1	267.02	267.02	0.00	267.02	\N
+3599	2019-01-07	560	3	2	646.64	1293.28	0.00	1293.28	\N
+3600	2019-01-07	584	8	2	197.93	395.86	0.00	395.86	\N
+3601	2019-01-08	379	5	1	271.95	271.95	0.00	271.95	\N
+3602	2019-01-08	156	4	2	163.82	327.64	0.00	327.64	\N
+3603	2019-01-08	40	7	2	294.19	588.38	0.00	588.38	\N
+3604	2019-01-09	542	7	2	287.02	574.04	57.40	516.64	\N
+3605	2019-01-09	596	5	2	253.35	506.70	0.00	506.70	\N
+3606	2019-01-10	179	3	1	734.79	734.79	0.00	734.79	\N
+3607	2019-01-10	191	10	1	30.15	30.15	3.02	27.13	\N
+3608	2019-01-12	578	10	2	27.77	55.54	0.00	55.54	\N
+3609	2019-01-12	408	2	2	491.98	983.96	0.00	983.96	\N
+3610	2019-01-13	583	10	1	29.45	29.45	2.95	26.50	\N
+3611	2019-01-13	387	10	1	32.91	32.91	0.00	32.91	\N
+3612	2019-01-14	159	10	1	32.49	32.49	0.00	32.49	\N
+3613	2019-01-14	562	4	2	141.46	282.92	0.00	282.92	\N
+3614	2019-01-14	489	7	2	303.36	606.72	0.00	606.72	\N
+3615	2019-01-14	508	8	2	183.99	367.98	0.00	367.98	\N
+3616	2019-01-15	445	1	1	192.04	192.04	0.00	192.04	\N
+3617	2019-01-15	538	3	1	636.84	636.84	0.00	636.84	\N
+3618	2019-01-15	258	10	2	31.88	63.76	3.19	60.57	\N
+3619	2019-01-15	541	4	1	164.28	164.28	0.00	164.28	\N
+3620	2019-01-15	159	3	2	686.34	1372.68	68.63	1304.05	\N
+3621	2019-01-16	297	5	1	227.48	227.48	0.00	227.48	\N
+3622	2019-01-16	478	7	2	278.81	557.62	0.00	557.62	\N
+3623	2019-01-16	69	5	1	262.06	262.06	0.00	262.06	\N
+3624	2019-01-18	35	5	2	261.55	523.10	0.00	523.10	\N
+3625	2019-01-18	223	5	1	230.91	230.91	0.00	230.91	\N
+3626	2019-01-18	589	8	2	173.57	347.14	0.00	347.14	\N
+3627	2019-01-18	557	8	2	166.77	333.54	0.00	333.54	\N
+3628	2019-01-18	554	7	2	308.67	617.34	0.00	617.34	\N
+3629	2019-01-20	393	5	1	232.99	232.99	0.00	232.99	\N
+3630	2019-01-20	139	5	1	270.43	270.43	0.00	270.43	\N
+3631	2019-01-21	155	1	1	200.74	200.74	0.00	200.74	\N
+3632	2019-01-21	238	1	1	202.81	202.81	0.00	202.81	\N
+3633	2019-01-21	437	7	2	306.52	613.04	0.00	613.04	\N
+3634	2019-01-21	268	9	2	129.74	259.48	0.00	259.48	\N
+3635	2019-01-22	583	9	2	130.11	260.22	0.00	260.22	\N
+3636	2019-01-22	35	6	2	343.16	686.32	34.32	652.00	\N
+3637	2019-01-23	88	8	1	185.72	185.72	0.00	185.72	\N
+3638	2019-01-23	3	8	2	184.16	368.32	0.00	368.32	\N
+3639	2019-01-23	539	7	2	304.31	608.62	0.00	608.62	\N
+3640	2019-01-23	157	5	1	267.48	267.48	13.37	254.11	\N
+3641	2019-01-24	315	8	1	171.27	171.27	0.00	171.27	\N
+3642	2019-01-24	326	4	2	163.93	327.86	0.00	327.86	\N
+3643	2019-01-25	494	10	2	28.89	57.78	0.00	57.78	\N
+3644	2019-01-26	14	1	1	199.85	199.85	0.00	199.85	\N
+3645	2019-01-26	174	2	2	449.67	899.34	0.00	899.34	\N
+3646	2019-01-27	64	4	2	147.57	295.14	0.00	295.14	\N
+3647	2019-01-27	184	1	1	185.86	185.86	0.00	185.86	\N
+3648	2019-01-27	598	10	1	31.33	31.33	0.00	31.33	\N
+3649	2019-01-28	529	8	2	168.96	337.92	0.00	337.92	\N
+3650	2019-01-28	195	5	1	261.59	261.59	0.00	261.59	\N
+3651	2019-01-28	318	5	2	267.33	534.66	0.00	534.66	\N
+3652	2019-01-28	1	5	2	249.67	499.34	49.93	449.41	\N
+3653	2019-01-29	132	4	2	144.46	288.92	14.45	274.47	\N
+3654	2019-01-29	482	7	2	289.28	578.56	0.00	578.56	\N
+3655	2019-01-29	74	8	2	184.68	369.36	0.00	369.36	\N
+3656	2019-01-30	571	6	2	321.29	642.58	0.00	642.58	\N
+3657	2019-01-30	171	9	1	122.23	122.23	12.22	110.01	\N
+3658	2019-01-30	393	4	2	164.15	328.30	16.42	311.88	\N
+3659	2019-01-31	572	6	2	350.62	701.24	0.00	701.24	\N
+3660	2019-02-01	558	2	1	470.60	470.60	0.00	470.60	\N
+3661	2019-02-01	329	8	1	171.38	171.38	0.00	171.38	\N
+3662	2019-02-01	402	6	1	332.42	332.42	0.00	332.42	\N
+3663	2019-02-02	408	1	2	205.86	411.72	0.00	411.72	\N
+3664	2019-02-02	3	1	1	191.40	191.40	0.00	191.40	\N
+3665	2019-02-03	13	5	2	240.95	481.90	0.00	481.90	\N
+3666	2019-02-03	553	5	2	274.24	548.48	0.00	548.48	\N
+3667	2019-02-04	255	10	1	32.54	32.54	0.00	32.54	\N
+3668	2019-02-04	154	3	1	641.40	641.40	0.00	641.40	\N
+3669	2019-02-04	215	10	1	29.30	29.30	0.00	29.30	\N
+3670	2019-02-04	41	4	1	150.41	150.41	0.00	150.41	\N
+3671	2019-02-04	558	9	1	117.58	117.58	0.00	117.58	\N
+3672	2019-02-05	22	8	1	181.23	181.23	18.12	163.11	\N
+3673	2019-02-05	330	3	1	715.13	715.13	0.00	715.13	\N
+3674	2019-02-05	392	5	1	259.60	259.60	0.00	259.60	\N
+3675	2019-02-06	212	4	1	156.67	156.67	0.00	156.67	\N
+3676	2019-02-08	428	3	1	658.01	658.01	0.00	658.01	\N
+3677	2019-02-08	480	5	1	238.18	238.18	11.91	226.27	\N
+3678	2019-02-10	443	8	2	163.53	327.06	0.00	327.06	\N
+3679	2019-02-11	572	8	1	197.73	197.73	9.89	187.84	\N
+3680	2019-02-11	43	2	2	458.95	917.90	0.00	917.90	\N
+3681	2019-02-11	554	5	2	268.28	536.56	26.83	509.73	\N
+3682	2019-02-11	149	7	2	292.71	585.42	58.54	526.88	\N
+3683	2019-02-11	567	6	1	354.26	354.26	0.00	354.26	\N
+3684	2019-02-11	409	4	2	140.59	281.18	28.12	253.06	\N
+3685	2019-02-12	34	5	2	274.71	549.42	0.00	549.42	\N
+3686	2019-02-12	163	3	2	632.53	1265.06	0.00	1265.06	\N
+3687	2019-02-13	482	1	2	199.04	398.08	0.00	398.08	\N
+3688	2019-02-13	373	5	2	239.81	479.62	0.00	479.62	\N
+3689	2019-02-13	59	9	1	124.29	124.29	0.00	124.29	\N
+3690	2019-02-14	141	4	1	137.40	137.40	0.00	137.40	\N
+3691	2019-02-14	297	7	2	314.75	629.50	0.00	629.50	\N
+3692	2019-02-14	587	6	2	366.04	732.08	0.00	732.08	\N
+3693	2019-02-15	432	8	1	190.94	190.94	0.00	190.94	\N
+3694	2019-02-15	136	7	1	280.79	280.79	0.00	280.79	\N
+3695	2019-02-15	591	7	1	325.37	325.37	0.00	325.37	\N
+3696	2019-02-16	14	3	1	734.87	734.87	73.49	661.38	\N
+3697	2019-02-16	17	3	2	682.36	1364.72	0.00	1364.72	\N
+3698	2019-02-16	460	1	2	188.64	377.28	0.00	377.28	\N
+3699	2019-02-17	411	1	1	193.23	193.23	0.00	193.23	\N
+3700	2019-02-17	403	4	2	136.25	272.50	0.00	272.50	\N
+3701	2019-02-18	445	1	1	194.84	194.84	9.74	185.10	\N
+3702	2019-02-18	440	5	1	266.87	266.87	0.00	266.87	\N
+3703	2019-02-18	124	1	1	214.38	214.38	0.00	214.38	\N
+3704	2019-02-18	122	3	2	638.22	1276.44	0.00	1276.44	\N
+3705	2019-02-18	30	3	2	681.08	1362.16	136.22	1225.94	\N
+3706	2019-02-19	348	3	1	726.40	726.40	0.00	726.40	\N
+3707	2019-02-19	472	6	2	354.79	709.58	0.00	709.58	\N
+3708	2019-02-19	376	4	2	160.72	321.44	0.00	321.44	\N
+3709	2019-02-21	192	7	2	272.50	545.00	0.00	545.00	\N
+3710	2019-02-21	547	7	1	272.58	272.58	0.00	272.58	\N
+3711	2019-02-22	475	6	2	379.21	758.42	0.00	758.42	\N
+3712	2019-02-22	303	6	2	333.05	666.10	0.00	666.10	\N
+3713	2019-02-22	141	1	2	192.76	385.52	0.00	385.52	\N
+3714	2019-02-22	289	5	1	271.29	271.29	0.00	271.29	\N
+3715	2019-02-24	93	2	2	455.17	910.34	0.00	910.34	\N
+3716	2019-02-24	124	9	1	122.29	122.29	0.00	122.29	\N
+3717	2019-02-24	359	9	2	113.07	226.14	0.00	226.14	\N
+3718	2019-02-25	290	6	2	342.87	685.74	0.00	685.74	\N
+3719	2019-02-25	172	10	1	31.77	31.77	0.00	31.77	\N
+3720	2019-02-26	127	8	2	184.20	368.40	36.84	331.56	\N
+3721	2019-02-26	390	1	2	189.39	378.78	0.00	378.78	\N
+3722	2019-02-26	106	7	2	320.42	640.84	0.00	640.84	\N
+3723	2019-02-27	434	1	1	197.91	197.91	0.00	197.91	\N
+3724	2019-02-27	158	7	1	324.11	324.11	0.00	324.11	\N
+3725	2019-02-27	135	4	2	145.60	291.20	0.00	291.20	\N
+3726	2019-02-28	375	9	1	116.76	116.76	5.84	110.92	\N
+3727	2019-02-28	5	2	2	444.71	889.42	0.00	889.42	\N
+3728	2019-02-28	93	7	1	299.82	299.82	29.98	269.84	\N
+3729	2019-02-28	56	6	1	351.86	351.86	0.00	351.86	\N
+3730	2019-03-01	383	3	1	655.09	655.09	0.00	655.09	\N
+3731	2019-03-01	215	4	1	152.72	152.72	0.00	152.72	\N
+3732	2019-03-03	581	5	1	227.83	227.83	0.00	227.83	\N
+3733	2019-03-04	271	6	2	329.97	659.94	0.00	659.94	\N
+3734	2019-03-05	328	8	1	183.01	183.01	0.00	183.01	\N
+3735	2019-03-07	472	2	1	456.54	456.54	0.00	456.54	\N
+3736	2019-03-07	538	10	2	30.19	60.38	0.00	60.38	\N
+3737	2019-03-08	308	7	2	304.84	609.68	0.00	609.68	\N
+3738	2019-03-08	398	2	2	454.84	909.68	90.97	818.71	\N
+3739	2019-03-09	507	5	1	256.36	256.36	0.00	256.36	\N
+3740	2019-03-09	406	9	1	130.92	130.92	0.00	130.92	\N
+3741	2019-03-09	480	1	1	210.88	210.88	0.00	210.88	\N
+3742	2019-03-09	490	8	1	190.85	190.85	19.09	171.76	\N
+3743	2019-03-10	251	1	1	212.23	212.23	10.61	201.62	\N
+3744	2019-03-10	168	1	1	204.14	204.14	0.00	204.14	\N
+3745	2019-03-10	248	4	1	140.69	140.69	0.00	140.69	\N
+3746	2019-03-10	491	4	2	158.58	317.16	31.72	285.44	\N
+3747	2019-03-10	297	5	2	227.00	454.00	0.00	454.00	\N
+3748	2019-03-11	137	6	2	331.81	663.62	66.36	597.26	\N
+3749	2019-03-11	472	7	2	307.04	614.08	0.00	614.08	\N
+3750	2019-03-12	192	5	1	233.27	233.27	0.00	233.27	\N
+3751	2019-03-12	243	10	1	32.60	32.60	3.26	29.34	\N
+3752	2019-03-12	145	1	2	185.47	370.94	0.00	370.94	\N
+3753	2019-03-13	23	10	2	27.56	55.12	0.00	55.12	\N
+3754	2019-03-13	1	2	1	443.10	443.10	22.16	420.94	\N
+3755	2019-03-13	529	5	2	239.67	479.34	0.00	479.34	\N
+3756	2019-03-13	305	8	2	185.75	371.50	0.00	371.50	\N
+3757	2019-03-13	538	3	2	754.52	1509.04	150.90	1358.14	\N
+3758	2019-03-14	340	6	1	375.34	375.34	0.00	375.34	\N
+3759	2019-03-14	276	6	1	323.88	323.88	0.00	323.88	\N
+3760	2019-03-14	454	6	2	345.55	691.10	0.00	691.10	\N
+3761	2019-03-15	72	4	2	151.53	303.06	0.00	303.06	\N
+3762	2019-03-16	31	1	2	208.66	417.32	0.00	417.32	\N
+3763	2019-03-16	292	4	2	141.40	282.80	28.28	254.52	\N
+3764	2019-03-16	155	3	1	698.99	698.99	0.00	698.99	\N
+3765	2019-03-17	224	4	1	163.18	163.18	0.00	163.18	\N
+3766	2019-03-17	519	1	1	218.20	218.20	0.00	218.20	\N
+3767	2019-03-17	306	8	1	163.02	163.02	0.00	163.02	\N
+3768	2019-03-17	4	4	2	151.76	303.52	30.35	273.17	\N
+3769	2019-03-18	36	6	1	358.01	358.01	35.80	322.21	\N
+3770	2019-03-18	139	5	2	229.24	458.48	0.00	458.48	\N
+3771	2019-03-18	485	5	1	261.40	261.40	26.14	235.26	\N
+3772	2019-03-19	277	1	1	207.02	207.02	0.00	207.02	\N
+3773	2019-03-19	485	6	2	350.44	700.88	0.00	700.88	\N
+3774	2019-03-20	431	3	1	681.98	681.98	0.00	681.98	\N
+3775	2019-03-20	441	3	1	631.93	631.93	63.19	568.74	\N
+3776	2019-03-20	196	9	1	123.90	123.90	0.00	123.90	\N
+3777	2019-03-20	414	5	2	272.29	544.58	0.00	544.58	\N
+3778	2019-03-21	290	10	1	29.69	29.69	0.00	29.69	\N
+3779	2019-03-21	498	10	2	28.25	56.50	0.00	56.50	\N
+3780	2019-03-21	223	10	2	31.19	62.38	0.00	62.38	\N
+3781	2019-03-22	497	10	2	32.03	64.06	0.00	64.06	\N
+3782	2019-03-23	80	5	1	254.94	254.94	0.00	254.94	\N
+3783	2019-03-23	438	1	1	203.57	203.57	0.00	203.57	\N
+3784	2019-03-24	323	6	1	315.99	315.99	0.00	315.99	\N
+3785	2019-03-25	213	3	1	745.30	745.30	0.00	745.30	\N
+3786	2019-03-25	447	5	2	235.82	471.64	23.58	448.06	\N
+3787	2019-03-26	264	7	2	276.09	552.18	27.61	524.57	\N
+3788	2019-03-26	107	6	2	358.11	716.22	0.00	716.22	\N
+3789	2019-03-26	348	4	2	142.54	285.08	14.25	270.83	\N
+3790	2019-03-27	187	8	1	177.73	177.73	0.00	177.73	\N
+3791	2019-03-29	168	3	1	757.35	757.35	0.00	757.35	\N
+3792	2019-03-29	544	5	2	271.95	543.90	0.00	543.90	\N
+3793	2019-03-29	166	6	2	342.84	685.68	0.00	685.68	\N
+3794	2019-03-30	517	8	2	164.31	328.62	0.00	328.62	\N
+3795	2019-03-30	514	9	2	111.39	222.78	0.00	222.78	\N
+3796	2019-03-30	210	8	2	180.93	361.86	0.00	361.86	\N
+3797	2019-03-31	495	1	1	193.19	193.19	0.00	193.19	\N
+3798	2019-04-01	298	2	2	439.91	879.82	43.99	835.83	\N
+3799	2019-04-01	205	5	1	253.78	253.78	12.69	241.09	3
+3800	2019-04-02	589	10	1	30.22	30.22	1.51	28.71	3
+3801	2019-04-02	26	6	2	351.07	702.14	0.00	702.14	\N
+3802	2019-04-02	581	7	2	281.57	563.14	28.16	534.98	3
+3803	2019-04-02	4	10	1	32.15	32.15	1.61	30.54	3
+3804	2019-04-03	123	1	2	213.58	427.16	21.36	405.80	\N
+3805	2019-04-03	394	7	2	277.94	555.88	83.38	472.50	3
+3806	2019-04-03	327	8	1	186.64	186.64	9.33	177.31	3
+3807	2019-04-03	512	9	2	130.73	261.46	0.00	261.46	\N
+3808	2019-04-03	368	8	1	174.67	174.67	8.73	165.94	3
+3809	2019-04-04	482	7	2	286.48	572.96	57.30	515.66	\N
+3810	2019-04-05	346	9	2	126.89	253.78	0.00	253.78	\N
+3811	2019-04-05	136	5	2	259.16	518.32	0.00	518.32	\N
+3812	2019-04-06	362	5	2	241.25	482.50	48.25	434.25	\N
+3813	2019-04-07	267	2	1	474.29	474.29	0.00	474.29	\N
+3814	2019-04-07	304	1	1	185.75	185.75	9.29	176.46	3
+3815	2019-04-08	542	7	1	324.73	324.73	16.24	308.49	3
+3816	2019-04-08	239	6	2	372.44	744.88	0.00	744.88	\N
+3817	2019-04-09	464	1	1	218.33	218.33	10.92	207.41	3
+3818	2019-04-09	306	5	2	232.69	465.38	0.00	465.38	\N
+3819	2019-04-10	63	3	1	636.33	636.33	0.00	636.33	\N
+3820	2019-04-10	554	10	1	31.42	31.42	0.00	31.42	\N
+3821	2019-04-10	285	2	1	424.13	424.13	21.21	402.92	3
+3822	2019-04-10	444	2	1	479.13	479.13	0.00	479.13	\N
+3823	2019-04-11	590	8	2	166.86	333.72	0.00	333.72	\N
+3824	2019-04-11	569	5	1	230.48	230.48	0.00	230.48	\N
+3825	2019-04-12	540	1	2	191.95	383.90	0.00	383.90	\N
+3826	2019-04-12	363	7	2	315.11	630.22	0.00	630.22	\N
+3827	2019-04-13	15	10	2	28.93	57.86	0.00	57.86	\N
+3828	2019-04-13	587	5	2	258.84	517.68	0.00	517.68	\N
+3829	2019-04-14	562	1	2	185.61	371.22	18.56	352.66	3
+3830	2019-04-14	257	5	2	232.36	464.72	0.00	464.72	\N
+3831	2019-04-14	239	2	1	436.84	436.84	0.00	436.84	\N
+3832	2019-04-15	144	6	2	351.44	702.88	0.00	702.88	\N
+3833	2019-04-15	480	4	1	160.33	160.33	16.04	144.29	3
+3834	2019-04-16	451	8	2	178.96	357.92	0.00	357.92	\N
+3835	2019-04-16	375	2	2	464.07	928.14	92.81	835.33	\N
+3836	2019-04-17	536	3	1	658.21	658.21	0.00	658.21	\N
+3837	2019-04-17	133	10	2	28.92	57.84	0.00	57.84	\N
+3838	2019-04-17	527	5	1	230.30	230.30	11.52	218.78	3
+3839	2019-04-18	226	3	2	765.95	1531.90	0.00	1531.90	\N
+3840	2019-04-19	370	9	1	117.04	117.04	5.85	111.19	3
+3841	2019-04-20	471	7	2	320.32	640.64	0.00	640.64	\N
+3842	2019-04-20	102	8	2	168.93	337.86	50.68	287.18	3
+3843	2019-04-20	219	2	1	438.44	438.44	0.00	438.44	\N
+3844	2019-04-20	93	8	2	181.47	362.94	18.15	344.79	\N
+3845	2019-04-21	371	6	2	354.42	708.84	0.00	708.84	\N
+3846	2019-04-21	24	7	1	325.67	325.67	0.00	325.67	\N
+3847	2019-04-21	148	4	1	154.61	154.61	7.73	146.88	\N
+3848	2019-04-21	176	4	1	149.15	149.15	7.46	141.69	3
+3849	2019-04-22	439	6	2	372.67	745.34	0.00	745.34	\N
+3850	2019-04-22	459	1	1	206.84	206.84	0.00	206.84	\N
+3851	2019-04-23	458	10	2	28.94	57.88	0.00	57.88	\N
+3852	2019-04-23	456	7	2	299.78	599.56	0.00	599.56	\N
+3853	2019-04-23	80	9	2	120.98	241.96	0.00	241.96	\N
+3854	2019-04-24	216	8	1	180.51	180.51	9.03	171.48	3
+3855	2019-04-25	506	10	2	27.35	54.70	2.74	51.96	3
+3856	2019-04-25	400	3	1	686.70	686.70	0.00	686.70	\N
+3857	2019-04-25	564	9	1	118.64	118.64	5.93	112.71	3
+3858	2019-04-25	160	1	2	207.41	414.82	20.74	394.08	3
+3859	2019-04-25	409	2	1	421.24	421.24	0.00	421.24	\N
+3860	2019-04-26	29	6	2	366.68	733.36	0.00	733.36	\N
+3861	2019-04-26	103	3	2	759.98	1519.96	0.00	1519.96	\N
+3862	2019-04-26	397	2	1	450.97	450.97	22.55	428.42	\N
+3863	2019-04-27	501	1	2	216.62	433.24	0.00	433.24	\N
+3864	2019-04-27	38	2	1	409.24	409.24	20.46	388.78	3
+3865	2019-04-28	151	10	1	30.33	30.33	0.00	30.33	\N
+3866	2019-04-29	237	4	1	143.25	143.25	0.00	143.25	\N
+3867	2019-04-29	448	5	1	255.37	255.37	12.77	242.60	3
+3868	2019-04-30	324	1	2	196.83	393.66	0.00	393.66	\N
+3869	2019-04-30	424	9	2	126.79	253.58	0.00	253.58	\N
+3870	2019-04-30	196	6	1	339.80	339.80	0.00	339.80	\N
+3871	2019-04-30	453	4	1	157.19	157.19	0.00	157.19	\N
+3872	2019-04-30	224	2	2	434.06	868.12	43.41	824.71	3
+3873	2019-05-01	326	8	2	186.34	372.68	18.63	354.05	\N
+3874	2019-05-01	538	8	2	184.24	368.48	0.00	368.48	\N
+3875	2019-05-02	529	5	1	260.55	260.55	13.03	247.52	3
+3876	2019-05-02	377	9	1	120.90	120.90	12.10	108.80	3
+3877	2019-05-03	316	8	1	196.24	196.24	0.00	196.24	\N
+3878	2019-05-03	157	4	2	164.33	328.66	0.00	328.66	\N
+3879	2019-05-03	204	7	1	302.15	302.15	15.11	287.04	3
+3880	2019-05-04	403	9	1	122.44	122.44	0.00	122.44	\N
+3881	2019-05-04	449	8	2	184.24	368.48	0.00	368.48	\N
+3882	2019-05-04	146	4	2	154.16	308.32	0.00	308.32	\N
+3883	2019-05-05	274	6	1	344.84	344.84	0.00	344.84	\N
+3884	2019-05-05	485	10	1	31.86	31.86	1.59	30.27	\N
+3885	2019-05-06	434	7	2	327.23	654.46	32.72	621.74	3
+3886	2019-05-06	224	3	1	715.84	715.84	0.00	715.84	\N
+3887	2019-05-06	519	4	1	161.06	161.06	0.00	161.06	\N
+3888	2019-05-07	375	8	2	187.43	374.86	18.74	356.12	\N
+3889	2019-05-08	240	2	1	450.81	450.81	0.00	450.81	\N
+3890	2019-05-08	214	1	2	185.47	370.94	18.55	352.39	3
+3891	2019-05-09	378	5	1	257.13	257.13	12.86	244.27	3
+3892	2019-05-09	180	5	2	229.52	459.04	0.00	459.04	\N
+3893	2019-05-10	71	9	1	116.33	116.33	0.00	116.33	\N
+3894	2019-05-10	598	7	2	317.83	635.66	63.57	572.09	\N
+3895	2019-05-10	308	5	1	264.74	264.74	0.00	264.74	\N
+3896	2019-05-11	399	3	2	731.80	1463.60	0.00	1463.60	\N
+3897	2019-05-11	366	9	1	114.80	114.80	17.22	97.58	3
+3898	2019-05-11	118	7	1	273.82	273.82	13.69	260.13	\N
+3899	2019-05-11	170	2	2	451.23	902.46	45.12	857.34	\N
+3900	2019-05-12	294	2	1	425.51	425.51	0.00	425.51	\N
+3901	2019-05-12	492	7	1	311.94	311.94	31.19	280.75	\N
+3902	2019-05-12	209	8	1	191.19	191.19	0.00	191.19	\N
+3903	2019-05-12	132	10	1	31.86	31.86	0.00	31.86	\N
+3904	2019-05-12	296	4	2	164.13	328.26	16.41	311.85	3
+3905	2019-05-12	156	7	1	327.70	327.70	0.00	327.70	\N
+3906	2019-05-12	31	10	2	31.36	62.72	0.00	62.72	\N
+3907	2019-05-13	192	2	1	455.20	455.20	45.52	409.68	\N
+3908	2019-05-13	127	10	2	31.48	62.96	0.00	62.96	\N
+3909	2019-05-13	80	1	1	185.58	185.58	9.28	176.30	3
+3910	2019-05-13	247	5	2	233.69	467.38	23.37	444.01	3
+3911	2019-05-14	132	3	1	725.21	725.21	36.26	688.95	3
+3912	2019-05-14	558	1	1	182.89	182.89	0.00	182.89	\N
+3913	2019-05-15	434	9	1	113.30	113.30	5.67	107.63	3
+3914	2019-05-15	17	2	2	447.69	895.38	44.77	850.61	3
+3915	2019-05-16	154	5	2	238.80	477.60	23.88	453.72	3
+3916	2019-05-16	28	10	1	27.99	27.99	0.00	27.99	\N
+3917	2019-05-16	65	8	1	172.95	172.95	8.65	164.30	3
+3918	2019-05-16	315	3	2	751.60	1503.20	75.16	1428.04	3
+3919	2019-05-17	563	7	1	284.78	284.78	14.24	270.54	3
+3920	2019-05-17	69	10	1	30.51	30.51	0.00	30.51	\N
+3921	2019-05-17	391	10	1	30.80	30.80	0.00	30.80	\N
+3922	2019-05-18	188	8	1	186.67	186.67	0.00	186.67	\N
+3923	2019-05-19	95	5	1	255.39	255.39	38.31	217.08	3
+3924	2019-05-19	184	6	2	339.03	678.06	0.00	678.06	\N
+3925	2019-05-19	278	5	1	271.27	271.27	0.00	271.27	\N
+3926	2019-05-20	493	3	2	655.28	1310.56	65.53	1245.03	3
+3927	2019-05-20	1	5	2	248.44	496.88	24.84	472.04	3
+3928	2019-05-20	259	6	2	334.32	668.64	0.00	668.64	\N
+3929	2019-05-20	383	8	2	172.53	345.06	17.25	327.81	3
+3930	2019-05-20	96	2	1	428.46	428.46	0.00	428.46	\N
+3931	2019-05-22	530	8	2	183.23	366.46	18.32	348.14	3
+3932	2019-05-22	9	5	1	225.70	225.70	11.29	214.41	3
+3933	2019-05-22	508	7	1	295.50	295.50	14.78	280.72	3
+3934	2019-05-23	542	6	1	350.14	350.14	35.01	315.13	\N
+3935	2019-05-23	88	5	2	235.31	470.62	23.53	447.09	\N
+3936	2019-05-24	257	4	2	147.99	295.98	14.80	281.18	3
+3937	2019-05-24	107	1	1	199.44	199.44	0.00	199.44	\N
+3938	2019-05-24	100	1	1	204.61	204.61	0.00	204.61	\N
+3939	2019-05-26	434	5	2	231.44	462.88	0.00	462.88	\N
+3940	2019-05-27	417	9	2	123.64	247.28	24.73	222.55	\N
+3941	2019-05-27	203	4	1	162.73	162.73	8.14	154.59	3
+3942	2019-05-27	270	3	2	728.94	1457.88	218.68	1239.20	3
+3943	2019-05-27	190	4	1	136.63	136.63	0.00	136.63	\N
+3944	2019-05-28	344	6	2	378.70	757.40	75.74	681.66	\N
+3945	2019-05-28	142	3	1	670.36	670.36	67.04	603.32	\N
+3946	2019-05-28	28	7	1	294.53	294.53	44.18	250.35	3
+3947	2019-05-28	328	10	1	30.40	30.40	3.04	27.36	\N
+3948	2019-05-28	256	4	1	160.46	160.46	8.02	152.44	3
+3949	2019-05-28	140	5	1	226.87	226.87	11.34	215.53	3
+3950	2019-05-29	134	3	2	723.08	1446.16	216.93	1229.23	3
+3951	2019-05-30	29	2	1	491.48	491.48	0.00	491.48	\N
+3952	2019-05-30	78	2	1	473.23	473.23	23.66	449.57	3
+3953	2019-05-30	229	10	1	27.61	27.61	1.38	26.23	3
+3954	2019-05-31	186	9	2	117.09	234.18	0.00	234.18	\N
+3955	2019-05-31	163	4	2	156.99	313.98	0.00	313.98	\N
+3956	2019-05-31	422	5	2	241.66	483.32	24.17	459.15	3
+3957	2019-05-31	410	5	1	263.63	263.63	0.00	263.63	\N
+3958	2019-05-31	6	3	1	666.92	666.92	0.00	666.92	\N
+3959	2019-05-31	275	3	1	734.36	734.36	0.00	734.36	\N
+3960	2019-06-01	366	4	1	148.12	148.12	0.00	148.12	\N
+3961	2019-06-01	249	5	1	258.09	258.09	0.00	258.09	\N
+3962	2019-06-01	182	10	1	29.83	29.83	0.00	29.83	\N
+3963	2019-06-01	95	6	1	363.19	363.19	0.00	363.19	\N
+3964	2019-06-02	414	6	1	371.99	371.99	18.60	353.39	3
+3965	2019-06-02	500	7	2	327.63	655.26	32.76	622.50	3
+3966	2019-06-02	524	1	1	204.78	204.78	10.24	194.54	3
+3967	2019-06-03	273	8	2	190.18	380.36	19.02	361.34	3
+3968	2019-06-03	596	6	2	326.15	652.30	0.00	652.30	\N
+3969	2019-06-03	278	7	2	296.06	592.12	29.61	562.51	3
+3970	2019-06-03	214	9	2	121.93	243.86	0.00	243.86	\N
+3971	2019-06-04	131	10	2	30.31	60.62	3.03	57.59	3
+3972	2019-06-04	297	4	2	161.32	322.64	0.00	322.64	\N
+3973	2019-06-06	506	10	2	27.90	55.80	8.37	47.43	3
+3974	2019-06-06	469	7	1	327.05	327.05	0.00	327.05	\N
+3975	2019-06-07	230	6	1	334.00	334.00	16.70	317.30	3
+3976	2019-06-07	562	6	1	350.01	350.01	0.00	350.01	\N
+3977	2019-06-07	27	7	1	317.09	317.09	0.00	317.09	\N
+3978	2019-06-08	304	10	1	29.82	29.82	0.00	29.82	\N
+3979	2019-06-08	560	2	1	442.38	442.38	22.12	420.26	3
+3980	2019-06-09	513	2	2	414.14	828.28	0.00	828.28	\N
+3981	2019-06-09	202	8	2	165.18	330.36	0.00	330.36	\N
+3982	2019-06-09	214	8	1	166.71	166.71	8.34	158.37	\N
+3983	2019-06-10	5	2	1	429.65	429.65	0.00	429.65	\N
+3984	2019-06-10	568	1	2	202.24	404.48	40.45	364.03	\N
+3985	2019-06-11	121	3	1	767.09	767.09	38.35	728.74	3
+3986	2019-06-11	202	10	1	31.61	31.61	0.00	31.61	\N
+3987	2019-06-11	189	6	1	359.97	359.97	0.00	359.97	\N
+3988	2019-06-12	169	7	2	320.55	641.10	0.00	641.10	\N
+3989	2019-06-12	211	4	1	152.94	152.94	0.00	152.94	\N
+3990	2019-06-12	600	10	2	30.78	61.56	3.08	58.48	3
+3991	2019-06-12	587	5	2	250.28	500.56	0.00	500.56	\N
+3992	2019-06-12	113	3	2	719.88	1439.76	71.99	1367.77	3
+3993	2019-06-12	300	10	1	29.76	29.76	0.00	29.76	\N
+3994	2019-06-12	27	7	2	310.92	621.84	31.09	590.75	3
+3995	2019-06-13	226	10	2	27.67	55.34	8.30	47.04	3
+3996	2019-06-13	359	10	2	27.17	54.34	0.00	54.34	\N
+3997	2019-06-13	582	10	1	28.63	28.63	0.00	28.63	\N
+3998	2019-06-13	84	4	2	141.79	283.58	14.18	269.40	3
+3999	2019-06-14	488	7	2	319.99	639.98	32.00	607.98	3
+4000	2019-06-14	281	9	2	127.07	254.14	0.00	254.14	\N
+4001	2019-06-15	559	5	2	229.43	458.86	22.94	435.92	\N
+4002	2019-06-15	506	10	2	28.30	56.60	5.66	50.94	\N
+4003	2019-06-15	94	2	1	441.04	441.04	0.00	441.04	\N
+4004	2019-06-15	86	1	1	181.90	181.90	0.00	181.90	\N
+4005	2019-06-15	166	1	2	186.02	372.04	0.00	372.04	\N
+4006	2019-06-16	428	2	1	441.38	441.38	22.07	419.31	3
+4007	2019-06-16	75	10	1	30.61	30.61	1.53	29.08	3
+4008	2019-06-17	206	5	1	250.10	250.10	12.51	237.59	3
+4009	2019-06-17	567	5	2	269.41	538.82	26.94	511.88	3
+4010	2019-06-17	203	2	1	443.29	443.29	0.00	443.29	\N
+4011	2019-06-18	99	8	2	192.14	384.28	19.21	365.07	3
+4012	2019-06-18	557	7	1	273.53	273.53	0.00	273.53	\N
+4013	2019-06-19	89	8	1	166.18	166.18	0.00	166.18	\N
+4014	2019-06-19	101	10	1	31.09	31.09	0.00	31.09	\N
+4015	2019-06-21	139	5	1	270.31	270.31	13.52	256.79	3
+4016	2019-06-21	534	9	1	127.27	127.27	12.72	114.55	3
+4017	2019-06-21	547	8	2	192.64	385.28	19.26	366.02	3
+4018	2019-06-21	497	2	1	474.53	474.53	0.00	474.53	\N
+4019	2019-06-21	488	9	1	116.84	116.84	0.00	116.84	\N
+4020	2019-06-21	193	10	1	27.43	27.43	0.00	27.43	\N
+4021	2019-06-22	39	8	2	172.86	345.72	0.00	345.72	\N
+4022	2019-06-22	389	2	1	475.42	475.42	23.77	451.65	3
+4023	2019-06-23	156	2	1	436.35	436.35	21.82	414.53	3
+4024	2019-06-23	244	2	2	487.81	975.62	48.78	926.84	3
+4025	2019-06-23	444	3	2	684.40	1368.80	68.44	1300.36	3
+4026	2019-06-23	353	6	2	326.71	653.42	0.00	653.42	\N
+4027	2019-06-23	509	5	2	269.67	539.34	80.90	458.44	3
+4028	2019-06-24	67	8	2	183.01	366.02	0.00	366.02	\N
+4029	2019-06-24	534	9	1	129.96	129.96	6.50	123.46	3
+4030	2019-06-24	290	9	1	121.69	121.69	6.08	115.61	3
+4031	2019-06-25	60	1	1	194.77	194.77	0.00	194.77	\N
+4032	2019-06-25	349	7	2	297.09	594.18	0.00	594.18	\N
+4033	2019-06-25	214	6	1	340.48	340.48	0.00	340.48	\N
+4034	2019-06-26	189	8	1	184.97	184.97	18.50	166.47	3
+4035	2019-06-26	137	6	2	343.36	686.72	68.67	618.05	\N
+4036	2019-06-27	488	1	1	206.53	206.53	30.98	175.55	3
+4037	2019-06-27	228	1	1	219.47	219.47	0.00	219.47	\N
+4038	2019-06-27	432	3	1	666.49	666.49	0.00	666.49	\N
+4039	2019-06-28	106	1	1	180.14	180.14	0.00	180.14	\N
+4040	2019-06-28	419	9	1	122.39	122.39	0.00	122.39	\N
+4041	2019-06-28	103	8	1	166.88	166.88	16.69	150.19	\N
+4042	2019-06-30	197	9	2	125.28	250.56	25.06	225.50	3
+4043	2019-06-30	147	9	1	111.55	111.55	11.16	100.39	3
+4044	2019-06-30	549	5	1	248.55	248.55	0.00	248.55	\N
+4045	2019-06-30	367	10	1	30.55	30.55	1.53	29.02	3
+4046	2019-07-01	95	1	1	209.05	209.05	0.00	209.05	\N
+4047	2019-07-02	464	10	1	31.82	31.82	0.00	31.82	\N
+4048	2019-07-02	105	2	1	489.24	489.24	0.00	489.24	\N
+4049	2019-07-03	31	6	1	328.60	328.60	0.00	328.60	\N
+4050	2019-07-03	454	3	1	653.06	653.06	0.00	653.06	\N
+4051	2019-07-03	135	1	2	211.66	423.32	0.00	423.32	\N
+4052	2019-07-03	121	6	2	381.96	763.92	0.00	763.92	\N
+4053	2019-07-04	42	10	1	31.56	31.56	0.00	31.56	\N
+4054	2019-07-04	30	3	1	759.73	759.73	37.99	721.74	\N
+4055	2019-07-04	25	5	1	230.12	230.12	0.00	230.12	\N
+4056	2019-07-05	338	4	1	144.04	144.04	0.00	144.04	\N
+4057	2019-07-05	130	9	2	126.26	252.52	25.25	227.27	\N
+4058	2019-07-06	295	8	2	182.00	364.00	0.00	364.00	\N
+4059	2019-07-06	295	3	1	707.08	707.08	35.35	671.73	\N
+4060	2019-07-06	24	7	1	283.32	283.32	0.00	283.32	\N
+4061	2019-07-07	573	1	2	206.95	413.90	0.00	413.90	\N
+4062	2019-07-08	572	10	1	31.64	31.64	0.00	31.64	\N
+4063	2019-07-08	100	4	2	159.72	319.44	0.00	319.44	\N
+4064	2019-07-09	456	5	1	271.56	271.56	0.00	271.56	\N
+4065	2019-07-09	413	10	2	30.45	60.90	0.00	60.90	\N
+4066	2019-07-10	340	9	2	115.76	231.52	0.00	231.52	\N
+4067	2019-07-10	505	6	1	356.46	356.46	0.00	356.46	\N
+4068	2019-07-11	22	9	2	126.23	252.46	12.62	239.84	\N
+4069	2019-07-11	430	10	1	32.79	32.79	0.00	32.79	\N
+4070	2019-07-11	51	5	2	242.96	485.92	48.59	437.33	\N
+4071	2019-07-11	16	7	2	274.00	548.00	54.80	493.20	\N
+4072	2019-07-11	431	8	1	170.66	170.66	0.00	170.66	\N
+4073	2019-07-11	280	6	1	346.08	346.08	34.61	311.47	\N
+4074	2019-07-12	326	3	2	692.18	1384.36	69.22	1315.14	\N
+4075	2019-07-12	429	9	1	109.66	109.66	0.00	109.66	\N
+4076	2019-07-12	566	1	2	185.60	371.20	0.00	371.20	\N
+4077	2019-07-12	21	9	1	114.73	114.73	0.00	114.73	\N
+4078	2019-07-12	409	10	1	30.68	30.68	0.00	30.68	\N
+4079	2019-07-12	408	5	2	238.47	476.94	0.00	476.94	\N
+4080	2019-07-12	511	3	1	675.24	675.24	0.00	675.24	\N
+4081	2019-07-13	10	9	1	114.77	114.77	5.74	109.03	\N
+4082	2019-07-14	257	3	2	659.76	1319.52	0.00	1319.52	\N
+4083	2019-07-14	33	5	2	229.00	458.00	0.00	458.00	\N
+4084	2019-07-14	316	2	1	469.81	469.81	0.00	469.81	\N
+4085	2019-07-14	408	10	2	27.65	55.30	0.00	55.30	\N
+4086	2019-07-14	323	8	1	172.14	172.14	0.00	172.14	\N
+4087	2019-07-15	30	7	1	280.45	280.45	0.00	280.45	\N
+4088	2019-07-15	388	1	1	186.49	186.49	18.65	167.84	\N
+4089	2019-07-15	63	4	1	164.90	164.90	0.00	164.90	\N
+4090	2019-07-16	148	10	2	31.77	63.54	0.00	63.54	\N
+4091	2019-07-16	299	6	2	327.69	655.38	0.00	655.38	\N
+4092	2019-07-16	85	6	2	359.80	719.60	0.00	719.60	\N
+4093	2019-07-16	143	9	1	117.28	117.28	5.86	111.42	\N
+4094	2019-07-17	144	10	1	29.61	29.61	1.48	28.13	\N
+4095	2019-07-17	454	3	2	643.89	1287.78	0.00	1287.78	\N
+4096	2019-07-18	161	10	1	27.83	27.83	2.78	25.05	\N
+4097	2019-07-18	90	7	2	297.84	595.68	0.00	595.68	\N
+4098	2019-07-18	182	2	2	437.33	874.66	0.00	874.66	\N
+4099	2019-07-19	181	7	1	292.95	292.95	0.00	292.95	\N
+4100	2019-07-19	6	7	1	283.28	283.28	28.33	254.95	\N
+4101	2019-07-21	34	4	2	138.63	277.26	0.00	277.26	\N
+4102	2019-07-22	161	9	1	109.08	109.08	0.00	109.08	\N
+4103	2019-07-22	367	1	2	187.40	374.80	18.74	356.06	\N
+4104	2019-07-22	600	1	2	184.25	368.50	0.00	368.50	\N
+4105	2019-07-22	250	4	1	146.21	146.21	0.00	146.21	\N
+4106	2019-07-23	499	2	2	459.33	918.66	45.93	872.73	\N
+4107	2019-07-23	189	10	1	30.89	30.89	0.00	30.89	\N
+4108	2019-07-23	386	3	2	655.79	1311.58	0.00	1311.58	\N
+4109	2019-07-23	288	8	1	164.30	164.30	0.00	164.30	\N
+4110	2019-07-23	363	10	2	28.85	57.70	0.00	57.70	\N
+4111	2019-07-24	594	10	2	31.87	63.74	3.19	60.55	\N
+4112	2019-07-26	293	6	2	365.89	731.78	0.00	731.78	\N
+4113	2019-07-26	140	4	2	137.49	274.98	0.00	274.98	\N
+4114	2019-07-27	480	8	1	194.98	194.98	0.00	194.98	\N
+4115	2019-07-27	78	5	1	241.57	241.57	0.00	241.57	\N
+4116	2019-07-27	295	4	1	148.32	148.32	0.00	148.32	\N
+4117	2019-07-28	122	10	2	28.77	57.54	0.00	57.54	\N
+4118	2019-07-28	201	10	1	31.20	31.20	1.56	29.64	\N
+4119	2019-07-28	463	8	2	177.40	354.80	0.00	354.80	\N
+4120	2019-07-28	439	6	2	319.09	638.18	63.82	574.36	\N
+4121	2019-07-28	429	2	1	416.25	416.25	0.00	416.25	\N
+4122	2019-07-29	164	9	2	110.08	220.16	0.00	220.16	\N
+4123	2019-07-29	329	8	2	181.71	363.42	0.00	363.42	\N
+4124	2019-07-29	76	10	1	27.36	27.36	1.37	25.99	\N
+4125	2019-07-30	117	7	1	298.71	298.71	0.00	298.71	\N
+4126	2019-07-31	453	1	2	195.46	390.92	0.00	390.92	\N
+4127	2019-07-31	438	4	2	145.06	290.12	14.51	275.61	\N
+4128	2019-08-01	498	2	2	453.52	907.04	0.00	907.04	\N
+4129	2019-08-01	74	3	2	683.00	1366.00	0.00	1366.00	\N
+4130	2019-08-02	292	9	1	116.82	116.82	0.00	116.82	\N
+4131	2019-08-02	510	2	2	412.48	824.96	0.00	824.96	\N
+4132	2019-08-02	320	4	1	135.65	135.65	6.78	128.87	\N
+4133	2019-08-02	465	6	2	369.10	738.20	0.00	738.20	\N
+4134	2019-08-02	551	10	1	32.45	32.45	1.62	30.83	\N
+4135	2019-08-03	75	4	2	139.30	278.60	0.00	278.60	\N
+4136	2019-08-03	515	7	2	292.80	585.60	0.00	585.60	\N
+4137	2019-08-03	491	9	1	125.13	125.13	6.26	118.87	\N
+4138	2019-08-04	509	7	1	290.55	290.55	29.06	261.49	\N
+4139	2019-08-05	216	9	1	111.35	111.35	11.13	100.22	\N
+4140	2019-08-05	32	7	2	318.23	636.46	63.65	572.81	\N
+4141	2019-08-06	403	5	1	234.20	234.20	0.00	234.20	\N
+4142	2019-08-06	226	6	1	319.45	319.45	15.97	303.48	\N
+4143	2019-08-07	287	6	1	381.01	381.01	0.00	381.01	\N
+4144	2019-08-07	255	8	1	196.21	196.21	0.00	196.21	\N
+4145	2019-08-07	402	6	2	380.12	760.24	0.00	760.24	\N
+4146	2019-08-07	481	7	1	285.61	285.61	0.00	285.61	\N
+4147	2019-08-07	301	10	2	29.56	59.12	5.91	53.21	\N
+4148	2019-08-08	377	2	1	406.95	406.95	0.00	406.95	\N
+4149	2019-08-08	142	6	2	315.41	630.82	0.00	630.82	\N
+4150	2019-08-08	133	10	2	29.51	59.02	0.00	59.02	\N
+4151	2019-08-08	342	2	1	417.87	417.87	0.00	417.87	\N
+4152	2019-08-09	432	3	2	735.10	1470.20	0.00	1470.20	\N
+4153	2019-08-10	505	3	1	713.62	713.62	0.00	713.62	\N
+4154	2019-08-10	328	1	1	204.56	204.56	0.00	204.56	\N
+4155	2019-08-10	221	5	2	259.24	518.48	0.00	518.48	\N
+4156	2019-08-11	142	2	1	416.79	416.79	41.68	375.11	\N
+4157	2019-08-11	381	1	2	187.44	374.88	0.00	374.88	\N
+4158	2019-08-11	300	8	1	178.61	178.61	0.00	178.61	\N
+4159	2019-08-11	7	5	2	270.54	541.08	0.00	541.08	\N
+4160	2019-08-13	581	8	2	192.89	385.78	19.29	366.49	\N
+4161	2019-08-13	533	5	1	259.91	259.91	13.00	246.91	\N
+4162	2019-08-14	209	4	2	154.49	308.98	0.00	308.98	\N
+4163	2019-08-15	96	5	1	247.64	247.64	0.00	247.64	\N
+4164	2019-08-15	148	4	1	140.79	140.79	0.00	140.79	\N
+4165	2019-08-15	160	1	1	217.06	217.06	0.00	217.06	\N
+4166	2019-08-15	277	6	1	319.48	319.48	0.00	319.48	\N
+4167	2019-08-16	500	7	2	315.96	631.92	0.00	631.92	\N
+4168	2019-08-16	405	4	2	147.21	294.42	0.00	294.42	\N
+4169	2019-08-16	144	9	1	118.23	118.23	5.91	112.32	\N
+4170	2019-08-17	142	3	2	633.79	1267.58	0.00	1267.58	\N
+4171	2019-08-18	51	9	1	115.01	115.01	0.00	115.01	\N
+4172	2019-08-18	130	7	1	319.03	319.03	0.00	319.03	\N
+4173	2019-08-19	557	4	1	141.14	141.14	0.00	141.14	\N
+4174	2019-08-19	434	8	1	186.33	186.33	0.00	186.33	\N
+4175	2019-08-21	522	3	2	761.39	1522.78	0.00	1522.78	\N
+4176	2019-08-21	416	8	2	188.06	376.12	0.00	376.12	\N
+4177	2019-08-21	212	7	1	270.52	270.52	0.00	270.52	\N
+4178	2019-08-21	260	10	2	32.50	65.00	0.00	65.00	\N
+4179	2019-08-22	137	1	2	202.49	404.98	0.00	404.98	\N
+4180	2019-08-23	430	5	2	253.41	506.82	0.00	506.82	\N
+4181	2019-08-23	117	4	2	139.37	278.74	0.00	278.74	\N
+4182	2019-08-24	96	10	1	32.58	32.58	0.00	32.58	\N
+4183	2019-08-24	1	2	2	414.75	829.50	0.00	829.50	\N
+4184	2019-08-24	401	2	1	447.77	447.77	0.00	447.77	\N
+4185	2019-08-25	544	1	1	201.64	201.64	10.08	191.56	\N
+4186	2019-08-25	293	5	1	256.90	256.90	12.84	244.06	\N
+4187	2019-08-26	279	4	1	136.92	136.92	0.00	136.92	\N
+4188	2019-08-26	522	6	1	320.31	320.31	0.00	320.31	\N
+4189	2019-08-26	339	4	1	150.67	150.67	0.00	150.67	\N
+4190	2019-08-27	282	9	1	123.50	123.50	0.00	123.50	\N
+4191	2019-08-27	470	6	1	339.66	339.66	16.98	322.68	\N
+4192	2019-08-28	13	2	2	488.00	976.00	0.00	976.00	\N
+4193	2019-08-28	326	7	2	286.91	573.82	57.38	516.44	\N
+4194	2019-08-28	563	5	1	226.80	226.80	0.00	226.80	\N
+4195	2019-08-29	39	3	2	754.40	1508.80	0.00	1508.80	\N
+4196	2019-08-29	106	7	1	323.85	323.85	0.00	323.85	\N
+4197	2019-08-30	573	4	2	149.51	299.02	14.95	284.07	\N
+4198	2019-08-30	110	6	2	351.12	702.24	0.00	702.24	\N
+4199	2019-08-30	530	7	2	276.77	553.54	0.00	553.54	\N
+4200	2019-08-31	482	7	1	296.31	296.31	0.00	296.31	\N
+4201	2019-08-31	534	4	2	154.92	309.84	15.49	294.35	\N
+4202	2019-09-02	488	1	1	208.78	208.78	0.00	208.78	\N
+4203	2019-09-04	341	9	2	112.98	225.96	22.60	203.36	\N
+4204	2019-09-04	553	2	2	457.93	915.86	0.00	915.86	\N
+4205	2019-09-04	451	3	1	706.36	706.36	0.00	706.36	\N
+4206	2019-09-05	246	4	2	152.36	304.72	0.00	304.72	\N
+4207	2019-09-05	522	3	1	669.52	669.52	0.00	669.52	\N
+4208	2019-09-06	146	2	2	447.13	894.26	0.00	894.26	\N
+4209	2019-09-07	494	6	2	354.17	708.34	70.83	637.51	\N
+4210	2019-09-07	553	5	2	271.45	542.90	0.00	542.90	\N
+4211	2019-09-08	497	10	2	32.21	64.42	3.22	61.20	\N
+4212	2019-09-08	7	3	2	740.42	1480.84	0.00	1480.84	\N
+4213	2019-09-08	162	8	2	168.44	336.88	0.00	336.88	\N
+4214	2019-09-09	441	10	2	30.36	60.72	0.00	60.72	\N
+4215	2019-09-09	262	6	2	319.87	639.74	0.00	639.74	\N
+4216	2019-09-09	63	3	1	674.79	674.79	0.00	674.79	\N
+4217	2019-09-09	380	5	2	246.32	492.64	0.00	492.64	\N
+4218	2019-09-09	5	9	1	119.21	119.21	5.96	113.25	\N
+4219	2019-09-10	549	10	1	32.54	32.54	1.63	30.91	\N
+4220	2019-09-10	468	4	1	151.67	151.67	0.00	151.67	\N
+4221	2019-09-11	171	8	1	190.56	190.56	0.00	190.56	\N
+4222	2019-09-12	119	2	1	484.09	484.09	0.00	484.09	\N
+4223	2019-09-12	144	6	1	323.98	323.98	0.00	323.98	\N
+4224	2019-09-12	517	7	1	281.91	281.91	0.00	281.91	\N
+4225	2019-09-13	63	1	2	197.70	395.40	19.77	375.63	\N
+4226	2019-09-13	50	3	1	730.29	730.29	0.00	730.29	\N
+4227	2019-09-13	199	5	1	258.76	258.76	0.00	258.76	\N
+4228	2019-09-13	54	6	2	366.72	733.44	0.00	733.44	\N
+4229	2019-09-14	458	8	1	165.38	165.38	0.00	165.38	\N
+4230	2019-09-14	438	2	1	466.01	466.01	0.00	466.01	\N
+4231	2019-09-14	487	2	1	438.86	438.86	0.00	438.86	\N
+4232	2019-09-15	445	6	1	369.03	369.03	0.00	369.03	\N
+4233	2019-09-16	467	7	2	287.76	575.52	0.00	575.52	\N
+4234	2019-09-16	387	9	1	128.51	128.51	12.85	115.66	\N
+4235	2019-09-17	17	1	2	204.60	409.20	0.00	409.20	\N
+4236	2019-09-17	166	5	2	272.25	544.50	0.00	544.50	\N
+4237	2019-09-17	389	6	1	328.74	328.74	0.00	328.74	\N
+4238	2019-09-17	206	3	2	647.81	1295.62	64.78	1230.84	\N
+4239	2019-09-18	265	4	1	164.52	164.52	0.00	164.52	\N
+4240	2019-09-18	470	1	2	194.47	388.94	0.00	388.94	\N
+4241	2019-09-19	250	7	2	273.00	546.00	54.60	491.40	\N
+4242	2019-09-20	118	2	2	486.71	973.42	0.00	973.42	\N
+4243	2019-09-20	99	1	2	182.77	365.54	0.00	365.54	\N
+4244	2019-09-20	156	7	2	270.53	541.06	0.00	541.06	\N
+4245	2019-09-21	138	7	1	290.92	290.92	0.00	290.92	\N
+4246	2019-09-21	214	5	2	267.23	534.46	0.00	534.46	\N
+4247	2019-09-21	467	9	2	130.04	260.08	0.00	260.08	\N
+4248	2019-09-21	327	5	1	250.38	250.38	0.00	250.38	\N
+4249	2019-09-21	367	8	1	194.20	194.20	0.00	194.20	\N
+4250	2019-09-21	111	5	2	253.52	507.04	0.00	507.04	\N
+4251	2019-09-22	94	5	2	244.22	488.44	0.00	488.44	\N
+4252	2019-09-22	518	7	2	329.10	658.20	0.00	658.20	\N
+4253	2019-09-22	291	4	1	159.37	159.37	7.97	151.40	\N
+4254	2019-09-23	94	8	2	186.94	373.88	0.00	373.88	\N
+4255	2019-09-23	418	7	1	291.89	291.89	0.00	291.89	\N
+4256	2019-09-24	146	5	2	244.64	489.28	0.00	489.28	\N
+4257	2019-09-25	171	8	1	186.11	186.11	0.00	186.11	\N
+4258	2019-09-25	41	1	1	207.57	207.57	0.00	207.57	\N
+4259	2019-09-25	145	1	2	201.84	403.68	0.00	403.68	\N
+4260	2019-09-26	89	5	1	258.33	258.33	0.00	258.33	\N
+4261	2019-09-26	18	6	2	321.02	642.04	64.20	577.84	\N
+4262	2019-09-26	287	4	2	159.72	319.44	0.00	319.44	\N
+4263	2019-09-26	118	7	1	327.26	327.26	0.00	327.26	\N
+4264	2019-09-26	59	4	1	164.65	164.65	0.00	164.65	\N
+4265	2019-09-26	431	4	2	146.44	292.88	0.00	292.88	\N
+4266	2019-09-27	206	1	2	183.58	367.16	18.36	348.80	\N
+4267	2019-09-28	54	9	2	127.70	255.40	0.00	255.40	\N
+4268	2019-09-28	68	9	1	118.64	118.64	5.93	112.71	\N
+4269	2019-09-28	318	9	1	131.21	131.21	6.56	124.65	\N
+4270	2019-09-28	344	5	1	228.22	228.22	0.00	228.22	\N
+4271	2019-09-28	185	10	2	31.10	62.20	0.00	62.20	\N
+4272	2019-09-29	236	1	2	216.94	433.88	0.00	433.88	\N
+4273	2019-09-29	455	7	2	295.48	590.96	0.00	590.96	\N
+4274	2019-09-29	428	7	2	280.22	560.44	0.00	560.44	\N
+4275	2019-09-30	26	9	1	126.93	126.93	6.35	120.58	\N
+4276	2019-10-01	440	9	2	109.60	219.20	0.00	219.20	\N
+4277	2019-10-01	586	5	1	263.99	263.99	0.00	263.99	\N
+4278	2019-10-01	263	8	2	192.48	384.96	0.00	384.96	\N
+4279	2019-10-02	226	2	2	494.42	988.84	0.00	988.84	\N
+4280	2019-10-02	91	1	1	219.18	219.18	0.00	219.18	\N
+4281	2019-10-03	218	4	2	135.25	270.50	0.00	270.50	\N
+4282	2019-10-03	510	4	1	153.14	153.14	0.00	153.14	\N
+4283	2019-10-03	298	3	1	643.25	643.25	0.00	643.25	\N
+4284	2019-10-03	128	5	1	232.00	232.00	0.00	232.00	\N
+4285	2019-10-04	239	8	1	197.95	197.95	0.00	197.95	\N
+4286	2019-10-04	365	1	1	210.30	210.30	21.03	189.27	\N
+4287	2019-10-05	438	8	2	186.84	373.68	37.37	336.31	\N
+4288	2019-10-05	491	7	2	322.18	644.36	32.22	612.14	\N
+4289	2019-10-06	419	4	2	147.97	295.94	0.00	295.94	\N
+4290	2019-10-06	367	1	1	183.51	183.51	0.00	183.51	\N
+4291	2019-10-06	166	8	2	195.28	390.56	19.53	371.03	\N
+4292	2019-10-07	189	7	2	295.94	591.88	0.00	591.88	\N
+4293	2019-10-08	528	1	1	202.80	202.80	0.00	202.80	\N
+4294	2019-10-10	459	7	2	275.14	550.28	0.00	550.28	\N
+4295	2019-10-11	333	3	1	656.22	656.22	0.00	656.22	\N
+4296	2019-10-12	551	10	2	27.00	54.00	0.00	54.00	\N
+4297	2019-10-12	598	4	1	159.25	159.25	0.00	159.25	\N
+4298	2019-10-13	109	3	2	675.28	1350.56	0.00	1350.56	\N
+4299	2019-10-14	492	8	1	167.48	167.48	0.00	167.48	\N
+4300	2019-10-14	508	7	2	287.78	575.56	0.00	575.56	\N
+4301	2019-10-15	193	9	2	116.86	233.72	0.00	233.72	\N
+4302	2019-10-17	26	6	2	317.05	634.10	63.41	570.69	\N
+4303	2019-10-17	128	8	2	165.94	331.88	0.00	331.88	\N
+4304	2019-10-18	397	6	2	348.80	697.60	0.00	697.60	\N
+4305	2019-10-18	586	2	2	490.81	981.62	98.16	883.46	\N
+4306	2019-10-18	406	6	2	371.10	742.20	0.00	742.20	\N
+4307	2019-10-18	452	2	2	463.35	926.70	0.00	926.70	\N
+4308	2019-10-18	316	9	1	118.28	118.28	11.83	106.45	\N
+4309	2019-10-18	45	1	2	208.74	417.48	41.75	375.73	\N
+4310	2019-10-18	186	9	1	130.75	130.75	0.00	130.75	\N
+4311	2019-10-18	504	6	2	359.76	719.52	0.00	719.52	\N
+4312	2019-10-19	239	1	1	210.96	210.96	0.00	210.96	\N
+4313	2019-10-19	19	2	1	414.15	414.15	0.00	414.15	\N
+4314	2019-10-19	349	1	2	182.55	365.10	0.00	365.10	\N
+4315	2019-10-19	37	8	1	171.91	171.91	0.00	171.91	\N
+4316	2019-10-20	24	7	2	309.69	619.38	0.00	619.38	\N
+4317	2019-10-20	153	3	1	652.69	652.69	0.00	652.69	\N
+4318	2019-10-20	418	10	1	28.26	28.26	1.41	26.85	\N
+4319	2019-10-20	394	3	1	754.10	754.10	75.41	678.69	\N
+4320	2019-10-21	201	1	2	217.62	435.24	0.00	435.24	\N
+4321	2019-10-22	177	7	1	309.07	309.07	0.00	309.07	\N
+4322	2019-10-22	266	10	2	29.71	59.42	0.00	59.42	\N
+4323	2019-10-22	296	1	2	207.89	415.78	0.00	415.78	\N
+4324	2019-10-22	95	5	2	240.25	480.50	0.00	480.50	\N
+4325	2019-10-24	377	7	1	310.70	310.70	0.00	310.70	\N
+4326	2019-10-24	262	1	1	208.81	208.81	0.00	208.81	\N
+4327	2019-10-24	505	4	1	145.86	145.86	0.00	145.86	\N
+4328	2019-10-25	382	4	2	142.63	285.26	0.00	285.26	\N
+4329	2019-10-25	288	7	1	309.32	309.32	0.00	309.32	\N
+4330	2019-10-25	550	7	2	291.24	582.48	0.00	582.48	\N
+4331	2019-10-25	204	5	2	250.33	500.66	0.00	500.66	\N
+4332	2019-10-26	576	4	1	154.84	154.84	0.00	154.84	\N
+4333	2019-10-27	561	7	1	307.80	307.80	0.00	307.80	\N
+4334	2019-10-27	507	4	1	148.03	148.03	0.00	148.03	\N
+4335	2019-10-28	307	9	2	115.52	231.04	23.10	207.94	\N
+4336	2019-10-29	485	6	1	351.72	351.72	35.17	316.55	\N
+4337	2019-10-29	250	3	1	738.24	738.24	0.00	738.24	\N
+4338	2019-10-29	575	4	2	154.71	309.42	0.00	309.42	\N
+4339	2019-10-30	308	4	1	161.14	161.14	0.00	161.14	\N
+4340	2019-10-31	346	9	2	108.76	217.52	21.75	195.77	\N
+4341	2019-10-31	327	1	1	194.45	194.45	0.00	194.45	\N
+4342	2019-11-02	180	9	2	114.46	228.92	0.00	228.92	\N
+4343	2019-11-03	9	1	1	198.32	198.32	0.00	198.32	\N
+4344	2019-11-03	201	10	1	27.27	27.27	0.00	27.27	\N
+4345	2019-11-03	233	8	2	194.65	389.30	0.00	389.30	\N
+4346	2019-11-03	323	5	1	256.75	256.75	0.00	256.75	\N
+4347	2019-11-06	5	4	1	151.87	151.87	15.19	136.68	\N
+4348	2019-11-06	142	6	1	354.14	354.14	0.00	354.14	\N
+4349	2019-11-06	363	1	1	207.06	207.06	0.00	207.06	\N
+4350	2019-11-07	5	5	2	274.62	549.24	27.46	521.78	\N
+4351	2019-11-07	576	2	1	433.05	433.05	0.00	433.05	\N
+4352	2019-11-07	67	3	2	757.24	1514.48	0.00	1514.48	\N
+4353	2019-11-07	239	4	2	157.52	315.04	0.00	315.04	\N
+4354	2019-11-07	339	4	2	137.36	274.72	0.00	274.72	\N
+4355	2019-11-08	103	2	2	417.80	835.60	0.00	835.60	\N
+4356	2019-11-09	590	1	1	190.99	190.99	0.00	190.99	\N
+4357	2019-11-09	411	6	1	327.93	327.93	0.00	327.93	\N
+4358	2019-11-09	271	3	2	707.19	1414.38	0.00	1414.38	\N
+4359	2019-11-09	390	3	2	742.86	1485.72	0.00	1485.72	\N
+4360	2019-11-09	53	9	1	116.72	116.72	0.00	116.72	\N
+4361	2019-11-09	198	9	1	125.16	125.16	0.00	125.16	\N
+4362	2019-11-09	300	6	2	381.82	763.64	0.00	763.64	\N
+4363	2019-11-09	442	1	1	211.93	211.93	0.00	211.93	\N
+4364	2019-11-09	83	10	1	28.39	28.39	2.84	25.55	\N
+4365	2019-11-09	312	6	2	373.02	746.04	0.00	746.04	\N
+4366	2019-11-10	226	8	1	187.15	187.15	0.00	187.15	\N
+4367	2019-11-10	428	3	2	696.35	1392.70	0.00	1392.70	\N
+4368	2019-11-10	111	7	2	297.34	594.68	0.00	594.68	\N
+4369	2019-11-11	257	7	2	275.73	551.46	0.00	551.46	\N
+4370	2019-11-11	89	6	1	373.13	373.13	0.00	373.13	\N
+4371	2019-11-11	434	3	1	736.55	736.55	0.00	736.55	\N
+4372	2019-11-11	104	3	2	735.46	1470.92	147.09	1323.83	\N
+4373	2019-11-11	539	2	2	451.00	902.00	0.00	902.00	\N
+4374	2019-11-11	453	7	2	279.59	559.18	0.00	559.18	\N
+4375	2019-11-12	61	7	1	304.26	304.26	30.43	273.83	\N
+4376	2019-11-12	247	1	2	211.60	423.20	0.00	423.20	\N
+4377	2019-11-12	345	2	1	444.22	444.22	0.00	444.22	\N
+4378	2019-11-12	61	5	2	241.78	483.56	0.00	483.56	\N
+4379	2019-11-13	553	3	1	758.48	758.48	75.85	682.63	\N
+4380	2019-11-13	452	4	2	155.30	310.60	15.53	295.07	\N
+4381	2019-11-13	221	5	2	264.08	528.16	0.00	528.16	\N
+4382	2019-11-14	544	9	1	120.73	120.73	12.07	108.66	\N
+4383	2019-11-14	93	5	1	257.51	257.51	25.75	231.76	\N
+4384	2019-11-14	249	7	1	287.87	287.87	14.39	273.48	\N
+4385	2019-11-14	567	3	2	739.96	1479.92	0.00	1479.92	\N
+4386	2019-11-14	253	5	1	231.63	231.63	0.00	231.63	\N
+4387	2019-11-14	380	8	1	175.63	175.63	8.78	166.85	\N
+4388	2019-11-15	113	6	1	335.50	335.50	33.55	301.95	\N
+4389	2019-11-15	265	4	1	161.86	161.86	0.00	161.86	\N
+4390	2019-11-15	208	5	2	237.44	474.88	0.00	474.88	\N
+4391	2019-11-16	382	4	1	162.46	162.46	8.12	154.34	\N
+4392	2019-11-16	161	10	1	29.90	29.90	1.50	28.40	\N
+4393	2019-11-16	329	1	2	196.32	392.64	0.00	392.64	\N
+4394	2019-11-16	118	8	1	183.78	183.78	0.00	183.78	\N
+4395	2019-11-17	348	2	2	486.87	973.74	0.00	973.74	\N
+4396	2019-11-17	166	9	1	110.68	110.68	0.00	110.68	\N
+4397	2019-11-17	86	1	1	209.25	209.25	0.00	209.25	\N
+4398	2019-11-18	160	3	1	643.71	643.71	0.00	643.71	\N
+4399	2019-11-19	407	10	2	32.40	64.80	0.00	64.80	\N
+4400	2019-11-19	454	4	1	155.38	155.38	0.00	155.38	\N
+4401	2019-11-20	496	2	1	474.56	474.56	0.00	474.56	\N
+4402	2019-11-20	579	9	2	124.38	248.76	0.00	248.76	\N
+4403	2019-11-20	453	5	1	242.31	242.31	0.00	242.31	\N
+4404	2019-11-21	83	6	2	375.44	750.88	75.09	675.79	\N
+4405	2019-11-21	326	1	2	180.41	360.82	0.00	360.82	\N
+4406	2019-11-21	7	3	2	738.66	1477.32	0.00	1477.32	\N
+4407	2019-11-21	534	4	1	151.81	151.81	0.00	151.81	\N
+4408	2019-11-21	36	4	1	157.34	157.34	0.00	157.34	\N
+4409	2019-11-22	355	1	2	186.80	373.60	0.00	373.60	\N
+4410	2019-11-22	410	8	2	189.40	378.80	18.94	359.86	\N
+4411	2019-11-22	279	1	1	204.18	204.18	0.00	204.18	\N
+4412	2019-11-22	211	5	1	245.40	245.40	0.00	245.40	\N
+4413	2019-11-22	357	5	1	256.27	256.27	0.00	256.27	\N
+4414	2019-11-22	150	4	2	158.66	317.32	0.00	317.32	\N
+4415	2019-11-23	99	1	1	183.02	183.02	0.00	183.02	\N
+4416	2019-11-23	563	3	1	692.50	692.50	69.25	623.25	\N
+4417	2019-11-23	103	4	1	142.34	142.34	0.00	142.34	\N
+4418	2019-11-24	103	9	1	115.45	115.45	5.77	109.68	\N
+4419	2019-11-24	241	9	1	123.78	123.78	6.19	117.59	\N
+4420	2019-11-24	178	1	2	210.84	421.68	0.00	421.68	\N
+4421	2019-11-24	79	7	1	301.38	301.38	0.00	301.38	\N
+4422	2019-11-25	421	4	1	147.46	147.46	7.37	140.09	\N
+4423	2019-11-25	491	4	1	157.15	157.15	0.00	157.15	\N
+4424	2019-11-25	478	9	1	122.22	122.22	0.00	122.22	\N
+4425	2019-11-25	498	7	2	298.93	597.86	29.89	567.97	\N
+4426	2019-11-25	363	3	2	641.31	1282.62	0.00	1282.62	\N
+4427	2019-11-26	103	1	1	218.66	218.66	0.00	218.66	\N
+4428	2019-11-28	468	2	1	444.03	444.03	0.00	444.03	\N
+4429	2019-11-28	374	1	1	211.78	211.78	0.00	211.78	\N
+4430	2019-11-29	329	2	1	421.23	421.23	0.00	421.23	\N
+4431	2019-11-29	542	6	1	320.66	320.66	16.03	304.63	\N
+4432	2019-11-29	272	5	1	243.09	243.09	0.00	243.09	\N
+4433	2019-11-30	431	10	2	29.84	59.68	0.00	59.68	\N
+4434	2019-11-30	353	6	1	342.26	342.26	17.11	325.15	\N
+4435	2019-12-01	465	7	2	299.91	599.82	0.00	599.82	\N
+4436	2019-12-01	457	2	2	466.93	933.86	0.00	933.86	\N
+4437	2019-12-02	513	7	1	315.01	315.01	0.00	315.01	\N
+4438	2019-12-03	247	10	2	29.13	58.26	5.83	52.43	\N
+4439	2019-12-03	391	8	2	181.58	363.16	0.00	363.16	\N
+4440	2019-12-03	382	6	1	349.61	349.61	0.00	349.61	\N
+4441	2019-12-03	201	9	1	128.31	128.31	0.00	128.31	\N
+4442	2019-12-03	294	1	1	186.63	186.63	18.66	167.97	\N
+4443	2019-12-04	390	2	1	432.17	432.17	0.00	432.17	\N
+4444	2019-12-04	391	3	1	699.19	699.19	0.00	699.19	\N
+4445	2019-12-04	224	1	1	191.87	191.87	0.00	191.87	\N
+4446	2019-12-04	74	8	1	176.98	176.98	17.70	159.28	\N
+4447	2019-12-05	179	2	1	438.71	438.71	0.00	438.71	\N
+4448	2019-12-09	233	2	1	459.09	459.09	0.00	459.09	\N
+4449	2019-12-09	432	4	2	161.62	323.24	0.00	323.24	\N
+4450	2019-12-09	491	1	1	213.67	213.67	0.00	213.67	\N
+4451	2019-12-09	387	9	1	131.45	131.45	0.00	131.45	\N
+4452	2019-12-09	523	8	2	195.37	390.74	0.00	390.74	\N
+4453	2019-12-10	565	9	1	126.71	126.71	0.00	126.71	\N
+4454	2019-12-10	29	5	1	252.06	252.06	0.00	252.06	\N
+4455	2019-12-10	234	7	2	313.74	627.48	0.00	627.48	\N
+4456	2019-12-10	81	6	2	355.37	710.74	35.54	675.20	\N
+4457	2019-12-11	117	3	2	697.56	1395.12	139.51	1255.61	\N
+4458	2019-12-11	229	5	1	228.22	228.22	0.00	228.22	\N
+4459	2019-12-12	52	7	1	314.57	314.57	0.00	314.57	\N
+4460	2019-12-12	593	2	1	412.38	412.38	0.00	412.38	\N
+4461	2019-12-12	132	9	2	111.77	223.54	0.00	223.54	\N
+4462	2019-12-12	532	4	1	135.61	135.61	0.00	135.61	\N
+4463	2019-12-12	458	10	1	31.64	31.64	0.00	31.64	\N
+4464	2019-12-13	55	8	2	174.05	348.10	0.00	348.10	\N
+4465	2019-12-13	534	5	2	266.63	533.26	0.00	533.26	\N
+4466	2019-12-13	292	10	2	30.69	61.38	0.00	61.38	\N
+4467	2019-12-13	59	6	1	326.29	326.29	0.00	326.29	\N
+4468	2019-12-13	110	8	1	166.47	166.47	0.00	166.47	\N
+4469	2019-12-14	420	6	1	384.15	384.15	0.00	384.15	\N
+4470	2019-12-14	98	9	2	122.88	245.76	0.00	245.76	\N
+4471	2019-12-14	10	7	2	274.62	549.24	0.00	549.24	\N
+4472	2019-12-15	321	7	1	321.69	321.69	32.17	289.52	\N
+4473	2019-12-15	205	2	1	420.13	420.13	0.00	420.13	\N
+4474	2019-12-16	376	6	1	346.40	346.40	34.64	311.76	\N
+4475	2019-12-17	106	7	2	305.80	611.60	0.00	611.60	\N
+4476	2019-12-18	224	8	1	194.90	194.90	0.00	194.90	\N
+4477	2019-12-18	91	10	2	32.04	64.08	0.00	64.08	\N
+4478	2019-12-18	595	10	1	27.32	27.32	0.00	27.32	\N
+4479	2019-12-19	171	1	1	184.55	184.55	0.00	184.55	\N
+4480	2019-12-20	14	8	2	164.77	329.54	0.00	329.54	\N
+4481	2019-12-20	357	4	1	158.86	158.86	0.00	158.86	\N
+4482	2019-12-21	118	7	2	283.31	566.62	0.00	566.62	\N
+4483	2019-12-21	200	7	1	325.26	325.26	0.00	325.26	\N
+4484	2019-12-21	248	2	2	447.32	894.64	0.00	894.64	\N
+4485	2019-12-21	338	5	1	253.92	253.92	0.00	253.92	\N
+4486	2019-12-21	47	5	2	259.46	518.92	0.00	518.92	\N
+4487	2019-12-22	249	8	2	186.21	372.42	0.00	372.42	\N
+4488	2019-12-22	303	6	2	351.11	702.22	0.00	702.22	\N
+4489	2019-12-22	231	6	1	363.64	363.64	0.00	363.64	\N
+4490	2019-12-23	241	10	1	32.50	32.50	0.00	32.50	\N
+4491	2019-12-23	127	3	2	697.46	1394.92	0.00	1394.92	\N
+4492	2019-12-24	224	10	1	30.79	30.79	3.08	27.71	\N
+4493	2019-12-24	351	2	1	444.42	444.42	0.00	444.42	\N
+4494	2019-12-24	189	6	1	354.04	354.04	0.00	354.04	\N
+4495	2019-12-25	261	8	1	193.24	193.24	0.00	193.24	\N
+4496	2019-12-25	109	3	1	728.93	728.93	0.00	728.93	\N
+4497	2019-12-25	39	2	2	467.66	935.32	0.00	935.32	\N
+4498	2019-12-25	586	10	2	28.57	57.14	0.00	57.14	\N
+4499	2019-12-26	213	9	2	114.04	228.08	0.00	228.08	\N
+4500	2019-12-26	322	7	2	283.06	566.12	28.31	537.81	\N
+4501	2019-12-26	9	8	2	183.52	367.04	0.00	367.04	\N
+4502	2019-12-27	346	10	2	27.28	54.56	0.00	54.56	\N
+4503	2019-12-29	314	6	2	376.74	753.48	0.00	753.48	\N
+4504	2019-12-29	476	3	2	718.15	1436.30	0.00	1436.30	\N
+4505	2019-12-30	33	9	1	131.65	131.65	0.00	131.65	\N
+4506	2019-12-30	181	2	1	446.48	446.48	0.00	446.48	\N
+4507	2019-12-30	193	6	1	360.56	360.56	0.00	360.56	\N
+4508	2019-12-31	96	7	1	294.03	294.03	14.70	279.33	\N
+4509	2019-12-31	221	10	1	29.82	29.82	0.00	29.82	\N
+4510	2020-01-03	464	1	1	199.13	199.13	39.83	159.30	\N
+4511	2020-01-03	301	1	1	208.25	208.25	20.83	187.42	\N
+4512	2020-01-04	175	5	1	229.70	229.70	0.00	229.70	\N
+4513	2020-01-05	236	1	2	196.47	392.94	19.65	373.29	\N
+4514	2020-01-06	445	6	2	336.60	673.20	235.62	437.58	\N
+4515	2020-01-06	298	5	2	233.41	466.82	0.00	466.82	\N
+4516	2020-01-07	278	3	1	723.72	723.72	72.37	651.35	\N
+4517	2020-01-09	251	6	1	315.51	315.51	0.00	315.51	\N
+4518	2020-01-09	360	2	1	415.62	415.62	0.00	415.62	\N
+4519	2020-01-10	67	6	2	344.16	688.32	172.08	516.24	\N
+4520	2020-01-11	292	2	1	432.80	432.80	108.20	324.60	\N
+4521	2020-01-11	67	4	1	149.02	149.02	52.16	96.86	\N
+4522	2020-01-12	96	10	2	27.33	54.66	2.73	51.93	\N
+4523	2020-01-14	73	1	2	205.72	411.44	82.29	329.15	\N
+4524	2020-01-14	186	10	2	30.56	61.12	15.28	45.84	\N
+4525	2020-01-16	248	8	1	175.76	175.76	43.94	131.82	\N
+4526	2020-01-17	434	10	1	28.04	28.04	5.61	22.43	\N
+4527	2020-01-19	551	7	1	275.60	275.60	27.56	248.04	\N
+4528	2020-01-20	555	4	1	153.26	153.26	38.31	114.95	\N
+4529	2020-01-20	313	3	1	669.26	669.26	33.46	635.80	\N
+4530	2020-01-21	388	7	2	310.40	620.80	62.08	558.72	\N
+4531	2020-01-24	196	4	1	159.18	159.18	0.00	159.18	\N
+4532	2020-01-25	236	4	1	142.72	142.72	14.27	128.45	\N
+4533	2020-01-25	540	7	1	296.17	296.17	0.00	296.17	\N
+4534	2020-01-26	520	7	1	316.56	316.56	79.14	237.42	\N
+4535	2020-01-26	576	3	1	683.72	683.72	68.37	615.35	\N
+4536	2020-01-26	352	1	2	197.99	395.98	39.60	356.38	\N
+4537	2020-01-27	356	3	2	766.37	1532.74	0.00	1532.74	\N
+4538	2020-01-28	536	10	1	32.93	32.93	0.00	32.93	\N
+4539	2020-01-28	492	1	2	189.95	379.90	94.97	284.93	\N
+4540	2020-01-28	433	5	1	241.34	241.34	24.13	217.21	\N
+4541	2020-01-29	482	7	2	289.69	579.38	57.94	521.44	\N
+4542	2020-01-31	536	4	1	135.14	135.14	0.00	135.14	\N
+4543	2020-02-01	349	5	2	231.82	463.64	0.00	463.64	\N
+4544	2020-02-02	282	5	1	261.98	261.98	0.00	261.98	\N
+4545	2020-02-05	387	9	2	131.11	262.22	65.56	196.66	\N
+4546	2020-02-05	594	5	1	247.85	247.85	24.79	223.06	\N
+4547	2020-02-06	23	7	1	305.05	305.05	61.01	244.04	\N
+4548	2020-02-07	85	2	1	407.37	407.37	0.00	407.37	\N
+4549	2020-02-12	267	8	2	165.69	331.38	66.28	265.10	\N
+4550	2020-02-16	334	1	2	206.10	412.20	103.05	309.15	\N
+4551	2020-02-17	21	2	2	439.59	879.18	0.00	879.18	\N
+4552	2020-02-18	186	4	2	143.52	287.04	57.41	229.63	\N
+4553	2020-02-21	446	10	2	30.10	60.20	12.04	48.16	\N
+4554	2020-02-21	18	6	1	369.71	369.71	92.43	277.28	\N
+4555	2020-02-22	235	8	2	174.35	348.70	87.17	261.53	\N
+4556	2020-02-22	271	3	2	741.36	1482.72	296.54	1186.18	\N
+4557	2020-02-23	550	10	1	28.01	28.01	7.00	21.01	\N
+4558	2020-02-23	134	6	2	318.90	637.80	0.00	637.80	\N
+4559	2020-02-24	552	6	1	375.99	375.99	0.00	375.99	\N
+4560	2020-02-24	177	7	2	322.47	644.94	64.49	580.45	\N
+4561	2020-02-25	256	9	1	123.52	123.52	0.00	123.52	\N
+4562	2020-02-26	417	9	2	128.84	257.68	25.77	231.91	\N
+4563	2020-02-26	227	1	2	208.80	417.60	41.76	375.84	\N
+4564	2020-02-26	145	8	2	181.77	363.54	90.89	272.65	\N
+4565	2020-02-29	2	5	2	257.14	514.28	0.00	514.28	\N
+4566	2020-03-01	502	8	2	174.61	349.22	87.31	261.91	\N
+4567	2020-03-02	397	6	2	344.05	688.10	68.81	619.29	\N
+4568	2020-03-03	221	5	1	240.20	240.20	60.05	180.15	\N
+4569	2020-03-04	413	9	2	126.74	253.48	63.37	190.11	\N
+4570	2020-03-05	239	2	1	453.35	453.35	22.67	430.68	\N
+4571	2020-03-10	380	8	2	186.47	372.94	93.23	279.71	\N
+4572	2020-03-11	49	8	1	193.78	193.78	0.00	193.78	\N
+4573	2020-03-11	309	5	2	268.32	536.64	160.99	375.65	\N
+4574	2020-03-12	140	7	2	284.70	569.40	142.35	427.05	\N
+4575	2020-03-13	43	9	1	122.74	122.74	0.00	122.74	\N
+4576	2020-03-14	501	8	2	171.54	343.08	68.62	274.46	\N
+4577	2020-03-16	294	4	2	163.23	326.46	0.00	326.46	\N
+4578	2020-03-16	142	10	1	29.12	29.12	7.28	21.84	\N
+4579	2020-03-20	260	1	1	218.49	218.49	0.00	218.49	\N
+4580	2020-03-21	477	7	1	303.45	303.45	60.69	242.76	\N
+4581	2020-03-23	24	8	2	177.17	354.34	70.87	283.47	\N
+4582	2020-03-24	360	4	1	143.94	143.94	28.79	115.15	\N
+4583	2020-03-25	213	1	1	204.88	204.88	20.49	184.39	\N
+4584	2020-03-25	48	10	2	32.11	64.22	0.00	64.22	\N
+4585	2020-03-26	382	7	2	291.42	582.84	0.00	582.84	\N
+4586	2020-03-28	298	5	2	242.17	484.34	0.00	484.34	\N
+4587	2020-03-28	342	7	2	291.93	583.86	58.39	525.47	\N
+4588	2020-03-31	134	7	2	295.79	591.58	147.90	443.68	\N
+4589	2020-04-01	14	1	2	190.41	380.82	114.24	266.58	4
+4590	2020-04-01	252	5	1	254.25	254.25	0.00	254.25	\N
+4591	2020-04-02	81	10	1	31.14	31.14	0.00	31.14	\N
+4592	2020-04-02	322	2	1	412.81	412.81	82.56	330.25	\N
+4593	2020-04-02	459	5	2	245.09	490.18	122.55	367.63	\N
+4594	2020-04-04	96	9	2	123.43	246.86	0.00	246.86	\N
+4595	2020-04-04	288	8	2	188.39	376.78	94.19	282.59	\N
+4596	2020-04-05	393	9	2	129.25	258.50	25.85	232.65	\N
+4597	2020-04-06	378	7	2	290.59	581.18	0.00	581.18	\N
+4598	2020-04-07	70	5	2	260.92	521.84	26.09	495.75	4
+4599	2020-04-08	185	10	2	31.23	62.46	15.61	46.85	4
+4600	2020-04-09	493	4	2	153.69	307.38	61.48	245.90	4
+4601	2020-04-10	222	2	2	452.87	905.74	181.15	724.59	\N
+4602	2020-04-11	250	4	2	151.55	303.10	0.00	303.10	\N
+4603	2020-04-11	513	6	1	326.74	326.74	81.69	245.05	4
+4604	2020-04-13	336	10	1	28.57	28.57	8.57	20.00	4
+4605	2020-04-13	232	9	1	119.54	119.54	23.91	95.63	\N
+4606	2020-04-14	417	7	1	288.61	288.61	14.43	274.18	4
+4607	2020-04-14	209	2	2	492.24	984.48	98.44	886.04	4
+4608	2020-04-15	364	9	2	116.97	233.94	46.79	187.15	\N
+4609	2020-04-17	81	6	1	329.70	329.70	0.00	329.70	\N
+4610	2020-04-17	172	2	2	449.01	898.02	0.00	898.02	\N
+4611	2020-04-17	60	10	1	30.14	30.14	0.00	30.14	\N
+4612	2020-04-18	175	9	1	131.50	131.50	32.88	98.62	\N
+4613	2020-04-19	114	7	2	297.64	595.28	29.76	565.52	\N
+4614	2020-04-20	100	10	2	28.32	56.64	2.83	53.81	4
+4615	2020-04-20	43	1	1	219.71	219.71	21.97	197.74	\N
+4616	2020-04-21	194	5	2	231.36	462.72	23.14	439.58	4
+4617	2020-04-22	161	2	2	467.02	934.04	0.00	934.04	\N
+4618	2020-04-22	248	1	1	213.62	213.62	10.68	202.94	\N
+4619	2020-04-23	159	8	1	194.57	194.57	19.46	175.11	\N
+4620	2020-04-24	202	4	2	137.52	275.04	13.75	261.29	4
+4621	2020-04-24	56	2	1	433.87	433.87	65.08	368.79	4
+4622	2020-04-26	461	8	1	181.18	181.18	9.06	172.12	\N
+4623	2020-04-26	418	6	2	357.97	715.94	143.19	572.75	\N
+4624	2020-04-27	443	4	2	157.48	314.96	78.74	236.22	\N
+4625	2020-04-28	101	3	1	686.93	686.93	34.35	652.58	4
+4626	2020-04-29	157	1	2	196.68	393.36	0.00	393.36	\N
+4627	2020-04-29	106	1	2	196.77	393.54	98.39	295.15	\N
+4628	2020-05-01	390	10	2	27.56	55.12	13.78	41.34	\N
+4629	2020-05-03	164	5	1	231.70	231.70	11.59	220.11	4
+4630	2020-05-03	516	3	1	651.27	651.27	130.25	521.02	\N
+4631	2020-05-03	175	7	1	320.14	320.14	16.01	304.13	4
+4632	2020-05-05	542	4	2	153.94	307.88	107.75	200.13	4
+4633	2020-05-05	583	4	1	139.17	139.17	0.00	139.17	\N
+4634	2020-05-08	361	8	2	166.66	333.32	83.33	249.99	\N
+4635	2020-05-09	162	3	2	634.27	1268.54	0.00	1268.54	\N
+4636	2020-05-09	274	9	2	116.15	232.30	34.85	197.45	4
+4637	2020-05-10	475	2	2	418.03	836.06	167.21	668.85	\N
+4638	2020-05-10	46	6	2	362.38	724.76	0.00	724.76	\N
+4639	2020-05-10	151	9	1	117.59	117.59	11.76	105.83	4
+4640	2020-05-12	187	5	1	225.64	225.64	0.00	225.64	\N
+4641	2020-05-12	270	8	1	196.37	196.37	58.91	137.46	4
+4642	2020-05-12	594	1	1	190.29	190.29	47.57	142.72	\N
+4643	2020-05-13	339	7	1	293.53	293.53	14.68	278.85	4
+4644	2020-05-13	399	6	2	358.89	717.78	71.78	646.00	\N
+4645	2020-05-14	544	9	1	130.24	130.24	26.05	104.19	\N
+4646	2020-05-15	244	2	1	423.54	423.54	21.18	402.36	\N
+4647	2020-05-18	142	10	2	27.14	54.28	5.43	48.85	\N
+4648	2020-05-18	570	7	2	270.55	541.10	135.28	405.82	\N
+4649	2020-05-19	82	10	1	30.69	30.69	4.60	26.09	4
+4650	2020-05-19	263	9	2	122.08	244.16	12.21	231.95	4
+4651	2020-05-20	173	10	2	28.74	57.48	17.24	40.24	4
+4652	2020-05-21	577	1	1	218.28	218.28	54.57	163.71	\N
+4653	2020-05-22	96	7	2	298.45	596.90	29.84	567.06	4
+4654	2020-05-22	227	3	1	722.05	722.05	108.30	613.75	4
+4655	2020-05-24	523	9	1	117.70	117.70	0.00	117.70	\N
+4656	2020-05-25	340	7	2	311.33	622.66	62.27	560.39	\N
+4657	2020-05-25	548	3	1	752.17	752.17	75.22	676.95	\N
+4658	2020-05-28	114	9	1	113.24	113.24	22.65	90.59	\N
+4659	2020-05-29	306	7	1	299.10	299.10	59.82	239.28	\N
+4660	2020-05-30	409	5	2	241.20	482.40	24.12	458.28	4
+4661	2020-05-30	288	10	2	28.95	57.90	2.90	55.00	4
+4662	2020-05-31	366	4	2	137.43	274.86	54.97	219.89	\N
+4663	2020-06-01	163	9	2	124.80	249.60	62.40	187.20	\N
+4664	2020-06-04	90	2	2	468.52	937.04	234.26	702.78	\N
+4665	2020-06-04	161	7	2	296.63	593.26	0.00	593.26	\N
+4666	2020-06-06	505	7	1	285.43	285.43	71.36	214.07	\N
+4667	2020-06-06	74	6	2	369.51	739.02	73.90	665.12	\N
+4668	2020-06-07	438	4	1	163.06	163.06	24.46	138.60	4
+4669	2020-06-08	517	3	1	638.54	638.54	95.78	542.76	4
+4670	2020-06-08	336	10	2	29.85	59.70	8.96	50.74	4
+4671	2020-06-08	537	5	1	262.97	262.97	0.00	262.97	\N
+4672	2020-06-09	172	8	1	175.74	175.74	0.00	175.74	\N
+4673	2020-06-09	261	7	1	309.29	309.29	30.93	278.36	\N
+4674	2020-06-10	35	5	2	225.41	450.82	112.70	338.12	4
+4675	2020-06-11	342	4	1	148.16	148.16	37.04	111.12	\N
+4676	2020-06-11	498	2	1	488.57	488.57	122.14	366.43	4
+4677	2020-06-11	251	10	2	27.93	55.86	13.96	41.90	\N
+4678	2020-06-12	274	7	1	307.98	307.98	61.60	246.38	\N
+4679	2020-06-13	405	5	1	256.20	256.20	64.05	192.15	\N
+4680	2020-06-14	358	7	1	296.67	296.67	0.00	296.67	\N
+4681	2020-06-14	374	1	1	186.83	186.83	37.37	149.46	\N
+4682	2020-06-15	223	9	2	113.90	227.80	45.56	182.24	\N
+4683	2020-06-17	563	3	1	642.51	642.51	96.38	546.13	4
+4684	2020-06-18	380	7	2	298.66	597.32	29.87	567.45	4
+4685	2020-06-18	457	9	2	122.63	245.26	0.00	245.26	\N
+4686	2020-06-20	85	10	2	31.18	62.36	3.12	59.24	4
+4687	2020-06-20	495	6	1	340.92	340.92	102.28	238.64	4
+4688	2020-06-20	315	10	1	31.68	31.68	11.09	20.59	\N
+4689	2020-06-21	183	9	2	126.22	252.44	0.00	252.44	\N
+4690	2020-06-22	585	8	2	171.80	343.60	85.90	257.70	4
+4691	2020-06-23	38	8	1	162.67	162.67	40.67	122.00	\N
+4692	2020-06-24	216	5	1	236.13	236.13	0.00	236.13	\N
+4693	2020-06-24	105	6	2	375.19	750.38	37.52	712.86	\N
+4694	2020-06-24	597	5	2	263.38	526.76	52.68	474.08	\N
+4695	2020-06-26	247	5	2	268.26	536.52	107.30	429.22	\N
+4696	2020-06-27	53	1	2	184.39	368.78	0.00	368.78	\N
+4697	2020-06-28	235	5	2	255.73	511.46	179.01	332.45	\N
+4698	2020-06-28	496	3	2	654.21	1308.42	0.00	1308.42	\N
+4699	2020-06-30	411	5	2	230.19	460.38	115.09	345.29	\N
+4700	2020-06-30	317	2	2	440.42	880.84	264.25	616.59	4
+4701	2020-06-30	322	3	1	663.29	663.29	165.82	497.47	4
+4702	2020-07-01	19	10	2	31.71	63.42	0.00	63.42	\N
+4703	2020-07-01	500	6	2	379.96	759.92	189.98	569.94	4
+4704	2020-07-01	544	5	2	256.40	512.80	76.92	435.88	4
+4705	2020-07-02	310	8	1	162.07	162.07	16.21	145.86	\N
+4706	2020-07-03	456	2	1	427.90	427.90	0.00	427.90	\N
+4707	2020-07-04	252	5	2	231.22	462.44	92.49	369.95	\N
+4708	2020-07-04	531	4	1	149.98	149.98	44.99	104.99	4
+4709	2020-07-05	473	1	2	187.64	375.28	18.76	356.52	\N
+4710	2020-07-06	32	1	1	210.32	210.32	21.03	189.29	\N
+4711	2020-07-09	277	10	1	27.20	27.20	1.36	25.84	4
+4712	2020-07-10	542	6	1	336.97	336.97	117.94	219.03	\N
+4713	2020-07-11	243	9	1	126.50	126.50	0.00	126.50	\N
+4714	2020-07-11	256	6	2	384.88	769.76	38.49	731.27	4
+4715	2020-07-12	365	9	2	122.26	244.52	36.68	207.84	4
+4716	2020-07-13	552	4	2	143.10	286.20	42.93	243.27	4
+4717	2020-07-13	110	4	2	153.36	306.72	61.34	245.38	\N
+4718	2020-07-14	318	3	2	698.95	1397.90	349.48	1048.42	\N
+4719	2020-07-14	231	6	2	348.58	697.16	0.00	697.16	\N
+4720	2020-07-14	65	5	1	251.01	251.01	62.75	188.26	\N
+4721	2020-07-16	12	1	2	216.57	433.14	21.66	411.48	4
+4722	2020-07-17	448	6	1	354.25	354.25	35.43	318.82	\N
+4723	2020-07-17	351	3	1	762.80	762.80	0.00	762.80	\N
+4724	2020-07-19	271	2	2	417.73	835.46	41.77	793.69	4
+4725	2020-07-19	598	2	1	412.96	412.96	41.30	371.66	\N
+4726	2020-07-20	171	2	1	428.75	428.75	21.44	407.31	4
+4727	2020-07-20	387	2	2	488.09	976.18	0.00	976.18	\N
+4728	2020-07-21	151	6	1	371.70	371.70	0.00	371.70	\N
+4729	2020-07-22	327	8	1	196.70	196.70	0.00	196.70	\N
+4730	2020-07-23	220	3	1	682.47	682.47	0.00	682.47	\N
+4731	2020-07-23	113	9	2	110.34	220.68	0.00	220.68	\N
+4732	2020-07-23	351	2	1	424.24	424.24	21.21	403.03	\N
+4733	2020-07-23	148	1	1	188.24	188.24	9.41	178.83	4
+4734	2020-07-24	222	8	2	192.15	384.30	0.00	384.30	\N
+4735	2020-07-24	550	5	2	268.10	536.20	0.00	536.20	\N
+4736	2020-07-25	170	1	2	217.84	435.68	130.70	304.98	4
+4737	2020-07-25	274	1	1	215.98	215.98	53.99	161.99	\N
+4738	2020-07-26	12	4	2	135.05	270.10	54.02	216.08	\N
+4739	2020-07-28	495	1	1	209.29	209.29	41.86	167.43	\N
+4740	2020-07-28	112	9	2	113.69	227.38	34.11	193.27	4
+4741	2020-07-28	495	7	1	309.25	309.25	46.39	262.86	4
+4742	2020-07-30	97	8	2	167.30	334.60	100.38	234.22	4
+4743	2020-07-30	51	5	2	230.15	460.30	138.10	322.20	4
+4744	2020-07-31	166	7	1	320.70	320.70	16.04	304.66	4
+4745	2020-07-31	440	8	2	172.75	345.50	34.56	310.94	4
+4746	2020-08-04	237	10	2	31.09	62.18	12.44	49.74	\N
+4747	2020-08-05	579	8	2	185.23	370.46	37.05	333.41	\N
+4748	2020-08-06	118	10	1	29.70	29.70	10.39	19.31	\N
+4749	2020-08-11	103	4	1	146.91	146.91	0.00	146.91	\N
+4750	2020-08-12	12	8	1	171.98	171.98	43.00	128.98	4
+4751	2020-08-12	255	7	1	313.72	313.72	15.69	298.03	4
+4752	2020-08-13	4	3	1	654.39	654.39	196.32	458.07	4
+4753	2020-08-14	523	8	2	175.21	350.42	70.08	280.34	4
+4754	2020-08-16	377	9	2	113.54	227.08	0.00	227.08	\N
+4755	2020-08-17	85	1	1	196.33	196.33	39.27	157.06	\N
+4756	2020-08-18	347	5	2	243.87	487.74	146.33	341.41	4
+4757	2020-08-18	167	2	2	432.38	864.76	43.24	821.52	4
+4758	2020-08-18	557	4	1	140.68	140.68	0.00	140.68	\N
+4759	2020-08-19	597	8	2	182.39	364.78	36.48	328.30	\N
+4760	2020-08-20	465	2	2	449.35	898.70	224.68	674.02	4
+4761	2020-08-21	354	7	2	300.02	600.04	30.00	570.04	4
+4762	2020-08-21	133	5	2	270.50	541.00	27.05	513.95	\N
+4763	2020-08-22	260	9	2	127.42	254.84	0.00	254.84	\N
+4764	2020-08-22	214	4	1	148.45	148.45	14.84	133.61	\N
+4765	2020-08-23	414	8	1	178.73	178.73	8.94	169.79	4
+4766	2020-08-23	287	4	2	144.30	288.60	0.00	288.60	\N
+4767	2020-08-24	466	4	1	160.28	160.28	8.01	152.27	4
+4768	2020-08-25	234	4	1	140.31	140.31	0.00	140.31	\N
+4769	2020-08-25	463	6	1	378.87	378.87	18.94	359.93	4
+4770	2020-08-27	349	2	2	475.15	950.30	190.06	760.24	\N
+4771	2020-08-27	311	8	1	188.11	188.11	18.81	169.30	\N
+4772	2020-08-29	397	1	1	214.26	214.26	10.71	203.55	\N
+4773	2020-08-29	598	6	2	372.23	744.46	0.00	744.46	\N
+4774	2020-08-30	121	2	1	414.68	414.68	124.40	290.28	4
+4775	2020-08-31	461	6	2	335.30	670.60	0.00	670.60	\N
+4776	2020-09-03	525	10	2	31.74	63.48	15.87	47.61	4
+4777	2020-09-05	520	6	1	333.79	333.79	16.69	317.10	\N
+4778	2020-09-05	520	5	2	272.83	545.66	136.41	409.25	4
+4779	2020-09-06	445	7	2	313.41	626.82	94.02	532.80	4
+4780	2020-09-06	532	3	1	760.41	760.41	0.00	760.41	\N
+4781	2020-09-07	454	8	1	194.05	194.05	38.81	155.24	\N
+4782	2020-09-08	211	10	1	30.39	30.39	1.52	28.87	\N
+4783	2020-09-08	189	8	1	164.51	164.51	16.45	148.06	\N
+4784	2020-09-09	367	2	2	416.70	833.40	41.67	791.73	\N
+4785	2020-09-10	172	5	1	235.09	235.09	70.52	164.57	4
+4786	2020-09-11	147	4	2	153.50	307.00	15.35	291.65	4
+4787	2020-09-12	411	1	1	213.38	213.38	0.00	213.38	\N
+4788	2020-09-13	265	4	1	155.40	155.40	46.62	108.78	4
+4789	2020-09-15	350	8	2	181.36	362.72	54.41	308.31	4
+4790	2020-09-16	518	6	2	331.97	663.94	66.39	597.55	\N
+4791	2020-09-17	272	5	1	251.55	251.55	0.00	251.55	\N
+4792	2020-09-17	349	4	2	138.20	276.40	0.00	276.40	\N
+4793	2020-09-18	533	1	2	190.24	380.48	76.10	304.38	\N
+4794	2020-09-19	7	6	2	332.33	664.66	166.16	498.50	4
+4795	2020-09-19	31	8	2	182.06	364.12	0.00	364.12	\N
+4796	2020-09-20	458	9	2	117.53	235.06	23.50	211.56	4
+4797	2020-09-20	256	2	2	487.53	975.06	97.51	877.55	\N
+4798	2020-09-20	334	9	1	117.63	117.63	11.76	105.87	\N
+4799	2020-09-20	135	9	2	127.47	254.94	12.75	242.19	4
+4800	2020-09-20	532	8	2	169.31	338.62	16.93	321.69	\N
+4801	2020-09-21	582	6	1	370.80	370.80	37.08	333.72	\N
+4802	2020-09-21	402	5	2	240.02	480.04	72.01	408.03	\N
+4803	2020-09-22	519	1	2	198.84	397.68	59.65	338.03	4
+4804	2020-09-22	500	5	1	241.92	241.92	36.29	205.63	\N
+4805	2020-09-22	4	2	1	470.08	470.08	117.52	352.56	4
+4806	2020-09-22	408	5	1	251.49	251.49	0.00	251.49	\N
+4807	2020-09-22	57	5	1	245.29	245.29	49.06	196.23	\N
+4808	2020-09-23	101	6	2	326.98	653.96	32.70	621.26	4
+4809	2020-09-26	175	1	1	189.19	189.19	28.38	160.81	4
+4810	2020-09-27	556	4	2	141.05	282.10	0.00	282.10	\N
+4811	2020-09-28	146	4	2	155.66	311.32	93.40	217.92	4
+4812	2020-09-29	51	2	2	482.80	965.60	289.68	675.92	\N
+4813	2020-09-29	78	5	1	262.08	262.08	13.10	248.98	4
+4814	2020-09-30	472	1	1	183.83	183.83	18.38	165.45	\N
+4815	2020-10-01	495	3	1	633.88	633.88	95.08	538.80	4
+4816	2020-10-01	576	3	2	706.96	1413.92	70.70	1343.22	\N
+4817	2020-10-02	579	8	2	192.30	384.60	0.00	384.60	\N
+4818	2020-10-02	489	10	2	29.04	58.08	5.81	52.27	\N
+4819	2020-10-03	381	6	1	371.74	371.74	37.17	334.57	\N
+4820	2020-10-03	86	5	2	255.08	510.16	0.00	510.16	\N
+4821	2020-10-03	471	5	1	259.80	259.80	64.95	194.85	4
+4822	2020-10-04	479	4	2	152.48	304.96	45.75	259.21	4
+4823	2020-10-04	559	4	2	155.79	311.58	77.89	233.69	\N
+4824	2020-10-05	482	8	2	170.48	340.96	0.00	340.96	\N
+4825	2020-10-06	492	3	1	753.46	753.46	113.02	640.44	4
+4826	2020-10-06	351	5	1	256.13	256.13	89.65	166.48	4
+4827	2020-10-06	113	6	2	378.28	756.56	37.83	718.73	4
+4828	2020-10-07	531	1	1	213.40	213.40	0.00	213.40	\N
+4829	2020-10-07	232	5	2	271.40	542.80	27.14	515.66	4
+4830	2020-10-08	483	10	1	32.18	32.18	0.00	32.18	\N
+4831	2020-10-11	582	5	2	225.47	450.94	135.28	315.66	4
+4832	2020-10-11	426	3	2	670.32	1340.64	268.13	1072.51	\N
+4833	2020-10-12	142	3	2	681.24	1362.48	68.12	1294.36	4
+4834	2020-10-12	237	1	2	203.82	407.64	81.53	326.11	\N
+4835	2020-10-12	61	2	2	466.09	932.18	139.83	792.35	\N
+4836	2020-10-14	189	3	2	685.44	1370.88	0.00	1370.88	\N
+4837	2020-10-14	337	7	2	304.29	608.58	0.00	608.58	\N
+4838	2020-10-15	535	5	2	231.29	462.58	0.00	462.58	\N
+4839	2020-10-15	541	5	1	247.42	247.42	24.74	222.68	\N
+4840	2020-10-16	331	10	1	29.50	29.50	7.38	22.12	\N
+4841	2020-10-16	85	6	2	332.44	664.88	33.24	631.64	4
+4842	2020-10-17	168	5	1	248.25	248.25	12.41	235.84	4
+4843	2020-10-19	208	3	1	714.72	714.72	71.47	643.25	\N
+4844	2020-10-20	443	5	1	267.12	267.12	80.14	186.98	4
+4845	2020-10-21	516	8	2	170.98	341.96	17.10	324.86	4
+4846	2020-10-22	54	5	2	233.80	467.60	93.52	374.08	\N
+4847	2020-10-23	63	7	1	296.57	296.57	74.14	222.43	4
+4848	2020-10-24	202	5	2	272.80	545.60	27.28	518.32	4
+4849	2020-10-26	328	4	2	157.18	314.36	0.00	314.36	\N
+4850	2020-10-27	356	3	1	701.87	701.87	0.00	701.87	\N
+4851	2020-10-28	255	9	2	110.37	220.74	33.11	187.63	4
+4852	2020-10-31	349	4	1	153.87	153.87	7.69	146.18	4
+4853	2020-11-01	236	7	1	288.61	288.61	28.86	259.75	\N
+4854	2020-11-04	23	10	2	30.23	60.46	18.14	42.32	4
+4855	2020-11-04	46	6	2	379.11	758.22	113.73	644.49	4
+4856	2020-11-06	99	1	2	199.50	399.00	79.80	319.20	\N
+4857	2020-11-07	56	10	2	32.74	65.48	22.91	42.57	4
+4858	2020-11-07	307	6	1	342.53	342.53	102.76	239.77	4
+4859	2020-11-08	382	2	2	416.84	833.68	83.37	750.31	\N
+4860	2020-11-09	78	10	1	27.55	27.55	8.27	19.28	4
+4861	2020-11-10	22	6	1	365.08	365.08	91.27	273.81	\N
+4862	2020-11-11	71	10	2	31.28	62.56	12.51	50.05	\N
+4863	2020-11-11	322	6	1	349.73	349.73	87.44	262.29	4
+4864	2020-11-12	528	3	2	767.29	1534.58	153.46	1381.12	\N
+4865	2020-11-13	421	3	2	748.35	1496.70	374.18	1122.52	\N
+4866	2020-11-14	443	4	2	144.48	288.96	28.90	260.06	\N
+4867	2020-11-15	321	1	1	191.57	191.57	57.47	134.10	4
+4868	2020-11-16	368	7	2	305.74	611.48	61.15	550.33	\N
+4869	2020-11-17	433	1	2	216.52	433.04	0.00	433.04	\N
+4870	2020-11-18	112	1	2	183.15	366.30	73.26	293.04	\N
+4871	2020-11-19	222	10	1	27.89	27.89	0.00	27.89	\N
+4872	2020-11-20	551	10	1	28.24	28.24	7.06	21.18	4
+4873	2020-11-21	249	9	1	120.55	120.55	30.14	90.41	\N
+4874	2020-11-22	361	2	2	452.47	904.94	0.00	904.94	\N
+4875	2020-11-23	47	6	2	358.94	717.88	0.00	717.88	\N
+4876	2020-11-23	571	9	1	126.21	126.21	18.93	107.28	4
+4877	2020-11-23	160	8	2	167.64	335.28	100.58	234.70	4
+4878	2020-11-23	298	8	2	167.56	335.12	50.27	284.85	4
+4879	2020-11-23	478	9	2	113.36	226.72	0.00	226.72	\N
+4880	2020-11-25	228	1	1	210.75	210.75	0.00	210.75	\N
+4881	2020-11-26	599	10	1	29.23	29.23	1.46	27.77	4
+4882	2020-11-26	562	4	2	147.35	294.70	0.00	294.70	\N
+4883	2020-11-28	578	1	1	217.75	217.75	54.44	163.31	\N
+4884	2020-11-29	71	9	1	116.10	116.10	29.02	87.08	4
+4885	2020-12-03	47	6	2	361.82	723.64	36.18	687.46	4
+4886	2020-12-04	311	4	2	162.78	325.56	32.56	293.00	\N
+4887	2020-12-05	215	10	2	32.59	65.18	13.04	52.14	\N
+4888	2020-12-05	220	4	1	158.12	158.12	7.91	150.21	4
+4889	2020-12-06	205	2	1	439.07	439.07	0.00	439.07	\N
+4890	2020-12-08	165	7	2	276.46	552.92	138.23	414.69	4
+4891	2020-12-08	106	3	2	666.77	1333.54	333.39	1000.15	4
+4892	2020-12-08	329	1	1	206.33	206.33	0.00	206.33	\N
+4893	2020-12-08	520	1	2	206.63	413.26	20.66	392.60	4
+4894	2020-12-09	508	7	1	307.87	307.87	92.36	215.51	4
+4895	2020-12-10	100	7	1	282.87	282.87	70.71	212.16	4
+4896	2020-12-11	61	1	2	181.20	362.40	36.24	326.16	\N
+4897	2020-12-12	232	1	2	199.67	399.34	0.00	399.34	\N
+4898	2020-12-12	582	10	2	32.77	65.54	16.39	49.15	4
+4899	2020-12-13	525	10	1	29.98	29.98	3.00	26.98	\N
+4900	2020-12-14	161	3	2	677.16	1354.32	338.58	1015.74	4
+4901	2020-12-15	170	3	1	664.97	664.97	199.49	465.48	\N
+4902	2020-12-15	463	2	1	421.60	421.60	84.32	337.28	\N
+4903	2020-12-16	269	2	2	488.07	976.14	97.62	878.52	4
+4904	2020-12-21	423	7	2	295.88	591.76	0.00	591.76	\N
+4905	2020-12-21	223	10	1	27.76	27.76	1.39	26.37	4
+4906	2020-12-24	35	10	2	30.34	60.68	3.03	57.65	4
+4907	2020-12-25	486	7	1	306.69	306.69	0.00	306.69	\N
+4908	2020-12-26	289	5	2	240.15	480.30	72.05	408.25	4
+4909	2020-12-27	569	3	1	665.15	665.15	0.00	665.15	\N
+4910	2020-12-28	251	8	2	170.45	340.90	85.22	255.68	\N
+4911	2020-12-29	113	9	2	108.76	217.52	54.38	163.14	\N
+4912	2020-12-29	125	5	2	264.40	528.80	0.00	528.80	\N
+4913	2020-12-30	7	7	1	275.12	275.12	27.51	247.61	\N
+4914	2020-12-30	128	2	2	478.31	956.62	0.00	956.62	\N
+4915	2020-12-30	388	10	1	27.86	27.86	5.57	22.29	\N
+4916	2020-12-31	217	5	2	228.17	456.34	136.90	319.44	4
+4917	2020-12-31	72	9	2	110.49	220.98	0.00	220.98	\N
+4918	2021-01-01	107	5	1	225.49	225.49	0.00	225.49	\N
+4919	2021-01-01	238	3	1	674.08	674.08	67.40	606.68	4
+4920	2021-01-03	462	1	2	200.09	400.18	0.00	400.18	\N
+4921	2021-01-04	282	1	2	212.27	424.54	0.00	424.54	\N
+4922	2021-01-04	304	9	1	119.01	119.01	5.95	113.06	4
+4923	2021-01-05	108	5	2	265.47	530.94	0.00	530.94	\N
+4924	2021-01-06	279	6	1	348.17	348.17	17.41	330.76	4
+4925	2021-01-07	336	8	2	183.59	367.18	0.00	367.18	\N
+4926	2021-01-07	275	1	2	188.90	377.80	0.00	377.80	\N
+4927	2021-01-08	272	5	2	255.91	511.82	0.00	511.82	\N
+4928	2021-01-08	538	8	2	162.13	324.26	16.21	308.05	4
+4929	2021-01-09	110	4	2	146.80	293.60	0.00	293.60	\N
+4930	2021-01-09	92	3	2	744.21	1488.42	74.42	1414.00	4
+4931	2021-01-10	5	7	2	271.02	542.04	81.30	460.74	4
+4932	2021-01-11	67	9	2	109.09	218.18	0.00	218.18	\N
+4933	2021-01-12	248	2	2	466.69	933.38	46.67	886.71	\N
+4934	2021-01-13	416	6	1	335.67	335.67	16.78	318.89	4
+4935	2021-01-14	232	7	2	272.25	544.50	27.23	517.27	4
+4936	2021-01-14	288	8	2	172.46	344.92	0.00	344.92	\N
+4937	2021-01-15	308	9	2	117.09	234.18	0.00	234.18	\N
+4938	2021-01-16	532	10	2	28.63	57.26	2.86	54.40	4
+4939	2021-01-16	13	4	1	147.16	147.16	7.36	139.80	\N
+4940	2021-01-16	467	8	2	162.14	324.28	32.43	291.85	\N
+4941	2021-01-16	228	8	1	173.28	173.28	0.00	173.28	\N
+4942	2021-01-17	207	1	1	197.77	197.77	9.89	187.88	\N
+4943	2021-01-18	588	7	1	319.93	319.93	16.00	303.93	4
+4944	2021-01-18	25	3	1	759.07	759.07	37.95	721.12	4
+4945	2021-01-19	366	6	1	374.44	374.44	18.72	355.72	4
+4946	2021-01-19	238	4	2	154.97	309.94	0.00	309.94	\N
+4947	2021-01-21	417	6	1	341.18	341.18	17.06	324.12	\N
+4948	2021-01-22	28	4	2	156.81	313.62	0.00	313.62	\N
+4949	2021-01-22	57	5	1	255.86	255.86	0.00	255.86	\N
+4950	2021-01-22	394	7	2	328.80	657.60	32.88	624.72	4
+4951	2021-01-24	115	10	2	29.87	59.74	2.99	56.75	4
+4952	2021-01-24	466	4	1	163.85	163.85	0.00	163.85	\N
+4953	2021-01-25	159	5	1	250.33	250.33	12.52	237.81	4
+4954	2021-01-25	201	9	1	127.74	127.74	6.39	121.35	4
+4955	2021-01-25	338	4	1	160.07	160.07	16.01	144.06	\N
+4956	2021-01-26	398	9	1	118.88	118.88	5.94	112.94	\N
+4957	2021-01-26	248	5	1	253.83	253.83	0.00	253.83	\N
+4958	2021-01-26	494	10	2	29.34	58.68	0.00	58.68	\N
+4959	2021-01-27	375	6	2	354.15	708.30	35.41	672.89	\N
+4960	2021-01-27	474	10	1	27.75	27.75	1.39	26.36	4
+4961	2021-01-28	140	6	1	316.71	316.71	0.00	316.71	\N
+4962	2021-01-28	193	6	1	367.51	367.51	0.00	367.51	\N
+4963	2021-01-30	548	10	1	29.69	29.69	2.97	26.72	\N
+4964	2021-01-30	336	6	1	349.02	349.02	17.45	331.57	4
+4965	2021-01-31	244	5	1	258.07	258.07	0.00	258.07	\N
+4966	2021-01-31	102	9	1	131.65	131.65	0.00	131.65	\N
+4967	2021-01-31	155	6	2	337.55	675.10	0.00	675.10	\N
+4968	2021-02-01	57	6	2	316.67	633.34	31.67	601.67	4
+4969	2021-02-02	55	1	1	181.92	181.92	9.10	172.82	\N
+4970	2021-02-03	57	2	1	478.62	478.62	0.00	478.62	\N
+4971	2021-02-05	600	8	2	168.93	337.86	16.89	320.97	4
+4972	2021-02-05	527	2	2	417.54	835.08	83.50	751.58	4
+4973	2021-02-06	570	9	1	111.36	111.36	0.00	111.36	\N
+4974	2021-02-08	311	7	1	319.93	319.93	0.00	319.93	\N
+4975	2021-02-09	575	7	1	298.68	298.68	29.86	268.82	4
+4976	2021-02-09	271	5	1	251.46	251.46	0.00	251.46	\N
+4977	2021-02-10	478	4	1	153.84	153.84	0.00	153.84	\N
+4978	2021-02-11	372	6	1	365.72	365.72	36.58	329.14	4
+4979	2021-02-12	74	9	1	121.13	121.13	6.06	115.07	4
+4980	2021-02-13	219	2	2	452.36	904.72	0.00	904.72	\N
+4981	2021-02-13	125	8	2	175.84	351.68	0.00	351.68	\N
+4982	2021-02-13	229	1	2	186.22	372.44	0.00	372.44	\N
+4983	2021-02-13	447	10	1	28.43	28.43	1.42	27.01	4
+4984	2021-02-13	68	7	1	320.86	320.86	16.04	304.82	4
+4985	2021-02-14	250	3	1	661.55	661.55	33.08	628.47	4
+4986	2021-02-15	586	4	1	154.76	154.76	7.74	147.02	4
+4987	2021-02-16	547	3	1	753.97	753.97	0.00	753.97	\N
+4988	2021-02-17	466	2	2	420.73	841.46	42.07	799.39	4
+4989	2021-02-18	598	5	2	255.25	510.50	25.53	484.97	4
+4990	2021-02-18	170	3	2	673.82	1347.64	0.00	1347.64	\N
+4991	2021-02-19	264	5	2	240.06	480.12	0.00	480.12	\N
+4992	2021-02-21	255	7	1	316.00	316.00	0.00	316.00	\N
+4993	2021-02-22	116	2	1	411.69	411.69	20.58	391.11	4
+4994	2021-02-22	48	7	1	285.45	285.45	0.00	285.45	\N
+4995	2021-02-22	329	9	1	119.99	119.99	18.00	101.99	4
+4996	2021-02-23	357	10	2	31.05	62.10	3.11	58.99	4
+4997	2021-02-23	398	3	2	739.20	1478.40	0.00	1478.40	\N
+4998	2021-02-23	54	3	1	759.12	759.12	0.00	759.12	\N
+4999	2021-02-24	17	5	2	272.73	545.46	0.00	545.46	\N
+5000	2021-02-25	120	7	1	280.71	280.71	14.04	266.67	4
+5001	2021-02-25	24	4	1	139.37	139.37	6.97	132.40	4
+5002	2021-02-26	549	1	2	187.01	374.02	0.00	374.02	\N
+5003	2021-02-26	582	8	2	178.86	357.72	0.00	357.72	\N
+5004	2021-02-27	585	4	2	153.05	306.10	0.00	306.10	\N
+5005	2021-02-27	593	6	1	368.45	368.45	36.84	331.61	4
+5006	2021-03-01	463	5	1	259.11	259.11	25.91	233.20	\N
+5007	2021-03-01	401	8	2	162.43	324.86	0.00	324.86	\N
+5008	2021-03-02	364	7	2	327.47	654.94	0.00	654.94	\N
+5009	2021-03-02	106	3	1	681.07	681.07	0.00	681.07	\N
+5010	2021-03-04	165	4	1	141.24	141.24	0.00	141.24	\N
+5011	2021-03-04	371	7	1	327.37	327.37	16.37	311.00	\N
+5012	2021-03-05	171	5	2	274.71	549.42	0.00	549.42	\N
+5013	2021-03-06	229	3	1	741.91	741.91	74.19	667.72	\N
+5014	2021-03-06	535	9	2	112.87	225.74	33.86	191.88	4
+5015	2021-03-06	438	6	1	368.37	368.37	18.42	349.95	4
+5016	2021-03-06	189	1	1	198.88	198.88	19.89	178.99	\N
+5017	2021-03-07	564	5	2	231.89	463.78	0.00	463.78	\N
+5018	2021-03-07	72	7	1	310.91	310.91	31.09	279.82	\N
+5019	2021-03-07	215	7	2	289.57	579.14	86.87	492.27	4
+5020	2021-03-08	94	1	1	180.73	180.73	9.04	171.69	4
+5021	2021-03-10	526	2	2	460.66	921.32	0.00	921.32	\N
+5022	2021-03-12	132	3	1	690.10	690.10	69.02	621.08	4
+5023	2021-03-12	429	1	2	219.84	439.68	43.96	395.72	4
+5024	2021-03-12	158	9	1	113.54	113.54	5.68	107.86	4
+5025	2021-03-12	279	3	2	752.80	1505.60	75.28	1430.32	4
+5026	2021-03-13	468	6	1	371.48	371.48	0.00	371.48	\N
+5027	2021-03-13	587	3	2	748.92	1497.84	0.00	1497.84	\N
+5028	2021-03-13	115	7	1	312.57	312.57	0.00	312.57	\N
+5029	2021-03-14	437	10	2	29.31	58.62	0.00	58.62	\N
+5030	2021-03-14	313	1	2	189.95	379.90	19.00	360.90	4
+5031	2021-03-14	286	5	2	228.21	456.42	22.82	433.60	\N
+5032	2021-03-14	271	10	2	29.79	59.58	8.94	50.64	4
+5033	2021-03-15	340	9	2	108.66	217.32	0.00	217.32	\N
+5034	2021-03-15	502	7	2	287.96	575.92	0.00	575.92	\N
+5035	2021-03-15	175	9	2	108.09	216.18	21.62	194.56	4
+5036	2021-03-15	7	6	1	372.27	372.27	0.00	372.27	\N
+5037	2021-03-16	418	10	1	30.44	30.44	1.52	28.92	4
+5038	2021-03-16	200	2	1	434.69	434.69	65.20	369.49	4
+5039	2021-03-16	251	3	2	648.64	1297.28	0.00	1297.28	\N
+5040	2021-03-17	50	6	2	350.23	700.46	0.00	700.46	\N
+5041	2021-03-17	456	5	2	236.75	473.50	0.00	473.50	\N
+5042	2021-03-17	314	8	1	197.82	197.82	19.78	178.04	\N
+5043	2021-03-18	204	10	2	29.18	58.36	2.92	55.44	4
+5044	2021-03-19	338	3	1	744.39	744.39	0.00	744.39	\N
+5045	2021-03-20	186	8	2	178.03	356.06	0.00	356.06	\N
+5046	2021-03-20	412	1	2	188.84	377.68	18.88	358.80	4
+5047	2021-03-21	20	4	2	135.60	271.20	13.56	257.64	4
+5048	2021-03-21	547	9	2	108.17	216.34	0.00	216.34	\N
+5049	2021-03-21	557	7	1	274.04	274.04	0.00	274.04	\N
+5050	2021-03-22	135	3	1	715.28	715.28	35.76	679.52	4
+5051	2021-03-23	337	5	1	258.04	258.04	0.00	258.04	\N
+5052	2021-03-23	47	6	2	366.55	733.10	0.00	733.10	\N
+5053	2021-03-23	329	8	1	179.85	179.85	0.00	179.85	\N
+5054	2021-03-23	110	4	1	158.56	158.56	0.00	158.56	\N
+5055	2021-03-24	229	1	2	208.35	416.70	0.00	416.70	\N
+5056	2021-03-25	147	8	1	193.47	193.47	0.00	193.47	\N
+5057	2021-03-26	107	2	2	494.76	989.52	98.95	890.57	\N
+5058	2021-03-26	585	8	1	194.82	194.82	9.74	185.08	\N
+5059	2021-03-26	172	3	2	646.28	1292.56	64.63	1227.93	4
+5060	2021-03-26	535	10	1	31.66	31.66	3.16	28.50	4
+5061	2021-03-26	444	2	1	416.69	416.69	0.00	416.69	\N
+5062	2021-03-27	529	10	1	30.70	30.70	0.00	30.70	\N
+5063	2021-03-27	508	5	1	244.52	244.52	12.23	232.29	\N
+5064	2021-03-28	586	10	2	31.53	63.06	0.00	63.06	\N
+5065	2021-03-31	130	8	1	165.78	165.78	8.29	157.49	4
+5066	2021-03-31	404	1	2	216.49	432.98	21.65	411.33	4
+5067	2021-04-01	534	8	2	188.93	377.86	0.00	377.86	\N
+5068	2021-04-01	362	3	1	701.87	701.87	0.00	701.87	\N
+5069	2021-04-01	575	10	2	30.07	60.14	0.00	60.14	\N
+5070	2021-04-02	108	9	2	126.55	253.10	0.00	253.10	\N
+5071	2021-04-03	241	10	2	29.80	59.60	0.00	59.60	\N
+5072	2021-04-03	53	10	1	27.05	27.05	1.35	25.70	\N
+5073	2021-04-04	509	10	2	28.71	57.42	0.00	57.42	\N
+5074	2021-04-04	305	5	1	240.63	240.63	0.00	240.63	\N
+5075	2021-04-05	259	5	2	238.86	477.72	0.00	477.72	\N
+5076	2021-04-05	45	8	1	176.51	176.51	0.00	176.51	\N
+5077	2021-04-06	175	7	1	278.13	278.13	0.00	278.13	\N
+5078	2021-04-07	352	5	2	257.71	515.42	0.00	515.42	\N
+5079	2021-04-07	463	6	2	384.55	769.10	76.91	692.19	\N
+5080	2021-04-07	32	5	2	237.47	474.94	0.00	474.94	\N
+5081	2021-04-07	528	4	2	162.63	325.26	0.00	325.26	\N
+5082	2021-04-10	582	1	2	198.48	396.96	0.00	396.96	\N
+5083	2021-04-10	587	7	2	291.83	583.66	0.00	583.66	\N
+5084	2021-04-11	462	9	1	126.15	126.15	0.00	126.15	\N
+5085	2021-04-11	509	6	1	344.16	344.16	0.00	344.16	\N
+5086	2021-04-11	566	2	1	439.06	439.06	0.00	439.06	\N
+5087	2021-04-12	224	5	2	258.86	517.72	0.00	517.72	\N
+5088	2021-04-12	216	1	2	219.84	439.68	0.00	439.68	\N
+5089	2021-04-12	101	8	1	178.76	178.76	0.00	178.76	\N
+5090	2021-04-13	198	6	1	361.03	361.03	0.00	361.03	\N
+5091	2021-04-13	3	8	1	180.28	180.28	0.00	180.28	\N
+5092	2021-04-14	598	3	2	650.81	1301.62	130.16	1171.46	\N
+5093	2021-04-14	290	1	1	189.45	189.45	18.95	170.50	\N
+5094	2021-04-14	134	9	2	115.99	231.98	0.00	231.98	\N
+5095	2021-04-14	192	4	1	137.61	137.61	0.00	137.61	\N
+5096	2021-04-14	142	7	2	288.90	577.80	28.89	548.91	\N
+5097	2021-04-15	322	6	2	371.62	743.24	0.00	743.24	\N
+5098	2021-04-16	462	3	2	666.75	1333.50	0.00	1333.50	\N
+5099	2021-04-17	193	3	2	765.60	1531.20	0.00	1531.20	\N
+5100	2021-04-18	494	8	2	164.69	329.38	0.00	329.38	\N
+5101	2021-04-18	338	1	2	203.41	406.82	0.00	406.82	\N
+5102	2021-04-18	322	6	2	339.13	678.26	0.00	678.26	\N
+5103	2021-04-18	43	3	2	635.14	1270.28	0.00	1270.28	\N
+5104	2021-04-19	482	5	2	228.68	457.36	0.00	457.36	\N
+5105	2021-04-20	317	5	1	271.85	271.85	0.00	271.85	\N
+5106	2021-04-20	578	5	2	264.97	529.94	0.00	529.94	\N
+5107	2021-04-21	114	3	2	645.09	1290.18	0.00	1290.18	\N
+5108	2021-04-21	96	3	2	696.87	1393.74	0.00	1393.74	\N
+5109	2021-04-22	15	7	1	289.50	289.50	0.00	289.50	\N
+5110	2021-04-22	415	2	2	486.55	973.10	48.66	924.44	\N
+5111	2021-04-25	555	4	1	154.69	154.69	0.00	154.69	\N
+5112	2021-04-25	374	7	1	287.76	287.76	0.00	287.76	\N
+5113	2021-04-27	362	4	2	155.14	310.28	0.00	310.28	\N
+5114	2021-04-27	380	6	1	337.67	337.67	0.00	337.67	\N
+5115	2021-04-27	595	6	2	318.57	637.14	0.00	637.14	\N
+5116	2021-04-27	218	6	2	345.01	690.02	0.00	690.02	\N
+5117	2021-04-28	499	9	2	122.54	245.08	0.00	245.08	\N
+5118	2021-04-28	222	4	1	154.38	154.38	0.00	154.38	\N
+5119	2021-04-28	197	10	2	31.34	62.68	6.27	56.41	\N
+5120	2021-04-29	37	1	1	200.78	200.78	0.00	200.78	\N
+5121	2021-04-30	251	7	1	303.93	303.93	0.00	303.93	\N
+5122	2021-05-01	146	7	1	323.39	323.39	0.00	323.39	\N
+5123	2021-05-01	189	3	2	650.95	1301.90	0.00	1301.90	\N
+5124	2021-05-02	384	6	1	362.36	362.36	0.00	362.36	\N
+5125	2021-05-03	469	10	1	27.22	27.22	0.00	27.22	\N
+5126	2021-05-04	474	1	2	216.71	433.42	43.34	390.08	\N
+5127	2021-05-04	111	3	2	635.41	1270.82	0.00	1270.82	\N
+5128	2021-05-04	214	5	1	240.47	240.47	24.05	216.42	\N
+5129	2021-05-04	488	3	1	757.73	757.73	0.00	757.73	\N
+5130	2021-05-04	76	9	2	123.58	247.16	0.00	247.16	\N
+5131	2021-05-05	237	10	1	31.41	31.41	0.00	31.41	\N
+5132	2021-05-05	75	10	2	27.95	55.90	0.00	55.90	\N
+5133	2021-05-05	151	2	2	405.22	810.44	0.00	810.44	\N
+5134	2021-05-06	26	8	1	165.06	165.06	16.51	148.55	\N
+5135	2021-05-06	44	1	2	215.91	431.82	21.59	410.23	\N
+5136	2021-05-06	524	4	1	154.57	154.57	0.00	154.57	\N
+5137	2021-05-07	287	3	2	693.56	1387.12	138.71	1248.41	\N
+5138	2021-05-09	574	6	1	349.37	349.37	0.00	349.37	\N
+5139	2021-05-09	456	3	2	754.69	1509.38	0.00	1509.38	\N
+5140	2021-05-10	64	7	1	281.61	281.61	14.08	267.53	\N
+5141	2021-05-11	82	3	1	688.99	688.99	0.00	688.99	\N
+5142	2021-05-11	55	5	1	237.93	237.93	0.00	237.93	\N
+5143	2021-05-11	375	9	1	121.91	121.91	12.19	109.72	\N
+5144	2021-05-12	503	7	2	270.79	541.58	0.00	541.58	\N
+5145	2021-05-12	20	7	2	323.17	646.34	0.00	646.34	\N
+5146	2021-05-12	451	3	1	727.27	727.27	0.00	727.27	\N
+5147	2021-05-12	351	3	2	680.65	1361.30	0.00	1361.30	\N
+5148	2021-05-13	564	8	1	187.02	187.02	0.00	187.02	\N
+5149	2021-05-15	561	9	2	114.26	228.52	0.00	228.52	\N
+5150	2021-05-15	280	7	2	289.08	578.16	0.00	578.16	\N
+5151	2021-05-15	55	7	2	275.18	550.36	0.00	550.36	\N
+5152	2021-05-15	527	9	2	122.56	245.12	0.00	245.12	\N
+5153	2021-05-15	157	9	1	115.35	115.35	0.00	115.35	\N
+5154	2021-05-16	63	10	1	27.82	27.82	0.00	27.82	\N
+5155	2021-05-17	151	7	2	311.22	622.44	62.24	560.20	\N
+5156	2021-05-19	264	2	2	444.38	888.76	44.44	844.32	\N
+5157	2021-05-19	505	2	1	463.09	463.09	0.00	463.09	\N
+5158	2021-05-19	35	6	2	342.10	684.20	0.00	684.20	\N
+5159	2021-05-20	556	9	2	108.25	216.50	0.00	216.50	\N
+5160	2021-05-20	412	7	1	288.34	288.34	0.00	288.34	\N
+5161	2021-05-20	592	6	1	359.52	359.52	17.98	341.54	\N
+5162	2021-05-20	127	3	1	736.54	736.54	0.00	736.54	\N
+5163	2021-05-20	137	9	2	124.43	248.86	0.00	248.86	\N
+5164	2021-05-21	383	5	2	229.16	458.32	0.00	458.32	\N
+5165	2021-05-21	19	2	2	456.91	913.82	91.38	822.44	\N
+5166	2021-05-23	570	1	2	200.89	401.78	20.09	381.69	\N
+5167	2021-05-23	483	1	2	207.69	415.38	0.00	415.38	\N
+5168	2021-05-23	410	8	1	193.40	193.40	9.67	183.73	\N
+5169	2021-05-24	41	8	2	178.82	357.64	17.88	339.76	\N
+5170	2021-05-24	483	5	1	227.91	227.91	0.00	227.91	\N
+5171	2021-05-26	435	9	2	121.90	243.80	0.00	243.80	\N
+5172	2021-05-26	389	8	1	187.18	187.18	0.00	187.18	\N
+5173	2021-05-26	301	7	1	274.99	274.99	13.75	261.24	\N
+5174	2021-05-27	94	1	2	217.05	434.10	0.00	434.10	\N
+5175	2021-05-28	1	1	2	207.05	414.10	20.71	393.39	\N
+5176	2021-05-28	509	9	1	125.69	125.69	6.28	119.41	\N
+5177	2021-05-28	13	6	2	318.36	636.72	0.00	636.72	\N
+5178	2021-05-28	296	10	1	29.84	29.84	0.00	29.84	\N
+5179	2021-05-29	236	10	1	28.05	28.05	1.40	26.65	\N
+5180	2021-05-30	482	6	1	378.31	378.31	0.00	378.31	\N
+5181	2021-05-30	485	5	1	257.42	257.42	0.00	257.42	\N
+5182	2021-05-31	342	4	1	161.04	161.04	0.00	161.04	\N
+5183	2021-06-02	463	5	2	237.72	475.44	0.00	475.44	\N
+5184	2021-06-04	355	3	1	683.70	683.70	0.00	683.70	\N
+5185	2021-06-04	265	3	1	637.86	637.86	63.79	574.07	\N
+5186	2021-06-04	116	6	2	369.50	739.00	0.00	739.00	\N
+5187	2021-06-05	299	1	1	217.65	217.65	0.00	217.65	\N
+5188	2021-06-05	376	2	2	486.04	972.08	0.00	972.08	\N
+5189	2021-06-05	245	8	2	195.75	391.50	0.00	391.50	\N
+5190	2021-06-07	236	8	2	190.42	380.84	0.00	380.84	\N
+5191	2021-06-10	405	10	2	31.63	63.26	0.00	63.26	\N
+5192	2021-06-10	459	7	2	302.01	604.02	0.00	604.02	\N
+5193	2021-06-10	386	1	1	213.50	213.50	0.00	213.50	\N
+5194	2021-06-11	509	2	2	477.75	955.50	0.00	955.50	\N
+5195	2021-06-11	48	6	2	351.47	702.94	0.00	702.94	\N
+5196	2021-06-12	401	9	1	120.22	120.22	0.00	120.22	\N
+5197	2021-06-12	36	9	2	109.40	218.80	0.00	218.80	\N
+5198	2021-06-12	346	9	2	117.62	235.24	0.00	235.24	\N
+5199	2021-06-12	47	6	2	346.09	692.18	0.00	692.18	\N
+5200	2021-06-13	28	10	2	30.70	61.40	0.00	61.40	\N
+5201	2021-06-13	215	3	2	666.18	1332.36	0.00	1332.36	\N
+5202	2021-06-14	325	3	1	766.36	766.36	0.00	766.36	\N
+5203	2021-06-15	112	2	2	486.12	972.24	48.61	923.63	\N
+5204	2021-06-15	531	6	2	371.05	742.10	0.00	742.10	\N
+5205	2021-06-16	548	5	2	245.52	491.04	0.00	491.04	\N
+5206	2021-06-17	524	10	2	30.32	60.64	0.00	60.64	\N
+5207	2021-06-18	330	10	1	28.33	28.33	1.42	26.91	\N
+5208	2021-06-18	366	10	1	29.47	29.47	0.00	29.47	\N
+5209	2021-06-19	215	1	1	212.75	212.75	0.00	212.75	\N
+5210	2021-06-20	204	5	2	259.66	519.32	0.00	519.32	\N
+5211	2021-06-20	9	1	2	215.39	430.78	43.08	387.70	\N
+5212	2021-06-21	272	3	2	678.46	1356.92	0.00	1356.92	\N
+5213	2021-06-22	508	3	2	631.21	1262.42	0.00	1262.42	\N
+5214	2021-06-23	304	9	1	127.83	127.83	0.00	127.83	\N
+5215	2021-06-24	530	8	1	195.17	195.17	0.00	195.17	\N
+5216	2021-06-25	105	10	1	27.85	27.85	2.79	25.06	\N
+5217	2021-06-27	482	5	1	255.44	255.44	0.00	255.44	\N
+5218	2021-06-27	458	5	1	244.33	244.33	0.00	244.33	\N
+5219	2021-06-27	598	4	1	163.06	163.06	0.00	163.06	\N
+5220	2021-06-28	494	9	1	130.05	130.05	0.00	130.05	\N
+5221	2021-06-30	185	2	1	428.60	428.60	21.43	407.17	\N
+5222	2021-07-01	512	6	2	352.47	704.94	0.00	704.94	\N
+5223	2021-07-01	353	3	1	717.01	717.01	0.00	717.01	\N
+5224	2021-07-01	434	8	1	193.11	193.11	0.00	193.11	\N
+5225	2021-07-01	516	9	2	123.58	247.16	0.00	247.16	\N
+5226	2021-07-02	555	9	1	119.06	119.06	0.00	119.06	\N
+5227	2021-07-02	301	5	2	241.47	482.94	0.00	482.94	\N
+5228	2021-07-02	463	5	1	273.32	273.32	0.00	273.32	\N
+5229	2021-07-02	5	2	1	487.63	487.63	0.00	487.63	\N
+5230	2021-07-02	140	10	2	32.95	65.90	0.00	65.90	\N
+5231	2021-07-02	426	1	1	207.65	207.65	0.00	207.65	\N
+5232	2021-07-03	446	3	1	727.35	727.35	0.00	727.35	\N
+5233	2021-07-03	66	10	1	28.25	28.25	0.00	28.25	\N
+5234	2021-07-04	256	9	2	122.47	244.94	24.49	220.45	\N
+5235	2021-07-04	541	5	2	264.38	528.76	0.00	528.76	\N
+5236	2021-07-04	249	7	1	313.13	313.13	0.00	313.13	\N
+5237	2021-07-05	417	2	2	487.90	975.80	97.58	878.22	\N
+5238	2021-07-05	420	9	2	127.28	254.56	12.73	241.83	\N
+5239	2021-07-06	246	1	1	218.64	218.64	0.00	218.64	\N
+5240	2021-07-06	29	7	1	290.12	290.12	0.00	290.12	\N
+5241	2021-07-07	31	6	1	382.75	382.75	19.14	363.61	\N
+5242	2021-07-08	135	3	1	692.93	692.93	0.00	692.93	\N
+5243	2021-07-09	248	4	1	136.59	136.59	0.00	136.59	\N
+5244	2021-07-09	181	8	1	164.43	164.43	0.00	164.43	\N
+5245	2021-07-10	166	5	2	239.91	479.82	0.00	479.82	\N
+5246	2021-07-11	361	7	1	281.28	281.28	14.06	267.22	\N
+5247	2021-07-11	134	2	2	423.87	847.74	0.00	847.74	\N
+5248	2021-07-11	504	9	2	128.34	256.68	0.00	256.68	\N
+5249	2021-07-11	500	9	2	126.20	252.40	25.24	227.16	\N
+5250	2021-07-13	427	2	1	433.71	433.71	0.00	433.71	\N
+5251	2021-07-14	356	10	1	32.17	32.17	0.00	32.17	\N
+5252	2021-07-14	411	7	1	283.90	283.90	0.00	283.90	\N
+5253	2021-07-14	304	2	1	452.06	452.06	22.60	429.46	\N
+5254	2021-07-14	347	3	2	640.64	1281.28	128.13	1153.15	\N
+5255	2021-07-15	444	10	2	27.25	54.50	0.00	54.50	\N
+5256	2021-07-16	280	7	2	305.36	610.72	0.00	610.72	\N
+5257	2021-07-16	539	5	2	233.78	467.56	0.00	467.56	\N
+5258	2021-07-16	161	9	1	131.76	131.76	0.00	131.76	\N
+5259	2021-07-17	37	6	2	325.79	651.58	0.00	651.58	\N
+5260	2021-07-17	226	3	2	744.03	1488.06	0.00	1488.06	\N
+5261	2021-07-17	472	2	1	476.34	476.34	0.00	476.34	\N
+5262	2021-07-18	172	4	2	157.37	314.74	0.00	314.74	\N
+5263	2021-07-18	213	7	1	326.68	326.68	0.00	326.68	\N
+5264	2021-07-18	301	3	2	740.27	1480.54	0.00	1480.54	\N
+5265	2021-07-18	493	9	2	117.34	234.68	0.00	234.68	\N
+5266	2021-07-19	555	6	1	328.03	328.03	32.80	295.23	\N
+5267	2021-07-21	388	1	1	208.90	208.90	20.89	188.01	\N
+5268	2021-07-21	460	9	1	113.44	113.44	0.00	113.44	\N
+5269	2021-07-22	82	1	1	196.27	196.27	0.00	196.27	\N
+5270	2021-07-22	234	4	1	142.98	142.98	0.00	142.98	\N
+5271	2021-07-23	378	8	2	170.74	341.48	0.00	341.48	\N
+5272	2021-07-23	178	4	2	163.62	327.24	32.72	294.52	\N
+5273	2021-07-24	512	1	2	182.24	364.48	0.00	364.48	\N
+5274	2021-07-24	348	9	1	116.55	116.55	0.00	116.55	\N
+5275	2021-07-25	224	1	1	217.66	217.66	0.00	217.66	\N
+5276	2021-07-25	226	3	2	653.83	1307.66	0.00	1307.66	\N
+5277	2021-07-25	459	1	1	192.49	192.49	19.25	173.24	\N
+5278	2021-07-26	43	3	2	676.35	1352.70	0.00	1352.70	\N
+5279	2021-07-26	421	9	2	122.49	244.98	0.00	244.98	\N
+5280	2021-07-28	229	10	2	31.77	63.54	0.00	63.54	\N
+5281	2021-07-28	470	1	1	191.73	191.73	19.17	172.56	\N
+5282	2021-07-28	572	9	2	128.49	256.98	25.70	231.28	\N
+5283	2021-07-29	293	7	2	322.17	644.34	0.00	644.34	\N
+5284	2021-07-30	541	7	2	320.48	640.96	0.00	640.96	\N
+5285	2021-07-30	352	7	2	306.52	613.04	0.00	613.04	\N
+5286	2021-07-31	286	9	1	124.11	124.11	0.00	124.11	\N
+5287	2021-07-31	442	8	1	188.86	188.86	0.00	188.86	\N
+5288	2021-08-02	183	10	2	32.09	64.18	0.00	64.18	\N
+5289	2021-08-02	167	5	2	252.22	504.44	0.00	504.44	\N
+5290	2021-08-02	548	8	1	195.05	195.05	0.00	195.05	\N
+5291	2021-08-02	11	7	2	323.47	646.94	0.00	646.94	\N
+5292	2021-08-03	269	6	2	355.79	711.58	0.00	711.58	\N
+5293	2021-08-03	286	3	2	689.04	1378.08	137.81	1240.27	\N
+5294	2021-08-03	25	9	1	122.27	122.27	0.00	122.27	\N
+5295	2021-08-03	88	3	2	762.17	1524.34	76.22	1448.12	\N
+5296	2021-08-04	590	9	2	108.69	217.38	21.74	195.64	\N
+5297	2021-08-06	94	7	2	278.63	557.26	0.00	557.26	\N
+5298	2021-08-06	365	7	2	302.98	605.96	30.30	575.66	\N
+5299	2021-08-07	40	9	2	124.17	248.34	0.00	248.34	\N
+5300	2021-08-08	375	4	1	141.20	141.20	0.00	141.20	\N
+5301	2021-08-08	203	6	2	343.26	686.52	68.65	617.87	\N
+5302	2021-08-09	503	3	2	701.61	1403.22	0.00	1403.22	\N
+5303	2021-08-10	327	7	2	291.95	583.90	0.00	583.90	\N
+5304	2021-08-10	377	8	1	187.09	187.09	0.00	187.09	\N
+5305	2021-08-11	303	6	1	382.25	382.25	0.00	382.25	\N
+5306	2021-08-11	352	10	2	30.42	60.84	0.00	60.84	\N
+5307	2021-08-12	27	6	1	337.69	337.69	0.00	337.69	\N
+5308	2021-08-12	397	3	2	708.84	1417.68	0.00	1417.68	\N
+5309	2021-08-13	454	2	1	432.03	432.03	0.00	432.03	\N
+5310	2021-08-13	294	2	1	455.32	455.32	0.00	455.32	\N
+5311	2021-08-13	165	6	1	324.17	324.17	0.00	324.17	\N
+5312	2021-08-13	376	3	1	743.26	743.26	74.33	668.93	\N
+5313	2021-08-14	543	9	1	111.94	111.94	0.00	111.94	\N
+5314	2021-08-15	404	6	1	321.74	321.74	16.09	305.65	\N
+5315	2021-08-16	95	5	2	266.61	533.22	0.00	533.22	\N
+5316	2021-08-16	303	5	2	240.98	481.96	24.10	457.86	\N
+5317	2021-08-16	42	3	2	696.30	1392.60	0.00	1392.60	\N
+5318	2021-08-17	269	8	2	169.29	338.58	0.00	338.58	\N
+5319	2021-08-18	561	3	2	672.03	1344.06	134.41	1209.65	\N
+5320	2021-08-18	248	3	1	731.29	731.29	36.56	694.73	\N
+5321	2021-08-20	292	5	1	225.48	225.48	0.00	225.48	\N
+5322	2021-08-20	597	4	2	164.96	329.92	0.00	329.92	\N
+5323	2021-08-21	297	1	1	203.03	203.03	10.15	192.88	\N
+5324	2021-08-21	565	1	1	194.47	194.47	0.00	194.47	\N
+5325	2021-08-22	169	6	2	348.47	696.94	0.00	696.94	\N
+5326	2021-08-23	582	1	1	208.30	208.30	0.00	208.30	\N
+5327	2021-08-24	490	10	1	32.48	32.48	1.62	30.86	\N
+5328	2021-08-25	158	6	1	336.17	336.17	16.81	319.36	\N
+5329	2021-08-25	117	4	2	159.00	318.00	0.00	318.00	\N
+5330	2021-08-26	239	5	2	265.05	530.10	0.00	530.10	\N
+5331	2021-08-27	485	2	1	423.19	423.19	0.00	423.19	\N
+5332	2021-08-27	443	3	2	754.95	1509.90	0.00	1509.90	\N
+5333	2021-08-27	426	2	2	421.71	843.42	0.00	843.42	\N
+5334	2021-08-28	132	2	2	474.12	948.24	47.41	900.83	\N
+5335	2021-08-28	89	4	1	150.08	150.08	0.00	150.08	\N
+5336	2021-08-28	41	2	2	431.10	862.20	0.00	862.20	\N
+5337	2021-08-28	574	1	1	186.51	186.51	0.00	186.51	\N
+5338	2021-08-28	52	9	1	121.08	121.08	0.00	121.08	\N
+5339	2021-08-28	72	10	2	29.28	58.56	0.00	58.56	\N
+5340	2021-08-29	370	3	2	656.36	1312.72	0.00	1312.72	\N
+5341	2021-08-29	111	10	1	32.21	32.21	1.61	30.60	\N
+5342	2021-08-29	72	4	1	140.77	140.77	0.00	140.77	\N
+5343	2021-08-30	576	4	1	137.82	137.82	0.00	137.82	\N
+5344	2021-08-30	240	7	2	322.86	645.72	0.00	645.72	\N
+5345	2021-08-31	501	1	1	219.67	219.67	0.00	219.67	\N
+5346	2021-08-31	71	8	2	165.06	330.12	0.00	330.12	\N
+5347	2021-08-31	223	9	1	129.65	129.65	6.48	123.17	\N
+5348	2021-08-31	519	8	1	172.46	172.46	0.00	172.46	\N
+5349	2021-08-31	31	2	1	426.53	426.53	0.00	426.53	\N
+5350	2021-08-31	163	1	1	210.54	210.54	0.00	210.54	\N
+5351	2021-09-01	279	5	1	254.62	254.62	0.00	254.62	\N
+5352	2021-09-01	505	2	2	428.05	856.10	0.00	856.10	\N
+5353	2021-09-01	401	6	1	319.06	319.06	0.00	319.06	\N
+5354	2021-09-01	465	6	2	367.58	735.16	73.52	661.64	\N
+5355	2021-09-02	156	4	2	137.26	274.52	0.00	274.52	\N
+5356	2021-09-02	214	2	2	440.49	880.98	0.00	880.98	\N
+5357	2021-09-03	510	9	1	125.47	125.47	6.27	119.20	\N
+5358	2021-09-03	324	8	2	197.16	394.32	0.00	394.32	\N
+5359	2021-09-04	193	10	2	30.67	61.34	0.00	61.34	\N
+5360	2021-09-05	211	1	1	196.98	196.98	0.00	196.98	\N
+5361	2021-09-05	24	1	1	193.81	193.81	0.00	193.81	\N
+5362	2021-09-05	413	10	1	32.18	32.18	0.00	32.18	\N
+5363	2021-09-05	407	10	2	28.47	56.94	0.00	56.94	\N
+5364	2021-09-06	254	4	2	155.70	311.40	31.14	280.26	\N
+5365	2021-09-07	111	6	2	351.60	703.20	35.16	668.04	\N
+5366	2021-09-07	594	8	1	193.20	193.20	9.66	183.54	\N
+5367	2021-09-07	573	7	2	281.87	563.74	56.37	507.37	\N
+5368	2021-09-08	221	1	2	211.96	423.92	0.00	423.92	\N
+5369	2021-09-08	548	8	2	172.55	345.10	0.00	345.10	\N
+5370	2021-09-09	555	9	2	121.25	242.50	0.00	242.50	\N
+5371	2021-09-09	176	4	1	149.04	149.04	0.00	149.04	\N
+5372	2021-09-09	6	10	2	29.96	59.92	5.99	53.93	\N
+5373	2021-09-10	555	3	1	726.03	726.03	0.00	726.03	\N
+5374	2021-09-10	346	5	2	242.80	485.60	0.00	485.60	\N
+5375	2021-09-10	116	4	1	153.61	153.61	15.36	138.25	\N
+5376	2021-09-11	25	4	1	162.58	162.58	0.00	162.58	\N
+5377	2021-09-13	170	4	1	147.85	147.85	0.00	147.85	\N
+5378	2021-09-14	212	9	1	125.05	125.05	6.25	118.80	\N
+5379	2021-09-14	149	4	2	150.96	301.92	15.10	286.82	\N
+5380	2021-09-15	422	5	1	246.95	246.95	0.00	246.95	\N
+5381	2021-09-15	424	7	2	323.92	647.84	0.00	647.84	\N
+5382	2021-09-16	442	8	1	195.97	195.97	0.00	195.97	\N
+5383	2021-09-17	403	4	2	149.73	299.46	14.97	284.49	\N
+5384	2021-09-17	410	4	1	138.17	138.17	0.00	138.17	\N
+5385	2021-09-18	173	10	1	29.65	29.65	0.00	29.65	\N
+5386	2021-09-19	125	5	2	242.92	485.84	0.00	485.84	\N
+5387	2021-09-19	526	2	2	414.98	829.96	0.00	829.96	\N
+5388	2021-09-19	260	2	1	438.29	438.29	21.91	416.38	\N
+5389	2021-09-20	320	4	1	156.09	156.09	0.00	156.09	\N
+5390	2021-09-21	75	7	1	302.34	302.34	30.23	272.11	\N
+5391	2021-09-21	396	1	2	214.39	428.78	0.00	428.78	\N
+5392	2021-09-21	78	2	1	451.48	451.48	22.57	428.91	\N
+5393	2021-09-22	341	6	1	338.78	338.78	0.00	338.78	\N
+5394	2021-09-22	389	6	1	378.68	378.68	37.87	340.81	\N
+5395	2021-09-22	513	4	1	146.39	146.39	0.00	146.39	\N
+5396	2021-09-22	238	8	2	178.27	356.54	0.00	356.54	\N
+5397	2021-09-23	28	4	1	143.70	143.70	0.00	143.70	\N
+5398	2021-09-23	280	6	2	334.66	669.32	0.00	669.32	\N
+5399	2021-09-24	581	6	2	362.22	724.44	0.00	724.44	\N
+5400	2021-09-26	30	1	1	189.23	189.23	9.46	179.77	\N
+5401	2021-09-26	95	10	2	32.73	65.46	0.00	65.46	\N
+5402	2021-09-27	141	3	1	699.52	699.52	34.98	664.54	\N
+5403	2021-09-27	536	7	2	317.99	635.98	0.00	635.98	\N
+5404	2021-09-27	274	3	2	726.67	1453.34	0.00	1453.34	\N
+5405	2021-09-27	456	4	2	146.72	293.44	0.00	293.44	\N
+5406	2021-09-28	548	6	1	361.07	361.07	0.00	361.07	\N
+5407	2021-09-29	595	6	1	373.64	373.64	0.00	373.64	\N
+5408	2021-09-30	22	10	2	28.16	56.32	2.82	53.50	\N
+5409	2021-10-01	417	6	2	317.32	634.64	31.73	602.91	\N
+5410	2021-10-03	422	5	2	267.81	535.62	0.00	535.62	\N
+5411	2021-10-03	20	4	1	143.25	143.25	0.00	143.25	\N
+5412	2021-10-04	258	9	1	114.53	114.53	0.00	114.53	\N
+5413	2021-10-05	486	8	2	163.22	326.44	0.00	326.44	\N
+5414	2021-10-05	177	8	2	195.41	390.82	0.00	390.82	\N
+5415	2021-10-06	591	6	2	376.34	752.68	37.63	715.05	\N
+5416	2021-10-06	364	5	1	239.25	239.25	0.00	239.25	\N
+5417	2021-10-07	439	10	2	28.98	57.96	2.90	55.06	\N
+5418	2021-10-07	488	6	2	374.13	748.26	74.83	673.43	\N
+5419	2021-10-07	173	9	1	108.19	108.19	10.82	97.37	\N
+5420	2021-10-08	69	8	2	169.37	338.74	0.00	338.74	\N
+5421	2021-10-08	594	5	1	259.86	259.86	0.00	259.86	\N
+5422	2021-10-09	189	4	2	144.39	288.78	28.88	259.90	\N
+5423	2021-10-09	218	9	2	113.47	226.94	22.69	204.25	\N
+5424	2021-10-09	527	10	1	29.92	29.92	1.50	28.42	\N
+5425	2021-10-10	55	2	1	445.05	445.05	0.00	445.05	\N
+5426	2021-10-10	106	3	1	725.63	725.63	0.00	725.63	\N
+5427	2021-10-11	346	8	2	176.58	353.16	17.66	335.50	\N
+5428	2021-10-11	42	5	2	268.70	537.40	0.00	537.40	\N
+5429	2021-10-14	580	5	2	252.97	505.94	50.59	455.35	\N
+5430	2021-10-15	178	4	1	144.40	144.40	0.00	144.40	\N
+5431	2021-10-16	154	9	2	112.85	225.70	0.00	225.70	\N
+5432	2021-10-16	174	9	2	127.43	254.86	0.00	254.86	\N
+5433	2021-10-16	416	8	2	182.66	365.32	0.00	365.32	\N
+5434	2021-10-17	214	1	2	216.73	433.46	0.00	433.46	\N
+5435	2021-10-17	334	7	2	286.44	572.88	0.00	572.88	\N
+5436	2021-10-18	484	2	2	479.51	959.02	0.00	959.02	\N
+5437	2021-10-18	574	3	1	753.69	753.69	0.00	753.69	\N
+5438	2021-10-18	67	9	1	128.77	128.77	0.00	128.77	\N
+5439	2021-10-18	39	9	2	126.97	253.94	0.00	253.94	\N
+5440	2021-10-18	3	8	1	188.20	188.20	18.82	169.38	\N
+5441	2021-10-19	123	2	1	432.06	432.06	0.00	432.06	\N
+5442	2021-10-19	261	7	2	312.75	625.50	31.28	594.22	\N
+5443	2021-10-20	597	9	2	113.79	227.58	0.00	227.58	\N
+5444	2021-10-20	469	6	2	371.02	742.04	74.20	667.84	\N
+5445	2021-10-20	502	4	2	163.79	327.58	0.00	327.58	\N
+5446	2021-10-20	529	9	1	128.59	128.59	0.00	128.59	\N
+5447	2021-10-20	190	4	2	149.91	299.82	0.00	299.82	\N
+5448	2021-10-20	495	5	2	252.98	505.96	0.00	505.96	\N
+5449	2021-10-20	508	8	2	162.17	324.34	0.00	324.34	\N
+5450	2021-10-21	574	2	2	461.93	923.86	0.00	923.86	\N
+5451	2021-10-21	177	6	1	380.20	380.20	19.01	361.19	\N
+5452	2021-10-21	564	3	1	735.69	735.69	0.00	735.69	\N
+5453	2021-10-21	586	10	1	27.36	27.36	0.00	27.36	\N
+5454	2021-10-22	416	7	2	313.68	627.36	62.74	564.62	\N
+5455	2021-10-23	370	4	2	151.48	302.96	0.00	302.96	\N
+5456	2021-10-24	585	6	1	347.16	347.16	0.00	347.16	\N
+5457	2021-10-24	413	9	1	111.21	111.21	5.56	105.65	\N
+5458	2021-10-25	15	4	2	155.49	310.98	0.00	310.98	\N
+5459	2021-10-25	10	10	1	32.06	32.06	1.60	30.46	\N
+5460	2021-10-25	252	8	2	180.73	361.46	36.15	325.31	\N
+5461	2021-10-26	446	10	2	28.35	56.70	2.84	53.86	\N
+5462	2021-10-26	585	9	1	113.63	113.63	0.00	113.63	\N
+5463	2021-10-27	159	7	2	299.50	599.00	0.00	599.00	\N
+5464	2021-10-28	451	7	2	326.03	652.06	65.21	586.85	\N
+5465	2021-10-28	356	1	2	214.10	428.20	0.00	428.20	\N
+5466	2021-10-31	276	6	1	342.65	342.65	0.00	342.65	\N
+5467	2021-11-01	438	8	2	176.23	352.46	0.00	352.46	\N
+5468	2021-11-01	92	10	2	30.06	60.12	0.00	60.12	\N
+5469	2021-11-01	458	10	2	28.63	57.26	0.00	57.26	\N
+5470	2021-11-01	359	1	1	214.36	214.36	0.00	214.36	\N
+5471	2021-11-03	199	5	1	241.69	241.69	12.08	229.61	\N
+5472	2021-11-04	63	3	2	691.24	1382.48	69.12	1313.36	\N
+5473	2021-11-04	60	4	1	138.75	138.75	0.00	138.75	\N
+5474	2021-11-04	262	6	1	327.03	327.03	0.00	327.03	\N
+5475	2021-11-05	454	4	2	142.25	284.50	0.00	284.50	\N
+5476	2021-11-05	34	8	1	189.13	189.13	0.00	189.13	\N
+5477	2021-11-05	41	7	2	283.63	567.26	56.73	510.53	\N
+5478	2021-11-05	151	3	2	668.05	1336.10	0.00	1336.10	\N
+5479	2021-11-07	491	6	1	323.55	323.55	0.00	323.55	\N
+5480	2021-11-09	572	4	1	149.47	149.47	0.00	149.47	\N
+5481	2021-11-09	26	1	2	208.80	417.60	0.00	417.60	\N
+5482	2021-11-09	215	7	1	313.40	313.40	0.00	313.40	\N
+5483	2021-11-11	214	4	1	139.08	139.08	0.00	139.08	\N
+5484	2021-11-11	223	5	2	231.48	462.96	0.00	462.96	\N
+5485	2021-11-11	364	7	1	279.56	279.56	0.00	279.56	\N
+5486	2021-11-12	533	4	1	148.96	148.96	0.00	148.96	\N
+5487	2021-11-12	225	8	1	186.27	186.27	9.31	176.96	\N
+5488	2021-11-12	105	1	1	189.32	189.32	0.00	189.32	\N
+5489	2021-11-14	483	1	2	180.28	360.56	0.00	360.56	\N
+5490	2021-11-16	320	3	2	721.70	1443.40	0.00	1443.40	\N
+5491	2021-11-17	35	4	2	157.29	314.58	15.73	298.85	\N
+5492	2021-11-17	196	4	2	161.61	323.22	16.16	307.06	\N
+5493	2021-11-18	551	9	2	113.05	226.10	0.00	226.10	\N
+5494	2021-11-18	409	2	2	416.51	833.02	0.00	833.02	\N
+5495	2021-11-18	561	1	1	190.78	190.78	0.00	190.78	\N
+5496	2021-11-19	104	10	1	30.14	30.14	0.00	30.14	\N
+5497	2021-11-20	381	2	1	447.98	447.98	0.00	447.98	\N
+5498	2021-11-21	395	9	2	108.40	216.80	0.00	216.80	\N
+5499	2021-11-21	396	5	1	243.48	243.48	0.00	243.48	\N
+5500	2021-11-22	315	5	2	261.40	522.80	0.00	522.80	\N
+5501	2021-11-23	99	6	2	349.26	698.52	0.00	698.52	\N
+5502	2021-11-23	228	8	1	184.35	184.35	18.43	165.92	\N
+5503	2021-11-24	31	6	2	329.44	658.88	65.89	592.99	\N
+5504	2021-11-25	203	10	1	29.57	29.57	0.00	29.57	\N
+5505	2021-11-26	210	5	1	261.29	261.29	13.06	248.23	\N
+5506	2021-11-26	586	1	2	188.84	377.68	0.00	377.68	\N
+5507	2021-11-27	480	9	2	128.70	257.40	0.00	257.40	\N
+5508	2021-11-27	83	6	1	316.60	316.60	31.66	284.94	\N
+5509	2021-11-27	596	7	2	327.84	655.68	0.00	655.68	\N
+5510	2021-11-27	83	1	1	185.11	185.11	18.51	166.60	\N
+5511	2021-11-28	445	9	1	117.71	117.71	0.00	117.71	\N
+5512	2021-11-28	38	7	2	308.77	617.54	0.00	617.54	\N
+5513	2021-11-28	305	8	1	177.03	177.03	17.70	159.33	\N
+5514	2021-11-29	582	10	2	31.07	62.14	0.00	62.14	\N
+5515	2021-11-30	146	9	2	122.01	244.02	0.00	244.02	\N
+5516	2021-12-01	92	1	2	189.24	378.48	0.00	378.48	\N
+5517	2021-12-01	318	3	2	749.91	1499.82	0.00	1499.82	\N
+5518	2021-12-02	157	2	1	434.27	434.27	0.00	434.27	\N
+5519	2021-12-02	411	4	2	162.23	324.46	0.00	324.46	\N
+5520	2021-12-02	211	10	2	31.06	62.12	0.00	62.12	\N
+5521	2021-12-03	264	10	2	29.02	58.04	0.00	58.04	\N
+5522	2021-12-03	8	4	1	151.69	151.69	0.00	151.69	\N
+5523	2021-12-03	293	7	2	291.74	583.48	0.00	583.48	\N
+5524	2021-12-03	377	4	1	137.23	137.23	13.72	123.51	\N
+5525	2021-12-04	223	1	2	182.14	364.28	0.00	364.28	\N
+5526	2021-12-04	94	1	2	206.49	412.98	0.00	412.98	\N
+5527	2021-12-04	479	4	2	146.41	292.82	0.00	292.82	\N
+5528	2021-12-06	172	6	1	366.51	366.51	0.00	366.51	\N
+5529	2021-12-07	473	4	1	156.59	156.59	0.00	156.59	\N
+5530	2021-12-07	175	4	1	143.55	143.55	0.00	143.55	\N
+5531	2021-12-08	275	10	1	28.28	28.28	0.00	28.28	\N
+5532	2021-12-08	437	7	1	270.31	270.31	13.52	256.79	\N
+5533	2021-12-09	35	10	2	27.06	54.12	0.00	54.12	\N
+5534	2021-12-10	442	7	1	313.20	313.20	0.00	313.20	\N
+5535	2021-12-11	453	4	2	164.28	328.56	0.00	328.56	\N
+5536	2021-12-11	424	5	1	240.21	240.21	0.00	240.21	\N
+5537	2021-12-11	572	10	1	30.77	30.77	3.08	27.69	\N
+5538	2021-12-11	527	6	1	357.98	357.98	0.00	357.98	\N
+5539	2021-12-13	287	2	2	448.59	897.18	0.00	897.18	\N
+5540	2021-12-13	60	10	1	31.03	31.03	0.00	31.03	\N
+5541	2021-12-13	508	2	1	487.66	487.66	0.00	487.66	\N
+5542	2021-12-13	375	9	2	110.58	221.16	0.00	221.16	\N
+5543	2021-12-14	503	4	1	156.47	156.47	0.00	156.47	\N
+5544	2021-12-14	589	5	1	237.75	237.75	0.00	237.75	\N
+5545	2021-12-15	219	4	1	151.19	151.19	0.00	151.19	\N
+5546	2021-12-16	59	6	2	324.15	648.30	0.00	648.30	\N
+5547	2021-12-16	31	6	1	342.23	342.23	0.00	342.23	\N
+5548	2021-12-17	90	9	2	112.59	225.18	0.00	225.18	\N
+5549	2021-12-17	311	8	1	177.93	177.93	0.00	177.93	\N
+5550	2021-12-17	553	9	2	113.67	227.34	0.00	227.34	\N
+5551	2021-12-18	252	5	2	242.74	485.48	0.00	485.48	\N
+5552	2021-12-18	413	9	1	115.65	115.65	0.00	115.65	\N
+5553	2021-12-19	42	7	2	279.46	558.92	0.00	558.92	\N
+5554	2021-12-20	154	4	1	136.35	136.35	0.00	136.35	\N
+5555	2021-12-21	400	5	2	244.66	489.32	0.00	489.32	\N
+5556	2021-12-23	170	5	2	271.52	543.04	0.00	543.04	\N
+5557	2021-12-23	238	6	2	332.58	665.16	0.00	665.16	\N
+5558	2021-12-24	338	3	1	769.54	769.54	38.48	731.06	\N
+5559	2021-12-24	365	7	2	271.93	543.86	0.00	543.86	\N
+5560	2021-12-24	463	2	2	405.46	810.92	0.00	810.92	\N
+5561	2021-12-25	215	6	2	375.74	751.48	0.00	751.48	\N
+5562	2021-12-26	298	7	2	295.63	591.26	0.00	591.26	\N
+5563	2021-12-26	61	4	2	149.31	298.62	0.00	298.62	\N
+5564	2021-12-26	283	8	2	177.49	354.98	0.00	354.98	\N
+5565	2021-12-28	126	2	1	443.34	443.34	22.17	421.17	\N
+5566	2021-12-29	347	1	1	219.40	219.40	0.00	219.40	\N
+5567	2021-12-29	589	7	2	311.93	623.86	0.00	623.86	\N
+5568	2021-12-29	565	7	1	312.61	312.61	0.00	312.61	\N
+5569	2021-12-30	72	10	1	32.42	32.42	3.24	29.18	\N
+5570	2021-12-30	126	6	1	351.48	351.48	0.00	351.48	\N
+5571	2021-12-31	222	6	1	324.17	324.17	0.00	324.17	\N
+5572	2022-01-01	411	1	2	184.02	368.04	18.40	349.64	5
+5573	2022-01-01	1	1	1	186.69	186.69	0.00	186.69	\N
+5574	2022-01-03	198	9	2	108.28	216.56	0.00	216.56	\N
+5575	2022-01-03	71	3	1	749.78	749.78	0.00	749.78	\N
+5576	2022-01-03	97	9	2	110.22	220.44	11.02	209.42	5
+5577	2022-01-03	93	10	1	28.77	28.77	0.00	28.77	\N
+5578	2022-01-05	195	7	2	307.53	615.06	30.75	584.31	5
+5579	2022-01-05	365	6	1	323.46	323.46	16.17	307.29	\N
+5580	2022-01-05	591	7	1	301.94	301.94	30.19	271.75	\N
+5581	2022-01-06	505	2	1	448.47	448.47	0.00	448.47	\N
+5582	2022-01-06	152	10	2	32.10	64.20	0.00	64.20	\N
+5583	2022-01-07	572	6	2	316.21	632.42	0.00	632.42	\N
+5584	2022-01-07	433	2	1	418.83	418.83	20.94	397.89	5
+5585	2022-01-08	144	2	2	473.62	947.24	47.36	899.88	5
+5586	2022-01-08	139	1	1	202.50	202.50	0.00	202.50	\N
+5587	2022-01-09	272	1	1	206.63	206.63	0.00	206.63	\N
+5588	2022-01-09	490	2	2	489.21	978.42	48.92	929.50	5
+5589	2022-01-10	570	6	2	341.97	683.94	34.20	649.74	5
+5590	2022-01-10	8	7	2	293.97	587.94	29.40	558.54	\N
+5591	2022-01-11	135	1	1	205.99	205.99	0.00	205.99	\N
+5592	2022-01-12	380	2	2	443.64	887.28	44.36	842.92	5
+5593	2022-01-12	113	2	2	454.89	909.78	45.49	864.29	\N
+5594	2022-01-12	125	3	2	750.89	1501.78	0.00	1501.78	\N
+5595	2022-01-13	227	4	1	136.78	136.78	0.00	136.78	\N
+5596	2022-01-13	521	8	1	182.91	182.91	9.15	173.76	5
+5597	2022-01-14	155	4	2	138.45	276.90	0.00	276.90	\N
+5598	2022-01-14	441	9	2	123.79	247.58	0.00	247.58	\N
+5599	2022-01-15	108	1	1	215.26	215.26	0.00	215.26	\N
+5600	2022-01-16	585	7	2	321.61	643.22	96.48	546.74	5
+5601	2022-01-16	353	3	2	642.47	1284.94	64.25	1220.69	\N
+5602	2022-01-18	433	1	2	200.75	401.50	20.08	381.42	5
+5603	2022-01-18	106	9	1	126.45	126.45	0.00	126.45	\N
+5604	2022-01-18	417	1	1	215.06	215.06	0.00	215.06	\N
+5605	2022-01-18	512	2	2	428.10	856.20	0.00	856.20	\N
+5606	2022-01-19	242	5	1	246.24	246.24	12.31	233.93	5
+5607	2022-01-20	361	1	1	212.81	212.81	21.28	191.53	\N
+5608	2022-01-21	514	1	1	196.56	196.56	29.49	167.07	5
+5609	2022-01-21	408	7	1	305.65	305.65	0.00	305.65	\N
+5610	2022-01-22	560	6	1	355.00	355.00	53.25	301.75	5
+5611	2022-01-23	281	2	2	432.45	864.90	0.00	864.90	\N
+5612	2022-01-23	298	10	1	29.15	29.15	0.00	29.15	\N
+5613	2022-01-23	454	7	1	280.75	280.75	0.00	280.75	\N
+5614	2022-01-23	547	5	1	247.71	247.71	0.00	247.71	\N
+5615	2022-01-24	354	4	1	136.35	136.35	0.00	136.35	\N
+5616	2022-01-25	293	8	2	167.00	334.00	0.00	334.00	\N
+5617	2022-01-26	481	5	1	258.61	258.61	0.00	258.61	\N
+5618	2022-01-26	597	1	2	185.39	370.78	0.00	370.78	\N
+5619	2022-01-26	133	10	2	31.84	63.68	3.18	60.50	5
+5620	2022-01-26	400	7	1	278.23	278.23	13.91	264.32	5
+5621	2022-01-27	9	4	2	144.25	288.50	14.43	274.07	5
+5622	2022-01-27	410	9	1	122.27	122.27	0.00	122.27	\N
+5623	2022-01-27	423	8	1	185.42	185.42	27.81	157.61	5
+5624	2022-01-27	510	8	1	191.57	191.57	9.58	181.99	5
+5625	2022-01-28	373	8	2	196.27	392.54	0.00	392.54	\N
+5626	2022-01-30	152	6	2	325.36	650.72	65.08	585.64	5
+5627	2022-01-31	350	7	2	319.87	639.74	63.97	575.77	\N
+5628	2022-02-01	536	10	1	28.85	28.85	1.44	27.41	5
+5629	2022-02-01	185	2	1	437.58	437.58	21.88	415.70	5
+5630	2022-02-02	154	1	1	205.04	205.04	0.00	205.04	\N
+5631	2022-02-03	339	4	1	158.03	158.03	7.90	150.13	\N
+5632	2022-02-03	381	7	2	271.00	542.00	0.00	542.00	\N
+5633	2022-02-03	236	5	2	258.19	516.38	25.82	490.56	5
+5634	2022-02-03	127	1	2	204.18	408.36	0.00	408.36	\N
+5635	2022-02-04	593	5	1	270.82	270.82	13.54	257.28	5
+5636	2022-02-04	112	5	2	270.44	540.88	27.04	513.84	5
+5637	2022-02-04	32	9	1	130.23	130.23	6.51	123.72	5
+5638	2022-02-04	202	8	2	193.53	387.06	0.00	387.06	\N
+5639	2022-02-05	155	5	1	227.26	227.26	11.36	215.90	\N
+5640	2022-02-06	544	3	2	661.93	1323.86	0.00	1323.86	\N
+5641	2022-02-06	580	9	2	109.94	219.88	10.99	208.89	\N
+5642	2022-02-07	581	7	2	279.04	558.08	0.00	558.08	\N
+5643	2022-02-07	353	8	2	180.70	361.40	0.00	361.40	\N
+5644	2022-02-09	223	6	1	340.31	340.31	0.00	340.31	\N
+5645	2022-02-10	356	3	2	688.38	1376.76	68.84	1307.92	5
+5646	2022-02-11	536	9	1	111.45	111.45	0.00	111.45	\N
+5647	2022-02-12	153	6	2	336.76	673.52	33.68	639.84	5
+5648	2022-02-12	330	4	2	144.81	289.62	28.96	260.66	\N
+5649	2022-02-13	571	3	2	707.50	1415.00	0.00	1415.00	\N
+5650	2022-02-14	258	6	1	340.59	340.59	0.00	340.59	\N
+5651	2022-02-15	524	8	1	167.72	167.72	0.00	167.72	\N
+5652	2022-02-17	485	7	2	292.78	585.56	29.28	556.28	5
+5653	2022-02-18	132	9	2	121.10	242.20	12.11	230.09	5
+5654	2022-02-18	513	8	1	164.85	164.85	8.24	156.61	5
+5655	2022-02-18	484	6	2	329.53	659.06	0.00	659.06	\N
+5656	2022-02-18	400	9	1	116.64	116.64	11.66	104.98	\N
+5657	2022-02-19	140	7	2	277.70	555.40	27.77	527.63	5
+5658	2022-02-19	303	2	1	428.12	428.12	21.41	406.71	5
+5659	2022-02-20	125	1	2	212.21	424.42	63.66	360.76	5
+5660	2022-02-20	392	5	1	242.63	242.63	12.13	230.50	5
+5661	2022-02-21	210	4	2	137.07	274.14	0.00	274.14	\N
+5662	2022-02-21	100	2	1	466.52	466.52	23.33	443.19	5
+5663	2022-02-21	249	5	1	264.27	264.27	13.21	251.06	5
+5664	2022-02-21	443	10	1	29.80	29.80	1.49	28.31	\N
+5665	2022-02-21	310	4	1	143.83	143.83	0.00	143.83	\N
+5666	2022-02-22	556	6	2	371.96	743.92	0.00	743.92	\N
+5667	2022-02-23	544	9	2	120.16	240.32	0.00	240.32	\N
+5668	2022-02-23	414	1	1	217.92	217.92	0.00	217.92	\N
+5669	2022-02-24	134	2	2	437.97	875.94	0.00	875.94	\N
+5670	2022-02-24	262	4	1	148.69	148.69	7.43	141.26	5
+5671	2022-02-24	131	8	1	194.51	194.51	9.73	184.78	5
+5672	2022-02-24	216	4	2	138.53	277.06	13.85	263.21	\N
+5673	2022-02-25	330	5	2	252.84	505.68	0.00	505.68	\N
+5674	2022-02-25	297	8	1	169.44	169.44	16.94	152.50	\N
+5675	2022-02-27	538	4	2	158.93	317.86	15.89	301.97	5
+5676	2022-02-27	483	8	1	171.21	171.21	8.56	162.65	5
+5677	2022-02-27	395	7	2	321.58	643.16	32.16	611.00	5
+5678	2022-02-28	13	1	2	206.89	413.78	0.00	413.78	\N
+5679	2022-02-28	143	3	1	749.67	749.67	37.48	712.19	5
+5680	2022-02-28	186	9	2	111.05	222.10	0.00	222.10	\N
+5681	2022-02-28	516	7	2	321.91	643.82	0.00	643.82	\N
+5682	2022-02-28	268	8	2	166.81	333.62	0.00	333.62	\N
+5683	2022-03-01	211	4	1	160.51	160.51	0.00	160.51	\N
+5684	2022-03-01	369	10	1	32.99	32.99	1.65	31.34	5
+5685	2022-03-01	38	7	2	294.05	588.10	29.41	558.69	5
+5686	2022-03-01	280	9	1	116.46	116.46	5.82	110.64	5
+5687	2022-03-02	259	5	1	235.28	235.28	0.00	235.28	\N
+5688	2022-03-02	284	10	2	32.27	64.54	3.23	61.31	5
+5689	2022-03-02	534	5	2	274.07	548.14	27.41	520.73	5
+5690	2022-03-03	158	5	2	234.07	468.14	46.81	421.33	\N
+5691	2022-03-03	479	9	1	124.37	124.37	0.00	124.37	\N
+5692	2022-03-04	315	9	2	125.05	250.10	0.00	250.10	\N
+5693	2022-03-04	259	9	1	110.28	110.28	0.00	110.28	\N
+5694	2022-03-06	594	6	2	379.80	759.60	0.00	759.60	\N
+5695	2022-03-06	382	10	2	32.59	65.18	3.26	61.92	\N
+5696	2022-03-07	203	2	1	423.77	423.77	21.19	402.58	5
+5697	2022-03-07	404	6	2	355.33	710.66	71.07	639.59	\N
+5698	2022-03-08	533	8	2	179.14	358.28	17.91	340.37	5
+5699	2022-03-08	573	7	2	274.31	548.62	27.43	521.19	5
+5700	2022-03-08	498	5	2	274.92	549.84	82.47	467.37	5
+5701	2022-03-09	569	1	1	218.40	218.40	0.00	218.40	\N
+5702	2022-03-09	184	7	1	317.20	317.20	15.86	301.34	5
+5703	2022-03-09	14	8	1	192.58	192.58	19.26	173.32	5
+5704	2022-03-09	77	2	2	425.15	850.30	85.03	765.27	\N
+5705	2022-03-09	1	5	1	239.15	239.15	0.00	239.15	\N
+5706	2022-03-10	258	8	1	184.27	184.27	9.21	175.06	5
+5707	2022-03-10	600	10	1	27.08	27.08	4.06	23.02	5
+5708	2022-03-11	394	5	2	266.28	532.56	26.63	505.93	5
+5709	2022-03-11	585	2	1	435.84	435.84	21.79	414.05	5
+5710	2022-03-11	28	7	2	297.25	594.50	29.73	564.77	5
+5711	2022-03-11	237	7	1	297.13	297.13	0.00	297.13	\N
+5712	2022-03-11	404	2	2	409.05	818.10	40.91	777.19	\N
+5713	2022-03-12	443	5	2	236.19	472.38	47.24	425.14	\N
+5714	2022-03-12	397	10	2	30.40	60.80	0.00	60.80	\N
+5715	2022-03-13	372	10	2	32.91	65.82	9.87	55.95	5
+5716	2022-03-13	455	10	1	28.17	28.17	0.00	28.17	\N
+5717	2022-03-14	8	2	1	415.41	415.41	0.00	415.41	\N
+5718	2022-03-14	99	8	2	186.33	372.66	0.00	372.66	\N
+5719	2022-03-14	424	1	2	212.69	425.38	0.00	425.38	\N
+5720	2022-03-14	417	9	2	121.24	242.48	0.00	242.48	\N
+5721	2022-03-15	564	7	2	315.26	630.52	63.05	567.47	\N
+5722	2022-03-16	486	4	1	163.25	163.25	0.00	163.25	\N
+5723	2022-03-16	491	10	1	28.76	28.76	0.00	28.76	\N
+5724	2022-03-18	200	7	1	286.43	286.43	14.32	272.11	5
+5725	2022-03-18	392	4	2	139.51	279.02	0.00	279.02	\N
+5726	2022-03-20	435	6	2	356.62	713.24	0.00	713.24	\N
+5727	2022-03-20	343	9	1	118.67	118.67	5.93	112.74	5
+5728	2022-03-21	266	10	1	30.80	30.80	0.00	30.80	\N
+5729	2022-03-22	358	6	1	373.94	373.94	18.70	355.24	5
+5730	2022-03-22	454	5	1	268.18	268.18	0.00	268.18	\N
+5731	2022-03-22	133	5	1	226.18	226.18	0.00	226.18	\N
+5732	2022-03-24	174	10	2	30.88	61.76	3.09	58.67	5
+5733	2022-03-24	537	10	1	29.39	29.39	0.00	29.39	\N
+5734	2022-03-26	265	6	2	376.43	752.86	0.00	752.86	\N
+5735	2022-03-26	358	5	1	252.70	252.70	0.00	252.70	\N
+5736	2022-03-27	494	9	1	108.17	108.17	5.41	102.76	5
+5737	2022-03-28	547	6	2	379.74	759.48	37.97	721.51	5
+5738	2022-03-29	124	4	1	147.21	147.21	0.00	147.21	\N
+5739	2022-03-29	538	1	2	207.87	415.74	0.00	415.74	\N
+5740	2022-03-29	487	4	1	148.76	148.76	22.32	126.44	5
+5741	2022-03-29	2	7	1	283.11	283.11	0.00	283.11	\N
+5742	2022-03-30	31	6	2	322.24	644.48	0.00	644.48	\N
+5743	2022-03-30	418	6	1	351.16	351.16	0.00	351.16	\N
+5744	2022-03-31	596	7	2	282.36	564.72	0.00	564.72	\N
+5745	2022-03-31	479	5	1	257.39	257.39	0.00	257.39	\N
+5746	2022-03-31	404	7	2	314.73	629.46	0.00	629.46	\N
+5747	2022-04-01	140	8	2	169.08	338.16	0.00	338.16	\N
+5748	2022-04-01	271	2	1	435.21	435.21	21.76	413.45	\N
+5749	2022-04-02	590	5	2	265.91	531.82	53.18	478.64	5
+5750	2022-04-03	501	7	1	272.70	272.70	13.63	259.07	5
+5751	2022-04-03	336	2	1	440.26	440.26	22.01	418.25	5
+5752	2022-04-03	473	8	2	182.37	364.74	0.00	364.74	\N
+5753	2022-04-04	242	1	2	197.08	394.16	19.71	374.45	5
+5754	2022-04-04	330	8	2	193.04	386.08	0.00	386.08	\N
+5755	2022-04-04	485	9	2	122.16	244.32	12.22	232.10	5
+5756	2022-04-05	353	3	2	687.39	1374.78	206.22	1168.56	5
+5757	2022-04-05	414	9	2	119.29	238.58	0.00	238.58	\N
+5758	2022-04-07	493	2	2	462.29	924.58	0.00	924.58	\N
+5759	2022-04-07	123	3	2	713.96	1427.92	0.00	1427.92	\N
+5760	2022-04-08	98	4	1	152.10	152.10	15.21	136.89	\N
+5761	2022-04-08	373	10	1	30.87	30.87	1.54	29.33	5
+5762	2022-04-09	105	4	2	162.28	324.56	0.00	324.56	\N
+5763	2022-04-09	513	8	2	162.32	324.64	0.00	324.64	\N
+5764	2022-04-12	12	8	1	182.84	182.84	0.00	182.84	\N
+5765	2022-04-12	415	6	2	323.34	646.68	97.00	549.68	5
+5766	2022-04-12	508	1	2	218.62	437.24	0.00	437.24	\N
+5767	2022-04-13	309	8	2	181.11	362.22	0.00	362.22	\N
+5768	2022-04-14	11	4	1	142.63	142.63	7.13	135.50	5
+5769	2022-04-14	219	7	2	325.78	651.56	32.58	618.98	5
+5770	2022-04-15	8	5	1	268.88	268.88	0.00	268.88	\N
+5771	2022-04-15	527	1	1	204.57	204.57	20.46	184.11	\N
+5772	2022-04-15	519	4	2	158.76	317.52	0.00	317.52	\N
+5773	2022-04-16	263	4	1	157.18	157.18	15.72	141.46	\N
+5774	2022-04-16	334	10	1	30.02	30.02	1.50	28.52	5
+5775	2022-04-17	274	1	1	202.03	202.03	0.00	202.03	\N
+5776	2022-04-17	221	1	1	188.00	188.00	9.40	178.60	\N
+5777	2022-04-18	381	7	1	270.30	270.30	13.52	256.78	5
+5778	2022-04-19	434	10	2	30.75	61.50	9.23	52.27	5
+5779	2022-04-19	39	3	2	714.99	1429.98	0.00	1429.98	\N
+5780	2022-04-19	391	4	2	141.57	283.14	0.00	283.14	\N
+5781	2022-04-20	170	4	1	145.75	145.75	7.29	138.46	5
+5782	2022-04-21	4	4	1	135.88	135.88	0.00	135.88	\N
+5783	2022-04-21	362	5	1	265.25	265.25	0.00	265.25	\N
+5784	2022-04-21	475	4	2	162.73	325.46	16.27	309.19	\N
+5785	2022-04-21	366	4	2	137.80	275.60	13.78	261.82	5
+5786	2022-04-21	23	5	1	231.40	231.40	11.57	219.83	\N
+5787	2022-04-21	394	9	1	111.03	111.03	5.55	105.48	5
+5788	2022-04-22	128	1	2	202.66	405.32	20.27	385.05	5
+5789	2022-04-22	355	5	2	251.53	503.06	25.15	477.91	5
+5790	2022-04-23	529	6	1	346.04	346.04	0.00	346.04	\N
+5791	2022-04-23	210	10	1	31.87	31.87	1.59	30.28	5
+5792	2022-04-24	338	6	2	331.57	663.14	33.16	629.98	5
+5793	2022-04-24	87	9	2	111.76	223.52	11.18	212.34	\N
+5794	2022-04-24	142	7	2	325.91	651.82	0.00	651.82	\N
+5795	2022-04-25	101	9	1	116.24	116.24	5.81	110.43	5
+5796	2022-04-25	479	7	2	316.44	632.88	0.00	632.88	\N
+5797	2022-04-26	82	6	2	378.37	756.74	37.84	718.90	5
+5798	2022-04-26	526	2	2	456.77	913.54	0.00	913.54	\N
+5799	2022-04-26	337	5	2	238.09	476.18	23.81	452.37	5
+5800	2022-04-26	347	1	1	212.98	212.98	0.00	212.98	\N
+5801	2022-04-27	289	10	2	31.44	62.88	0.00	62.88	\N
+5802	2022-04-27	32	9	2	121.73	243.46	12.17	231.29	5
+5803	2022-04-27	298	1	2	189.49	378.98	0.00	378.98	\N
+5804	2022-04-27	423	10	2	32.58	65.16	3.26	61.90	5
+5805	2022-04-28	216	6	2	375.27	750.54	37.53	713.01	5
+5806	2022-04-28	64	9	1	126.16	126.16	6.31	119.85	\N
+5807	2022-04-28	338	5	2	247.35	494.70	0.00	494.70	\N
+5808	2022-04-28	505	5	1	243.61	243.61	12.18	231.43	5
+5809	2022-04-29	121	3	2	660.36	1320.72	0.00	1320.72	\N
+5810	2022-04-29	255	8	2	183.46	366.92	18.35	348.57	5
+5811	2022-04-29	64	5	1	268.71	268.71	0.00	268.71	\N
+5812	2022-04-30	292	9	2	127.97	255.94	0.00	255.94	\N
+5813	2022-04-30	473	5	1	271.10	271.10	13.56	257.54	5
+5814	2022-04-30	437	3	1	657.65	657.65	0.00	657.65	\N
+5815	2022-05-01	501	2	2	418.86	837.72	41.89	795.83	5
+5816	2022-05-01	31	3	2	738.71	1477.42	73.87	1403.55	5
+5817	2022-05-02	22	7	2	288.07	576.14	0.00	576.14	\N
+5818	2022-05-02	157	8	1	167.31	167.31	8.37	158.94	5
+5819	2022-05-02	65	5	1	265.85	265.85	0.00	265.85	\N
+5820	2022-05-02	207	5	1	230.16	230.16	0.00	230.16	\N
+5821	2022-05-03	51	1	2	193.56	387.12	19.36	367.76	5
+5822	2022-05-05	247	5	1	242.66	242.66	12.13	230.53	5
+5823	2022-05-05	373	7	1	318.09	318.09	0.00	318.09	\N
+5824	2022-05-06	572	4	1	141.11	141.11	0.00	141.11	\N
+5825	2022-05-06	496	7	1	294.89	294.89	29.49	265.40	\N
+5826	2022-05-07	309	10	2	27.55	55.10	0.00	55.10	\N
+5827	2022-05-07	53	5	2	235.05	470.10	23.51	446.59	5
+5828	2022-05-09	338	8	2	182.13	364.26	18.21	346.05	5
+5829	2022-05-09	593	8	2	182.99	365.98	0.00	365.98	\N
+5830	2022-05-09	48	10	2	31.09	62.18	3.11	59.07	5
+5831	2022-05-10	431	1	1	200.94	200.94	0.00	200.94	\N
+5832	2022-05-10	519	9	1	116.41	116.41	0.00	116.41	\N
+5833	2022-05-10	35	6	2	341.03	682.06	34.10	647.96	5
+5834	2022-05-10	81	2	2	414.72	829.44	41.47	787.97	5
+5835	2022-05-11	166	7	2	287.10	574.20	28.71	545.49	\N
+5836	2022-05-11	244	4	1	163.21	163.21	0.00	163.21	\N
+5837	2022-05-11	44	3	1	757.35	757.35	0.00	757.35	\N
+5838	2022-05-12	557	9	2	123.27	246.54	0.00	246.54	\N
+5839	2022-05-12	65	9	1	120.78	120.78	6.04	114.74	5
+5840	2022-05-12	461	9	1	110.38	110.38	0.00	110.38	\N
+5841	2022-05-13	443	7	1	284.91	284.91	0.00	284.91	\N
+5842	2022-05-13	139	1	1	201.75	201.75	0.00	201.75	\N
+5843	2022-05-14	191	5	2	234.32	468.64	0.00	468.64	\N
+5844	2022-05-14	493	5	2	232.44	464.88	23.24	441.64	5
+5845	2022-05-15	31	5	2	248.16	496.32	0.00	496.32	\N
+5846	2022-05-15	171	8	2	183.57	367.14	18.36	348.78	5
+5847	2022-05-15	336	9	1	110.23	110.23	0.00	110.23	\N
+5848	2022-05-16	310	5	1	255.47	255.47	25.55	229.92	\N
+5849	2022-05-18	91	5	2	271.61	543.22	0.00	543.22	\N
+5850	2022-05-19	223	10	1	30.70	30.70	1.54	29.16	5
+5851	2022-05-19	335	6	1	371.57	371.57	0.00	371.57	\N
+5852	2022-05-19	201	10	2	28.67	57.34	0.00	57.34	\N
+5853	2022-05-20	598	1	1	213.88	213.88	0.00	213.88	\N
+5854	2022-05-21	275	10	2	29.33	58.66	0.00	58.66	\N
+5855	2022-05-21	532	2	2	491.29	982.58	49.13	933.45	\N
+5856	2022-05-21	591	3	1	664.02	664.02	0.00	664.02	\N
+5857	2022-05-22	140	5	1	244.19	244.19	12.21	231.98	5
+5858	2022-05-22	54	4	2	149.03	298.06	0.00	298.06	\N
+5859	2022-05-23	277	1	1	219.25	219.25	10.96	208.29	5
+5860	2022-05-23	528	7	2	299.52	599.04	0.00	599.04	\N
+5861	2022-05-24	534	6	2	349.70	699.40	0.00	699.40	\N
+5862	2022-05-24	338	6	1	355.89	355.89	0.00	355.89	\N
+5863	2022-05-25	334	8	1	185.85	185.85	0.00	185.85	\N
+5864	2022-05-25	381	8	2	180.09	360.18	18.01	342.17	5
+5865	2022-05-26	362	6	1	319.70	319.70	0.00	319.70	\N
+5866	2022-05-26	491	7	2	285.67	571.34	0.00	571.34	\N
+5867	2022-05-27	220	7	2	324.93	649.86	64.98	584.88	5
+5868	2022-05-27	110	5	2	273.11	546.22	0.00	546.22	\N
+5869	2022-05-28	260	3	1	635.92	635.92	31.80	604.12	5
+5870	2022-05-28	523	7	1	296.58	296.58	14.83	281.75	5
+5871	2022-05-30	378	3	1	637.10	637.10	0.00	637.10	\N
+5872	2022-05-30	95	10	1	32.83	32.83	0.00	32.83	\N
+5873	2022-05-30	23	6	2	343.62	687.24	34.36	652.88	5
+5874	2022-05-30	325	9	1	115.67	115.67	0.00	115.67	\N
+5875	2022-05-31	193	3	2	746.61	1493.22	0.00	1493.22	\N
+5876	2022-05-31	488	7	1	294.65	294.65	14.73	279.92	5
+5877	2022-05-31	502	10	2	31.15	62.30	9.35	52.95	5
+5878	2022-06-01	210	9	1	110.30	110.30	0.00	110.30	\N
+5879	2022-06-01	518	10	2	32.82	65.64	0.00	65.64	\N
+5880	2022-06-02	40	6	2	325.58	651.16	0.00	651.16	\N
+5881	2022-06-02	358	8	2	194.41	388.82	0.00	388.82	\N
+5882	2022-06-04	303	10	2	31.99	63.98	0.00	63.98	\N
+5883	2022-06-04	22	6	2	374.31	748.62	0.00	748.62	\N
+5884	2022-06-05	360	10	1	30.72	30.72	1.54	29.18	\N
+5885	2022-06-05	221	6	2	378.25	756.50	37.83	718.67	5
+5886	2022-06-05	320	1	1	205.10	205.10	0.00	205.10	\N
+5887	2022-06-06	376	2	2	424.87	849.74	42.49	807.25	5
+5888	2022-06-06	157	3	1	645.22	645.22	0.00	645.22	\N
+5889	2022-06-06	348	4	1	159.69	159.69	23.95	135.74	5
+5890	2022-06-08	159	1	1	191.34	191.34	9.57	181.77	\N
+5891	2022-06-08	255	2	1	421.17	421.17	21.06	400.11	5
+5892	2022-06-08	45	3	1	661.03	661.03	0.00	661.03	\N
+5893	2022-06-08	365	6	2	350.71	701.42	35.07	666.35	5
+5894	2022-06-08	465	6	1	338.22	338.22	33.82	304.40	\N
+5895	2022-06-09	56	4	1	147.16	147.16	0.00	147.16	\N
+5896	2022-06-10	148	8	1	188.06	188.06	9.40	178.66	\N
+5897	2022-06-11	365	7	1	302.99	302.99	30.30	272.69	5
+5898	2022-06-11	78	2	1	492.43	492.43	24.62	467.81	\N
+5899	2022-06-11	465	10	2	28.22	56.44	5.64	50.80	5
+5900	2022-06-12	193	10	1	31.82	31.82	0.00	31.82	\N
+5901	2022-06-12	18	6	2	334.09	668.18	0.00	668.18	\N
+5902	2022-06-12	328	2	1	483.38	483.38	0.00	483.38	\N
+5903	2022-06-13	58	8	1	182.94	182.94	9.15	173.79	\N
+5904	2022-06-13	233	1	1	185.92	185.92	18.59	167.33	\N
+5905	2022-06-14	542	6	2	358.97	717.94	0.00	717.94	\N
+5906	2022-06-14	588	1	2	185.71	371.42	18.57	352.85	\N
+5907	2022-06-14	67	6	1	364.71	364.71	18.24	346.47	5
+5908	2022-06-15	324	2	2	409.49	818.98	40.95	778.03	5
+5909	2022-06-15	374	4	1	141.73	141.73	0.00	141.73	\N
+5910	2022-06-15	7	6	1	348.74	348.74	0.00	348.74	\N
+5911	2022-06-16	199	8	1	187.22	187.22	28.08	159.14	5
+5912	2022-06-16	270	4	1	148.53	148.53	0.00	148.53	\N
+5913	2022-06-16	151	2	2	475.77	951.54	95.15	856.39	\N
+5914	2022-06-16	114	3	2	677.74	1355.48	0.00	1355.48	\N
+5915	2022-06-17	566	4	1	160.88	160.88	0.00	160.88	\N
+5916	2022-06-17	579	8	2	165.33	330.66	0.00	330.66	\N
+5917	2022-06-18	384	7	1	301.75	301.75	0.00	301.75	\N
+5918	2022-06-18	384	1	1	194.18	194.18	9.71	184.47	\N
+5919	2022-06-18	577	4	1	135.92	135.92	0.00	135.92	\N
+5920	2022-06-18	356	6	1	377.47	377.47	0.00	377.47	\N
+5921	2022-06-18	562	4	2	142.42	284.84	0.00	284.84	\N
+5922	2022-06-21	217	7	1	287.25	287.25	0.00	287.25	\N
+5923	2022-06-21	264	5	2	227.16	454.32	0.00	454.32	\N
+5924	2022-06-21	304	6	2	372.96	745.92	37.30	708.62	5
+5925	2022-06-21	208	6	2	347.70	695.40	0.00	695.40	\N
+5926	2022-06-21	392	6	1	315.47	315.47	15.77	299.70	5
+5927	2022-06-22	13	8	2	181.37	362.74	0.00	362.74	\N
+5928	2022-06-23	187	8	2	165.98	331.96	16.60	315.36	5
+5929	2022-06-27	27	3	2	766.95	1533.90	0.00	1533.90	\N
+5930	2022-06-27	67	2	2	455.50	911.00	0.00	911.00	\N
+5931	2022-06-28	121	1	2	219.59	439.18	0.00	439.18	\N
+5932	2022-06-28	447	1	1	203.51	203.51	20.35	183.16	\N
+5933	2022-06-28	4	9	2	109.61	219.22	10.96	208.26	5
+5934	2022-06-28	202	3	2	699.94	1399.88	69.99	1329.89	5
+5935	2022-06-28	25	6	1	380.03	380.03	0.00	380.03	\N
+5936	2022-06-29	537	8	2	178.74	357.48	0.00	357.48	\N
+5937	2022-06-30	51	2	1	429.98	429.98	21.50	408.48	5
+5938	2022-06-30	395	9	1	111.11	111.11	5.56	105.55	5
+5939	2022-06-30	344	7	1	308.85	308.85	0.00	308.85	\N
+5940	2022-07-01	411	5	1	246.70	246.70	0.00	246.70	\N
+5941	2022-07-01	326	10	2	29.17	58.34	0.00	58.34	\N
+5942	2022-07-02	115	10	1	31.90	31.90	3.19	28.71	\N
+5943	2022-07-02	124	4	1	146.05	146.05	0.00	146.05	\N
+5944	2022-07-02	583	8	1	190.69	190.69	0.00	190.69	\N
+5945	2022-07-02	179	6	2	318.14	636.28	31.81	604.47	5
+5946	2022-07-03	479	5	2	268.96	537.92	0.00	537.92	\N
+5947	2022-07-03	485	4	1	145.89	145.89	7.29	138.60	\N
+5948	2022-07-03	502	8	2	171.44	342.88	0.00	342.88	\N
+5949	2022-07-04	512	8	2	183.86	367.72	0.00	367.72	\N
+5950	2022-07-04	342	9	1	115.37	115.37	5.77	109.60	5
+5951	2022-07-04	593	10	1	29.82	29.82	4.47	25.35	5
+5952	2022-07-07	37	2	2	460.05	920.10	92.01	828.09	\N
+5953	2022-07-07	437	10	1	27.74	27.74	0.00	27.74	\N
+5954	2022-07-07	592	2	1	456.17	456.17	0.00	456.17	\N
+5955	2022-07-07	216	6	1	331.73	331.73	33.18	298.55	5
+5956	2022-07-08	569	8	2	182.05	364.10	36.41	327.69	\N
+5957	2022-07-08	528	8	2	175.46	350.92	0.00	350.92	\N
+5958	2022-07-09	183	7	1	311.37	311.37	31.14	280.23	\N
+5959	2022-07-09	503	5	1	249.00	249.00	12.45	236.55	\N
+5960	2022-07-11	413	10	2	32.13	64.26	3.21	61.05	5
+5961	2022-07-12	378	2	2	445.69	891.38	44.57	846.81	5
+5962	2022-07-12	131	3	2	711.06	1422.12	142.21	1279.91	\N
+5963	2022-07-13	344	1	1	211.73	211.73	10.59	201.14	5
+5964	2022-07-13	450	6	1	373.55	373.55	18.68	354.87	5
+5965	2022-07-14	334	8	2	186.94	373.88	0.00	373.88	\N
+5966	2022-07-14	577	2	1	446.28	446.28	0.00	446.28	\N
+5967	2022-07-15	309	4	1	144.05	144.05	7.20	136.85	5
+5968	2022-07-16	515	2	2	411.18	822.36	41.12	781.24	5
+5969	2022-07-16	145	8	2	167.69	335.38	0.00	335.38	\N
+5970	2022-07-18	193	7	1	305.49	305.49	0.00	305.49	\N
+5971	2022-07-20	361	7	1	281.19	281.19	14.06	267.13	5
+5972	2022-07-20	591	2	1	441.62	441.62	0.00	441.62	\N
+5973	2022-07-22	472	1	2	212.26	424.52	21.23	403.29	5
+5974	2022-07-22	410	10	2	31.55	63.10	0.00	63.10	\N
+5975	2022-07-23	280	5	1	265.09	265.09	26.50	238.59	5
+5976	2022-07-23	150	8	1	190.06	190.06	9.50	180.56	5
+5977	2022-07-23	198	6	1	334.49	334.49	16.72	317.77	5
+5978	2022-07-23	2	2	1	481.57	481.57	0.00	481.57	\N
+5979	2022-07-26	426	10	1	32.36	32.36	1.62	30.74	5
+5980	2022-07-26	160	10	2	28.47	56.94	0.00	56.94	\N
+5981	2022-07-27	216	9	2	115.36	230.72	0.00	230.72	\N
+5982	2022-07-27	104	2	1	434.25	434.25	0.00	434.25	\N
+5983	2022-07-27	307	8	2	175.30	350.60	17.53	333.07	\N
+5984	2022-07-28	422	5	2	267.08	534.16	26.71	507.45	5
+5985	2022-07-28	192	5	1	266.61	266.61	13.33	253.28	5
+5986	2022-07-28	427	3	2	630.45	1260.90	63.05	1197.85	\N
+5987	2022-07-29	350	5	2	264.65	529.30	0.00	529.30	\N
+5988	2022-07-31	148	4	2	152.09	304.18	15.21	288.97	\N
+5989	2022-07-31	253	5	2	236.45	472.90	0.00	472.90	\N
+5990	2022-08-01	349	5	1	248.61	248.61	12.43	236.18	\N
+5991	2022-08-01	256	10	2	30.15	60.30	3.02	57.28	5
+5992	2022-08-01	592	6	2	322.58	645.16	64.52	580.64	5
+5993	2022-08-01	88	3	1	630.06	630.06	63.01	567.05	\N
+5994	2022-08-02	500	6	1	342.96	342.96	17.15	325.81	5
+5995	2022-08-03	346	7	2	285.19	570.38	0.00	570.38	\N
+5996	2022-08-03	344	5	1	231.09	231.09	11.55	219.54	5
+5997	2022-08-04	402	6	1	366.16	366.16	36.62	329.54	\N
+5998	2022-08-05	69	6	1	378.34	378.34	0.00	378.34	\N
+5999	2022-08-05	566	2	2	444.53	889.06	0.00	889.06	\N
+6000	2022-08-05	485	9	1	112.09	112.09	16.81	95.28	5
+6001	2022-08-05	312	10	2	28.07	56.14	2.81	53.33	\N
+6002	2022-08-06	106	5	1	233.00	233.00	0.00	233.00	\N
+6003	2022-08-07	516	2	2	431.12	862.24	0.00	862.24	\N
+6004	2022-08-07	222	9	2	131.08	262.16	13.11	249.05	5
+6005	2022-08-07	592	10	2	28.14	56.28	2.81	53.47	\N
+6006	2022-08-08	158	1	2	216.23	432.46	0.00	432.46	\N
+6007	2022-08-09	32	2	1	445.52	445.52	22.28	423.24	5
+6008	2022-08-09	519	5	2	260.09	520.18	0.00	520.18	\N
+6009	2022-08-09	526	9	2	117.38	234.76	11.74	223.02	5
+6010	2022-08-09	76	9	1	111.53	111.53	11.16	100.37	5
+6011	2022-08-10	395	8	2	193.93	387.86	0.00	387.86	\N
+6012	2022-08-11	105	7	2	288.73	577.46	0.00	577.46	\N
+6013	2022-08-12	127	6	1	328.40	328.40	16.42	311.98	\N
+6014	2022-08-13	27	2	2	413.85	827.70	82.77	744.93	\N
+6015	2022-08-14	223	2	1	437.34	437.34	0.00	437.34	\N
+6016	2022-08-14	175	4	1	143.69	143.69	0.00	143.69	\N
+6017	2022-08-18	13	3	2	650.66	1301.32	0.00	1301.32	\N
+6018	2022-08-18	258	7	1	280.45	280.45	0.00	280.45	\N
+6019	2022-08-18	249	3	2	631.40	1262.80	63.14	1199.66	\N
+6020	2022-08-19	260	3	1	663.84	663.84	0.00	663.84	\N
+6021	2022-08-20	459	8	1	175.86	175.86	8.79	167.07	5
+6022	2022-08-20	203	10	1	31.51	31.51	0.00	31.51	\N
+6023	2022-08-20	437	7	1	324.60	324.60	0.00	324.60	\N
+6024	2022-08-20	512	8	1	193.08	193.08	19.31	173.77	\N
+6025	2022-08-21	183	5	1	267.14	267.14	13.36	253.78	\N
+6026	2022-08-22	37	6	2	374.81	749.62	74.96	674.66	\N
+6027	2022-08-22	149	5	2	264.91	529.82	26.49	503.33	5
+6028	2022-08-23	284	3	2	690.52	1381.04	69.05	1311.99	5
+6029	2022-08-23	545	10	2	31.03	62.06	0.00	62.06	\N
+6030	2022-08-23	445	4	2	152.43	304.86	15.24	289.62	5
+6031	2022-08-23	569	2	2	477.44	954.88	47.74	907.14	\N
+6032	2022-08-23	197	3	1	738.79	738.79	0.00	738.79	\N
+6033	2022-08-23	529	1	2	199.12	398.24	0.00	398.24	\N
+6034	2022-08-23	281	3	1	721.10	721.10	0.00	721.10	\N
+6035	2022-08-24	468	4	2	137.37	274.74	13.74	261.00	5
+6036	2022-08-24	241	2	1	478.86	478.86	0.00	478.86	\N
+6037	2022-08-25	192	2	2	463.57	927.14	46.36	880.78	5
+6038	2022-08-25	479	1	1	193.85	193.85	0.00	193.85	\N
+6039	2022-08-25	4	8	2	179.26	358.52	35.85	322.67	\N
+6040	2022-08-26	592	10	2	30.67	61.34	3.07	58.27	5
+6041	2022-08-26	355	8	2	175.60	351.20	0.00	351.20	\N
+6042	2022-08-26	129	2	1	426.39	426.39	0.00	426.39	\N
+6043	2022-08-26	593	6	1	320.11	320.11	16.01	304.10	5
+6044	2022-08-26	287	6	1	334.45	334.45	33.45	301.00	\N
+6045	2022-08-28	345	2	2	422.65	845.30	42.27	803.03	5
+6046	2022-08-28	36	6	2	357.86	715.72	35.79	679.93	5
+6047	2022-08-28	424	4	1	154.78	154.78	0.00	154.78	\N
+6048	2022-08-29	102	1	2	203.87	407.74	20.39	387.35	5
+6049	2022-08-29	236	7	2	283.76	567.52	0.00	567.52	\N
+6050	2022-08-29	11	6	2	366.38	732.76	0.00	732.76	\N
+6051	2022-08-29	509	3	1	649.69	649.69	0.00	649.69	\N
+6052	2022-08-30	499	9	1	126.88	126.88	0.00	126.88	\N
+6053	2022-08-31	41	4	2	161.51	323.02	16.15	306.87	5
+6054	2022-08-31	559	2	2	417.59	835.18	41.76	793.42	\N
+6055	2022-08-31	539	10	1	30.92	30.92	1.55	29.37	5
+6056	2022-09-01	315	8	1	188.70	188.70	9.44	179.26	5
+6057	2022-09-03	143	2	2	411.35	822.70	82.27	740.43	\N
+6058	2022-09-04	434	4	1	157.72	157.72	0.00	157.72	\N
+6059	2022-09-04	73	2	1	432.52	432.52	21.63	410.89	5
+6060	2022-09-04	108	1	1	219.85	219.85	10.99	208.86	5
+6061	2022-09-05	247	1	1	212.66	212.66	10.63	202.03	5
+6062	2022-09-06	596	5	1	258.67	258.67	12.93	245.74	\N
+6063	2022-09-06	546	2	1	450.85	450.85	67.63	383.22	5
+6064	2022-09-06	382	2	1	465.98	465.98	23.30	442.68	5
+6065	2022-09-06	513	3	2	672.64	1345.28	67.26	1278.02	5
+6066	2022-09-07	90	8	2	163.64	327.28	0.00	327.28	\N
+6067	2022-09-07	65	7	2	308.06	616.12	0.00	616.12	\N
+6068	2022-09-07	197	3	2	736.33	1472.66	0.00	1472.66	\N
+6069	2022-09-07	490	1	2	188.38	376.76	37.68	339.08	5
+6070	2022-09-08	319	8	1	171.21	171.21	8.56	162.65	5
+6071	2022-09-08	133	2	1	408.90	408.90	0.00	408.90	\N
+6072	2022-09-08	22	5	1	267.17	267.17	13.36	253.81	\N
+6073	2022-09-08	114	4	2	138.66	277.32	13.87	263.45	5
+6074	2022-09-09	467	10	2	28.82	57.64	5.76	51.88	\N
+6075	2022-09-09	151	3	1	725.06	725.06	36.25	688.81	5
+6076	2022-09-10	476	3	2	721.97	1443.94	0.00	1443.94	\N
+6077	2022-09-11	79	9	2	127.22	254.44	0.00	254.44	\N
+6078	2022-09-11	597	9	1	119.92	119.92	0.00	119.92	\N
+6079	2022-09-12	465	8	1	177.25	177.25	0.00	177.25	\N
+6080	2022-09-13	66	4	1	150.00	150.00	7.50	142.50	5
+6081	2022-09-13	219	10	2	30.22	60.44	0.00	60.44	\N
+6082	2022-09-13	468	3	2	635.84	1271.68	63.58	1208.10	5
+6083	2022-09-13	282	6	2	323.18	646.36	32.32	614.04	5
+6084	2022-09-14	514	7	1	325.76	325.76	16.29	309.47	5
+6085	2022-09-14	468	4	1	143.42	143.42	0.00	143.42	\N
+6086	2022-09-14	32	8	2	196.63	393.26	0.00	393.26	\N
+6087	2022-09-14	320	1	2	189.92	379.84	18.99	360.85	5
+6088	2022-09-15	497	6	1	350.70	350.70	0.00	350.70	\N
+6089	2022-09-16	109	9	2	123.30	246.60	12.33	234.27	5
+6090	2022-09-16	144	1	2	194.47	388.94	19.45	369.49	5
+6091	2022-09-19	196	4	1	152.51	152.51	0.00	152.51	\N
+6092	2022-09-19	324	5	1	226.55	226.55	0.00	226.55	\N
+6093	2022-09-19	431	8	2	162.30	324.60	0.00	324.60	\N
+6094	2022-09-19	77	6	1	328.81	328.81	16.44	312.37	5
+6095	2022-09-19	57	6	2	340.13	680.26	0.00	680.26	\N
+6096	2022-09-19	225	6	1	333.69	333.69	0.00	333.69	\N
+6097	2022-09-19	461	9	2	125.00	250.00	0.00	250.00	\N
+6098	2022-09-19	516	9	2	120.91	241.82	0.00	241.82	\N
+6099	2022-09-20	169	3	1	766.49	766.49	0.00	766.49	\N
+6100	2022-09-21	33	1	2	198.22	396.44	19.82	376.62	\N
+6101	2022-09-22	23	10	2	28.86	57.72	2.89	54.83	5
+6102	2022-09-23	128	3	2	671.31	1342.62	201.39	1141.23	5
+6103	2022-09-23	504	9	1	124.63	124.63	6.23	118.40	5
+6104	2022-09-23	24	5	1	252.60	252.60	12.63	239.97	5
+6105	2022-09-24	429	5	2	272.55	545.10	81.77	463.33	5
+6106	2022-09-26	300	5	1	266.19	266.19	13.31	252.88	5
+6107	2022-09-26	265	10	2	30.29	60.58	3.03	57.55	5
+6108	2022-09-27	17	2	1	450.19	450.19	22.51	427.68	5
+6109	2022-09-27	249	3	1	675.68	675.68	0.00	675.68	\N
+6110	2022-09-28	301	4	2	158.57	317.14	31.72	285.42	5
+6111	2022-09-28	386	7	2	316.36	632.72	0.00	632.72	\N
+6112	2022-09-28	495	5	2	255.04	510.08	25.50	484.58	5
+6113	2022-09-28	219	1	1	190.43	190.43	0.00	190.43	\N
+6114	2022-09-29	104	8	2	177.92	355.84	0.00	355.84	\N
+6115	2022-09-30	588	3	1	666.56	666.56	33.33	633.23	5
+6116	2022-10-01	479	1	2	191.30	382.60	19.13	363.47	5
+6117	2022-10-02	197	1	1	183.73	183.73	0.00	183.73	\N
+6118	2022-10-02	251	3	2	664.64	1329.28	0.00	1329.28	\N
+6119	2022-10-02	389	6	2	321.78	643.56	32.18	611.38	5
+6120	2022-10-02	377	10	2	27.48	54.96	2.75	52.21	5
+6121	2022-10-02	252	5	1	237.10	237.10	11.86	225.24	5
+6122	2022-10-02	159	6	1	377.18	377.18	0.00	377.18	\N
+6123	2022-10-03	30	6	1	329.70	329.70	16.48	313.22	\N
+6124	2022-10-04	159	4	1	138.70	138.70	6.93	131.77	5
+6125	2022-10-04	69	2	1	458.27	458.27	22.91	435.36	5
+6126	2022-10-04	141	1	2	195.17	390.34	19.52	370.82	5
+6127	2022-10-04	412	10	1	28.22	28.22	1.41	26.81	5
+6128	2022-10-05	132	3	1	640.55	640.55	32.03	608.52	5
+6129	2022-10-05	435	8	1	185.54	185.54	0.00	185.54	\N
+6130	2022-10-06	375	4	2	151.82	303.64	15.18	288.46	5
+6131	2022-10-06	435	2	1	416.13	416.13	0.00	416.13	\N
+6132	2022-10-06	321	10	1	30.43	30.43	1.52	28.91	5
+6133	2022-10-07	146	7	1	317.53	317.53	31.75	285.78	\N
+6134	2022-10-07	338	6	2	329.68	659.36	0.00	659.36	\N
+6135	2022-10-08	325	9	2	131.31	262.62	13.13	249.49	5
+6136	2022-10-09	378	1	2	201.35	402.70	0.00	402.70	\N
+6137	2022-10-09	319	1	2	187.32	374.64	37.46	337.18	5
+6138	2022-10-09	380	10	1	28.38	28.38	1.42	26.96	5
+6139	2022-10-10	212	6	1	376.31	376.31	37.64	338.67	5
+6140	2022-10-10	508	6	2	318.19	636.38	0.00	636.38	\N
+6141	2022-10-10	91	10	2	31.12	62.24	0.00	62.24	\N
+6142	2022-10-11	217	6	2	333.15	666.30	33.31	632.99	5
+6143	2022-10-11	135	6	1	327.66	327.66	0.00	327.66	\N
+6144	2022-10-11	501	8	2	171.11	342.22	17.11	325.11	5
+6145	2022-10-11	400	5	2	264.72	529.44	26.47	502.97	5
+6146	2022-10-13	290	1	1	181.95	181.95	18.20	163.75	5
+6147	2022-10-14	560	7	2	277.55	555.10	0.00	555.10	\N
+6148	2022-10-14	374	4	2	149.91	299.82	0.00	299.82	\N
+6149	2022-10-14	576	6	2	378.22	756.44	0.00	756.44	\N
+6150	2022-10-14	389	1	1	203.31	203.31	10.17	193.14	\N
+6151	2022-10-15	261	1	1	198.71	198.71	9.94	188.77	5
+6152	2022-10-15	363	4	1	153.09	153.09	22.96	130.13	5
+6153	2022-10-16	228	3	2	747.94	1495.88	0.00	1495.88	\N
+6154	2022-10-16	451	10	2	27.86	55.72	2.79	52.93	5
+6155	2022-10-16	107	8	1	172.68	172.68	17.27	155.41	\N
+6156	2022-10-17	223	3	1	682.04	682.04	34.10	647.94	5
+6157	2022-10-18	599	5	2	237.33	474.66	0.00	474.66	\N
+6158	2022-10-19	544	5	1	272.39	272.39	0.00	272.39	\N
+6159	2022-10-19	587	6	1	325.87	325.87	0.00	325.87	\N
+6160	2022-10-20	512	10	1	32.46	32.46	0.00	32.46	\N
+6161	2022-10-21	345	5	1	255.22	255.22	12.76	242.46	5
+6162	2022-10-22	363	8	1	188.39	188.39	9.42	178.97	5
+6163	2022-10-22	198	2	2	449.37	898.74	0.00	898.74	\N
+6164	2022-10-22	148	8	1	188.26	188.26	9.41	178.85	5
+6165	2022-10-23	149	5	1	270.11	270.11	27.02	243.09	5
+6166	2022-10-23	133	8	2	175.95	351.90	0.00	351.90	\N
+6167	2022-10-23	278	1	2	210.66	421.32	21.07	400.25	5
+6168	2022-10-24	399	6	2	361.46	722.92	36.15	686.77	\N
+6169	2022-10-24	237	9	1	109.91	109.91	11.00	98.91	5
+6170	2022-10-25	140	3	2	704.47	1408.94	70.45	1338.49	5
+6171	2022-10-25	299	6	2	356.14	712.28	35.61	676.67	\N
+6172	2022-10-25	431	8	2	179.33	358.66	17.93	340.73	5
+6173	2022-10-25	216	6	1	363.94	363.94	0.00	363.94	\N
+6174	2022-10-25	468	4	2	156.94	313.88	31.39	282.49	\N
+6175	2022-10-25	222	10	2	29.51	59.02	2.95	56.07	5
+6176	2022-10-25	353	2	2	408.70	817.40	40.87	776.53	\N
+6177	2022-10-26	170	2	2	428.17	856.34	0.00	856.34	\N
+6178	2022-10-26	535	7	1	327.38	327.38	0.00	327.38	\N
+6179	2022-10-27	352	4	1	161.24	161.24	16.12	145.12	\N
+6180	2022-10-27	115	1	1	194.24	194.24	19.42	174.82	5
+6181	2022-10-27	465	4	1	135.91	135.91	0.00	135.91	\N
+6182	2022-10-28	53	8	1	184.42	184.42	0.00	184.42	\N
+6183	2022-10-28	234	2	2	493.42	986.84	0.00	986.84	\N
+6184	2022-10-29	282	2	2	471.79	943.58	47.18	896.40	5
+6185	2022-10-29	164	8	2	186.11	372.22	0.00	372.22	\N
+6186	2022-10-29	28	9	1	111.59	111.59	5.58	106.01	5
+6187	2022-10-31	61	8	1	167.43	167.43	25.11	142.32	5
+6188	2022-10-31	161	2	1	452.02	452.02	0.00	452.02	\N
+6189	2022-10-31	356	3	1	664.34	664.34	0.00	664.34	\N
+6190	2022-10-31	584	7	1	316.35	316.35	31.64	284.71	5
+6191	2022-11-04	336	10	1	32.44	32.44	0.00	32.44	\N
+6192	2022-11-05	476	6	2	323.05	646.10	0.00	646.10	\N
+6193	2022-11-06	31	4	1	140.02	140.02	7.00	133.02	\N
+6194	2022-11-06	4	10	1	28.70	28.70	4.31	24.39	5
+6195	2022-11-07	287	2	2	490.21	980.42	49.02	931.40	5
+6196	2022-11-08	526	9	2	118.16	236.32	0.00	236.32	\N
+6197	2022-11-08	497	6	1	338.85	338.85	0.00	338.85	\N
+6198	2022-11-09	6	10	2	29.03	58.06	2.90	55.16	5
+6199	2022-11-09	45	5	1	255.93	255.93	12.80	243.13	5
+6200	2022-11-10	255	7	1	294.74	294.74	14.74	280.00	5
+6201	2022-11-11	457	3	2	700.24	1400.48	70.02	1330.46	5
+6202	2022-11-12	128	5	2	263.36	526.72	52.67	474.05	\N
+6203	2022-11-12	232	9	1	114.49	114.49	0.00	114.49	\N
+6204	2022-11-13	266	7	1	278.77	278.77	13.94	264.83	5
+6205	2022-11-13	199	5	2	255.24	510.48	0.00	510.48	\N
+6206	2022-11-13	294	2	1	443.32	443.32	0.00	443.32	\N
+6207	2022-11-13	387	8	1	171.23	171.23	17.12	154.11	\N
+6208	2022-11-14	369	9	1	115.55	115.55	5.78	109.77	5
+6209	2022-11-14	89	1	1	195.81	195.81	0.00	195.81	\N
+6210	2022-11-14	155	7	1	287.38	287.38	28.74	258.64	\N
+6211	2022-11-14	593	8	2	181.37	362.74	18.14	344.60	5
+6212	2022-11-15	485	1	1	182.90	182.90	9.15	173.75	\N
+6213	2022-11-16	113	7	1	314.43	314.43	0.00	314.43	\N
+6214	2022-11-16	535	3	1	759.68	759.68	37.98	721.70	5
+6215	2022-11-17	450	9	1	108.35	108.35	5.42	102.93	5
+6216	2022-11-17	495	10	1	28.21	28.21	0.00	28.21	\N
+6217	2022-11-19	458	6	1	342.57	342.57	0.00	342.57	\N
+6218	2022-11-20	143	1	2	213.35	426.70	0.00	426.70	\N
+6219	2022-11-20	226	3	1	695.75	695.75	34.79	660.96	5
+6220	2022-11-20	509	2	1	417.69	417.69	0.00	417.69	\N
+6221	2022-11-20	190	2	1	418.89	418.89	20.94	397.95	5
+6222	2022-11-20	350	8	2	185.75	371.50	18.57	352.93	5
+6223	2022-11-21	118	6	1	331.39	331.39	16.57	314.82	5
+6224	2022-11-21	398	7	2	271.18	542.36	0.00	542.36	\N
+6225	2022-11-21	1	6	1	379.18	379.18	18.96	360.22	5
+6226	2022-11-22	48	4	2	135.92	271.84	13.59	258.25	5
+6227	2022-11-23	252	7	1	290.30	290.30	29.03	261.27	\N
+6228	2022-11-24	549	5	2	255.83	511.66	0.00	511.66	\N
+6229	2022-11-24	455	8	1	191.39	191.39	19.14	172.25	\N
+6230	2022-11-25	437	1	1	181.00	181.00	9.05	171.95	5
+6231	2022-11-25	285	4	2	142.43	284.86	0.00	284.86	\N
+6232	2022-11-26	285	10	1	27.48	27.48	0.00	27.48	\N
+6233	2022-11-27	317	5	2	234.85	469.70	23.48	446.22	5
+6234	2022-11-27	391	4	2	150.11	300.22	0.00	300.22	\N
+6235	2022-11-27	82	6	2	377.44	754.88	0.00	754.88	\N
+6236	2022-11-27	7	6	2	332.85	665.70	0.00	665.70	\N
+6237	2022-11-27	440	2	1	452.12	452.12	0.00	452.12	\N
+6238	2022-11-28	512	5	2	228.35	456.70	45.67	411.03	\N
+6239	2022-12-01	66	5	1	230.44	230.44	0.00	230.44	\N
+6240	2022-12-01	482	3	1	688.56	688.56	0.00	688.56	\N
+6241	2022-12-01	177	2	1	461.97	461.97	23.10	438.87	\N
+6242	2022-12-03	600	9	2	129.53	259.06	12.95	246.11	5
+6243	2022-12-03	322	10	1	31.71	31.71	3.18	28.53	5
+6244	2022-12-04	142	1	1	191.58	191.58	0.00	191.58	\N
+6245	2022-12-04	360	7	1	297.20	297.20	14.86	282.34	5
+6246	2022-12-04	273	2	2	471.07	942.14	0.00	942.14	\N
+6247	2022-12-05	400	1	2	191.87	383.74	0.00	383.74	\N
+6248	2022-12-05	237	10	1	27.51	27.51	4.13	23.38	5
+6249	2022-12-06	411	8	2	195.14	390.28	0.00	390.28	\N
+6250	2022-12-07	410	6	2	372.15	744.30	37.21	707.09	5
+6251	2022-12-07	258	8	2	197.02	394.04	59.10	334.94	5
+6252	2022-12-07	513	6	2	374.49	748.98	112.35	636.63	5
+6253	2022-12-08	329	3	1	639.89	639.89	31.99	607.90	5
+6254	2022-12-08	551	9	2	119.88	239.76	23.98	215.78	\N
+6255	2022-12-08	480	6	1	335.94	335.94	16.80	319.14	5
+6256	2022-12-09	442	2	2	466.82	933.64	0.00	933.64	\N
+6257	2022-12-09	425	10	2	28.02	56.04	0.00	56.04	\N
+6258	2022-12-09	238	9	2	118.36	236.72	11.84	224.88	5
+6259	2022-12-10	390	8	1	167.03	167.03	0.00	167.03	\N
+6260	2022-12-11	208	10	2	27.22	54.44	5.44	49.00	5
+6261	2022-12-11	57	4	2	137.67	275.34	0.00	275.34	\N
+6262	2022-12-11	245	4	1	159.62	159.62	7.98	151.64	5
+6263	2022-12-11	115	9	1	114.31	114.31	17.15	97.16	5
+6264	2022-12-12	545	6	1	339.02	339.02	16.95	322.07	5
+6265	2022-12-12	297	6	2	325.74	651.48	32.57	618.91	5
+6266	2022-12-12	284	4	2	147.36	294.72	14.74	279.98	5
+6267	2022-12-13	466	9	2	113.07	226.14	22.61	203.53	\N
+6268	2022-12-13	560	4	2	154.51	309.02	0.00	309.02	\N
+6269	2022-12-13	248	6	1	339.44	339.44	0.00	339.44	\N
+6270	2022-12-14	443	4	2	154.71	309.42	0.00	309.42	\N
+6271	2022-12-14	589	6	2	364.74	729.48	0.00	729.48	\N
+6272	2022-12-15	257	2	1	446.76	446.76	22.34	424.42	5
+6273	2022-12-15	397	1	1	207.70	207.70	0.00	207.70	\N
+6274	2022-12-15	114	7	1	277.73	277.73	0.00	277.73	\N
+6275	2022-12-16	314	8	1	177.15	177.15	0.00	177.15	\N
+6276	2022-12-17	403	9	1	114.81	114.81	0.00	114.81	\N
+6277	2022-12-17	120	8	2	196.78	393.56	0.00	393.56	\N
+6278	2022-12-17	579	10	2	32.32	64.64	6.46	58.18	5
+6279	2022-12-18	507	2	2	459.60	919.20	91.92	827.28	\N
+6280	2022-12-18	131	1	2	187.51	375.02	0.00	375.02	\N
+6281	2022-12-19	104	3	2	647.39	1294.78	64.74	1230.04	5
+6282	2022-12-22	78	10	1	27.25	27.25	1.36	25.89	5
+6283	2022-12-23	392	3	1	745.68	745.68	0.00	745.68	\N
+6284	2022-12-24	428	3	1	651.07	651.07	65.11	585.96	\N
+6285	2022-12-24	223	4	1	153.05	153.05	7.65	145.40	5
+6286	2022-12-25	535	3	1	670.31	670.31	33.52	636.79	5
+6287	2022-12-25	331	4	2	155.21	310.42	46.56	263.86	5
+6288	2022-12-29	55	8	2	173.30	346.60	0.00	346.60	\N
+6289	2022-12-29	540	5	1	228.28	228.28	11.41	216.87	5
+6290	2022-12-29	145	5	1	251.46	251.46	37.72	213.74	5
+6291	2022-12-30	287	6	2	316.01	632.02	0.00	632.02	\N
+6292	2022-12-30	253	3	2	702.17	1404.34	0.00	1404.34	\N
+6293	2022-12-30	579	10	2	31.75	63.50	9.53	53.97	5
+6294	2022-12-31	310	4	2	137.58	275.16	13.76	261.40	5
+6295	2023-01-02	496	2	2	465.23	930.46	93.05	837.41	\N
+6296	2023-01-03	248	3	1	735.91	735.91	0.00	735.91	\N
+6297	2023-01-03	226	8	1	177.70	177.70	0.00	177.70	\N
+6298	2023-01-03	452	7	2	273.89	547.78	54.78	493.00	\N
+6299	2023-01-03	488	4	2	145.13	290.26	0.00	290.26	\N
+6300	2023-01-03	110	5	2	248.41	496.82	49.68	447.14	\N
+6301	2023-01-03	417	7	1	276.35	276.35	0.00	276.35	\N
+6302	2023-01-03	253	10	2	28.30	56.60	0.00	56.60	\N
+6303	2023-01-04	131	10	2	28.60	57.20	0.00	57.20	\N
+6304	2023-01-04	53	3	1	764.64	764.64	0.00	764.64	\N
+6305	2023-01-04	101	4	2	161.54	323.08	0.00	323.08	\N
+6306	2023-01-05	228	4	1	152.08	152.08	0.00	152.08	\N
+6307	2023-01-05	484	10	2	32.13	64.26	0.00	64.26	\N
+6308	2023-01-06	339	9	2	112.34	224.68	0.00	224.68	\N
+6309	2023-01-06	458	8	2	168.80	337.60	0.00	337.60	\N
+6310	2023-01-06	579	2	1	479.82	479.82	0.00	479.82	\N
+6311	2023-01-06	45	4	1	148.50	148.50	7.43	141.07	\N
+6312	2023-01-07	152	8	2	174.48	348.96	0.00	348.96	\N
+6313	2023-01-07	372	6	2	347.34	694.68	0.00	694.68	\N
+6314	2023-01-07	295	3	2	641.80	1283.60	0.00	1283.60	\N
+6315	2023-01-08	432	3	2	767.62	1535.24	153.52	1381.72	\N
+6316	2023-01-08	334	10	1	27.53	27.53	2.75	24.78	\N
+6317	2023-01-08	258	4	2	146.82	293.64	0.00	293.64	\N
+6318	2023-01-09	402	5	1	239.51	239.51	0.00	239.51	\N
+6319	2023-01-09	165	10	1	31.85	31.85	0.00	31.85	\N
+6320	2023-01-10	96	5	2	232.37	464.74	0.00	464.74	\N
+6321	2023-01-11	8	1	1	198.54	198.54	19.85	178.69	\N
+6322	2023-01-11	408	9	2	113.74	227.48	11.37	216.11	\N
+6323	2023-01-12	520	8	1	195.18	195.18	0.00	195.18	\N
+6324	2023-01-13	494	2	2	410.07	820.14	0.00	820.14	\N
+6325	2023-01-13	193	9	1	126.01	126.01	0.00	126.01	\N
+6326	2023-01-13	15	1	2	203.52	407.04	0.00	407.04	\N
+6327	2023-01-13	434	4	1	154.02	154.02	15.40	138.62	\N
+6328	2023-01-13	488	8	2	193.85	387.70	0.00	387.70	\N
+6329	2023-01-14	379	9	2	117.92	235.84	0.00	235.84	\N
+6330	2023-01-14	567	5	1	273.20	273.20	0.00	273.20	\N
+6331	2023-01-16	248	5	2	238.71	477.42	0.00	477.42	\N
+6332	2023-01-16	222	4	2	140.51	281.02	0.00	281.02	\N
+6333	2023-01-16	388	6	2	360.40	720.80	0.00	720.80	\N
+6334	2023-01-16	424	9	2	114.84	229.68	0.00	229.68	\N
+6335	2023-01-17	67	6	2	335.77	671.54	0.00	671.54	\N
+6336	2023-01-17	206	6	1	323.48	323.48	0.00	323.48	\N
+6337	2023-01-17	209	6	2	383.10	766.20	0.00	766.20	\N
+6338	2023-01-17	528	6	2	322.58	645.16	0.00	645.16	\N
+6339	2023-01-18	512	7	1	304.13	304.13	0.00	304.13	\N
+6340	2023-01-18	580	6	2	378.92	757.84	0.00	757.84	\N
+6341	2023-01-18	422	1	2	181.67	363.34	0.00	363.34	\N
+6342	2023-01-18	235	4	2	148.43	296.86	0.00	296.86	\N
+6343	2023-01-19	187	10	2	32.06	64.12	0.00	64.12	\N
+6344	2023-01-19	529	5	1	256.87	256.87	12.84	244.03	\N
+6345	2023-01-20	189	3	1	675.65	675.65	0.00	675.65	\N
+6346	2023-01-20	347	6	1	348.60	348.60	0.00	348.60	\N
+6347	2023-01-21	378	4	2	148.59	297.18	29.72	267.46	\N
+6348	2023-01-21	407	7	1	272.70	272.70	13.63	259.07	\N
+6349	2023-01-21	440	5	1	235.70	235.70	23.57	212.13	\N
+6350	2023-01-21	48	9	1	109.86	109.86	0.00	109.86	\N
+6351	2023-01-22	159	3	2	712.65	1425.30	71.27	1354.03	\N
+6352	2023-01-22	206	6	1	359.69	359.69	17.98	341.71	\N
+6353	2023-01-22	157	3	1	715.03	715.03	0.00	715.03	\N
+6354	2023-01-22	90	5	2	253.39	506.78	0.00	506.78	\N
+6355	2023-01-23	571	5	1	226.28	226.28	0.00	226.28	\N
+6356	2023-01-25	337	4	2	153.10	306.20	0.00	306.20	\N
+6357	2023-01-25	480	9	2	130.41	260.82	0.00	260.82	\N
+6358	2023-01-25	302	8	2	176.50	353.00	0.00	353.00	\N
+6359	2023-01-26	25	1	1	218.04	218.04	0.00	218.04	\N
+6360	2023-01-26	160	5	2	240.17	480.34	0.00	480.34	\N
+6361	2023-01-27	402	7	2	306.45	612.90	0.00	612.90	\N
+6362	2023-01-27	228	7	2	325.76	651.52	0.00	651.52	\N
+6363	2023-01-27	579	5	2	235.52	471.04	0.00	471.04	\N
+6364	2023-01-28	163	6	1	378.38	378.38	37.84	340.54	\N
+6365	2023-01-28	344	10	2	28.08	56.16	0.00	56.16	\N
+6366	2023-01-28	438	3	1	709.92	709.92	0.00	709.92	\N
+6367	2023-01-28	387	7	1	303.93	303.93	0.00	303.93	\N
+6368	2023-01-29	216	3	1	675.84	675.84	0.00	675.84	\N
+6369	2023-01-30	163	8	1	170.82	170.82	0.00	170.82	\N
+6370	2023-01-30	423	9	2	127.68	255.36	0.00	255.36	\N
+6371	2023-01-30	170	8	2	196.59	393.18	0.00	393.18	\N
+6372	2023-01-30	277	8	1	168.37	168.37	0.00	168.37	\N
+6373	2023-01-30	247	5	2	256.90	513.80	0.00	513.80	\N
+6374	2023-01-31	441	7	1	293.87	293.87	14.69	279.18	\N
+6375	2023-02-01	306	10	2	31.37	62.74	0.00	62.74	\N
+6376	2023-02-01	560	1	1	219.21	219.21	0.00	219.21	\N
+6377	2023-02-01	406	3	2	700.30	1400.60	0.00	1400.60	\N
+6378	2023-02-01	533	9	1	130.94	130.94	0.00	130.94	\N
+6379	2023-02-02	174	5	2	273.59	547.18	0.00	547.18	\N
+6380	2023-02-02	261	1	2	210.16	420.32	0.00	420.32	\N
+6381	2023-02-02	369	2	1	451.81	451.81	0.00	451.81	\N
+6382	2023-02-03	332	7	1	318.00	318.00	0.00	318.00	\N
+6383	2023-02-03	307	5	2	227.35	454.70	0.00	454.70	\N
+6384	2023-02-04	554	4	2	155.86	311.72	0.00	311.72	\N
+6385	2023-02-04	104	9	1	113.94	113.94	11.39	102.55	\N
+6386	2023-02-04	594	4	1	143.04	143.04	0.00	143.04	\N
+6387	2023-02-05	70	3	1	720.36	720.36	0.00	720.36	\N
+6388	2023-02-05	209	8	1	196.76	196.76	0.00	196.76	\N
+6389	2023-02-05	254	10	1	30.31	30.31	1.52	28.79	\N
+6390	2023-02-06	164	1	1	183.07	183.07	0.00	183.07	\N
+6391	2023-02-06	514	6	1	327.63	327.63	16.38	311.25	\N
+6392	2023-02-06	247	10	1	27.60	27.60	1.38	26.22	\N
+6393	2023-02-07	200	4	1	159.41	159.41	0.00	159.41	\N
+6394	2023-02-07	223	2	1	431.20	431.20	21.56	409.64	\N
+6395	2023-02-07	82	3	1	697.90	697.90	34.90	663.00	\N
+6396	2023-02-07	563	10	2	32.49	64.98	0.00	64.98	\N
+6397	2023-02-08	36	2	2	421.46	842.92	0.00	842.92	\N
+6398	2023-02-08	19	4	2	137.93	275.86	0.00	275.86	\N
+6399	2023-02-08	498	6	1	342.92	342.92	0.00	342.92	\N
+6400	2023-02-08	15	1	1	207.97	207.97	0.00	207.97	\N
+6401	2023-02-08	596	2	1	490.61	490.61	0.00	490.61	\N
+6402	2023-02-09	351	4	1	159.62	159.62	15.96	143.66	\N
+6403	2023-02-09	317	9	1	113.72	113.72	0.00	113.72	\N
+6404	2023-02-09	523	8	2	166.09	332.18	0.00	332.18	\N
+6405	2023-02-09	321	5	2	260.94	521.88	0.00	521.88	\N
+6406	2023-02-10	119	2	2	446.87	893.74	0.00	893.74	\N
+6407	2023-02-10	566	8	1	162.39	162.39	0.00	162.39	\N
+6408	2023-02-10	546	3	1	756.86	756.86	0.00	756.86	\N
+6409	2023-02-11	55	1	1	204.93	204.93	0.00	204.93	\N
+6410	2023-02-12	533	1	1	214.44	214.44	0.00	214.44	\N
+6411	2023-02-13	207	5	2	256.35	512.70	0.00	512.70	\N
+6412	2023-02-13	117	3	1	747.23	747.23	74.72	672.51	\N
+6413	2023-02-13	13	1	2	194.99	389.98	0.00	389.98	\N
+6414	2023-02-13	220	3	2	667.14	1334.28	66.71	1267.57	\N
+6415	2023-02-14	143	6	2	328.08	656.16	0.00	656.16	\N
+6416	2023-02-14	165	6	2	325.33	650.66	0.00	650.66	\N
+6417	2023-02-14	168	2	1	424.82	424.82	42.48	382.34	\N
+6418	2023-02-14	578	6	1	365.79	365.79	18.29	347.50	\N
+6419	2023-02-14	172	7	2	299.65	599.30	29.96	569.34	\N
+6420	2023-02-14	411	8	2	180.20	360.40	36.04	324.36	\N
+6421	2023-02-15	480	9	2	117.87	235.74	11.79	223.95	\N
+6422	2023-02-15	184	6	1	321.71	321.71	32.17	289.54	\N
+6423	2023-02-15	263	3	2	690.52	1381.04	0.00	1381.04	\N
+6424	2023-02-16	17	3	1	653.96	653.96	0.00	653.96	\N
+6425	2023-02-17	307	2	2	448.50	897.00	0.00	897.00	\N
+6426	2023-02-17	347	4	2	154.22	308.44	15.42	293.02	\N
+6427	2023-02-17	370	4	2	137.33	274.66	0.00	274.66	\N
+6428	2023-02-17	77	1	2	206.59	413.18	41.32	371.86	\N
+6429	2023-02-17	328	1	1	201.10	201.10	0.00	201.10	\N
+6430	2023-02-18	168	9	1	114.99	114.99	0.00	114.99	\N
+6431	2023-02-18	458	1	2	189.31	378.62	0.00	378.62	\N
+6432	2023-02-18	257	7	2	297.13	594.26	0.00	594.26	\N
+6433	2023-02-18	8	9	1	123.72	123.72	0.00	123.72	\N
+6434	2023-02-18	25	8	2	176.14	352.28	0.00	352.28	\N
+6435	2023-02-18	42	6	2	380.36	760.72	0.00	760.72	\N
+6436	2023-02-18	336	1	2	183.37	366.74	0.00	366.74	\N
+6437	2023-02-19	453	3	1	693.64	693.64	0.00	693.64	\N
+6438	2023-02-20	454	4	1	162.90	162.90	8.15	154.75	\N
+6439	2023-02-21	579	1	1	184.71	184.71	0.00	184.71	\N
+6440	2023-02-22	242	3	1	631.52	631.52	31.58	599.94	\N
+6441	2023-02-23	65	4	1	142.67	142.67	0.00	142.67	\N
+6442	2023-02-23	201	7	1	302.05	302.05	15.10	286.95	\N
+6443	2023-02-23	373	1	2	187.15	374.30	37.43	336.87	\N
+6444	2023-02-24	66	2	2	465.70	931.40	0.00	931.40	\N
+6445	2023-02-24	280	8	1	190.87	190.87	0.00	190.87	\N
+6446	2023-02-25	472	1	1	206.73	206.73	0.00	206.73	\N
+6447	2023-02-25	361	8	2	182.40	364.80	0.00	364.80	\N
+6448	2023-02-26	570	7	1	327.13	327.13	0.00	327.13	\N
+6449	2023-02-26	92	3	2	755.19	1510.38	0.00	1510.38	\N
+6450	2023-02-28	261	1	2	197.91	395.82	0.00	395.82	\N
+6451	2023-02-28	26	5	1	256.74	256.74	0.00	256.74	\N
+6452	2023-02-28	83	4	1	151.27	151.27	0.00	151.27	\N
+6453	2023-02-28	124	10	2	27.37	54.74	5.47	49.27	\N
+6454	2023-02-28	344	7	1	299.99	299.99	0.00	299.99	\N
+6455	2023-03-01	476	8	1	176.98	176.98	26.55	150.43	6
+6456	2023-03-01	579	7	1	314.27	314.27	15.71	298.56	\N
+6457	2023-03-01	97	8	1	177.20	177.20	0.00	177.20	\N
+6458	2023-03-02	495	8	1	189.30	189.30	9.47	179.83	\N
+6459	2023-03-05	569	1	2	190.06	380.12	0.00	380.12	\N
+6460	2023-03-06	313	8	2	180.17	360.34	36.03	324.31	\N
+6461	2023-03-06	331	4	1	156.86	156.86	15.69	141.17	\N
+6462	2023-03-07	187	9	1	114.43	114.43	0.00	114.43	\N
+6463	2023-03-08	242	6	1	364.61	364.61	0.00	364.61	\N
+6464	2023-03-08	176	10	1	30.65	30.65	1.53	29.12	6
+6465	2023-03-09	348	8	2	194.10	388.20	19.41	368.79	6
+6466	2023-03-09	262	1	1	215.77	215.77	0.00	215.77	\N
+6467	2023-03-10	411	7	1	281.73	281.73	0.00	281.73	\N
+6468	2023-03-10	394	5	1	251.69	251.69	0.00	251.69	\N
+6469	2023-03-10	255	10	2	30.34	60.68	0.00	60.68	\N
+6470	2023-03-11	356	3	1	729.42	729.42	0.00	729.42	\N
+6471	2023-03-12	567	7	1	309.69	309.69	0.00	309.69	\N
+6472	2023-03-12	160	8	2	170.96	341.92	0.00	341.92	\N
+6473	2023-03-12	241	5	2	269.75	539.50	0.00	539.50	\N
+6474	2023-03-14	58	2	1	441.99	441.99	44.20	397.79	\N
+6475	2023-03-14	120	5	1	259.56	259.56	38.94	220.62	6
+6476	2023-03-14	201	5	2	269.11	538.22	26.91	511.31	6
+6477	2023-03-15	426	4	2	147.03	294.06	0.00	294.06	\N
+6478	2023-03-16	430	3	2	754.17	1508.34	226.25	1282.09	6
+6479	2023-03-16	283	5	1	243.19	243.19	12.16	231.03	6
+6480	2023-03-17	314	4	2	143.13	286.26	14.31	271.95	6
+6481	2023-03-18	80	2	1	447.05	447.05	0.00	447.05	\N
+6482	2023-03-19	301	10	2	28.99	57.98	2.90	55.08	6
+6483	2023-03-20	83	9	1	120.76	120.76	0.00	120.76	\N
+6484	2023-03-20	308	7	2	284.26	568.52	85.28	483.24	6
+6485	2023-03-20	114	2	1	493.08	493.08	0.00	493.08	\N
+6486	2023-03-20	178	5	1	258.03	258.03	0.00	258.03	\N
+6487	2023-03-20	514	8	2	168.25	336.50	16.82	319.68	6
+6488	2023-03-20	220	10	1	30.71	30.71	1.54	29.17	6
+6489	2023-03-21	584	2	2	437.41	874.82	43.74	831.08	6
+6490	2023-03-22	324	2	1	428.50	428.50	0.00	428.50	\N
+6491	2023-03-22	542	4	2	160.70	321.40	0.00	321.40	\N
+6492	2023-03-22	241	1	1	193.58	193.58	0.00	193.58	\N
+6493	2023-03-23	176	5	1	241.21	241.21	24.12	217.09	6
+6494	2023-03-23	516	2	2	417.63	835.26	41.76	793.50	6
+6495	2023-03-24	245	8	2	181.26	362.52	0.00	362.52	\N
+6496	2023-03-25	173	5	1	235.28	235.28	11.76	223.52	\N
+6497	2023-03-27	426	1	1	197.03	197.03	0.00	197.03	\N
+6498	2023-03-28	117	1	1	195.10	195.10	0.00	195.10	\N
+6499	2023-03-28	249	8	1	194.87	194.87	0.00	194.87	\N
+6500	2023-03-28	151	2	2	451.70	903.40	0.00	903.40	\N
+6501	2023-03-28	38	7	1	290.29	290.29	0.00	290.29	\N
+6502	2023-03-28	273	8	1	165.01	165.01	8.25	156.76	6
+6503	2023-03-29	169	6	1	315.16	315.16	15.76	299.40	6
+6504	2023-03-29	426	1	1	180.07	180.07	9.00	171.07	6
+6505	2023-03-29	493	3	1	708.11	708.11	0.00	708.11	\N
+6506	2023-03-29	524	4	1	154.17	154.17	15.42	138.75	6
+6507	2023-03-30	401	2	2	428.78	857.56	0.00	857.56	\N
+6508	2023-03-30	145	6	2	317.57	635.14	31.76	603.38	6
+6509	2023-03-30	390	10	1	30.63	30.63	0.00	30.63	\N
+6510	2023-03-31	518	5	2	233.20	466.40	0.00	466.40	\N
+6511	2023-04-01	293	2	2	430.04	860.08	43.00	817.08	6
+6512	2023-04-01	15	8	1	170.02	170.02	8.50	161.52	6
+6513	2023-04-01	547	7	1	274.06	274.06	0.00	274.06	\N
+6514	2023-04-01	174	9	1	124.91	124.91	0.00	124.91	\N
+6515	2023-04-01	280	8	1	197.11	197.11	0.00	197.11	\N
+6516	2023-04-02	219	8	1	187.28	187.28	9.36	177.92	6
+6517	2023-04-02	236	1	1	193.60	193.60	0.00	193.60	\N
+6518	2023-04-02	548	4	2	146.70	293.40	0.00	293.40	\N
+6519	2023-04-02	103	1	1	194.76	194.76	9.74	185.02	6
+6520	2023-04-03	549	2	2	433.48	866.96	0.00	866.96	\N
+6521	2023-04-03	236	10	1	27.33	27.33	0.00	27.33	\N
+6522	2023-04-04	445	1	2	214.98	429.96	0.00	429.96	\N
+6523	2023-04-05	420	10	1	30.80	30.80	0.00	30.80	\N
+6524	2023-04-05	430	4	2	145.72	291.44	0.00	291.44	\N
+6525	2023-04-07	403	1	2	216.27	432.54	21.63	410.91	6
+6526	2023-04-07	176	2	1	410.12	410.12	20.51	389.61	6
+6527	2023-04-07	170	3	2	683.16	1366.32	68.32	1298.00	6
+6528	2023-04-08	107	9	2	108.56	217.12	0.00	217.12	\N
+6529	2023-04-08	354	10	1	28.76	28.76	0.00	28.76	\N
+6530	2023-04-09	240	6	2	343.37	686.74	34.34	652.40	6
+6531	2023-04-09	284	4	1	149.12	149.12	0.00	149.12	\N
+6532	2023-04-10	339	1	2	212.92	425.84	0.00	425.84	\N
+6533	2023-04-11	372	6	1	347.11	347.11	0.00	347.11	\N
+6534	2023-04-12	259	9	2	127.50	255.00	12.75	242.25	6
+6535	2023-04-12	159	6	2	320.32	640.64	64.06	576.58	\N
+6536	2023-04-12	565	5	2	245.97	491.94	0.00	491.94	\N
+6537	2023-04-13	53	2	1	464.37	464.37	0.00	464.37	\N
+6538	2023-04-14	162	8	1	183.20	183.20	9.16	174.04	6
+6539	2023-04-15	281	10	1	31.11	31.11	0.00	31.11	\N
+6540	2023-04-15	166	4	2	158.60	317.20	15.86	301.34	6
+6541	2023-04-16	599	10	2	30.70	61.40	3.07	58.33	\N
+6542	2023-04-17	348	5	2	226.90	453.80	45.38	408.42	\N
+6543	2023-04-17	351	10	1	31.29	31.29	1.56	29.73	6
+6544	2023-04-17	425	10	1	31.44	31.44	1.57	29.87	6
+6545	2023-04-17	557	6	1	319.84	319.84	0.00	319.84	\N
+6546	2023-04-18	494	7	2	312.33	624.66	0.00	624.66	\N
+6547	2023-04-19	428	2	2	433.11	866.22	0.00	866.22	\N
+6548	2023-04-19	23	5	1	227.98	227.98	11.40	216.58	6
+6549	2023-04-20	252	4	1	142.90	142.90	7.15	135.75	6
+6550	2023-04-20	511	9	1	119.90	119.90	0.00	119.90	\N
+6551	2023-04-21	392	6	2	384.76	769.52	38.48	731.04	6
+6552	2023-04-21	224	9	1	108.99	108.99	5.45	103.54	\N
+6553	2023-04-22	394	1	2	219.70	439.40	0.00	439.40	\N
+6554	2023-04-22	237	1	2	200.18	400.36	20.02	380.34	6
+6555	2023-04-22	542	5	1	237.49	237.49	0.00	237.49	\N
+6556	2023-04-23	56	3	1	724.78	724.78	0.00	724.78	\N
+6557	2023-04-23	90	4	1	149.14	149.14	7.46	141.68	6
+6558	2023-04-23	163	2	1	407.83	407.83	0.00	407.83	\N
+6559	2023-04-23	424	8	2	195.82	391.64	0.00	391.64	\N
+6560	2023-04-24	427	6	2	368.57	737.14	36.86	700.28	6
+6561	2023-04-24	357	5	2	241.54	483.08	24.15	458.93	6
+6562	2023-04-24	517	2	2	460.20	920.40	0.00	920.40	\N
+6563	2023-04-24	207	6	2	369.01	738.02	36.90	701.12	6
+6564	2023-04-24	52	3	2	683.45	1366.90	68.35	1298.55	6
+6565	2023-04-25	211	4	2	159.68	319.36	0.00	319.36	\N
+6566	2023-04-25	139	4	1	155.73	155.73	15.58	140.15	6
+6567	2023-04-26	72	5	2	273.69	547.38	27.37	520.01	6
+6568	2023-04-27	30	8	1	162.82	162.82	8.14	154.68	6
+6569	2023-04-28	142	7	2	270.85	541.70	0.00	541.70	\N
+6570	2023-04-29	328	2	1	472.17	472.17	0.00	472.17	\N
+6571	2023-04-29	489	7	2	279.43	558.86	0.00	558.86	\N
+6572	2023-04-30	431	5	1	253.12	253.12	0.00	253.12	\N
+6573	2023-04-30	140	8	1	187.10	187.10	0.00	187.10	\N
+6574	2023-05-01	256	1	1	186.97	186.97	0.00	186.97	\N
+6575	2023-05-01	336	8	2	195.06	390.12	0.00	390.12	\N
+6576	2023-05-01	162	4	2	157.22	314.44	15.72	298.72	6
+6577	2023-05-02	212	8	2	178.64	357.28	35.73	321.55	\N
+6578	2023-05-02	550	5	2	251.54	503.08	0.00	503.08	\N
+6579	2023-05-02	87	10	1	31.02	31.02	0.00	31.02	\N
+6580	2023-05-02	308	10	1	29.15	29.15	2.92	26.23	\N
+6581	2023-05-02	69	10	2	28.66	57.32	2.87	54.45	6
+6582	2023-05-02	301	5	1	246.63	246.63	12.33	234.30	6
+6583	2023-05-03	599	1	1	181.21	181.21	27.18	154.03	6
+6584	2023-05-04	160	9	2	117.02	234.04	11.70	222.34	6
+6585	2023-05-04	506	1	2	211.50	423.00	0.00	423.00	\N
+6586	2023-05-04	500	10	2	31.12	62.24	3.11	59.13	6
+6587	2023-05-04	309	7	1	297.09	297.09	14.85	282.24	\N
+6588	2023-05-06	147	6	1	378.26	378.26	0.00	378.26	\N
+6589	2023-05-07	29	1	2	211.90	423.80	21.19	402.61	6
+6590	2023-05-07	496	1	2	213.15	426.30	21.32	404.98	6
+6591	2023-05-07	434	1	2	206.92	413.84	41.38	372.46	6
+6592	2023-05-08	306	1	2	209.86	419.72	20.99	398.73	6
+6593	2023-05-08	90	7	1	323.11	323.11	16.16	306.95	6
+6594	2023-05-09	182	8	2	174.43	348.86	0.00	348.86	\N
+6595	2023-05-09	207	3	1	736.44	736.44	0.00	736.44	\N
+6596	2023-05-09	515	6	1	379.43	379.43	0.00	379.43	\N
+6597	2023-05-09	434	7	1	301.26	301.26	15.06	286.20	6
+6598	2023-05-10	480	2	1	467.33	467.33	0.00	467.33	\N
+6599	2023-05-10	427	2	2	482.36	964.72	0.00	964.72	\N
+6600	2023-05-12	309	1	1	202.63	202.63	0.00	202.63	\N
+6601	2023-05-13	398	5	1	245.37	245.37	36.81	208.56	6
+6602	2023-05-13	424	2	1	482.73	482.73	24.14	458.59	\N
+6603	2023-05-13	426	4	2	140.62	281.24	14.06	267.18	6
+6604	2023-05-13	77	9	1	111.57	111.57	0.00	111.57	\N
+6605	2023-05-15	132	2	1	490.39	490.39	0.00	490.39	\N
+6606	2023-05-15	582	8	1	192.44	192.44	0.00	192.44	\N
+6607	2023-05-16	398	10	1	29.92	29.92	0.00	29.92	\N
+6608	2023-05-16	520	10	1	32.94	32.94	1.65	31.29	6
+6609	2023-05-16	436	4	2	136.75	273.50	27.36	246.14	6
+6610	2023-05-17	210	7	2	304.24	608.48	30.42	578.06	6
+6611	2023-05-17	356	10	2	31.39	62.78	3.14	59.64	6
+6612	2023-05-18	5	2	2	417.07	834.14	0.00	834.14	\N
+6613	2023-05-19	11	2	2	448.91	897.82	44.89	852.93	6
+6614	2023-05-19	93	10	1	31.95	31.95	1.60	30.35	6
+6615	2023-05-21	18	9	1	116.71	116.71	0.00	116.71	\N
+6616	2023-05-21	5	7	2	317.29	634.58	31.73	602.85	\N
+6617	2023-05-21	357	7	2	298.23	596.46	29.82	566.64	6
+6618	2023-05-21	466	6	1	342.41	342.41	17.12	325.29	6
+6619	2023-05-22	534	5	1	265.02	265.02	26.50	238.52	\N
+6620	2023-05-22	37	4	1	160.65	160.65	16.06	144.59	6
+6621	2023-05-23	131	5	2	263.35	526.70	79.01	447.69	6
+6622	2023-05-23	391	4	1	157.44	157.44	0.00	157.44	\N
+6623	2023-05-23	235	6	1	373.73	373.73	37.38	336.35	6
+6624	2023-05-23	249	9	2	108.08	216.16	0.00	216.16	\N
+6625	2023-05-25	597	6	2	350.39	700.78	0.00	700.78	\N
+6626	2023-05-25	69	9	2	116.04	232.08	0.00	232.08	\N
+6627	2023-05-26	66	2	1	413.45	413.45	0.00	413.45	\N
+6628	2023-05-26	81	8	2	179.44	358.88	0.00	358.88	\N
+6629	2023-05-26	215	7	1	295.43	295.43	14.77	280.66	6
+6630	2023-05-27	312	8	1	168.31	168.31	16.84	151.47	6
+6631	2023-05-27	335	10	1	30.09	30.09	1.50	28.59	6
+6632	2023-05-28	504	10	1	27.30	27.30	2.73	24.57	\N
+6633	2023-05-28	32	4	2	149.72	299.44	0.00	299.44	\N
+6634	2023-05-28	203	2	1	464.41	464.41	46.44	417.97	\N
+6635	2023-05-29	130	8	2	196.30	392.60	0.00	392.60	\N
+6636	2023-05-29	101	10	2	30.79	61.58	6.16	55.42	6
+6637	2023-05-29	413	9	2	118.91	237.82	23.78	214.04	6
+6638	2023-05-29	408	6	2	325.62	651.24	0.00	651.24	\N
+6639	2023-05-30	555	10	2	27.43	54.86	0.00	54.86	\N
+6640	2023-05-31	518	4	1	150.23	150.23	0.00	150.23	\N
+6641	2023-05-31	76	6	1	323.46	323.46	0.00	323.46	\N
+6642	2023-06-01	424	5	2	253.72	507.44	0.00	507.44	\N
+6643	2023-06-01	419	6	2	345.83	691.66	34.58	657.08	6
+6644	2023-06-02	171	3	2	728.44	1456.88	72.84	1384.04	6
+6645	2023-06-02	582	6	1	360.96	360.96	0.00	360.96	\N
+6646	2023-06-02	25	3	2	708.78	1417.56	70.88	1346.68	6
+6647	2023-06-02	304	4	1	155.13	155.13	7.76	147.37	6
+6648	2023-06-03	328	8	2	179.29	358.58	0.00	358.58	\N
+6649	2023-06-03	405	2	2	469.96	939.92	0.00	939.92	\N
+6650	2023-06-04	448	6	1	358.77	358.77	17.94	340.83	\N
+6651	2023-06-04	597	2	2	467.77	935.54	0.00	935.54	\N
+6652	2023-06-05	455	9	2	112.50	225.00	0.00	225.00	\N
+6653	2023-06-06	374	10	2	31.54	63.08	3.15	59.93	6
+6654	2023-06-07	120	10	1	31.68	31.68	4.75	26.93	6
+6655	2023-06-07	393	2	2	455.57	911.14	45.56	865.58	6
+6656	2023-06-08	36	9	1	119.83	119.83	17.97	101.86	6
+6657	2023-06-08	144	1	2	216.10	432.20	0.00	432.20	\N
+6658	2023-06-08	220	9	2	130.56	261.12	26.12	235.00	6
+6659	2023-06-08	592	10	1	29.56	29.56	0.00	29.56	\N
+6660	2023-06-09	226	8	1	167.90	167.90	25.19	142.71	6
+6661	2023-06-09	257	9	1	113.37	113.37	5.67	107.70	6
+6662	2023-06-09	495	1	1	198.40	198.40	19.84	178.56	6
+6663	2023-06-09	334	8	2	191.00	382.00	0.00	382.00	\N
+6664	2023-06-10	418	8	1	179.22	179.22	8.96	170.26	6
+6665	2023-06-10	462	4	2	153.03	306.06	30.61	275.45	\N
+6666	2023-06-11	6	10	1	32.68	32.68	1.63	31.05	6
+6667	2023-06-11	436	9	1	123.69	123.69	0.00	123.69	\N
+6668	2023-06-11	52	6	2	351.22	702.44	0.00	702.44	\N
+6669	2023-06-12	60	3	2	676.27	1352.54	67.63	1284.91	6
+6670	2023-06-12	181	7	2	320.35	640.70	32.04	608.66	6
+6671	2023-06-12	508	9	2	129.47	258.94	0.00	258.94	\N
+6672	2023-06-13	529	1	2	192.23	384.46	0.00	384.46	\N
+6673	2023-06-13	396	2	1	479.88	479.88	0.00	479.88	\N
+6674	2023-06-13	14	1	1	181.02	181.02	0.00	181.02	\N
+6675	2023-06-15	36	8	2	169.55	339.10	16.96	322.14	6
+6676	2023-06-15	402	8	2	195.04	390.08	0.00	390.08	\N
+6677	2023-06-16	509	5	1	237.20	237.20	0.00	237.20	\N
+6678	2023-06-16	588	1	2	202.18	404.36	20.22	384.14	6
+6679	2023-06-16	589	9	1	115.63	115.63	0.00	115.63	\N
+6680	2023-06-17	537	4	2	139.30	278.60	13.93	264.67	6
+6681	2023-06-17	301	3	1	760.55	760.55	38.03	722.52	6
+6682	2023-06-18	180	6	1	359.12	359.12	35.92	323.20	6
+6683	2023-06-19	362	10	2	28.80	57.60	0.00	57.60	\N
+6684	2023-06-19	171	10	2	28.70	57.40	2.87	54.53	6
+6685	2023-06-20	460	10	2	30.75	61.50	3.08	58.42	6
+6686	2023-06-20	234	3	1	664.57	664.57	0.00	664.57	\N
+6687	2023-06-20	429	8	1	176.01	176.01	0.00	176.01	\N
+6688	2023-06-21	397	3	1	747.82	747.82	0.00	747.82	\N
+6689	2023-06-21	73	4	2	158.43	316.86	15.84	301.02	6
+6690	2023-06-22	218	10	2	30.67	61.34	0.00	61.34	\N
+6691	2023-06-22	547	8	2	172.32	344.64	0.00	344.64	\N
+6692	2023-06-22	22	9	1	110.40	110.40	11.04	99.36	6
+6693	2023-06-22	583	4	1	154.01	154.01	0.00	154.01	\N
+6694	2023-06-23	9	3	2	683.88	1367.76	0.00	1367.76	\N
+6695	2023-06-23	5	8	1	166.41	166.41	0.00	166.41	\N
+6696	2023-06-23	565	6	1	323.21	323.21	0.00	323.21	\N
+6697	2023-06-23	80	8	1	180.34	180.34	18.03	162.31	\N
+6698	2023-06-24	416	8	2	179.76	359.52	0.00	359.52	\N
+6699	2023-06-24	573	9	1	122.56	122.56	0.00	122.56	\N
+6700	2023-06-24	61	3	2	704.29	1408.58	0.00	1408.58	\N
+6701	2023-06-24	449	5	1	226.67	226.67	0.00	226.67	\N
+6702	2023-06-25	191	4	2	155.39	310.78	46.62	264.16	6
+6703	2023-06-25	449	8	2	181.08	362.16	36.22	325.94	6
+6704	2023-06-25	484	3	2	682.92	1365.84	0.00	1365.84	\N
+6705	2023-06-25	66	4	2	162.70	325.40	0.00	325.40	\N
+6706	2023-06-26	489	5	1	259.90	259.90	38.98	220.92	6
+6707	2023-06-26	464	6	2	368.59	737.18	0.00	737.18	\N
+6708	2023-06-27	305	9	1	120.76	120.76	6.04	114.72	6
+6709	2023-06-27	430	10	1	30.44	30.44	1.52	28.92	\N
+6710	2023-06-27	375	2	2	473.57	947.14	94.72	852.42	6
+6711	2023-06-29	444	8	2	194.15	388.30	0.00	388.30	\N
+6712	2023-06-30	353	2	1	433.78	433.78	0.00	433.78	\N
+6713	2023-06-30	507	1	2	205.96	411.92	41.19	370.73	\N
+6714	2023-06-30	545	1	2	218.82	437.64	0.00	437.64	\N
+6715	2023-06-30	215	2	1	482.35	482.35	0.00	482.35	\N
+6716	2023-06-30	62	3	1	736.32	736.32	0.00	736.32	\N
+6717	2023-07-01	53	4	2	162.65	325.30	0.00	325.30	\N
+6718	2023-07-01	353	7	2	282.17	564.34	28.22	536.12	6
+6719	2023-07-03	554	10	1	27.90	27.90	0.00	27.90	\N
+6720	2023-07-04	369	3	1	669.05	669.05	33.45	635.60	6
+6721	2023-07-05	79	6	2	375.45	750.90	0.00	750.90	\N
+6722	2023-07-05	544	3	1	686.34	686.34	34.32	652.02	6
+6723	2023-07-05	208	3	2	764.61	1529.22	0.00	1529.22	\N
+6724	2023-07-05	149	8	1	165.19	165.19	16.52	148.67	\N
+6725	2023-07-05	524	7	1	304.80	304.80	0.00	304.80	\N
+6726	2023-07-06	493	7	1	313.40	313.40	15.67	297.73	\N
+6727	2023-07-06	26	4	1	155.54	155.54	0.00	155.54	\N
+6728	2023-07-07	481	9	1	126.18	126.18	0.00	126.18	\N
+6729	2023-07-07	424	9	1	110.30	110.30	5.52	104.78	6
+6730	2023-07-08	126	10	2	27.93	55.86	0.00	55.86	\N
+6731	2023-07-08	93	3	2	760.64	1521.28	76.06	1445.22	6
+6732	2023-07-09	1	7	1	281.13	281.13	0.00	281.13	\N
+6733	2023-07-09	98	9	1	116.65	116.65	5.83	110.82	6
+6734	2023-07-10	553	10	2	27.99	55.98	0.00	55.98	\N
+6735	2023-07-10	245	2	2	428.52	857.04	85.70	771.34	6
+6736	2023-07-11	231	1	2	188.12	376.24	0.00	376.24	\N
+6737	2023-07-12	442	8	2	168.87	337.74	0.00	337.74	\N
+6738	2023-07-12	10	5	1	274.19	274.19	0.00	274.19	\N
+6739	2023-07-12	390	6	2	346.01	692.02	0.00	692.02	\N
+6740	2023-07-12	599	7	2	309.25	618.50	30.93	587.57	\N
+6741	2023-07-13	376	1	1	200.98	200.98	20.10	180.88	\N
+6742	2023-07-14	322	7	2	287.53	575.06	28.75	546.31	6
+6743	2023-07-16	396	1	2	207.41	414.82	0.00	414.82	\N
+6744	2023-07-16	552	3	2	659.53	1319.06	0.00	1319.06	\N
+6745	2023-07-17	558	8	1	168.38	168.38	0.00	168.38	\N
+6746	2023-07-17	297	7	2	298.01	596.02	29.80	566.22	6
+6747	2023-07-17	215	2	2	440.70	881.40	0.00	881.40	\N
+6748	2023-07-17	301	7	2	272.51	545.02	0.00	545.02	\N
+6749	2023-07-17	156	9	1	126.47	126.47	6.32	120.15	6
+6750	2023-07-18	415	5	1	255.43	255.43	0.00	255.43	\N
+6751	2023-07-18	512	5	2	253.55	507.10	0.00	507.10	\N
+6752	2023-07-19	246	5	1	267.66	267.66	0.00	267.66	\N
+6753	2023-07-20	36	4	2	163.28	326.56	32.66	293.90	6
+6754	2023-07-20	241	7	2	295.89	591.78	0.00	591.78	\N
+6755	2023-07-20	537	5	2	243.14	486.28	24.31	461.97	6
+6756	2023-07-21	3	9	2	123.26	246.52	0.00	246.52	\N
+6757	2023-07-23	388	3	2	652.80	1305.60	65.28	1240.32	6
+6758	2023-07-23	107	1	2	200.46	400.92	20.05	380.87	6
+6759	2023-07-24	392	7	1	314.85	314.85	0.00	314.85	\N
+6760	2023-07-24	188	7	2	323.46	646.92	0.00	646.92	\N
+6761	2023-07-24	107	8	2	171.43	342.86	17.14	325.72	6
+6762	2023-07-25	109	7	1	323.47	323.47	48.52	274.95	6
+6763	2023-07-25	25	7	2	293.33	586.66	0.00	586.66	\N
+6764	2023-07-25	328	8	1	193.45	193.45	0.00	193.45	\N
+6765	2023-07-25	78	7	1	290.95	290.95	0.00	290.95	\N
+6766	2023-07-26	281	3	2	755.57	1511.14	0.00	1511.14	\N
+6767	2023-07-26	355	5	1	262.13	262.13	13.11	249.02	6
+6768	2023-07-27	79	2	1	462.80	462.80	46.28	416.52	\N
+6769	2023-07-28	529	6	2	316.68	633.36	0.00	633.36	\N
+6770	2023-07-28	355	1	2	213.62	427.24	21.36	405.88	6
+6771	2023-07-29	554	6	2	331.38	662.76	33.14	629.62	6
+6772	2023-07-29	125	8	2	189.50	379.00	0.00	379.00	\N
+6773	2023-07-30	325	6	2	332.88	665.76	33.29	632.47	6
+6774	2023-07-31	566	3	1	670.98	670.98	33.55	637.43	6
+6775	2023-08-01	6	3	1	701.07	701.07	0.00	701.07	\N
+6776	2023-08-01	366	3	2	636.66	1273.32	0.00	1273.32	\N
+6777	2023-08-01	363	3	1	645.49	645.49	32.27	613.22	6
+6778	2023-08-02	4	2	2	492.50	985.00	147.75	837.25	6
+6779	2023-08-02	47	6	2	368.15	736.30	36.81	699.49	6
+6780	2023-08-02	140	5	2	262.49	524.98	26.25	498.73	6
+6781	2023-08-03	303	4	2	136.63	273.26	0.00	273.26	\N
+6782	2023-08-03	173	6	1	318.21	318.21	0.00	318.21	\N
+6783	2023-08-03	407	3	2	740.37	1480.74	74.04	1406.70	6
+6784	2023-08-03	289	5	1	227.36	227.36	0.00	227.36	\N
+6785	2023-08-04	238	8	2	185.12	370.24	18.51	351.73	6
+6786	2023-08-04	599	10	1	28.60	28.60	0.00	28.60	\N
+6787	2023-08-05	365	9	1	108.46	108.46	5.42	103.04	6
+6788	2023-08-05	421	5	2	266.06	532.12	0.00	532.12	\N
+6789	2023-08-05	252	3	1	712.71	712.71	71.27	641.44	\N
+6790	2023-08-05	341	1	2	210.16	420.32	0.00	420.32	\N
+6791	2023-08-06	508	2	1	435.11	435.11	65.27	369.84	6
+6792	2023-08-07	129	4	1	149.00	149.00	7.45	141.55	\N
+6793	2023-08-07	495	5	1	239.45	239.45	0.00	239.45	\N
+6794	2023-08-07	582	2	1	467.26	467.26	0.00	467.26	\N
+6795	2023-08-08	258	1	2	181.18	362.36	18.12	344.24	6
+6796	2023-08-08	541	9	2	124.51	249.02	0.00	249.02	\N
+6797	2023-08-08	338	8	1	189.16	189.16	0.00	189.16	\N
+6798	2023-08-08	388	7	2	292.62	585.24	58.52	526.72	6
+6799	2023-08-08	388	1	1	210.70	210.70	0.00	210.70	\N
+6800	2023-08-09	270	2	1	418.32	418.32	0.00	418.32	\N
+6801	2023-08-10	198	7	2	301.01	602.02	0.00	602.02	\N
+6802	2023-08-10	365	3	1	740.67	740.67	0.00	740.67	\N
+6803	2023-08-10	289	1	2	192.25	384.50	0.00	384.50	\N
+6804	2023-08-11	120	7	1	271.09	271.09	0.00	271.09	\N
+6805	2023-08-11	337	8	2	197.07	394.14	0.00	394.14	\N
+6806	2023-08-11	441	7	1	303.64	303.64	0.00	303.64	\N
+6807	2023-08-13	223	2	1	443.46	443.46	0.00	443.46	\N
+6808	2023-08-14	471	6	1	325.46	325.46	0.00	325.46	\N
+6809	2023-08-14	255	6	2	332.09	664.18	33.21	630.97	6
+6810	2023-08-14	528	4	2	157.68	315.36	15.77	299.59	6
+6811	2023-08-15	367	4	1	152.98	152.98	22.95	130.03	6
+6812	2023-08-15	551	6	2	328.17	656.34	0.00	656.34	\N
+6813	2023-08-16	480	4	1	143.71	143.71	7.19	136.52	6
+6814	2023-08-16	261	10	1	31.86	31.86	0.00	31.86	\N
+6815	2023-08-16	467	6	2	334.06	668.12	0.00	668.12	\N
+6816	2023-08-16	461	8	1	163.33	163.33	0.00	163.33	\N
+6817	2023-08-17	41	10	2	32.90	65.80	3.29	62.51	6
+6818	2023-08-17	318	6	2	372.60	745.20	0.00	745.20	\N
+6819	2023-08-17	589	8	2	196.05	392.10	19.61	372.49	6
+6820	2023-08-17	33	4	2	158.20	316.40	15.82	300.58	6
+6821	2023-08-17	211	7	2	302.49	604.98	0.00	604.98	\N
+6822	2023-08-17	53	9	1	128.77	128.77	6.44	122.33	\N
+6823	2023-08-18	509	6	2	345.05	690.10	0.00	690.10	\N
+6824	2023-08-18	33	8	2	192.80	385.60	0.00	385.60	\N
+6825	2023-08-19	515	9	1	118.95	118.95	5.95	113.00	6
+6826	2023-08-19	435	10	1	30.53	30.53	0.00	30.53	\N
+6827	2023-08-20	186	4	1	147.31	147.31	7.37	139.94	6
+6828	2023-08-20	33	5	1	251.90	251.90	0.00	251.90	\N
+6829	2023-08-21	430	8	2	195.59	391.18	39.12	352.06	6
+6830	2023-08-21	489	3	2	706.89	1413.78	70.69	1343.09	\N
+6831	2023-08-22	121	3	1	748.93	748.93	0.00	748.93	\N
+6832	2023-08-22	547	9	2	116.81	233.62	11.68	221.94	6
+6833	2023-08-22	597	2	1	461.21	461.21	0.00	461.21	\N
+6834	2023-08-22	300	2	1	469.71	469.71	0.00	469.71	\N
+6835	2023-08-23	343	6	2	328.53	657.06	32.85	624.21	6
+6836	2023-08-23	285	4	2	148.67	297.34	14.87	282.47	6
+6837	2023-08-23	329	6	1	354.58	354.58	17.73	336.85	6
+6838	2023-08-24	127	7	1	315.08	315.08	15.75	299.33	6
+6839	2023-08-24	98	5	1	262.49	262.49	13.12	249.37	\N
+6840	2023-08-25	279	1	1	211.37	211.37	10.57	200.80	6
+6841	2023-08-25	245	2	2	409.58	819.16	0.00	819.16	\N
+6842	2023-08-25	42	8	1	189.67	189.67	9.48	180.19	6
+6843	2023-08-26	421	9	1	125.77	125.77	12.58	113.19	\N
+6844	2023-08-26	313	3	2	693.48	1386.96	69.35	1317.61	6
+6845	2023-08-26	498	10	2	31.94	63.88	0.00	63.88	\N
+6846	2023-08-26	384	2	2	476.73	953.46	0.00	953.46	\N
+6847	2023-08-26	200	7	1	294.47	294.47	14.72	279.75	6
+6848	2023-08-26	283	8	1	188.38	188.38	0.00	188.38	\N
+6849	2023-08-27	473	9	1	124.85	124.85	0.00	124.85	\N
+6850	2023-08-27	250	8	1	194.75	194.75	0.00	194.75	\N
+6851	2023-08-28	331	4	1	164.22	164.22	8.21	156.01	6
+6852	2023-08-28	57	7	2	311.59	623.18	31.16	592.02	6
+6853	2023-08-28	332	4	2	156.44	312.88	15.64	297.24	\N
+6854	2023-08-29	230	1	2	190.29	380.58	19.03	361.55	6
+6855	2023-08-30	387	1	2	181.87	363.74	18.19	345.55	\N
+6856	2023-08-30	407	8	1	178.73	178.73	8.94	169.79	\N
+6857	2023-08-31	160	8	1	182.72	182.72	0.00	182.72	\N
+6858	2023-08-31	106	8	1	177.48	177.48	8.87	168.61	6
+6859	2023-08-31	421	5	2	233.92	467.84	23.39	444.45	6
+6860	2023-09-01	25	5	2	235.53	471.06	23.55	447.51	6
+6861	2023-09-03	417	8	1	176.32	176.32	8.82	167.50	6
+6862	2023-09-03	449	1	1	185.75	185.75	9.29	176.46	6
+6863	2023-09-04	74	7	2	308.42	616.84	0.00	616.84	\N
+6864	2023-09-05	327	9	2	115.42	230.84	0.00	230.84	\N
+6865	2023-09-05	130	6	2	344.30	688.60	34.43	654.17	6
+6866	2023-09-07	479	9	1	111.78	111.78	0.00	111.78	\N
+6867	2023-09-07	447	10	2	27.13	54.26	2.71	51.55	6
+6868	2023-09-08	360	1	1	206.52	206.52	20.66	185.86	6
+6869	2023-09-08	31	10	1	32.23	32.23	1.61	30.62	6
+6870	2023-09-09	139	3	2	741.01	1482.02	0.00	1482.02	\N
+6871	2023-09-09	443	7	2	296.34	592.68	29.63	563.05	6
+6872	2023-09-11	5	6	2	331.40	662.80	33.14	629.66	6
+6873	2023-09-11	117	7	1	328.67	328.67	16.43	312.24	6
+6874	2023-09-11	171	9	1	125.89	125.89	0.00	125.89	\N
+6875	2023-09-12	13	6	1	353.78	353.78	17.69	336.09	\N
+6876	2023-09-12	464	4	2	140.60	281.20	0.00	281.20	\N
+6877	2023-09-13	455	9	1	126.17	126.17	0.00	126.17	\N
+6878	2023-09-14	304	6	1	338.26	338.26	0.00	338.26	\N
+6879	2023-09-15	323	2	1	407.72	407.72	40.77	366.95	\N
+6880	2023-09-16	510	1	1	194.57	194.57	0.00	194.57	\N
+6881	2023-09-16	383	1	2	202.49	404.98	0.00	404.98	\N
+6882	2023-09-16	274	5	2	229.63	459.26	22.96	436.30	6
+6883	2023-09-17	597	9	1	122.14	122.14	0.00	122.14	\N
+6884	2023-09-17	326	9	2	117.53	235.06	35.26	199.80	6
+6885	2023-09-18	442	1	1	181.40	181.40	9.07	172.33	6
+6886	2023-09-18	355	2	1	437.96	437.96	0.00	437.96	\N
+6887	2023-09-19	458	6	1	320.29	320.29	0.00	320.29	\N
+6888	2023-09-19	534	5	1	254.40	254.40	0.00	254.40	\N
+6889	2023-09-20	177	8	1	190.89	190.89	0.00	190.89	\N
+6890	2023-09-20	343	9	2	123.51	247.02	0.00	247.02	\N
+6891	2023-09-20	505	7	1	311.26	311.26	31.13	280.13	\N
+6892	2023-09-21	92	7	2	286.63	573.26	28.66	544.60	6
+6893	2023-09-21	442	6	1	332.38	332.38	16.62	315.76	6
+6894	2023-09-21	268	8	2	163.41	326.82	16.34	310.48	6
+6895	2023-09-21	3	2	2	429.28	858.56	42.93	815.63	6
+6896	2023-09-22	454	2	1	460.39	460.39	23.02	437.37	6
+6897	2023-09-22	569	10	2	32.28	64.56	3.23	61.33	6
+6898	2023-09-22	310	9	1	123.98	123.98	0.00	123.98	\N
+6899	2023-09-23	123	3	1	755.19	755.19	0.00	755.19	\N
+6900	2023-09-23	256	1	1	209.11	209.11	10.46	198.65	6
+6901	2023-09-24	528	9	2	127.35	254.70	12.73	241.97	6
+6902	2023-09-24	521	1	1	201.86	201.86	10.09	191.77	6
+6903	2023-09-24	290	1	1	193.60	193.60	9.68	183.92	\N
+6904	2023-09-25	50	6	1	341.37	341.37	17.07	324.30	6
+6905	2023-09-25	531	7	1	318.62	318.62	15.93	302.69	6
+6906	2023-09-25	189	2	2	475.01	950.02	47.50	902.52	6
+6907	2023-09-27	425	10	1	28.82	28.82	1.44	27.38	\N
+6908	2023-09-27	77	3	1	757.76	757.76	0.00	757.76	\N
+6909	2023-09-27	459	7	1	316.55	316.55	31.66	284.89	6
+6910	2023-09-28	356	10	1	30.14	30.14	3.02	27.12	6
+6911	2023-09-30	274	10	1	30.06	30.06	0.00	30.06	\N
+6912	2023-10-01	599	6	1	356.92	356.92	17.85	339.07	6
+6913	2023-10-01	593	3	2	630.07	1260.14	0.00	1260.14	\N
+6914	2023-10-01	266	7	1	292.17	292.17	14.61	277.56	6
+6915	2023-10-02	123	7	1	293.44	293.44	0.00	293.44	\N
+6916	2023-10-02	525	2	1	424.00	424.00	0.00	424.00	\N
+6917	2023-10-02	354	1	1	192.13	192.13	0.00	192.13	\N
+6918	2023-10-03	406	5	2	257.46	514.92	25.75	489.17	6
+6919	2023-10-03	542	7	1	278.65	278.65	0.00	278.65	\N
+6920	2023-10-03	331	4	2	158.83	317.66	15.88	301.78	\N
+6921	2023-10-04	24	8	1	197.86	197.86	0.00	197.86	\N
+6922	2023-10-04	566	8	2	175.88	351.76	17.59	334.17	\N
+6923	2023-10-05	223	10	1	29.18	29.18	0.00	29.18	\N
+6924	2023-10-05	502	5	2	241.03	482.06	0.00	482.06	\N
+6925	2023-10-06	14	6	1	374.87	374.87	18.74	356.13	6
+6926	2023-10-06	38	9	2	113.26	226.52	0.00	226.52	\N
+6927	2023-10-07	286	3	2	724.55	1449.10	0.00	1449.10	\N
+6928	2023-10-09	579	9	2	130.27	260.54	26.06	234.48	6
+6929	2023-10-10	393	6	1	341.66	341.66	34.17	307.49	\N
+6930	2023-10-10	425	3	1	763.26	763.26	38.16	725.10	6
+6931	2023-10-11	246	7	1	302.33	302.33	15.12	287.21	\N
+6932	2023-10-12	237	5	2	231.14	462.28	0.00	462.28	\N
+6933	2023-10-12	353	6	2	359.43	718.86	0.00	718.86	\N
+6934	2023-10-12	34	3	1	756.71	756.71	0.00	756.71	\N
+6935	2023-10-12	138	9	1	108.43	108.43	0.00	108.43	\N
+6936	2023-10-13	28	7	1	277.80	277.80	0.00	277.80	\N
+6937	2023-10-13	19	3	2	734.85	1469.70	0.00	1469.70	\N
+6938	2023-10-13	274	8	2	170.04	340.08	17.00	323.08	6
+6939	2023-10-13	98	5	1	259.83	259.83	12.99	246.84	6
+6940	2023-10-13	223	3	1	762.97	762.97	38.15	724.82	6
+6941	2023-10-16	542	7	1	320.28	320.28	0.00	320.28	\N
+6942	2023-10-16	587	1	1	215.54	215.54	0.00	215.54	\N
+6943	2023-10-16	264	8	2	179.35	358.70	0.00	358.70	\N
+6944	2023-10-17	100	2	2	464.57	929.14	46.46	882.68	\N
+6945	2023-10-17	522	5	1	237.34	237.34	0.00	237.34	\N
+6946	2023-10-18	404	1	1	211.69	211.69	0.00	211.69	\N
+6947	2023-10-18	488	10	2	31.52	63.04	3.15	59.89	6
+6948	2023-10-19	290	3	1	648.66	648.66	32.43	616.23	6
+6949	2023-10-19	133	3	1	666.91	666.91	0.00	666.91	\N
+6950	2023-10-19	489	8	1	189.72	189.72	9.49	180.23	6
+6951	2023-10-19	457	6	1	318.35	318.35	0.00	318.35	\N
+6952	2023-10-21	534	9	2	129.05	258.10	12.91	245.19	\N
+6953	2023-10-21	289	9	2	115.42	230.84	11.54	219.30	6
+6954	2023-10-22	388	4	1	150.94	150.94	7.55	143.39	6
+6955	2023-10-22	548	8	2	181.51	363.02	18.15	344.87	6
+6956	2023-10-23	17	5	2	248.11	496.22	0.00	496.22	\N
+6957	2023-10-23	574	4	1	146.06	146.06	0.00	146.06	\N
+6958	2023-10-23	458	8	2	164.02	328.04	0.00	328.04	\N
+6959	2023-10-24	251	10	1	28.07	28.07	1.40	26.67	6
+6960	2023-10-24	56	3	1	768.71	768.71	38.44	730.27	6
+6961	2023-10-24	84	7	1	312.76	312.76	0.00	312.76	\N
+6962	2023-10-25	297	7	2	314.77	629.54	0.00	629.54	\N
+6963	2023-10-26	70	9	1	131.85	131.85	0.00	131.85	\N
+6964	2023-10-26	221	7	1	314.78	314.78	15.74	299.04	\N
+6965	2023-10-26	334	10	2	31.31	62.62	3.13	59.49	6
+6966	2023-10-26	600	3	1	728.60	728.60	72.86	655.74	\N
+6967	2023-10-27	178	4	1	163.59	163.59	0.00	163.59	\N
+6968	2023-10-28	90	10	2	28.68	57.36	0.00	57.36	\N
+6969	2023-10-28	433	3	1	686.14	686.14	68.61	617.53	\N
+6970	2023-10-28	362	5	2	263.29	526.58	0.00	526.58	\N
+6971	2023-10-29	506	8	2	182.53	365.06	0.00	365.06	\N
+6972	2023-10-29	158	3	1	632.85	632.85	0.00	632.85	\N
+6973	2023-10-29	24	1	1	183.90	183.90	0.00	183.90	\N
+6974	2023-10-29	418	7	2	305.77	611.54	30.58	580.96	6
+6975	2023-10-30	330	8	1	173.64	173.64	8.68	164.96	6
+6976	2023-10-31	597	1	1	202.60	202.60	10.13	192.47	6
+6977	2023-10-31	15	9	2	108.19	216.38	0.00	216.38	\N
+6978	2023-10-31	362	9	1	124.67	124.67	6.23	118.44	6
+6979	2023-11-01	179	8	1	192.88	192.88	9.64	183.24	6
+6980	2023-11-02	404	7	1	290.97	290.97	0.00	290.97	\N
+6981	2023-11-02	529	4	2	160.60	321.20	16.06	305.14	6
+6982	2023-11-02	468	2	1	457.77	457.77	68.67	389.10	6
+6983	2023-11-03	223	5	1	235.28	235.28	11.76	223.52	6
+6984	2023-11-03	443	8	1	175.43	175.43	0.00	175.43	\N
+6985	2023-11-03	455	4	1	142.52	142.52	0.00	142.52	\N
+6986	2023-11-03	398	6	2	352.24	704.48	35.22	669.26	6
+6987	2023-11-04	72	1	2	191.98	383.96	0.00	383.96	\N
+6988	2023-11-04	95	5	2	225.05	450.10	22.51	427.59	6
+6989	2023-11-04	187	9	1	108.72	108.72	5.44	103.28	6
+6990	2023-11-05	591	10	2	27.21	54.42	0.00	54.42	\N
+6991	2023-11-06	403	7	2	306.25	612.50	0.00	612.50	\N
+6992	2023-11-06	486	3	1	741.11	741.11	0.00	741.11	\N
+6993	2023-11-06	471	2	2	472.56	945.12	94.52	850.60	6
+6994	2023-11-07	434	9	1	123.75	123.75	0.00	123.75	\N
+6995	2023-11-07	52	4	2	139.61	279.22	13.96	265.26	6
+6996	2023-11-08	587	6	2	365.06	730.12	36.51	693.61	6
+6997	2023-11-09	457	7	2	299.38	598.76	29.94	568.82	6
+6998	2023-11-10	574	2	2	472.15	944.30	47.22	897.08	6
+6999	2023-11-10	230	10	1	28.79	28.79	1.44	27.35	6
+7000	2023-11-10	426	2	2	421.51	843.02	42.15	800.87	6
+7001	2023-11-11	210	7	1	310.21	310.21	0.00	310.21	\N
+7002	2023-11-11	405	3	1	750.49	750.49	37.52	712.97	6
+7003	2023-11-11	306	5	1	236.15	236.15	11.81	224.34	6
+7004	2023-11-11	327	2	1	461.66	461.66	23.08	438.58	6
+7005	2023-11-12	411	4	2	164.97	329.94	49.49	280.45	6
+7006	2023-11-13	149	2	1	476.33	476.33	47.64	428.69	6
+7007	2023-11-13	58	8	2	180.38	360.76	0.00	360.76	\N
+7008	2023-11-13	57	5	2	266.96	533.92	26.70	507.22	6
+7009	2023-11-14	373	4	1	161.21	161.21	0.00	161.21	\N
+7010	2023-11-15	253	10	2	29.49	58.98	0.00	58.98	\N
+7011	2023-11-16	168	10	1	28.90	28.90	1.45	27.45	6
+7012	2023-11-16	472	8	1	187.09	187.09	9.35	177.74	6
+7013	2023-11-18	599	1	1	198.97	198.97	0.00	198.97	\N
+7014	2023-11-19	394	10	1	31.59	31.59	1.58	30.01	6
+7015	2023-11-21	563	3	1	766.35	766.35	38.32	728.03	6
+7016	2023-11-21	131	10	1	28.48	28.48	0.00	28.48	\N
+7017	2023-11-22	218	3	1	684.75	684.75	0.00	684.75	\N
+7018	2023-11-22	269	7	1	271.18	271.18	27.12	244.06	\N
+7019	2023-11-22	549	5	2	228.79	457.58	22.88	434.70	6
+7020	2023-11-22	139	10	1	32.94	32.94	1.65	31.29	6
+7021	2023-11-22	384	2	1	470.02	470.02	0.00	470.02	\N
+7022	2023-11-22	88	8	2	177.69	355.38	17.77	337.61	6
+7023	2023-11-24	572	10	2	27.94	55.88	2.79	53.09	6
+7024	2023-11-25	133	9	1	115.76	115.76	5.79	109.97	6
+7025	2023-11-25	448	4	2	135.17	270.34	0.00	270.34	\N
+7026	2023-11-25	561	3	1	715.17	715.17	35.76	679.41	6
+7027	2023-11-25	148	9	2	128.49	256.98	0.00	256.98	\N
+7028	2023-11-25	384	4	1	145.52	145.52	0.00	145.52	\N
+7029	2023-11-26	308	8	2	195.96	391.92	0.00	391.92	\N
+7030	2023-11-26	511	5	1	245.62	245.62	12.28	233.34	6
+7031	2023-11-26	466	3	1	755.56	755.56	0.00	755.56	\N
+7032	2023-11-26	126	9	2	130.78	261.56	13.08	248.48	6
+7033	2023-11-26	560	1	2	217.39	434.78	0.00	434.78	\N
+7034	2023-11-26	318	6	1	367.51	367.51	18.38	349.13	6
+7035	2023-11-26	114	1	2	192.80	385.60	19.28	366.32	\N
+7036	2023-11-26	570	7	1	299.19	299.19	0.00	299.19	\N
+7037	2023-11-27	260	8	2	177.67	355.34	0.00	355.34	\N
+7038	2023-11-27	562	7	2	292.62	585.24	0.00	585.24	\N
+7039	2023-11-28	303	7	2	315.77	631.54	31.58	599.96	6
+7040	2023-11-29	308	8	2	177.94	355.88	0.00	355.88	\N
+7041	2023-11-29	235	4	2	163.58	327.16	0.00	327.16	\N
+7042	2023-11-29	160	7	1	325.19	325.19	16.26	308.93	\N
+7043	2023-11-30	77	6	2	315.04	630.08	31.50	598.58	6
+7044	2023-12-01	563	8	1	170.82	170.82	8.54	162.28	6
+7045	2023-12-01	169	2	2	459.03	918.06	91.80	826.26	6
+7046	2023-12-01	134	7	2	271.59	543.18	0.00	543.18	\N
+7047	2023-12-02	578	7	2	279.83	559.66	55.97	503.69	\N
+7048	2023-12-03	499	8	1	170.50	170.50	8.53	161.97	6
+7049	2023-12-04	586	9	1	126.03	126.03	0.00	126.03	\N
+7050	2023-12-05	571	2	1	444.52	444.52	0.00	444.52	\N
+7051	2023-12-05	238	7	1	296.15	296.15	0.00	296.15	\N
+7052	2023-12-06	542	9	2	116.40	232.80	11.64	221.16	6
+7053	2023-12-06	355	6	1	346.69	346.69	0.00	346.69	\N
+7054	2023-12-07	549	5	1	272.96	272.96	0.00	272.96	\N
+7055	2023-12-07	400	2	2	487.69	975.38	0.00	975.38	\N
+7056	2023-12-08	186	6	2	348.52	697.04	0.00	697.04	\N
+7057	2023-12-09	243	8	1	185.05	185.05	9.25	175.80	\N
+7058	2023-12-10	528	8	1	178.00	178.00	0.00	178.00	\N
+7059	2023-12-10	84	9	1	126.14	126.14	0.00	126.14	\N
+7060	2023-12-11	383	8	2	183.33	366.66	0.00	366.66	\N
+7061	2023-12-12	227	3	1	732.27	732.27	36.61	695.66	6
+7062	2023-12-12	30	1	1	192.95	192.95	28.95	164.00	6
+7063	2023-12-12	117	8	2	170.28	340.56	17.03	323.53	6
+7064	2023-12-13	34	6	1	366.05	366.05	36.60	329.45	6
+7065	2023-12-13	190	5	1	245.44	245.44	0.00	245.44	\N
+7066	2023-12-15	481	2	1	493.26	493.26	49.32	443.94	6
+7067	2023-12-16	57	7	1	290.17	290.17	0.00	290.17	\N
+7068	2023-12-16	200	6	2	357.88	715.76	0.00	715.76	\N
+7069	2023-12-16	600	9	1	108.48	108.48	0.00	108.48	\N
+7070	2023-12-16	516	3	1	732.23	732.23	73.22	659.01	\N
+7071	2023-12-17	538	8	2	182.17	364.34	18.22	346.12	6
+7072	2023-12-17	482	9	1	123.64	123.64	0.00	123.64	\N
+7073	2023-12-17	488	4	1	148.95	148.95	7.45	141.50	6
+7074	2023-12-17	481	8	2	169.90	339.80	0.00	339.80	\N
+7075	2023-12-18	254	7	2	320.73	641.46	0.00	641.46	\N
+7076	2023-12-18	584	8	2	180.12	360.24	18.01	342.23	6
+7077	2023-12-18	12	1	2	207.44	414.88	0.00	414.88	\N
+7078	2023-12-19	48	8	1	187.35	187.35	9.37	177.98	6
+7079	2023-12-19	28	2	2	406.55	813.10	40.66	772.44	6
+7080	2023-12-20	187	3	1	686.67	686.67	68.66	618.01	6
+7081	2023-12-20	396	4	2	135.47	270.94	0.00	270.94	\N
+7082	2023-12-21	360	7	1	299.99	299.99	45.00	254.99	6
+7083	2023-12-22	599	9	2	128.16	256.32	0.00	256.32	\N
+7084	2023-12-22	453	3	1	668.91	668.91	0.00	668.91	\N
+7085	2023-12-22	567	8	2	186.14	372.28	0.00	372.28	\N
+7086	2023-12-22	312	1	1	199.79	199.79	0.00	199.79	\N
+7087	2023-12-24	564	1	1	194.58	194.58	9.73	184.85	6
+7088	2023-12-24	489	3	2	691.23	1382.46	0.00	1382.46	\N
+7089	2023-12-24	380	1	2	210.78	421.56	0.00	421.56	\N
+7090	2023-12-25	358	2	2	476.78	953.56	0.00	953.56	\N
+7091	2023-12-26	426	8	1	168.54	168.54	0.00	168.54	\N
+7092	2023-12-26	326	7	2	302.85	605.70	0.00	605.70	\N
+7093	2023-12-26	188	8	1	193.14	193.14	9.66	183.48	6
+7094	2023-12-26	461	10	1	32.26	32.26	1.61	30.65	6
+7095	2023-12-27	296	10	2	28.02	56.04	8.40	47.64	6
+7096	2023-12-28	248	1	1	214.83	214.83	10.74	204.09	6
+7097	2023-12-28	37	9	2	116.93	233.86	0.00	233.86	\N
+7098	2023-12-30	268	9	1	112.90	112.90	0.00	112.90	\N
+7099	2023-12-30	529	2	1	443.10	443.10	44.31	398.79	\N
+7100	2023-12-31	424	1	1	217.37	217.37	10.87	206.50	6
+7101	2023-12-31	359	10	2	29.13	58.26	0.00	58.26	\N
+7102	2023-12-31	335	5	1	230.02	230.02	23.00	207.02	\N
+7103	2024-01-01	134	6	1	383.41	383.41	19.17	364.24	6
+7104	2024-01-02	546	10	1	31.42	31.42	1.57	29.85	6
+7105	2024-01-02	554	6	2	371.41	742.82	37.14	705.68	6
+7106	2024-01-02	351	8	2	180.14	360.28	0.00	360.28	\N
+7107	2024-01-03	153	1	1	201.06	201.06	20.10	180.96	6
+7108	2024-01-03	294	2	1	438.29	438.29	0.00	438.29	\N
+7109	2024-01-03	311	10	1	28.47	28.47	1.42	27.05	6
+7110	2024-01-03	122	7	1	315.99	315.99	15.80	300.19	6
+7111	2024-01-03	376	7	2	328.15	656.30	98.44	557.86	6
+7112	2024-01-03	283	8	2	185.89	371.78	18.59	353.19	6
+7113	2024-01-03	320	6	1	353.64	353.64	35.36	318.28	6
+7114	2024-01-03	490	1	1	196.25	196.25	0.00	196.25	\N
+7115	2024-01-04	39	7	2	288.61	577.22	0.00	577.22	\N
+7116	2024-01-04	341	7	2	308.95	617.90	0.00	617.90	\N
+7117	2024-01-05	519	1	1	216.81	216.81	0.00	216.81	\N
+7118	2024-01-05	217	9	2	113.22	226.44	11.32	215.12	6
+7119	2024-01-05	169	5	2	243.14	486.28	0.00	486.28	\N
+7120	2024-01-05	100	8	1	163.38	163.38	8.17	155.21	6
+7121	2024-01-05	67	5	2	268.56	537.12	26.86	510.26	6
+7122	2024-01-06	417	7	2	312.14	624.28	31.21	593.07	6
+7123	2024-01-06	42	1	1	190.39	190.39	0.00	190.39	\N
+7124	2024-01-06	562	1	1	190.93	190.93	0.00	190.93	\N
+7125	2024-01-06	564	9	2	127.18	254.36	0.00	254.36	\N
+7126	2024-01-07	324	2	2	432.14	864.28	43.21	821.07	6
+7127	2024-01-08	449	1	1	202.59	202.59	0.00	202.59	\N
+7128	2024-01-08	76	8	2	191.69	383.38	0.00	383.38	\N
+7129	2024-01-08	119	7	2	328.18	656.36	0.00	656.36	\N
+7130	2024-01-09	106	4	2	161.80	323.60	0.00	323.60	\N
+7131	2024-01-09	302	7	1	306.16	306.16	0.00	306.16	\N
+7132	2024-01-10	374	1	1	184.05	184.05	9.20	174.85	6
+7133	2024-01-11	419	7	2	329.72	659.44	32.97	626.47	6
+7134	2024-01-11	159	6	2	330.33	660.66	66.07	594.59	\N
+7135	2024-01-11	513	8	2	176.21	352.42	17.62	334.80	6
+7136	2024-01-12	599	6	2	379.95	759.90	0.00	759.90	\N
+7137	2024-01-12	317	8	2	172.08	344.16	17.21	326.95	\N
+7138	2024-01-15	518	10	1	31.70	31.70	1.58	30.12	\N
+7139	2024-01-15	92	6	1	369.18	369.18	55.38	313.80	6
+7140	2024-01-15	285	3	1	683.57	683.57	34.18	649.39	6
+7141	2024-01-15	259	8	2	165.15	330.30	16.52	313.78	6
+7142	2024-01-15	272	5	1	263.30	263.30	0.00	263.30	\N
+7143	2024-01-15	291	6	1	362.75	362.75	0.00	362.75	\N
+7144	2024-01-15	425	10	1	28.71	28.71	1.44	27.27	6
+7145	2024-01-16	588	2	1	480.17	480.17	0.00	480.17	\N
+7146	2024-01-16	572	1	1	190.17	190.17	0.00	190.17	\N
+7147	2024-01-16	139	1	1	204.12	204.12	0.00	204.12	\N
+7148	2024-01-17	455	4	2	152.83	305.66	0.00	305.66	\N
+7149	2024-01-17	320	3	1	744.35	744.35	37.22	707.13	6
+7150	2024-01-17	498	5	2	257.99	515.98	77.40	438.58	6
+7151	2024-01-18	277	1	1	211.87	211.87	10.59	201.28	6
+7152	2024-01-20	361	4	1	143.47	143.47	7.17	136.30	6
+7153	2024-01-21	89	9	2	112.74	225.48	0.00	225.48	\N
+7154	2024-01-21	157	2	2	423.70	847.40	42.37	805.03	6
+7155	2024-01-22	369	6	1	320.07	320.07	48.01	272.06	6
+7156	2024-01-23	136	6	2	369.09	738.18	36.91	701.27	6
+7157	2024-01-23	377	7	1	324.16	324.16	16.21	307.95	6
+7158	2024-01-23	281	9	2	130.14	260.28	0.00	260.28	\N
+7159	2024-01-24	483	2	2	418.62	837.24	125.58	711.66	6
+7160	2024-01-24	189	10	1	28.27	28.27	1.41	26.86	6
+7161	2024-01-25	255	3	1	686.94	686.94	68.70	618.24	6
+7162	2024-01-25	420	3	2	692.84	1385.68	0.00	1385.68	\N
+7163	2024-01-25	299	7	1	322.93	322.93	0.00	322.93	\N
+7164	2024-01-26	521	2	1	457.26	457.26	0.00	457.26	\N
+7165	2024-01-26	551	8	2	185.05	370.10	18.51	351.59	6
+7166	2024-01-27	155	10	1	28.74	28.74	1.44	27.30	6
+7167	2024-01-27	75	4	2	147.51	295.02	0.00	295.02	\N
+7168	2024-01-28	161	7	1	294.53	294.53	0.00	294.53	\N
+7169	2024-01-28	5	6	2	331.09	662.18	0.00	662.18	\N
+7170	2024-01-29	514	4	1	157.90	157.90	15.80	142.10	6
+7171	2024-01-29	212	2	2	448.53	897.06	44.85	852.21	6
+7172	2024-01-30	310	1	1	216.61	216.61	0.00	216.61	\N
+7173	2024-01-31	194	4	1	138.05	138.05	0.00	138.05	\N
+7174	2024-01-31	99	9	2	108.38	216.76	10.84	205.92	6
+7175	2024-02-01	12	3	1	664.93	664.93	33.25	631.68	\N
+7176	2024-02-01	228	9	1	120.68	120.68	0.00	120.68	\N
+7177	2024-02-02	375	4	2	137.16	274.32	0.00	274.32	\N
+7178	2024-02-03	247	10	2	29.90	59.80	2.99	56.81	6
+7179	2024-02-03	252	5	1	265.46	265.46	0.00	265.46	\N
+7180	2024-02-05	87	1	2	206.95	413.90	20.70	393.20	6
+7181	2024-02-05	431	3	1	663.00	663.00	33.15	629.85	6
+7182	2024-02-05	407	1	1	218.02	218.02	0.00	218.02	\N
+7183	2024-02-06	179	3	2	673.53	1347.06	0.00	1347.06	\N
+7184	2024-02-06	135	3	2	760.63	1521.26	76.06	1445.20	6
+7185	2024-02-06	564	3	1	751.64	751.64	0.00	751.64	\N
+7186	2024-02-06	102	4	2	145.12	290.24	14.51	275.73	6
+7187	2024-02-06	62	9	2	114.94	229.88	22.99	206.89	\N
+7188	2024-02-06	596	8	1	195.24	195.24	9.76	185.48	\N
+7189	2024-02-07	537	2	2	408.35	816.70	0.00	816.70	\N
+7190	2024-02-07	363	3	1	751.42	751.42	37.57	713.85	6
+7191	2024-02-07	384	1	2	219.22	438.44	0.00	438.44	\N
+7192	2024-02-08	401	9	2	130.32	260.64	13.03	247.61	6
+7193	2024-02-09	298	1	2	197.70	395.40	0.00	395.40	\N
+7194	2024-02-11	56	9	1	124.46	124.46	0.00	124.46	\N
+7195	2024-02-12	203	10	1	27.11	27.11	0.00	27.11	\N
+7196	2024-02-12	159	1	2	216.54	433.08	0.00	433.08	\N
+7197	2024-02-12	401	3	2	685.69	1371.38	68.57	1302.81	\N
+7198	2024-02-13	292	8	1	172.27	172.27	0.00	172.27	\N
+7199	2024-02-13	460	10	2	30.14	60.28	0.00	60.28	\N
+7200	2024-02-14	176	2	2	425.79	851.58	0.00	851.58	\N
+7201	2024-02-14	339	3	2	651.37	1302.74	65.14	1237.60	6
+7202	2024-02-14	139	10	1	29.72	29.72	0.00	29.72	\N
+7203	2024-02-15	336	5	2	226.86	453.72	0.00	453.72	\N
+7204	2024-02-15	255	9	2	124.41	248.82	12.44	236.38	6
+7205	2024-02-16	377	5	1	236.74	236.74	23.67	213.07	\N
+7206	2024-02-16	370	10	1	28.61	28.61	1.43	27.18	6
+7207	2024-02-16	588	3	1	733.10	733.10	0.00	733.10	\N
+7208	2024-02-17	410	7	1	329.22	329.22	16.46	312.76	6
+7209	2024-02-17	359	6	2	383.46	766.92	0.00	766.92	\N
+7210	2024-02-18	287	6	1	353.09	353.09	17.65	335.44	6
+7211	2024-02-18	14	8	2	188.92	377.84	0.00	377.84	\N
+7212	2024-02-19	56	4	2	138.47	276.94	13.85	263.09	6
+7213	2024-02-20	80	4	1	157.98	157.98	0.00	157.98	\N
+7214	2024-02-20	3	5	2	234.65	469.30	0.00	469.30	\N
+7215	2024-02-20	384	7	2	304.84	609.68	30.48	579.20	6
+7216	2024-02-20	86	5	1	245.29	245.29	12.26	233.03	\N
+7217	2024-02-21	214	6	1	327.99	327.99	0.00	327.99	\N
+7218	2024-02-22	179	7	1	273.27	273.27	13.66	259.61	6
+7219	2024-02-22	398	5	2	231.52	463.04	0.00	463.04	\N
+7220	2024-02-23	233	4	2	138.51	277.02	13.85	263.17	\N
+7221	2024-02-25	160	4	2	138.16	276.32	13.82	262.50	\N
+7222	2024-02-25	124	10	1	31.76	31.76	0.00	31.76	\N
+7223	2024-02-25	257	1	1	193.38	193.38	29.01	164.37	6
+7224	2024-02-25	76	10	1	32.38	32.38	3.24	29.14	\N
+7225	2024-02-25	452	4	2	154.13	308.26	30.83	277.43	\N
+7226	2024-02-26	374	10	2	29.21	58.42	0.00	58.42	\N
+7227	2024-02-26	371	3	1	666.92	666.92	0.00	666.92	\N
+7228	2024-02-26	154	3	2	742.88	1485.76	0.00	1485.76	\N
+7229	2024-02-26	386	8	1	197.79	197.79	29.67	168.12	6
+7230	2024-02-27	434	1	1	186.74	186.74	0.00	186.74	\N
+7231	2024-02-27	376	8	1	177.85	177.85	0.00	177.85	\N
+7232	2024-02-28	594	1	2	194.69	389.38	58.41	330.97	6
+7233	2024-02-28	132	8	1	193.09	193.09	0.00	193.09	\N
+7234	2024-02-28	506	6	2	326.43	652.86	32.64	620.22	6
+7235	2024-02-29	476	9	2	122.99	245.98	0.00	245.98	\N
+7236	2024-02-29	119	7	2	318.94	637.88	31.89	605.99	6
+7237	2024-02-29	489	2	2	433.55	867.10	43.36	823.74	6
+7238	2024-02-29	265	3	2	731.26	1462.52	146.25	1316.27	\N
+7239	2024-02-29	513	5	2	274.70	549.40	0.00	549.40	\N
+7240	2024-02-29	451	4	1	137.23	137.23	6.86	130.37	6
+7241	2024-03-01	77	8	1	194.25	194.25	9.71	184.54	6
+7242	2024-03-01	588	1	2	207.30	414.60	20.73	393.87	6
+7243	2024-03-02	326	1	1	201.71	201.71	0.00	201.71	\N
+7244	2024-03-02	197	5	2	225.37	450.74	22.54	428.20	\N
+7245	2024-03-02	413	2	2	446.54	893.08	44.65	848.43	6
+7246	2024-03-03	38	2	1	414.32	414.32	20.72	393.60	\N
+7247	2024-03-03	93	9	1	123.16	123.16	0.00	123.16	\N
+7248	2024-03-03	31	4	1	163.94	163.94	8.20	155.74	6
+7249	2024-03-03	433	5	1	225.61	225.61	11.28	214.33	\N
+7250	2024-03-04	325	5	1	267.79	267.79	0.00	267.79	\N
+7251	2024-03-04	449	9	1	127.68	127.68	19.15	108.53	6
+7252	2024-03-04	432	5	1	235.29	235.29	11.76	223.53	6
+7253	2024-03-04	72	2	1	427.81	427.81	21.39	406.42	6
+7254	2024-03-04	299	7	1	326.56	326.56	32.66	293.90	6
+7255	2024-03-04	64	7	2	323.67	647.34	32.37	614.97	6
+7256	2024-03-05	76	2	1	443.05	443.05	0.00	443.05	\N
+7257	2024-03-05	230	9	2	127.36	254.72	0.00	254.72	\N
+7258	2024-03-05	101	6	2	357.94	715.88	0.00	715.88	\N
+7259	2024-03-06	433	7	1	289.12	289.12	43.37	245.75	6
+7260	2024-03-06	264	6	2	328.18	656.36	32.82	623.54	6
+7261	2024-03-06	444	5	1	254.02	254.02	0.00	254.02	\N
+7262	2024-03-06	332	5	2	230.17	460.34	23.02	437.32	6
+7263	2024-03-08	107	4	1	154.26	154.26	0.00	154.26	\N
+7264	2024-03-08	248	2	2	473.12	946.24	94.62	851.62	\N
+7265	2024-03-08	47	8	1	181.28	181.28	0.00	181.28	\N
+7266	2024-03-09	329	8	2	188.92	377.84	18.89	358.95	\N
+7267	2024-03-09	281	2	2	467.59	935.18	0.00	935.18	\N
+7268	2024-03-09	285	5	2	249.42	498.84	24.94	473.90	6
+7269	2024-03-10	274	4	1	146.13	146.13	0.00	146.13	\N
+7270	2024-03-11	481	4	1	147.96	147.96	7.40	140.56	6
+7271	2024-03-11	437	9	2	126.52	253.04	25.30	227.74	\N
+7272	2024-03-12	79	8	1	190.69	190.69	9.53	181.16	6
+7273	2024-03-14	5	10	1	28.29	28.29	1.41	26.88	\N
+7274	2024-03-14	408	9	2	121.74	243.48	0.00	243.48	\N
+7275	2024-03-14	368	3	1	709.05	709.05	0.00	709.05	\N
+7276	2024-03-15	363	1	1	203.96	203.96	0.00	203.96	\N
+7277	2024-03-15	515	2	2	452.76	905.52	45.28	860.24	6
+7278	2024-03-15	408	9	2	109.19	218.38	0.00	218.38	\N
+7279	2024-03-15	177	5	1	228.85	228.85	11.44	217.41	6
+7280	2024-03-15	355	5	1	226.76	226.76	0.00	226.76	\N
+7281	2024-03-16	391	3	1	733.55	733.55	0.00	733.55	\N
+7282	2024-03-16	27	9	1	131.45	131.45	0.00	131.45	\N
+7283	2024-03-16	56	7	1	300.14	300.14	0.00	300.14	\N
+7284	2024-03-16	154	2	1	446.43	446.43	0.00	446.43	\N
+7285	2024-03-17	568	3	1	738.99	738.99	36.95	702.04	6
+7286	2024-03-17	84	3	1	676.11	676.11	33.81	642.30	6
+7287	2024-03-19	3	4	1	150.57	150.57	0.00	150.57	\N
+7288	2024-03-19	440	2	2	443.22	886.44	0.00	886.44	\N
+7289	2024-03-19	268	2	2	422.05	844.10	0.00	844.10	\N
+7290	2024-03-21	507	4	2	139.32	278.64	0.00	278.64	\N
+7291	2024-03-22	502	5	1	233.99	233.99	0.00	233.99	\N
+7292	2024-03-23	317	3	2	631.66	1263.32	63.17	1200.15	6
+7293	2024-03-23	245	8	2	171.39	342.78	0.00	342.78	\N
+7294	2024-03-23	68	10	1	31.25	31.25	1.56	29.69	6
+7295	2024-03-23	338	10	1	27.82	27.82	0.00	27.82	\N
+7296	2024-03-23	232	1	2	214.54	429.08	21.45	407.63	6
+7297	2024-03-23	561	8	2	179.80	359.60	0.00	359.60	\N
+7298	2024-03-23	230	7	1	287.72	287.72	0.00	287.72	\N
+7299	2024-03-25	472	10	1	29.09	29.09	1.45	27.64	\N
+7300	2024-03-26	74	3	1	711.62	711.62	106.74	604.88	6
+7301	2024-03-26	76	4	2	154.67	309.34	15.47	293.87	\N
+7302	2024-03-26	193	6	2	381.19	762.38	38.12	724.26	6
+7303	2024-03-26	267	7	2	328.46	656.92	0.00	656.92	\N
+7304	2024-03-26	296	2	1	420.35	420.35	42.04	378.31	6
+7305	2024-03-27	175	1	1	202.31	202.31	0.00	202.31	\N
+7306	2024-03-28	330	8	2	164.13	328.26	0.00	328.26	\N
+7307	2024-03-28	590	5	2	235.36	470.72	23.54	447.18	6
+7308	2024-03-28	492	1	2	219.36	438.72	0.00	438.72	\N
+7309	2024-03-28	451	9	2	112.92	225.84	11.29	214.55	6
+7310	2024-03-28	115	7	1	318.95	318.95	15.95	303.00	6
+7311	2024-03-29	385	1	2	200.63	401.26	0.00	401.26	\N
+7312	2024-03-30	215	8	1	164.43	164.43	16.44	147.99	6
+7313	2024-03-30	460	9	2	115.24	230.48	0.00	230.48	\N
+7314	2024-03-30	253	9	2	108.07	216.14	10.81	205.33	6
+7315	2024-03-30	449	4	1	151.31	151.31	7.57	143.74	\N
+7316	2024-03-30	257	10	2	28.60	57.20	8.58	48.62	6
+7317	2024-03-31	32	8	2	192.83	385.66	19.28	366.38	6
+7318	2024-03-31	329	4	2	162.55	325.10	0.00	325.10	\N
+7319	2024-04-01	532	3	2	749.57	1499.14	0.00	1499.14	\N
+7320	2024-04-01	104	2	2	475.11	950.22	47.51	902.71	\N
+7321	2024-04-01	238	9	2	131.82	263.64	13.18	250.46	\N
+7322	2024-04-01	548	5	2	249.61	499.22	0.00	499.22	\N
+7323	2024-04-01	170	6	2	351.08	702.16	35.11	667.05	6
+7324	2024-04-01	72	6	1	344.83	344.83	17.24	327.59	6
+7325	2024-04-02	241	4	2	157.31	314.62	15.73	298.89	6
+7326	2024-04-02	421	7	2	310.86	621.72	0.00	621.72	\N
+7327	2024-04-02	412	4	2	157.97	315.94	15.80	300.14	6
+7328	2024-04-02	71	7	1	311.82	311.82	0.00	311.82	\N
+7329	2024-04-02	341	6	2	367.05	734.10	36.71	697.39	\N
+7330	2024-04-02	117	4	1	142.67	142.67	14.27	128.40	\N
+7331	2024-04-02	80	8	1	162.30	162.30	0.00	162.30	\N
+7332	2024-04-02	217	1	1	196.57	196.57	0.00	196.57	\N
+7333	2024-04-03	53	1	1	191.47	191.47	0.00	191.47	\N
+7334	2024-04-04	47	8	2	167.18	334.36	16.72	317.64	\N
+7335	2024-04-04	460	5	2	231.35	462.70	23.14	439.56	6
+7336	2024-04-05	490	4	2	139.42	278.84	0.00	278.84	\N
+7337	2024-04-05	63	7	2	326.70	653.40	0.00	653.40	\N
+7338	2024-04-05	25	6	2	365.16	730.32	0.00	730.32	\N
+7339	2024-04-05	452	10	1	30.81	30.81	3.08	27.73	\N
+7340	2024-04-05	36	10	2	29.07	58.14	0.00	58.14	\N
+7341	2024-04-06	24	4	2	144.41	288.82	14.44	274.38	6
+7342	2024-04-06	551	2	1	456.15	456.15	0.00	456.15	\N
+7343	2024-04-06	425	9	2	128.63	257.26	0.00	257.26	\N
+7344	2024-04-06	285	6	1	345.48	345.48	0.00	345.48	\N
+7345	2024-04-08	552	2	2	479.19	958.38	47.92	910.46	6
+7346	2024-04-09	190	1	1	218.79	218.79	0.00	218.79	\N
+7347	2024-04-11	371	2	1	492.64	492.64	0.00	492.64	\N
+7348	2024-04-11	334	7	1	299.06	299.06	14.95	284.11	6
+7349	2024-04-11	179	1	2	184.68	369.36	0.00	369.36	\N
+7350	2024-04-11	324	10	1	31.42	31.42	1.57	29.85	6
+7351	2024-04-11	25	2	1	425.17	425.17	0.00	425.17	\N
+7352	2024-04-12	311	1	1	193.96	193.96	9.70	184.26	6
+7353	2024-04-13	491	1	2	202.84	405.68	0.00	405.68	\N
+7354	2024-04-13	279	7	2	291.56	583.12	29.16	553.96	6
+7355	2024-04-13	51	1	1	181.61	181.61	9.08	172.53	6
+7356	2024-04-13	423	5	1	267.46	267.46	0.00	267.46	\N
+7357	2024-04-14	542	4	2	143.87	287.74	0.00	287.74	\N
+7358	2024-04-14	360	3	2	680.58	1361.16	68.06	1293.10	\N
+7359	2024-04-16	406	7	1	278.07	278.07	13.90	264.17	6
+7360	2024-04-16	198	9	2	108.95	217.90	10.90	207.00	6
+7361	2024-04-17	82	2	1	493.90	493.90	24.70	469.20	\N
+7362	2024-04-17	394	6	2	327.38	654.76	32.74	622.02	6
+7363	2024-04-17	121	6	2	354.63	709.26	35.46	673.80	6
+7364	2024-04-17	112	6	1	380.81	380.81	0.00	380.81	\N
+7365	2024-04-18	73	8	2	171.24	342.48	0.00	342.48	\N
+7366	2024-04-19	493	8	1	192.84	192.84	0.00	192.84	\N
+7367	2024-04-19	194	2	2	461.33	922.66	0.00	922.66	\N
+7368	2024-04-19	161	4	1	138.65	138.65	0.00	138.65	\N
+7369	2024-04-19	167	6	1	336.51	336.51	0.00	336.51	\N
+7370	2024-04-19	261	5	1	238.90	238.90	11.95	226.95	6
+7371	2024-04-20	518	10	2	32.42	64.84	9.72	55.12	6
+7372	2024-04-20	556	4	1	140.56	140.56	7.03	133.53	6
+7373	2024-04-20	91	4	1	160.92	160.92	8.05	152.87	6
+7374	2024-04-21	286	8	1	195.61	195.61	0.00	195.61	\N
+7375	2024-04-22	593	8	1	188.93	188.93	0.00	188.93	\N
+7376	2024-04-22	273	5	2	273.57	547.14	0.00	547.14	\N
+7377	2024-04-22	314	1	1	215.56	215.56	10.78	204.78	6
+7378	2024-04-23	348	9	2	114.12	228.24	0.00	228.24	\N
+7379	2024-04-23	594	3	1	720.21	720.21	0.00	720.21	\N
+7380	2024-04-23	516	8	1	182.17	182.17	0.00	182.17	\N
+7381	2024-04-24	250	8	2	176.30	352.60	0.00	352.60	\N
+7382	2024-04-25	429	5	2	267.69	535.38	26.77	508.61	6
+7383	2024-04-25	544	1	1	192.87	192.87	9.64	183.23	6
+7384	2024-04-26	115	10	1	27.60	27.60	1.38	26.22	6
+7385	2024-04-28	130	9	2	121.72	243.44	0.00	243.44	\N
+7386	2024-04-29	469	7	1	295.51	295.51	0.00	295.51	\N
+7387	2024-04-29	84	10	2	27.72	55.44	8.31	47.13	6
+7388	2024-04-29	260	3	1	677.95	677.95	0.00	677.95	\N
+7389	2024-04-29	116	8	2	177.67	355.34	0.00	355.34	\N
+7390	2024-04-30	16	9	2	127.05	254.10	0.00	254.10	\N
+7391	2024-05-02	327	10	2	27.70	55.40	0.00	55.40	\N
+7392	2024-05-02	447	4	2	158.90	317.80	0.00	317.80	\N
+7393	2024-05-02	426	8	2	163.67	327.34	16.37	310.97	6
+7394	2024-05-03	457	8	1	196.78	196.78	0.00	196.78	\N
+7395	2024-05-03	279	1	1	194.22	194.22	0.00	194.22	\N
+7396	2024-05-04	57	3	1	765.70	765.70	0.00	765.70	\N
+7397	2024-05-04	88	6	1	340.80	340.80	0.00	340.80	\N
+7398	2024-05-04	37	10	1	31.15	31.15	1.56	29.59	6
+7399	2024-05-04	332	3	1	681.83	681.83	34.09	647.74	6
+7400	2024-05-05	265	5	2	271.69	543.38	27.17	516.21	6
+7401	2024-05-05	345	8	2	176.05	352.10	0.00	352.10	\N
+7402	2024-05-06	420	4	2	142.26	284.52	14.23	270.29	6
+7403	2024-05-06	189	1	1	208.34	208.34	10.42	197.92	6
+7404	2024-05-07	579	6	2	381.64	763.28	0.00	763.28	\N
+7405	2024-05-08	165	8	2	195.43	390.86	0.00	390.86	\N
+7406	2024-05-08	147	8	2	176.01	352.02	0.00	352.02	\N
+7407	2024-05-08	570	8	1	164.17	164.17	0.00	164.17	\N
+7408	2024-05-09	280	3	1	732.95	732.95	0.00	732.95	\N
+7409	2024-05-09	413	1	2	189.39	378.78	0.00	378.78	\N
+7410	2024-05-09	554	1	2	211.52	423.04	42.30	380.74	\N
+7411	2024-05-09	314	5	1	252.05	252.05	0.00	252.05	\N
+7412	2024-05-10	293	4	2	155.76	311.52	31.15	280.37	\N
+7413	2024-05-10	408	2	1	443.91	443.91	0.00	443.91	\N
+7414	2024-05-10	479	9	2	114.15	228.30	11.42	216.88	6
+7415	2024-05-11	295	10	2	32.97	65.94	3.30	62.64	6
+7416	2024-05-11	439	10	2	29.00	58.00	0.00	58.00	\N
+7417	2024-05-12	178	6	1	357.52	357.52	17.88	339.64	6
+7418	2024-05-12	76	6	2	344.90	689.80	34.49	655.31	6
+7419	2024-05-13	522	3	1	659.14	659.14	32.96	626.18	6
+7420	2024-05-13	537	2	2	422.70	845.40	0.00	845.40	\N
+7421	2024-05-13	594	1	1	185.66	185.66	0.00	185.66	\N
+7422	2024-05-14	238	3	1	746.37	746.37	0.00	746.37	\N
+7423	2024-05-14	180	5	2	256.18	512.36	51.24	461.12	6
+7424	2024-05-14	389	10	2	30.83	61.66	0.00	61.66	\N
+7425	2024-05-14	121	3	1	710.13	710.13	0.00	710.13	\N
+7426	2024-05-15	41	4	2	137.05	274.10	13.71	260.39	\N
+7427	2024-05-15	97	5	2	246.73	493.46	24.67	468.79	6
+7428	2024-05-15	85	3	2	633.85	1267.70	63.39	1204.31	\N
+7429	2024-05-15	61	6	2	357.19	714.38	0.00	714.38	\N
+7430	2024-05-16	444	10	1	28.52	28.52	0.00	28.52	\N
+7431	2024-05-16	298	4	2	151.73	303.46	0.00	303.46	\N
+7432	2024-05-17	294	3	1	704.19	704.19	35.21	668.98	6
+7433	2024-05-17	491	4	2	144.19	288.38	0.00	288.38	\N
+7434	2024-05-17	55	4	1	135.29	135.29	6.76	128.53	6
+7435	2024-05-17	460	8	2	190.45	380.90	19.04	361.86	6
+7436	2024-05-18	465	10	2	28.23	56.46	5.64	50.82	6
+7437	2024-05-19	338	6	1	328.85	328.85	0.00	328.85	\N
+7438	2024-05-20	150	5	2	268.10	536.20	26.81	509.39	6
+7439	2024-05-20	524	4	2	155.73	311.46	31.15	280.31	\N
+7440	2024-05-20	500	10	1	32.31	32.31	0.00	32.31	\N
+7441	2024-05-21	540	10	2	31.99	63.98	3.20	60.78	6
+7442	2024-05-22	176	9	1	131.22	131.22	0.00	131.22	\N
+7443	2024-05-22	492	5	1	249.89	249.89	0.00	249.89	\N
+7444	2024-05-22	86	1	1	191.78	191.78	0.00	191.78	\N
+7445	2024-05-22	170	10	1	29.26	29.26	0.00	29.26	\N
+7446	2024-05-22	322	3	2	746.88	1493.76	0.00	1493.76	\N
+7447	2024-05-23	498	4	2	137.23	274.46	13.72	260.74	6
+7448	2024-05-23	293	1	1	190.55	190.55	9.53	181.02	6
+7449	2024-05-24	105	10	1	27.41	27.41	0.00	27.41	\N
+7450	2024-05-24	256	4	1	148.69	148.69	7.43	141.26	6
+7451	2024-05-24	374	8	2	181.05	362.10	54.32	307.78	6
+7452	2024-05-24	367	6	2	317.10	634.20	31.71	602.49	6
+7453	2024-05-25	65	2	1	407.73	407.73	40.77	366.96	\N
+7454	2024-05-25	379	7	1	296.58	296.58	0.00	296.58	\N
+7455	2024-05-25	225	8	1	164.07	164.07	8.20	155.87	\N
+7456	2024-05-25	473	5	2	253.36	506.72	76.01	430.71	6
+7457	2024-05-26	29	8	1	197.96	197.96	9.90	188.06	\N
+7458	2024-05-26	456	4	1	148.59	148.59	0.00	148.59	\N
+7459	2024-05-26	46	2	2	480.73	961.46	48.07	913.39	6
+7460	2024-05-26	297	10	1	28.03	28.03	1.40	26.63	\N
+7461	2024-05-27	164	5	1	225.78	225.78	22.58	203.20	6
+7462	2024-05-27	391	6	1	333.89	333.89	0.00	333.89	\N
+7463	2024-05-28	413	1	2	186.84	373.68	0.00	373.68	\N
+7464	2024-05-29	278	4	1	145.24	145.24	0.00	145.24	\N
+7465	2024-05-29	483	2	2	410.77	821.54	0.00	821.54	\N
+7466	2024-05-30	34	5	2	241.95	483.90	48.39	435.51	\N
+7467	2024-05-30	72	2	2	456.50	913.00	0.00	913.00	\N
+7468	2024-05-30	417	1	1	213.22	213.22	21.32	191.90	\N
+7469	2024-05-31	196	5	1	264.83	264.83	0.00	264.83	\N
+7470	2024-05-31	497	10	1	29.62	29.62	4.44	25.18	6
+7471	2024-05-31	515	6	2	341.32	682.64	34.13	648.51	6
+7472	2024-05-31	280	3	1	655.12	655.12	32.76	622.36	6
+7473	2024-05-31	59	7	2	305.44	610.88	0.00	610.88	\N
+7474	2024-06-01	513	7	2	315.41	630.82	0.00	630.82	\N
+7475	2024-06-01	346	5	1	268.99	268.99	13.45	255.54	6
+7476	2024-06-01	511	2	2	476.40	952.80	0.00	952.80	\N
+7477	2024-06-02	100	7	2	273.33	546.66	27.33	519.33	6
+7478	2024-06-02	78	10	2	30.00	60.00	3.00	57.00	6
+7479	2024-06-02	502	1	2	202.27	404.54	0.00	404.54	\N
+7480	2024-06-02	391	6	1	377.13	377.13	0.00	377.13	\N
+7481	2024-06-03	94	5	2	270.31	540.62	27.03	513.59	6
+7482	2024-06-03	267	3	2	734.82	1469.64	0.00	1469.64	\N
+7483	2024-06-03	543	9	1	109.45	109.45	5.47	103.98	6
+7484	2024-06-04	337	2	2	425.46	850.92	0.00	850.92	\N
+7485	2024-06-04	182	7	2	300.59	601.18	0.00	601.18	\N
+7486	2024-06-04	455	1	2	191.73	383.46	0.00	383.46	\N
+7487	2024-06-05	577	9	2	110.79	221.58	11.08	210.50	\N
+7488	2024-06-06	392	9	1	109.89	109.89	5.49	104.40	6
+7489	2024-06-07	548	2	1	486.15	486.15	24.31	461.84	6
+7490	2024-06-07	484	3	1	724.04	724.04	0.00	724.04	\N
+7491	2024-06-07	479	7	2	294.67	589.34	58.94	530.40	6
+7492	2024-06-07	125	8	2	190.20	380.40	19.02	361.38	6
+7493	2024-06-08	507	7	2	270.83	541.66	0.00	541.66	\N
+7494	2024-06-08	357	2	2	468.93	937.86	46.89	890.97	6
+7495	2024-06-09	460	8	1	181.93	181.93	18.19	163.74	\N
+7496	2024-06-09	372	8	2	177.72	355.44	0.00	355.44	\N
+7497	2024-06-09	495	8	1	190.77	190.77	0.00	190.77	\N
+7498	2024-06-10	95	10	1	31.36	31.36	1.57	29.79	6
+7499	2024-06-10	239	5	2	254.31	508.62	50.86	457.76	6
+7500	2024-06-10	155	2	2	437.61	875.22	43.76	831.46	6
+7501	2024-06-11	373	10	2	29.91	59.82	0.00	59.82	\N
+7502	2024-06-11	475	5	1	264.26	264.26	26.42	237.84	6
+7503	2024-06-12	47	6	2	356.51	713.02	0.00	713.02	\N
+7504	2024-06-12	477	7	2	305.45	610.90	0.00	610.90	\N
+7505	2024-06-12	553	1	1	183.62	183.62	9.18	174.44	6
+7506	2024-06-12	415	3	2	638.52	1277.04	63.85	1213.19	6
+7507	2024-06-13	15	9	1	120.95	120.95	12.10	108.85	\N
+7508	2024-06-14	40	2	1	481.49	481.49	24.07	457.42	6
+7509	2024-06-14	49	7	2	313.10	626.20	31.31	594.89	6
+7510	2024-06-14	381	6	2	358.33	716.66	0.00	716.66	\N
+7511	2024-06-14	326	2	1	440.23	440.23	0.00	440.23	\N
+7512	2024-06-15	447	7	1	279.10	279.10	0.00	279.10	\N
+7513	2024-06-15	356	9	1	128.63	128.63	0.00	128.63	\N
+7514	2024-06-15	396	1	2	185.31	370.62	0.00	370.62	\N
+7515	2024-06-16	385	9	1	119.72	119.72	0.00	119.72	\N
+7516	2024-06-16	152	3	1	675.67	675.67	33.78	641.89	6
+7517	2024-06-16	563	1	2	195.49	390.98	0.00	390.98	\N
+7518	2024-06-16	573	8	1	191.50	191.50	0.00	191.50	\N
+7519	2024-06-16	573	8	1	194.81	194.81	0.00	194.81	\N
+7520	2024-06-16	205	5	1	269.60	269.60	0.00	269.60	\N
+7521	2024-06-19	5	7	2	293.37	586.74	0.00	586.74	\N
+7522	2024-06-19	247	10	1	28.39	28.39	2.84	25.55	6
+7523	2024-06-19	64	4	2	156.05	312.10	0.00	312.10	\N
+7524	2024-06-19	425	1	1	208.36	208.36	0.00	208.36	\N
+7525	2024-06-19	509	1	1	195.35	195.35	0.00	195.35	\N
+7526	2024-06-19	251	8	2	175.43	350.86	17.54	333.32	6
+7527	2024-06-20	479	10	2	32.87	65.74	0.00	65.74	\N
+7528	2024-06-21	568	4	2	136.73	273.46	13.67	259.79	6
+7529	2024-06-21	543	10	2	27.14	54.28	0.00	54.28	\N
+7530	2024-06-21	378	2	2	494.80	989.60	98.96	890.64	6
+7531	2024-06-21	52	2	2	485.55	971.10	0.00	971.10	\N
+7532	2024-06-22	503	6	1	335.91	335.91	0.00	335.91	\N
+7533	2024-06-22	1	9	1	114.79	114.79	5.74	109.05	6
+7534	2024-06-22	164	9	2	111.95	223.90	11.20	212.70	6
+7535	2024-06-24	168	6	2	337.03	674.06	67.41	606.65	\N
+7536	2024-06-24	550	6	1	320.11	320.11	0.00	320.11	\N
+7537	2024-06-24	120	4	1	144.88	144.88	7.24	137.64	6
+7538	2024-06-25	449	9	1	120.24	120.24	0.00	120.24	\N
+7539	2024-06-25	354	1	2	208.78	417.56	20.88	396.68	\N
+7540	2024-06-26	274	2	1	451.16	451.16	22.56	428.60	6
+7541	2024-06-26	297	2	1	416.45	416.45	0.00	416.45	\N
+7542	2024-06-26	4	8	1	171.30	171.30	0.00	171.30	\N
+7543	2024-06-26	383	2	2	434.81	869.62	0.00	869.62	\N
+7544	2024-06-26	218	4	2	159.07	318.14	31.81	286.33	\N
+7545	2024-06-26	149	7	1	303.71	303.71	0.00	303.71	\N
+7546	2024-06-26	459	4	2	150.33	300.66	15.03	285.63	6
+7547	2024-06-26	581	3	1	724.41	724.41	36.22	688.19	\N
+7548	2024-06-27	385	1	1	194.68	194.68	9.73	184.95	\N
+7549	2024-06-27	153	5	1	266.47	266.47	13.32	253.15	6
+7550	2024-06-27	211	10	2	32.07	64.14	3.21	60.93	6
+7551	2024-06-27	321	9	1	131.72	131.72	6.59	125.13	\N
+7552	2024-06-28	399	10	1	28.72	28.72	4.31	24.41	6
+7553	2024-06-29	438	6	1	362.46	362.46	36.25	326.21	\N
+7554	2024-06-29	323	10	2	32.85	65.70	0.00	65.70	\N
+7555	2024-06-30	566	2	2	438.13	876.26	0.00	876.26	\N
+7556	2024-06-30	112	5	2	244.07	488.14	0.00	488.14	\N
+7557	2024-06-30	111	9	1	118.75	118.75	0.00	118.75	\N
+7558	2024-06-30	421	4	1	142.20	142.20	7.11	135.09	6
+7559	2024-07-01	204	1	2	191.25	382.50	19.12	363.38	7
+7560	2024-07-01	228	9	1	120.60	120.60	6.03	114.57	7
+7561	2024-07-01	584	7	1	270.24	270.24	13.51	256.73	\N
+7562	2024-07-01	158	8	1	162.58	162.58	24.39	138.19	7
+7563	2024-07-02	560	7	2	325.73	651.46	32.57	618.89	7
+7564	2024-07-02	42	8	2	185.48	370.96	0.00	370.96	\N
+7565	2024-07-03	476	6	2	348.36	696.72	0.00	696.72	\N
+7566	2024-07-04	437	4	2	147.40	294.80	14.74	280.06	\N
+7567	2024-07-04	498	4	2	150.90	301.80	0.00	301.80	\N
+7568	2024-07-04	151	4	2	140.70	281.40	0.00	281.40	\N
+7569	2024-07-04	31	2	2	459.78	919.56	0.00	919.56	\N
+7570	2024-07-04	302	8	2	180.00	360.00	0.00	360.00	\N
+7571	2024-07-05	102	9	1	124.62	124.62	6.23	118.39	7
+7572	2024-07-05	577	9	2	123.85	247.70	0.00	247.70	\N
+7573	2024-07-05	424	4	2	147.11	294.22	0.00	294.22	\N
+7574	2024-07-05	179	9	2	123.57	247.14	24.71	222.43	\N
+7575	2024-07-05	588	7	1	270.68	270.68	0.00	270.68	\N
+7576	2024-07-06	409	9	1	124.34	124.34	0.00	124.34	\N
+7577	2024-07-06	164	8	2	183.17	366.34	0.00	366.34	\N
+7578	2024-07-06	379	3	1	706.20	706.20	35.31	670.89	7
+7579	2024-07-06	24	7	2	302.76	605.52	60.55	544.97	\N
+7580	2024-07-06	161	5	1	230.04	230.04	0.00	230.04	\N
+7581	2024-07-06	454	1	1	188.68	188.68	9.43	179.25	\N
+7582	2024-07-07	271	9	1	125.40	125.40	0.00	125.40	\N
+7583	2024-07-08	355	5	2	237.87	475.74	0.00	475.74	\N
+7584	2024-07-08	588	1	1	217.76	217.76	10.89	206.87	7
+7585	2024-07-08	547	4	2	140.77	281.54	0.00	281.54	\N
+7586	2024-07-08	553	7	1	325.08	325.08	0.00	325.08	\N
+7587	2024-07-09	139	7	2	273.59	547.18	27.36	519.82	\N
+7588	2024-07-09	517	1	1	196.89	196.89	0.00	196.89	\N
+7589	2024-07-09	305	1	2	192.81	385.62	0.00	385.62	\N
+7590	2024-07-09	488	5	1	236.13	236.13	23.61	212.52	\N
+7591	2024-07-10	9	4	2	148.35	296.70	29.67	267.03	\N
+7592	2024-07-10	247	8	1	165.85	165.85	0.00	165.85	\N
+7593	2024-07-11	539	9	2	119.92	239.84	0.00	239.84	\N
+7594	2024-07-13	342	6	1	349.06	349.06	17.45	331.61	7
+7595	2024-07-13	451	4	1	156.43	156.43	7.82	148.61	7
+7596	2024-07-14	123	8	2	186.07	372.14	18.61	353.53	7
+7597	2024-07-14	493	10	2	30.61	61.22	3.06	58.16	7
+7598	2024-07-15	202	2	2	449.71	899.42	0.00	899.42	\N
+7599	2024-07-15	40	6	1	360.45	360.45	0.00	360.45	\N
+7600	2024-07-15	139	1	1	201.12	201.12	0.00	201.12	\N
+7601	2024-07-16	452	9	1	114.58	114.58	5.73	108.85	7
+7602	2024-07-16	14	2	2	434.88	869.76	0.00	869.76	\N
+7603	2024-07-16	396	3	1	646.36	646.36	0.00	646.36	\N
+7604	2024-07-17	325	7	2	290.58	581.16	58.12	523.04	\N
+7605	2024-07-17	308	3	1	666.83	666.83	0.00	666.83	\N
+7606	2024-07-18	466	3	2	715.42	1430.84	71.54	1359.30	7
+7607	2024-07-18	475	3	2	648.94	1297.88	0.00	1297.88	\N
+7608	2024-07-19	278	1	2	197.34	394.68	39.47	355.21	\N
+7609	2024-07-19	267	2	2	425.49	850.98	42.55	808.43	\N
+7610	2024-07-19	551	9	1	113.25	113.25	5.66	107.59	7
+7611	2024-07-20	208	9	2	123.99	247.98	12.40	235.58	7
+7612	2024-07-20	159	6	2	360.28	720.56	0.00	720.56	\N
+7613	2024-07-20	432	3	2	708.82	1417.64	0.00	1417.64	\N
+7614	2024-07-21	62	4	2	145.81	291.62	14.58	277.04	7
+7615	2024-07-22	568	1	1	202.38	202.38	0.00	202.38	\N
+7616	2024-07-22	82	5	1	266.62	266.62	0.00	266.62	\N
+7617	2024-07-22	493	4	1	153.81	153.81	23.07	130.74	7
+7618	2024-07-23	80	3	2	745.07	1490.14	74.51	1415.63	7
+7619	2024-07-23	400	1	1	203.42	203.42	10.17	193.25	7
+7620	2024-07-23	38	10	2	32.44	64.88	3.24	61.64	\N
+7621	2024-07-24	441	7	2	291.34	582.68	0.00	582.68	\N
+7622	2024-07-24	317	6	2	380.99	761.98	38.10	723.88	7
+7623	2024-07-24	56	2	2	447.71	895.42	44.77	850.65	7
+7624	2024-07-25	410	3	1	721.63	721.63	0.00	721.63	\N
+7625	2024-07-26	161	1	2	216.45	432.90	0.00	432.90	\N
+7626	2024-07-27	134	6	2	361.56	723.12	0.00	723.12	\N
+7627	2024-07-27	469	4	1	136.69	136.69	6.83	129.86	7
+7628	2024-07-27	112	7	1	329.51	329.51	0.00	329.51	\N
+7629	2024-07-27	410	10	1	32.32	32.32	4.85	27.47	7
+7630	2024-07-27	545	7	2	315.06	630.12	31.51	598.61	\N
+7631	2024-07-27	96	4	1	155.07	155.07	0.00	155.07	\N
+7632	2024-07-28	367	1	2	218.02	436.04	21.80	414.24	7
+7633	2024-07-28	470	7	2	324.49	648.98	32.45	616.53	7
+7634	2024-07-28	590	5	2	263.14	526.28	26.31	499.97	7
+7635	2024-07-28	442	6	1	319.26	319.26	15.96	303.30	7
+7636	2024-07-28	512	8	2	186.19	372.38	18.62	353.76	7
+7637	2024-07-28	422	1	1	186.28	186.28	0.00	186.28	\N
+7638	2024-07-29	361	4	1	156.51	156.51	0.00	156.51	\N
+7639	2024-07-29	551	8	1	174.36	174.36	0.00	174.36	\N
+7640	2024-07-29	506	6	2	354.46	708.92	35.45	673.47	7
+7641	2024-07-30	72	6	1	376.71	376.71	18.84	357.87	\N
+7642	2024-07-30	51	2	1	440.94	440.94	0.00	440.94	\N
+7643	2024-07-30	21	4	2	153.82	307.64	0.00	307.64	\N
+7644	2024-07-31	507	8	1	187.38	187.38	0.00	187.38	\N
+7645	2024-07-31	233	4	1	158.27	158.27	0.00	158.27	\N
+7646	2024-08-01	317	6	2	362.54	725.08	0.00	725.08	\N
+7647	2024-08-01	511	5	2	268.91	537.82	53.78	484.04	\N
+7648	2024-08-01	133	5	2	256.81	513.62	0.00	513.62	\N
+7649	2024-08-01	493	3	2	740.19	1480.38	0.00	1480.38	\N
+7650	2024-08-02	217	5	2	230.14	460.28	0.00	460.28	\N
+7651	2024-08-02	77	1	1	181.29	181.29	0.00	181.29	\N
+7652	2024-08-02	299	3	2	715.91	1431.82	143.18	1288.64	7
+7653	2024-08-02	266	3	1	646.95	646.95	0.00	646.95	\N
+7654	2024-08-03	519	6	1	382.23	382.23	0.00	382.23	\N
+7655	2024-08-03	185	5	1	250.79	250.79	25.08	225.71	\N
+7656	2024-08-03	481	10	2	30.44	60.88	9.13	51.75	7
+7657	2024-08-03	360	7	1	291.02	291.02	14.55	276.47	\N
+7658	2024-08-04	229	5	1	235.23	235.23	11.76	223.47	7
+7659	2024-08-04	479	1	2	200.56	401.12	40.12	361.00	7
+7660	2024-08-04	246	10	1	28.97	28.97	1.45	27.52	7
+7661	2024-08-05	461	9	2	125.99	251.98	12.60	239.38	7
+7662	2024-08-05	334	10	2	27.12	54.24	0.00	54.24	\N
+7663	2024-08-06	127	3	1	703.23	703.23	35.16	668.07	\N
+7664	2024-08-06	187	7	2	288.51	577.02	57.70	519.32	7
+7665	2024-08-07	269	8	1	197.09	197.09	9.85	187.24	7
+7666	2024-08-08	476	8	1	163.87	163.87	8.19	155.68	\N
+7667	2024-08-08	380	1	1	205.54	205.54	10.28	195.26	7
+7668	2024-08-08	223	3	1	692.13	692.13	69.21	622.92	\N
+7669	2024-08-10	208	3	2	689.84	1379.68	68.98	1310.70	7
+7670	2024-08-10	508	10	2	30.15	60.30	0.00	60.30	\N
+7671	2024-08-11	493	9	1	122.92	122.92	0.00	122.92	\N
+7672	2024-08-11	248	8	2	183.75	367.50	0.00	367.50	\N
+7673	2024-08-11	337	3	1	728.05	728.05	0.00	728.05	\N
+7674	2024-08-12	446	4	2	146.66	293.32	0.00	293.32	\N
+7675	2024-08-13	308	6	2	334.40	668.80	33.44	635.36	\N
+7676	2024-08-14	372	8	2	197.03	394.06	19.70	374.36	7
+7677	2024-08-15	170	7	2	318.51	637.02	31.85	605.17	7
+7678	2024-08-15	430	6	2	322.33	644.66	0.00	644.66	\N
+7679	2024-08-15	170	8	1	195.43	195.43	0.00	195.43	\N
+7680	2024-08-15	506	2	1	437.50	437.50	21.88	415.62	7
+7681	2024-08-16	210	2	2	492.84	985.68	0.00	985.68	\N
+7682	2024-08-16	234	2	1	476.37	476.37	23.82	452.55	7
+7683	2024-08-16	507	6	1	377.77	377.77	0.00	377.77	\N
+7684	2024-08-16	434	2	1	482.34	482.34	0.00	482.34	\N
+7685	2024-08-17	146	2	1	477.24	477.24	0.00	477.24	\N
+7686	2024-08-17	176	8	1	181.02	181.02	0.00	181.02	\N
+7687	2024-08-18	577	6	2	377.15	754.30	0.00	754.30	\N
+7688	2024-08-19	476	1	1	210.74	210.74	0.00	210.74	\N
+7689	2024-08-19	334	4	2	150.38	300.76	0.00	300.76	\N
+7690	2024-08-19	432	4	2	137.87	275.74	13.79	261.95	7
+7691	2024-08-19	221	8	2	192.05	384.10	0.00	384.10	\N
+7692	2024-08-21	175	9	2	119.22	238.44	0.00	238.44	\N
+7693	2024-08-21	172	8	1	172.33	172.33	8.62	163.71	7
+7694	2024-08-22	192	3	1	685.33	685.33	0.00	685.33	\N
+7695	2024-08-23	325	4	2	137.67	275.34	13.77	261.57	7
+7696	2024-08-24	267	4	1	151.17	151.17	7.56	143.61	\N
+7697	2024-08-24	457	10	2	28.16	56.32	8.45	47.87	7
+7698	2024-08-24	275	2	2	458.43	916.86	0.00	916.86	\N
+7699	2024-08-25	324	10	1	32.83	32.83	0.00	32.83	\N
+7700	2024-08-25	181	5	2	258.46	516.92	25.85	491.07	7
+7701	2024-08-26	589	3	2	737.37	1474.74	0.00	1474.74	\N
+7702	2024-08-27	364	8	2	192.73	385.46	0.00	385.46	\N
+7703	2024-08-27	541	6	2	315.39	630.78	31.54	599.24	7
+7704	2024-08-27	113	9	2	111.75	223.50	11.18	212.32	\N
+7705	2024-08-28	197	2	2	463.77	927.54	46.38	881.16	7
+7706	2024-08-29	20	8	1	174.78	174.78	17.48	157.30	\N
+7707	2024-08-30	383	7	1	295.78	295.78	0.00	295.78	\N
+7708	2024-08-30	413	8	2	186.71	373.42	0.00	373.42	\N
+7709	2024-08-31	341	1	2	208.66	417.32	0.00	417.32	\N
+7710	2024-08-31	84	1	2	219.49	438.98	21.95	417.03	7
+7711	2024-08-31	465	7	2	311.66	623.32	0.00	623.32	\N
+7712	2024-09-01	405	6	1	367.22	367.22	0.00	367.22	\N
+7713	2024-09-01	143	10	1	30.86	30.86	0.00	30.86	\N
+7714	2024-09-02	309	2	1	473.81	473.81	0.00	473.81	\N
+7715	2024-09-03	444	9	2	115.79	231.58	11.58	220.00	\N
+7716	2024-09-03	248	4	1	136.64	136.64	0.00	136.64	\N
+7717	2024-09-04	437	3	2	646.42	1292.84	0.00	1292.84	\N
+7718	2024-09-06	24	7	1	320.27	320.27	0.00	320.27	\N
+7719	2024-09-06	343	4	2	160.49	320.98	0.00	320.98	\N
+7720	2024-09-07	226	1	1	192.88	192.88	0.00	192.88	\N
+7721	2024-09-07	304	3	2	706.04	1412.08	141.21	1270.87	\N
+7722	2024-09-08	541	2	1	462.15	462.15	0.00	462.15	\N
+7723	2024-09-09	153	10	1	28.21	28.21	0.00	28.21	\N
+7724	2024-09-09	387	2	2	436.65	873.30	43.66	829.64	\N
+7725	2024-09-10	52	7	1	293.88	293.88	0.00	293.88	\N
+7726	2024-09-10	56	4	1	148.00	148.00	0.00	148.00	\N
+7727	2024-09-10	60	6	2	355.33	710.66	0.00	710.66	\N
+7728	2024-09-11	123	8	1	185.65	185.65	0.00	185.65	\N
+7729	2024-09-11	481	8	2	183.92	367.84	0.00	367.84	\N
+7730	2024-09-11	107	10	2	30.45	60.90	0.00	60.90	\N
+7731	2024-09-11	454	1	1	202.71	202.71	0.00	202.71	\N
+7732	2024-09-11	50	9	2	119.07	238.14	0.00	238.14	\N
+7733	2024-09-12	71	3	2	650.94	1301.88	0.00	1301.88	\N
+7734	2024-09-12	524	4	2	135.55	271.10	0.00	271.10	\N
+7735	2024-09-12	502	9	1	120.41	120.41	0.00	120.41	\N
+7736	2024-09-12	464	10	1	30.23	30.23	0.00	30.23	\N
+7737	2024-09-12	157	5	2	263.88	527.76	0.00	527.76	\N
+7738	2024-09-12	413	9	1	125.78	125.78	0.00	125.78	\N
+7739	2024-09-12	442	3	1	692.58	692.58	0.00	692.58	\N
+7740	2024-09-13	515	3	2	761.43	1522.86	0.00	1522.86	\N
+7741	2024-09-13	37	10	1	31.28	31.28	3.13	28.15	\N
+7742	2024-09-13	264	8	1	191.32	191.32	0.00	191.32	\N
+7743	2024-09-14	364	1	1	184.63	184.63	0.00	184.63	\N
+7744	2024-09-14	222	7	2	297.14	594.28	29.71	564.57	\N
+7745	2024-09-15	68	6	1	341.73	341.73	0.00	341.73	\N
+7746	2024-09-15	535	2	1	429.93	429.93	0.00	429.93	\N
+7747	2024-09-15	548	3	1	762.64	762.64	0.00	762.64	\N
+7748	2024-09-16	416	5	1	271.91	271.91	0.00	271.91	\N
+7749	2024-09-16	122	4	2	148.48	296.96	0.00	296.96	\N
+7750	2024-09-16	334	1	2	202.72	405.44	0.00	405.44	\N
+7751	2024-09-17	172	4	2	154.82	309.64	0.00	309.64	\N
+7752	2024-09-17	584	7	1	308.32	308.32	0.00	308.32	\N
+7753	2024-09-17	552	2	1	476.67	476.67	23.83	452.84	\N
+7754	2024-09-17	374	2	1	451.14	451.14	22.56	428.58	\N
+7755	2024-09-19	391	10	1	31.82	31.82	3.18	28.64	\N
+7756	2024-09-20	50	5	2	246.61	493.22	0.00	493.22	\N
+7757	2024-09-20	269	1	1	210.80	210.80	0.00	210.80	\N
+7758	2024-09-21	560	2	1	434.57	434.57	0.00	434.57	\N
+7759	2024-09-21	229	10	1	28.53	28.53	1.43	27.10	\N
+7760	2024-09-22	75	10	1	32.86	32.86	1.64	31.22	\N
+7761	2024-09-22	22	10	1	30.00	30.00	0.00	30.00	\N
+7762	2024-09-23	52	7	2	319.61	639.22	0.00	639.22	\N
+7763	2024-09-23	299	5	2	268.01	536.02	0.00	536.02	\N
+7764	2024-09-23	437	7	2	275.76	551.52	0.00	551.52	\N
+7765	2024-09-23	478	3	2	746.94	1493.88	0.00	1493.88	\N
+7766	2024-09-25	3	7	2	323.31	646.62	0.00	646.62	\N
+7767	2024-09-26	571	1	1	193.69	193.69	0.00	193.69	\N
+7768	2024-09-26	353	9	2	111.69	223.38	0.00	223.38	\N
+7769	2024-09-26	12	5	1	256.15	256.15	0.00	256.15	\N
+7770	2024-09-27	331	8	2	168.36	336.72	0.00	336.72	\N
+7771	2024-09-27	35	4	2	136.76	273.52	13.68	259.84	\N
+7772	2024-09-27	533	7	2	275.54	551.08	0.00	551.08	\N
+7773	2024-09-28	572	10	2	29.61	59.22	0.00	59.22	\N
+7774	2024-09-29	318	10	1	28.82	28.82	0.00	28.82	\N
+7775	2024-09-29	430	5	1	257.26	257.26	25.73	231.53	\N
+7776	2024-09-29	355	9	2	130.37	260.74	26.07	234.67	\N
+7777	2024-10-02	78	10	1	30.44	30.44	1.52	28.92	\N
+7778	2024-10-03	414	4	2	141.37	282.74	0.00	282.74	\N
+7779	2024-10-03	138	3	1	692.03	692.03	0.00	692.03	\N
+7780	2024-10-03	485	1	2	201.26	402.52	0.00	402.52	\N
+7781	2024-10-04	170	7	2	300.37	600.74	0.00	600.74	\N
+7782	2024-10-05	370	6	1	333.47	333.47	0.00	333.47	\N
+7783	2024-10-05	263	9	2	126.91	253.82	12.69	241.13	\N
+7784	2024-10-05	121	2	1	433.20	433.20	0.00	433.20	\N
+7785	2024-10-05	489	7	2	306.12	612.24	0.00	612.24	\N
+7786	2024-10-05	380	2	2	423.96	847.92	0.00	847.92	\N
+7787	2024-10-05	372	6	1	371.42	371.42	0.00	371.42	\N
+7788	2024-10-05	210	8	1	175.02	175.02	0.00	175.02	\N
+7789	2024-10-05	221	10	1	29.97	29.97	3.00	26.97	\N
+7790	2024-10-06	171	6	1	325.48	325.48	0.00	325.48	\N
+7791	2024-10-07	226	3	2	669.03	1338.06	0.00	1338.06	\N
+7792	2024-10-07	149	2	2	471.49	942.98	0.00	942.98	\N
+7793	2024-10-08	495	10	1	32.32	32.32	0.00	32.32	\N
+7794	2024-10-08	448	3	1	707.24	707.24	0.00	707.24	\N
+7795	2024-10-08	229	6	2	316.33	632.66	0.00	632.66	\N
+7796	2024-10-09	266	6	2	368.99	737.98	0.00	737.98	\N
+7797	2024-10-09	46	5	2	264.10	528.20	52.82	475.38	\N
+7798	2024-10-09	43	8	1	192.89	192.89	0.00	192.89	\N
+7799	2024-10-09	532	7	2	281.23	562.46	0.00	562.46	\N
+7800	2024-10-10	535	8	2	188.95	377.90	0.00	377.90	\N
+7801	2024-10-10	463	1	2	210.65	421.30	0.00	421.30	\N
+7802	2024-10-10	162	6	1	375.83	375.83	0.00	375.83	\N
+7803	2024-10-10	223	7	2	271.17	542.34	54.23	488.11	\N
+7804	2024-10-10	552	3	2	745.70	1491.40	74.57	1416.83	\N
+7805	2024-10-11	208	2	2	492.48	984.96	0.00	984.96	\N
+7806	2024-10-11	383	1	2	182.54	365.08	0.00	365.08	\N
+7807	2024-10-11	139	8	1	188.90	188.90	0.00	188.90	\N
+7808	2024-10-11	221	5	2	263.35	526.70	0.00	526.70	\N
+7809	2024-10-11	293	8	1	179.16	179.16	0.00	179.16	\N
+7810	2024-10-11	389	9	1	120.22	120.22	0.00	120.22	\N
+7811	2024-10-12	217	8	1	165.23	165.23	0.00	165.23	\N
+7812	2024-10-12	551	8	1	162.28	162.28	16.23	146.05	\N
+7813	2024-10-12	255	9	2	112.42	224.84	0.00	224.84	\N
+7814	2024-10-12	564	2	2	476.83	953.66	0.00	953.66	\N
+7815	2024-10-12	229	10	1	29.34	29.34	0.00	29.34	\N
+7816	2024-10-12	464	6	2	374.15	748.30	0.00	748.30	\N
+7817	2024-10-13	499	7	1	286.19	286.19	0.00	286.19	\N
+7818	2024-10-13	117	3	2	717.68	1435.36	0.00	1435.36	\N
+7819	2024-10-14	159	3	1	651.45	651.45	0.00	651.45	\N
+7820	2024-10-14	211	5	2	263.58	527.16	0.00	527.16	\N
+7821	2024-10-16	276	3	1	712.33	712.33	0.00	712.33	\N
+7822	2024-10-16	396	2	1	423.87	423.87	21.19	402.68	\N
+7823	2024-10-16	573	7	2	272.66	545.32	0.00	545.32	\N
+7824	2024-10-17	584	10	2	31.78	63.56	0.00	63.56	\N
+7825	2024-10-17	270	6	1	320.20	320.20	0.00	320.20	\N
+7826	2024-10-18	542	4	2	150.56	301.12	15.06	286.06	\N
+7827	2024-10-19	73	7	1	278.74	278.74	0.00	278.74	\N
+7828	2024-10-19	387	1	1	192.25	192.25	19.23	173.02	\N
+7829	2024-10-19	508	2	2	472.52	945.04	0.00	945.04	\N
+7830	2024-10-19	196	1	1	194.41	194.41	0.00	194.41	\N
+7831	2024-10-20	426	3	1	674.24	674.24	67.42	606.82	\N
+7832	2024-10-20	308	2	2	417.62	835.24	0.00	835.24	\N
+7833	2024-10-21	561	9	1	121.11	121.11	0.00	121.11	\N
+7834	2024-10-22	2	9	2	129.35	258.70	0.00	258.70	\N
+7835	2024-10-22	532	7	2	315.75	631.50	0.00	631.50	\N
+7836	2024-10-23	94	1	2	198.42	396.84	0.00	396.84	\N
+7837	2024-10-24	179	4	2	156.12	312.24	31.22	281.02	\N
+7838	2024-10-25	524	1	2	200.30	400.60	0.00	400.60	\N
+7839	2024-10-27	572	9	2	114.87	229.74	0.00	229.74	\N
+7840	2024-10-27	279	4	1	159.07	159.07	0.00	159.07	\N
+7841	2024-10-27	116	4	1	140.21	140.21	0.00	140.21	\N
+7842	2024-10-27	507	8	2	192.73	385.46	0.00	385.46	\N
+7843	2024-10-28	573	4	1	158.27	158.27	7.91	150.36	\N
+7844	2024-10-28	517	1	2	212.04	424.08	0.00	424.08	\N
+7845	2024-10-28	305	4	1	136.40	136.40	0.00	136.40	\N
+7846	2024-10-28	481	10	1	32.81	32.81	0.00	32.81	\N
+7847	2024-10-29	385	9	1	125.18	125.18	0.00	125.18	\N
+7848	2024-10-29	121	9	1	110.92	110.92	0.00	110.92	\N
+7849	2024-10-29	34	2	2	477.97	955.94	0.00	955.94	\N
+7850	2024-10-30	484	5	1	248.13	248.13	0.00	248.13	\N
+7851	2024-10-30	234	2	1	416.07	416.07	0.00	416.07	\N
+7852	2024-10-30	366	10	2	31.15	62.30	0.00	62.30	\N
+7853	2024-10-30	8	4	1	136.72	136.72	0.00	136.72	\N
+7854	2024-10-31	110	3	2	640.10	1280.20	0.00	1280.20	\N
+7855	2024-10-31	459	1	1	192.34	192.34	0.00	192.34	\N
+7856	2024-10-31	144	8	1	192.82	192.82	0.00	192.82	\N
+7857	2024-11-01	565	2	2	483.56	967.12	0.00	967.12	\N
+7858	2024-11-01	171	1	2	196.58	393.16	39.32	353.84	\N
+7859	2024-11-01	120	7	1	290.64	290.64	0.00	290.64	\N
+7860	2024-11-01	172	7	1	275.37	275.37	0.00	275.37	\N
+7861	2024-11-02	106	1	2	202.99	405.98	0.00	405.98	\N
+7862	2024-11-02	44	1	2	218.94	437.88	0.00	437.88	\N
+7863	2024-11-02	471	10	1	30.95	30.95	3.10	27.85	\N
+7864	2024-11-02	66	4	1	146.91	146.91	0.00	146.91	\N
+7865	2024-11-03	160	4	2	151.30	302.60	15.13	287.47	\N
+7866	2024-11-03	460	1	2	187.07	374.14	0.00	374.14	\N
+7867	2024-11-04	574	2	2	479.93	959.86	0.00	959.86	\N
+7868	2024-11-04	77	5	1	244.41	244.41	0.00	244.41	\N
+7869	2024-11-04	242	7	1	272.15	272.15	0.00	272.15	\N
+7870	2024-11-04	147	8	1	167.64	167.64	0.00	167.64	\N
+7871	2024-11-05	290	6	1	318.40	318.40	0.00	318.40	\N
+7872	2024-11-05	565	1	2	197.36	394.72	0.00	394.72	\N
+7873	2024-11-06	210	6	2	331.01	662.02	0.00	662.02	\N
+7874	2024-11-06	372	1	2	184.48	368.96	0.00	368.96	\N
+7875	2024-11-07	192	7	2	277.92	555.84	0.00	555.84	\N
+7876	2024-11-07	37	5	2	267.15	534.30	0.00	534.30	\N
+7877	2024-11-07	387	2	1	448.68	448.68	44.87	403.81	\N
+7878	2024-11-07	77	6	1	322.03	322.03	0.00	322.03	\N
+7879	2024-11-08	129	1	1	203.67	203.67	0.00	203.67	\N
+7880	2024-11-09	57	10	2	32.01	64.02	0.00	64.02	\N
+7881	2024-11-10	154	5	2	273.77	547.54	0.00	547.54	\N
+7882	2024-11-10	96	4	2	145.14	290.28	0.00	290.28	\N
+7883	2024-11-10	430	7	2	290.25	580.50	0.00	580.50	\N
+7884	2024-11-10	52	4	2	158.86	317.72	0.00	317.72	\N
+7885	2024-11-11	530	6	1	348.64	348.64	0.00	348.64	\N
+7886	2024-11-11	104	10	1	28.92	28.92	0.00	28.92	\N
+7887	2024-11-11	12	1	1	211.82	211.82	0.00	211.82	\N
+7888	2024-11-11	402	3	2	725.43	1450.86	0.00	1450.86	\N
+7889	2024-11-13	45	2	2	469.20	938.40	0.00	938.40	\N
+7890	2024-11-14	247	2	2	429.12	858.24	0.00	858.24	\N
+7891	2024-11-14	19	4	2	152.33	304.66	0.00	304.66	\N
+7892	2024-11-14	380	6	1	350.76	350.76	0.00	350.76	\N
+7893	2024-11-14	298	7	1	321.62	321.62	0.00	321.62	\N
+7894	2024-11-14	166	1	1	183.91	183.91	9.20	174.71	\N
+7895	2024-11-14	144	4	2	140.08	280.16	28.02	252.14	\N
+7896	2024-11-16	108	10	1	30.13	30.13	0.00	30.13	\N
+7897	2024-11-16	8	7	2	314.65	629.30	0.00	629.30	\N
+7898	2024-11-16	115	8	1	189.56	189.56	18.96	170.60	\N
+7899	2024-11-17	123	10	2	32.55	65.10	0.00	65.10	\N
+7900	2024-11-17	473	8	1	184.82	184.82	0.00	184.82	\N
+7901	2024-11-18	288	7	1	275.65	275.65	0.00	275.65	\N
+7902	2024-11-19	164	3	1	724.31	724.31	0.00	724.31	\N
+7903	2024-11-19	291	4	1	157.00	157.00	0.00	157.00	\N
+7904	2024-11-19	355	7	2	302.28	604.56	0.00	604.56	\N
+7905	2024-11-19	572	8	1	190.25	190.25	9.51	180.74	\N
+7906	2024-11-19	4	5	1	267.27	267.27	0.00	267.27	\N
+7907	2024-11-21	498	2	2	485.08	970.16	0.00	970.16	\N
+7908	2024-11-21	393	6	1	330.92	330.92	0.00	330.92	\N
+7909	2024-11-23	303	2	2	427.73	855.46	0.00	855.46	\N
+7910	2024-11-23	481	2	2	466.76	933.52	0.00	933.52	\N
+7911	2024-11-23	449	5	1	241.86	241.86	24.19	217.67	\N
+7912	2024-11-24	373	10	2	29.21	58.42	2.92	55.50	\N
+7913	2024-11-25	51	3	1	717.94	717.94	0.00	717.94	\N
+7914	2024-11-25	437	10	2	29.10	58.20	0.00	58.20	\N
+7915	2024-11-25	323	7	1	324.68	324.68	0.00	324.68	\N
+7916	2024-11-26	460	3	1	713.09	713.09	0.00	713.09	\N
+7917	2024-11-26	96	1	2	218.16	436.32	0.00	436.32	\N
+7918	2024-11-26	580	9	1	130.57	130.57	0.00	130.57	\N
+7919	2024-11-26	59	9	1	110.79	110.79	0.00	110.79	\N
+7920	2024-11-27	305	8	1	163.48	163.48	0.00	163.48	\N
+7921	2024-11-27	429	1	1	197.59	197.59	9.88	187.71	\N
+7922	2024-11-28	439	1	1	186.70	186.70	0.00	186.70	\N
+7923	2024-11-29	344	6	1	378.56	378.56	0.00	378.56	\N
+7924	2024-11-29	83	4	2	142.64	285.28	28.53	256.75	\N
+7925	2024-11-29	191	3	2	706.44	1412.88	0.00	1412.88	\N
+7926	2024-11-29	355	5	2	271.31	542.62	0.00	542.62	\N
+7927	2024-11-29	273	1	1	183.85	183.85	0.00	183.85	\N
+7928	2024-11-30	460	10	1	27.22	27.22	0.00	27.22	\N
+7929	2024-11-30	275	9	2	111.95	223.90	11.20	212.70	\N
+7930	2024-12-01	210	4	1	157.65	157.65	0.00	157.65	\N
+7931	2024-12-01	416	10	1	30.78	30.78	1.54	29.24	\N
+7932	2024-12-01	600	7	1	309.10	309.10	0.00	309.10	\N
+7933	2024-12-02	445	2	2	417.30	834.60	83.46	751.14	\N
+7934	2024-12-02	292	7	2	286.67	573.34	0.00	573.34	\N
+7935	2024-12-02	492	7	1	285.58	285.58	0.00	285.58	\N
+7936	2024-12-02	365	7	1	280.17	280.17	0.00	280.17	\N
+7937	2024-12-03	569	5	2	271.08	542.16	27.11	515.05	\N
+7938	2024-12-03	314	4	2	158.83	317.66	0.00	317.66	\N
+7939	2024-12-04	588	10	2	30.39	60.78	0.00	60.78	\N
+7940	2024-12-05	16	10	1	30.47	30.47	3.05	27.42	\N
+7941	2024-12-06	123	1	1	185.77	185.77	0.00	185.77	\N
+7942	2024-12-06	343	2	2	427.58	855.16	0.00	855.16	\N
+7943	2024-12-06	157	6	2	362.84	725.68	36.28	689.40	\N
+7944	2024-12-07	191	9	1	126.27	126.27	0.00	126.27	\N
+7945	2024-12-07	578	2	2	453.31	906.62	0.00	906.62	\N
+7946	2024-12-07	577	9	2	108.85	217.70	0.00	217.70	\N
+7947	2024-12-07	543	4	2	159.28	318.56	0.00	318.56	\N
+7948	2024-12-08	44	6	1	328.63	328.63	0.00	328.63	\N
+7949	2024-12-09	501	4	1	161.69	161.69	0.00	161.69	\N
+7950	2024-12-10	555	4	1	159.36	159.36	0.00	159.36	\N
+7951	2024-12-10	540	5	2	225.93	451.86	0.00	451.86	\N
+7952	2024-12-10	487	8	1	190.50	190.50	0.00	190.50	\N
+7953	2024-12-11	67	10	2	32.19	64.38	3.22	61.16	\N
+7954	2024-12-11	337	1	1	213.78	213.78	0.00	213.78	\N
+7955	2024-12-12	593	8	2	163.26	326.52	0.00	326.52	\N
+7956	2024-12-13	497	5	1	273.58	273.58	0.00	273.58	\N
+7957	2024-12-13	357	5	1	226.22	226.22	0.00	226.22	\N
+7958	2024-12-13	120	5	2	237.36	474.72	0.00	474.72	\N
+7959	2024-12-14	445	8	1	169.46	169.46	0.00	169.46	\N
+7960	2024-12-14	252	2	2	474.45	948.90	0.00	948.90	\N
+7961	2024-12-15	326	6	1	343.92	343.92	0.00	343.92	\N
+7962	2024-12-15	323	10	2	32.49	64.98	0.00	64.98	\N
+7963	2024-12-15	577	7	1	280.80	280.80	0.00	280.80	\N
+7964	2024-12-15	169	8	1	169.86	169.86	0.00	169.86	\N
+7965	2024-12-15	234	8	2	189.22	378.44	18.92	359.52	\N
+7966	2024-12-16	585	1	2	193.06	386.12	0.00	386.12	\N
+7967	2024-12-16	329	2	1	488.15	488.15	0.00	488.15	\N
+7968	2024-12-16	240	5	2	234.56	469.12	0.00	469.12	\N
+7969	2024-12-17	407	9	2	123.65	247.30	0.00	247.30	\N
+7970	2024-12-17	592	9	1	118.65	118.65	0.00	118.65	\N
+7971	2024-12-17	561	2	2	462.68	925.36	0.00	925.36	\N
+7972	2024-12-17	35	6	1	371.72	371.72	0.00	371.72	\N
+7973	2024-12-18	598	2	2	447.37	894.74	89.47	805.27	\N
+7974	2024-12-18	191	4	1	147.83	147.83	0.00	147.83	\N
+7975	2024-12-18	257	4	2	148.87	297.74	0.00	297.74	\N
+7976	2024-12-21	69	4	1	164.10	164.10	0.00	164.10	\N
+7977	2024-12-21	270	4	1	143.62	143.62	14.36	129.26	\N
+7978	2024-12-22	123	7	1	314.98	314.98	15.75	299.23	\N
+7979	2024-12-22	67	2	1	471.64	471.64	0.00	471.64	\N
+7980	2024-12-22	391	3	1	633.52	633.52	0.00	633.52	\N
+7981	2024-12-22	473	9	2	119.56	239.12	0.00	239.12	\N
+7982	2024-12-22	235	6	2	336.84	673.68	0.00	673.68	\N
+7983	2024-12-22	332	6	1	370.55	370.55	0.00	370.55	\N
+7984	2024-12-22	313	8	1	194.50	194.50	0.00	194.50	\N
+7985	2024-12-23	66	2	1	475.06	475.06	0.00	475.06	\N
+7986	2024-12-23	335	10	2	28.06	56.12	0.00	56.12	\N
+7987	2024-12-23	485	1	1	180.55	180.55	0.00	180.55	\N
+7988	2024-12-23	536	10	1	28.61	28.61	0.00	28.61	\N
+7989	2024-12-23	47	2	2	431.84	863.68	0.00	863.68	\N
+7990	2024-12-24	486	9	1	125.66	125.66	0.00	125.66	\N
+7991	2024-12-24	415	6	1	378.14	378.14	18.91	359.23	\N
+7992	2024-12-24	271	2	1	450.74	450.74	0.00	450.74	\N
+7993	2024-12-25	133	5	2	239.22	478.44	0.00	478.44	\N
+7994	2024-12-26	190	9	1	120.64	120.64	6.03	114.61	\N
+7995	2024-12-26	479	4	2	142.87	285.74	0.00	285.74	\N
+7996	2024-12-27	559	8	1	169.83	169.83	0.00	169.83	\N
+7997	2024-12-27	207	2	1	428.57	428.57	21.43	407.14	\N
+7998	2024-12-28	529	2	1	422.10	422.10	0.00	422.10	\N
+7999	2024-12-28	156	10	1	31.43	31.43	0.00	31.43	\N
+8000	2024-12-28	8	5	1	241.97	241.97	0.00	241.97	\N
+8001	2024-12-28	4	9	1	126.89	126.89	0.00	126.89	\N
+8002	2024-12-29	582	2	1	463.91	463.91	0.00	463.91	\N
+8003	2024-12-29	502	7	1	285.30	285.30	28.53	256.77	\N
+8004	2024-12-29	203	9	1	124.57	124.57	0.00	124.57	\N
+8005	2024-12-30	99	4	1	161.33	161.33	0.00	161.33	\N
+8006	2024-12-30	487	3	1	754.33	754.33	75.43	678.90	\N
+8007	2024-12-31	572	2	2	455.24	910.48	0.00	910.48	\N
+8008	2025-01-01	213	10	1	28.11	28.11	0.00	28.11	\N
+8009	2025-01-01	35	3	2	642.37	1284.74	64.24	1220.50	8
+8010	2025-01-01	53	4	1	142.33	142.33	0.00	142.33	\N
+8011	2025-01-03	485	9	1	118.92	118.92	17.84	101.08	8
+8012	2025-01-03	15	8	1	167.76	167.76	0.00	167.76	\N
+8013	2025-01-04	544	9	2	109.70	219.40	10.97	208.43	8
+8014	2025-01-04	91	7	2	298.85	597.70	29.89	567.81	\N
+8015	2025-01-04	227	10	1	30.89	30.89	0.00	30.89	\N
+8016	2025-01-04	229	1	1	211.08	211.08	0.00	211.08	\N
+8017	2025-01-04	189	8	1	185.26	185.26	9.26	176.00	8
+8018	2025-01-05	586	6	1	332.49	332.49	0.00	332.49	\N
+8019	2025-01-05	432	10	1	30.10	30.10	3.02	27.08	8
+8020	2025-01-06	172	5	2	265.71	531.42	0.00	531.42	\N
+8021	2025-01-07	88	6	2	345.23	690.46	0.00	690.46	\N
+8022	2025-01-07	164	4	2	164.80	329.60	16.48	313.12	8
+8023	2025-01-07	566	1	1	182.58	182.58	9.13	173.45	8
+8024	2025-01-08	39	2	2	429.93	859.86	0.00	859.86	\N
+8025	2025-01-08	575	1	1	190.21	190.21	0.00	190.21	\N
+8026	2025-01-10	163	1	2	219.49	438.98	0.00	438.98	\N
+8027	2025-01-10	292	9	1	118.71	118.71	0.00	118.71	\N
+8028	2025-01-11	220	8	2	181.60	363.20	0.00	363.20	\N
+8029	2025-01-11	72	8	1	195.36	195.36	9.77	185.59	8
+8030	2025-01-12	463	8	2	196.88	393.76	39.38	354.38	\N
+8031	2025-01-14	193	10	2	32.26	64.52	0.00	64.52	\N
+8032	2025-01-15	246	7	1	303.44	303.44	15.17	288.27	8
+8033	2025-01-15	369	8	2	172.50	345.00	0.00	345.00	\N
+8034	2025-01-16	258	4	1	163.74	163.74	0.00	163.74	\N
+8035	2025-01-16	250	4	1	149.27	149.27	7.46	141.81	8
+8036	2025-01-16	88	9	1	114.54	114.54	0.00	114.54	\N
+8037	2025-01-18	494	8	1	194.01	194.01	9.70	184.31	8
+8038	2025-01-19	284	6	2	350.36	700.72	0.00	700.72	\N
+8039	2025-01-19	526	4	2	148.19	296.38	0.00	296.38	\N
+8040	2025-01-20	171	4	1	157.76	157.76	7.89	149.87	8
+8041	2025-01-21	289	3	2	667.61	1335.22	66.76	1268.46	8
+8042	2025-01-21	400	8	1	185.06	185.06	18.51	166.55	\N
+8043	2025-01-22	178	10	2	29.00	58.00	0.00	58.00	\N
+8044	2025-01-22	74	7	2	315.54	631.08	0.00	631.08	\N
+8045	2025-01-22	449	7	2	282.50	565.00	84.75	480.25	8
+8046	2025-01-23	521	1	1	192.16	192.16	9.61	182.55	8
+8047	2025-01-23	161	7	2	306.66	613.32	0.00	613.32	\N
+8048	2025-01-23	525	7	1	289.13	289.13	14.46	274.67	8
+8049	2025-01-26	424	2	2	460.32	920.64	0.00	920.64	\N
+8050	2025-01-26	4	8	1	192.53	192.53	9.63	182.90	8
+8051	2025-01-26	212	2	1	426.14	426.14	21.31	404.83	8
+8052	2025-01-27	483	6	2	356.16	712.32	71.24	641.08	8
+8053	2025-01-27	414	6	2	346.38	692.76	0.00	692.76	\N
+8054	2025-01-27	534	7	1	282.73	282.73	14.14	268.59	\N
+8055	2025-01-27	508	1	2	211.37	422.74	0.00	422.74	\N
+8056	2025-01-27	346	6	2	348.52	697.04	0.00	697.04	\N
+8057	2025-01-28	291	2	1	409.57	409.57	0.00	409.57	\N
+8058	2025-01-29	442	7	2	319.68	639.36	0.00	639.36	\N
+8059	2025-01-29	69	6	1	328.56	328.56	32.86	295.70	\N
+8060	2025-01-29	169	5	2	239.59	479.18	0.00	479.18	\N
+8061	2025-01-30	94	9	2	110.03	220.06	0.00	220.06	\N
+8062	2025-01-30	397	10	2	32.85	65.70	3.29	62.41	8
+8063	2025-01-30	371	5	2	244.66	489.32	48.94	440.38	8
+8064	2025-01-30	185	7	1	271.28	271.28	13.56	257.72	\N
+8065	2025-01-30	318	10	2	31.23	62.46	0.00	62.46	\N
+8066	2025-01-31	387	1	1	201.87	201.87	0.00	201.87	\N
+\.
+
+
+--
+-- TOC entry 3305 (class 2606 OID 16411)
+-- Name: campanhas campanhas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.campanhas
+    ADD CONSTRAINT campanhas_pkey PRIMARY KEY (campaign_id);
+
+
+--
+-- TOC entry 3301 (class 2606 OID 16395)
+-- Name: clientes clientes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.clientes
+    ADD CONSTRAINT clientes_pkey PRIMARY KEY (client_id);
+
+
+--
+-- TOC entry 3303 (class 2606 OID 16402)
+-- Name: produtos produtos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.produtos
+    ADD CONSTRAINT produtos_pkey PRIMARY KEY (product_id);
+
+
+--
+-- TOC entry 3307 (class 2606 OID 16417)
+-- Name: vendas vendas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.vendas
+    ADD CONSTRAINT vendas_pkey PRIMARY KEY (transaction_id);
+
+
+--
+-- TOC entry 3308 (class 2606 OID 16428)
+-- Name: vendas vendas_campaign_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.vendas
+    ADD CONSTRAINT vendas_campaign_id_fkey FOREIGN KEY (campaign_id) REFERENCES public.campanhas(campaign_id);
+
+
+--
+-- TOC entry 3309 (class 2606 OID 16418)
+-- Name: vendas vendas_client_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.vendas
+    ADD CONSTRAINT vendas_client_id_fkey FOREIGN KEY (client_id) REFERENCES public.clientes(client_id);
+
+
+--
+-- TOC entry 3310 (class 2606 OID 16423)
+-- Name: vendas vendas_product_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.vendas
+    ADD CONSTRAINT vendas_product_id_fkey FOREIGN KEY (product_id) REFERENCES public.produtos(product_id);
+
+
+-- Completed on 2025-10-05 21:25:06 -04
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict dMUcD30Gnxv1f0BqnwSE5970nmaPqGE241UU9c3tuRXE2XAnkhD26fpR3dznfgG
+
+--
+-- Database "postgres" dump
+--
+
+\connect postgres
+
+--
+-- PostgreSQL database dump
+--
+
+\restrict UVU0VgL5SQ8ou7irR62qQ0IEVLPHBRF6GpQThY0TSuzRwRpTlpQaSle7KaKeWkZ
+
+-- Dumped from database version 18.0 (Debian 18.0-1.pgdg13+3)
+-- Dumped by pg_dump version 18.0 (Ubuntu 18.0-1.pgdg22.04+3)
+
+-- Started on 2025-10-05 21:25:06 -04
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+-- Completed on 2025-10-05 21:25:06 -04
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict UVU0VgL5SQ8ou7irR62qQ0IEVLPHBRF6GpQThY0TSuzRwRpTlpQaSle7KaKeWkZ
+
+-- Completed on 2025-10-05 21:25:06 -04
+
+--
+-- PostgreSQL database cluster dump complete
+--
+

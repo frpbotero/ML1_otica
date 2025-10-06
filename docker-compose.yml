@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_db
+    # Define basic environment variables for the PostgreSQL instance.
+    # These credentials are suitable for local development. For production
+    # environments, override them via environment variables or secrets.
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: optica_amazonas
+    ports:
+      # Map port 5432 in the container to port 5432 on the host machine.
+      - "5432:5432"
+    volumes:
+      # Persist database files on the host to survive container restarts.
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+    # Named volume to hold PostgreSQL data files. Docker will
+    # automatically create this volume the first time the container runs.
+    driver: local
